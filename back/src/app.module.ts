@@ -14,11 +14,18 @@ import { RegistrarArcController } from './administrador/registrar_arc/registrar_
 import { BuscadorController } from './usuarios/buscador/buscador.controller';
 
 import { LibController } from './usuarios/lib/lib.controller';
+import { CarreraService } from './administrador/carrera/carrera.service';
+import { EstadisticasService } from './administrador/estadisticas/estadisticas.service';
+import { MateriaService } from './administrador/materia/materia.service';
+import { RegistrarArcService } from './administrador/registrar_arc/registrar_arc.service';
+import { LibroService } from './profesor/libro/libro.service';
+import { LoginService } from './login/login.service';
+import { UsuariosService } from './administrador/usuarios/usuarios.service';
 
 
 @Module({
   imports: [],
   controllers: [AppController, TestController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController, RegistrarArcController, BuscadorController, LibController ],
-  providers: [AppService, SqlService],
+  providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, RegistrarArcService, LibroService, LoginService, UsuariosService],
 })
 export class AppModule {}

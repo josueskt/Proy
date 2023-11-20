@@ -9,7 +9,7 @@ export class SqlService {
       this.pool = new Pool({
     user: 'postgres',
     host:'localhost',
-    database:'bibliotec',
+    database:'biblioteca',
     
     port:5432
     
