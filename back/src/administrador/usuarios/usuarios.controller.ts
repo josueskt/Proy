@@ -11,7 +11,7 @@ export class UsuariosController {
     @UsePipes(ValidationPipe)
     register( @Body() usuarios :RegisterUser[]){
   
-   // return this.user.register(usuarios)
+   return this.user.register(usuarios)
    
     }
 
