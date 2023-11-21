@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, ValidationPipe } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -21,11 +21,19 @@ import { RegistrarArcService } from './administrador/registrar_arc/registrar_arc
 import { LibroService } from './profesor/libro/libro.service';
 import { LoginService } from './login/login.service';
 import { UsuariosService } from './administrador/usuarios/usuarios.service';
+import { APP_PIPE } from '@nestjs/core';
 
 
 @Module({
   imports: [],
   controllers: [AppController, TestController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController, RegistrarArcController, BuscadorController, LibController ],
-  providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, RegistrarArcService, LibroService, LoginService, UsuariosService],
+  providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, RegistrarArcService, LibroService, LoginService, UsuariosService,  {
+    provide: APP_PIPE,
+    useClass: ValidationPipe,
+  }],
 })
-export class AppModule {}
+export class AppModule {
+ 
+  
+  
+}

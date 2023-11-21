@@ -25,8 +25,16 @@ export class LoginService {
                     const token = jwt.sign(
                         { id_user: user.id_user, email: user.email, nombre: user.nombre, nombre_rol: user.nombre_rol },
                         this.jwtSecretKey,
-                        { expiresIn: '1h' } // Configura la expiración del token según tus necesidades
+                        { expiresIn: '1h' } // Configura la expiración del token
+
+
+
+
+
                       );
+
+                        this.sql.query('INSERT INTO inst.secion(fk_user,fecha) values($1,CURRENT_DATE)',[user.id_user])
+
             
                       return { token };
             
