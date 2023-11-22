@@ -22,15 +22,20 @@ import { LibroService } from './profesor/libro/libro.service';
 import { LoginService } from './login/login.service';
 import { UsuariosService } from './administrador/usuarios/usuarios.service';
 import { APP_PIPE } from '@nestjs/core';
+import { BuscadorService } from './usuarios/buscador/buscador.service';
+import { DescargaController } from './usuarios/descarga/descarga.controller';
+import { GetLibroController } from './usuarios/get_libro/get_libro.controller';
+import { GetLibroService } from './usuarios/get_libro/get_libro.service';
+
 
 
 @Module({
   imports: [],
-  controllers: [AppController, TestController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController, RegistrarArcController, BuscadorController, LibController ],
+  controllers: [AppController, TestController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController, RegistrarArcController, BuscadorController, LibController, DescargaController, GetLibroController ],
   providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, RegistrarArcService, LibroService, LoginService, UsuariosService,  {
     provide: APP_PIPE,
     useClass: ValidationPipe,
-  }],
+  }, BuscadorService, GetLibroService],
 })
 export class AppModule {
  
