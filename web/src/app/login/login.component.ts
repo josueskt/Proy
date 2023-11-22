@@ -16,7 +16,15 @@ export class LoginComponent {
         // Maneja la respuesta del servidor aquí (por ejemplo, almacena el token)
         if(response.message){alert(response.message)
         }else if(response.token){
-      console.log("adadasd")}
+
+          localStorage.setItem('token', response.token);
+          this.username = '';
+          this.password = '';
+      console.log(localStorage.getItem('token'))}
+      
+      else {
+        console.error('Respuesta del servidor inesperada:', response);
+      }
       },
       (error) => {
         // Maneja el error aquí
