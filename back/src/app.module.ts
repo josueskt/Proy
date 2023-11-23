@@ -26,16 +26,20 @@ import { BuscadorService } from './usuarios/buscador/buscador.service';
 import { DescargaController } from './usuarios/descarga/descarga.controller';
 import { GetLibroController } from './usuarios/get_libro/get_libro.controller';
 import { GetLibroService } from './usuarios/get_libro/get_libro.service';
+import { AutorController } from './profesor/autor/autor.controller';
+import { AutorService } from './profesor/autor/autor.service';
+import { NacionalidadController } from './administrador/nacionalidad/nacionalidad.controller';
+import { NacionalidadService } from './administrador/nacionalidad/nacionalidad.service';
 
 
 
 @Module({
   imports: [],
-  controllers: [AppController, TestController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController, RegistrarArcController, BuscadorController, LibController, DescargaController, GetLibroController ],
+  controllers: [AppController, TestController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController, RegistrarArcController, BuscadorController, LibController, DescargaController, GetLibroController, AutorController, NacionalidadController ],
   providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, RegistrarArcService, LibroService, LoginService, UsuariosService,  {
     provide: APP_PIPE,
     useClass: ValidationPipe,
-  }, BuscadorService, GetLibroService],
+  }, BuscadorService, GetLibroService, AutorService, NacionalidadService],
 })
 export class AppModule {
  

@@ -9,7 +9,7 @@ export class CarreraController {
 
     @Get()
     @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['ADMINISTRADOR'])
+    @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR'])
     Traer_todos() {
 
 
