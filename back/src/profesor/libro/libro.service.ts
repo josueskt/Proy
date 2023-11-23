@@ -39,20 +39,29 @@ export class LibroService {
        
 
         try {
-            //if (!file || !file.path) {
-              //  throw new HttpException('Archivo no válido', HttpStatus.BAD_REQUEST);
-             // }
+            
+
+            if (!file || !file.buffer) {
+                throw new HttpException('Archivo no válido', HttpStatus.BAD_REQUEST);
+              }
             // Genera un nombre único para el archivo PDF
-          //  const uniqueFileName = `${Date.now()}-${file.originalname}`;
+           const uniqueFileName = `${Date.now()}-${file.originalname}`;
+           console.log(uniqueFileName)
 
             // Construye la ruta completa del archivo en la carpeta pdfs
-          //  const pdfPath = path.join('/home/k2/Escritorio/pro_int/Proy/back/src/pdfs', uniqueFileName);
+           const pdfPath = path.join('/home/k2/Escritorio/pro_int/Proy/back/src/pdfs', uniqueFileName);
         
             // Crea el stream de escritura del archivo
-           //  fs.createWriteStream(pdfPath);
-             console.log(libro.titulo)
+           const writeStream = fs.createWriteStream(pdfPath);
+            writeStream.write(file.buffer);
+
+// Cierra el flujo después de escribir el contenido
+            writeStream.end();
         
-            // Utiliza el stream de archivo del request para escribir el contenido en el archivo
+
+           
+        
+            
            
 
             
