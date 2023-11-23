@@ -9,8 +9,8 @@ export class SqlService {
     this.pool = new Pool({
       user: 'postgres',
       host: 'localhost',
-      database: 'biblioteca',
-      password:"1234",
+      database: 'proy',
+      password:"2062",
       port: 5432,
     });
   }
