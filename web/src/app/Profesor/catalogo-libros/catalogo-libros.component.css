@@ -1,0 +1,42 @@
+.catalogo-libros .card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  /* Agrega un margen inferior para separar las tarjetas */
+}
+
+.button-anadir {
+  margin: 0 10px;
+  border-radius: 10px;
+  border-color: #553CEC;
+  background-color: #553CEC;
+  color: white;
+}
+
+.button-descarga {
+  margin: 0 10px;
+  border-radius: 10px;
+  border-color: #553CEC;
+  background-color: #553CEC;
+  color: white;
+}
+
+.text-center {
+  color: white;
+}
+
+.link-sin-subrayado {
+  text-decoration: none;
+}
+
+.link-separado {
+  margin-right: 80px;
+}
+
+.custom-button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5px; /* Ajusta el valor según tus preferencias */
+}

@@ -1,0 +1,73 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-12 text-center">
+      <h2>Editar Libro</h2>
+    </div>
+  </div>
+  <form [formGroup]="libroForm" (ngSubmit)="guardarCambios()" novalidate>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="titulo">Título:</label>
+          <input type="text" id="titulo" class="form-control" formControlName="titulo" required>
+          <div *ngIf="libroForm.get('titulo')?.invalid && libroForm.get('titulo')?.touched" class="text-danger">
+            El título es requerido.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="fechaPublicacion">Fecha de publicación:</label>
+          <input type="date" id="fechaPublicacion" class="form-control" formControlName="fechaPublicacion" required>
+          <div *ngIf="libroForm.get('fechaPublicacion')?.invalid && libroForm.get('fechaPublicacion')?.touched"
+            class="text-danger">
+            La fecha de publicación es requerida.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="paginas">Páginas:</label>
+          <input type="number" id="paginas" class="form-control" formControlName="paginas" required>
+          <div *ngIf="libroForm.get('paginas')?.invalid && libroForm.get('paginas')?.touched" class="text-danger">
+            El número de páginas es requerido.
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label for="autor">Autor:</label>
+          <input type="text" id="autor" class="form-control" formControlName="autor" required>
+          <div *ngIf="libroForm.get('autor')?.invalid && libroForm.get('autor')?.touched" class="text-danger">
+            El autor es requerido.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="materia">Materia:</label>
+          <input type="text" id="materia" class="form-control" formControlName="materia" required>
+          <div *ngIf="libroForm.get('materia')?.invalid && libroForm.get('materia')?.touched" class="text-danger">
+            La materia es requerida.
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="carreras">Carreras:</label>
+          <input type="text" id="carreras" class="form-control" formControlName="carreras" required>
+          <div *ngIf="libroForm.get('carreras')?.invalid && libroForm.get('carreras')?.touched" class="text-danger">
+            Las carreras son requeridas.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="descripcion">Descripción:</label>
+      <textarea id="descripcion" class="form-control" formControlName="descripcion" required></textarea>
+      <div *ngIf="libroForm.get('descripcion')?.invalid && libroForm.get('descripcion')?.touched" class="text-danger">
+        La descripción es requerida.
+      </div>
+    </div>
+    <br>
+    <div class="text-center">
+      <button type="submit" class="btn btn-primary" [disabled]="libroForm.invalid">Guardar Cambios</button>
+    </div>
+    <br>
+    <div *ngIf="guardadoExitoso" class="alert alert-success text-center">
+      Cambios guardados.
+    </div>
+  </form>
+</div>
