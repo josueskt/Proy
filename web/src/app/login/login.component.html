@@ -1,10 +1,31 @@
-<div>
-    <label for="username">Username:</label>
-    <input type="text" id="username" [(ngModel)]="username">
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" [(ngModel)]="password">
-
-    <button (click)="login()">Login</button>
-    <button (click)="login_out()">Login</button>
+<br>
+<br><br>
+<br><br><br>
+  <div class="container">
+    <div class="row justify-content-end align-items-center" style="height: 100vh;">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="text-center">Iniciar sesión</h2>
+            <form>
+              <div class="text-center">
+                <label for="email">usuario:</label><br>
+                <input type="email" id="email" name="email" [(ngModel)]="username" required>
+              </div>
+              <br>
+              <div class="text-center">
+                <label for="password">Contraseña:</label><br>
+                <input type="password" id="password" name="password" [(ngModel)]="password" required>
+              </div>
+              <br>
+              <div class="text-center">
+                
+                <button type="button" (click)="login()"  class="button-inicio">Iniciar Sesión</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>

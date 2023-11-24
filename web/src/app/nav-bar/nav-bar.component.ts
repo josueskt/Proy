@@ -1,4 +1,7 @@
 import { Component, Input } from '@angular/core';
+import { AuthService } from '../roles/aunt.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-nav-bar',
@@ -6,18 +9,30 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent {
-  @Input() username: string = '';
-  isMenuOpen: boolean;
+  userInfo: any;
+  nombre =""
+rol= ""
+  hola ="hola"
+  constructor(private authService: AuthService,private router: Router) {
 
-  constructor() {
-    this.username = ""; // Assign the value of the username
-    this.isMenuOpen = true; // Initially, the menu is closed
+
   }
 
-  toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-    // Perform corresponding actions when the menu is opened or closed
-    // For example, show/hide a dropdown menu, change the state of the button, etc.
+  
+  ngOnInit() {
+    // Obtener la información del usuario al inicializar el componente
+    this.userInfo = this.authService.getUserInfo();
+    this.nombre = this.userInfo.nombre
+    this.rol = this.userInfo.nombre_rol
+    
   }
+  login_out(){
+    
+    localStorage.removeItem('token');
+    window.location.reload();
+
+  }
+  
+  
 
 }

@@ -20,8 +20,16 @@ export class AuthService {
     return null;
   }
 
+  getUserRole(): string | null {
+    const userInfo = this.getUserInfo();
+    return userInfo ? userInfo.nombre_rol : null;
+  }
+
+  isAuthenticated(): boolean {
+    return this.getToken() !== null;
+  }
+
   clearToken(): void {
     localStorage.removeItem('token');
   }
-
 }

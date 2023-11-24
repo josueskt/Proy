@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
 import { LoginService } from './login.service';
+import { Router } from '@angular/router';
+import { AuthService } from '../roles/aunt.service';
+
+
 
 @Component({
   selector: 'app-login',
@@ -9,7 +13,22 @@ import { LoginService } from './login.service';
 export class LoginComponent {
   username: string ="";
   password: string = "";
-  constructor(private aunt:LoginService){}
+  constructor(private aunt:LoginService,private router: Router ,private authService: AuthService ){}
+
+  ngOnInit() {
+    // Obtener la información del usuario al inicializar el componente
+    const userInfo = this.authService.getUserInfo();
+    if(userInfo){
+      this.router.navigate(['/']).then(() => {
+        window.location.reload();
+      });
+    }
+    
+  }
+
+
+
+
   login() {
     this.aunt.login(this.username, this.password).subscribe(
       (response) => {
@@ -20,6 +39,13 @@ export class LoginComponent {
           localStorage.setItem('token', response.token);
           this.username = '';
           this.password = '';
+          // Por ejemplo, navegar a la ruta '/otra-ruta'
+          this.router.navigate(['/']).then(() => {
+            window.location.reload();
+          });
+        
+
+
       console.log(localStorage.getItem('token'))}
       
       else {
@@ -33,6 +59,9 @@ export class LoginComponent {
     );
   }
   login_out(){
+
     localStorage.removeItem('token');
+    window.location.reload();
+    
   }
 }

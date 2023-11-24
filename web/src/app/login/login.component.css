@@ -1,0 +1,46 @@
+:host {
+    display: grid;
+    place-items: center;
+    height: 100%;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('src/assets/images/fondo.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.card {
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    width: 500px;
+    height: 300px;
+    margin: 0 auto;
+    background-color: #4e4d53b2;
+  }
+  
+  .card-body {
+    margin-bottom: 20px;
+  }
+  
+  
+  
+  .text-center {
+    text-align: center;
+    color: white;
+  }
+  
+  .button-inicio {
+    margin: 0 10px;
+    border-radius: 10px;
+    border-color: #553CEC;
+    background-color: #553CEC;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .button-registro {
+    margin: 0 0 0 10px;
+    border-radius: 10px;
+    background-color: #262629b2;
+    color: white;
+    font-weight: bold;
+  }
