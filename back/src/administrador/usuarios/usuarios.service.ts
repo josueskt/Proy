@@ -16,6 +16,12 @@ export class UsuariosService {
 
             for await (const user of usuarios) {
 
+
+                if(user.id_user.length <10){
+                    console.log("hola")
+                }
+
+
                 var existe = await this.sql.query('Select id_user from inst.usuario where id_user = $1', [user.id_user])
 
                 if (!existe.length) {
@@ -47,6 +53,19 @@ export class UsuariosService {
 
         }
       
+
+    }
+
+    async get_rol(){
+
+
+            const reslut = await this.sql.query('select nombre_rol from inst.rol')
+            return reslut
+    
+    
+        
+
+
 
     }
 

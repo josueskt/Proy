@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, SetMetadata, UploadedFile, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, SetMetadata, UploadedFile, UseGuards, UseInterceptors, UsePipes, ValidationPipe } from '@nestjs/common';
 import { LibroService } from './libro.service';
 import { RolesGuard } from 'src/roles/roles.guard';
 import { Libro } from './libro.interface';
@@ -15,9 +15,10 @@ export class LibroController {
     @Get()
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['PROFESOR'])
-    Traer_todos() {
+    Traer_todos(@Query('nombre') nombre:String) {
+        console.log(nombre)
 
-        return this.carrera.traer()
+        return this.carrera.traer(nombre)
 
     }
     @Get(":id")

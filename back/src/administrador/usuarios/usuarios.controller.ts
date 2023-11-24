@@ -1,4 +1,4 @@
-import { Body, Controller, Post, SetMetadata, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Post, SetMetadata, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
 import { RegisterUser } from 'src/dto/user.dto';
 import { RolesGuard } from 'src/roles/roles.guard';
@@ -8,13 +8,22 @@ export class UsuariosController {
     constructor(private user:UsuariosService){}
 
 
+@Get()
+@UseGuards(RolesGuard)
+@SetMetadata('roles', ['ADMINISTRADOR'])
+Get_rol(){
+    return this.user.get_rol()
+}
+
+
+
     @Post()
-   // @UseGuards(RolesGuard)
-   // @SetMetadata('roles', ['ADMINISTRADOR'])
+    @UseGuards(RolesGuard)
+    @SetMetadata('roles', ['ADMINISTRADOR'])
     @UsePipes(ValidationPipe)
     register( @Body() usuarios :RegisterUser[]){
   
-   return this.user.register(usuarios)
+    return this.user.register(usuarios)
    
     }
 

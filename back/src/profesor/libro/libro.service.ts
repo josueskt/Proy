@@ -13,9 +13,9 @@ export class LibroService {
 
     }
 
-    async traer(): Promise<any> {
+    async traer( nombre :String): Promise<any> {
 
-        const reslut = await this.sql.query('select * from libros.libro')
+        const reslut = await this.sql.query('select * from libros.libro where fk_creador = ($1)' ,[nombre])
         return reslut
 
 

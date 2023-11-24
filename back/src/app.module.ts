@@ -13,7 +13,7 @@ import { LoginController } from './login/login.controller';
 import { RegistrarArcController } from './administrador/registrar_arc/registrar_arc.controller';
 import { BuscadorController } from './usuarios/buscador/buscador.controller';
 
-import { LibController } from './usuarios/lib/lib.controller';
+
 import { CarreraService } from './administrador/carrera/carrera.service';
 import { EstadisticasService } from './administrador/estadisticas/estadisticas.service';
 import { MateriaService } from './administrador/materia/materia.service';
@@ -35,7 +35,7 @@ import { NacionalidadService } from './administrador/nacionalidad/nacionalidad.s
 
 @Module({
   imports: [],
-  controllers: [AppController, TestController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController, RegistrarArcController, BuscadorController, LibController, DescargaController, GetLibroController, AutorController, NacionalidadController ],
+  controllers: [AppController, TestController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController, RegistrarArcController, BuscadorController, DescargaController, GetLibroController, AutorController, NacionalidadController ],
   providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, RegistrarArcService, LibroService, LoginService, UsuariosService,  {
     provide: APP_PIPE,
     useClass: ValidationPipe,

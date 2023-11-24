@@ -1,13 +1,16 @@
-import { Controller, Get, Query, Res } from '@nestjs/common';
+import { Controller, Get, Query, Res, SetMetadata, UseGuards } from '@nestjs/common';
 import * as fs from 'fs';
 import { Response } from 'express';
 import * as path from 'path';
+import { RolesGuard } from 'src/roles/roles.guard';
 
 
 @Controller('descarga')
 export class DescargaController {
 
   @Get()
+  @UseGuards(RolesGuard)
+  @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
   async getPdf(@Res() res: Response, @Query('filename') filename: string): Promise<void> {
     try{
     const pdfFileName = filename || 'archivo.pdf';
