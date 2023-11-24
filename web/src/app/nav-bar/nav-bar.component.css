@@ -1,0 +1,38 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #4C4A5F;
+    color: white;
+    padding: 0px;
+    width: 100%;
+  }
+  
+  .left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .center {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .center a, .right a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .menu-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 35px;
+    cursor: pointer;
+    margin-left: 10px;
+  }

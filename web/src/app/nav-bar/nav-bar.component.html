@@ -1,1 +1,14 @@
-<p>nav-bar works!</p>
+
+<div class="navbar">
+    <div class="left">
+      <span>{{ username }}</span>
+    </div>
+    <div class="center">
+      <a routerLink="/catalogo">Home</a>
+      <a routerLink="/explorar">Explorar</a>
+    </div>
+    <div class="right">
+      <a *ngIf="!username" routerLink="/login">Login</a>
+      <button class="menu-button" (click)="toggleMenu()">☰</button>
+    </div>
+  </div>

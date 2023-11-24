@@ -32,4 +32,7 @@ export class LoginComponent {
       }
     );
   }
+  login_out(){
+    localStorage.removeItem('token');
+  }
 }

@@ -11,7 +11,7 @@ const routes: Routes = [
 
   //Rutas de usuario
   { path: '', component: HomeComponent }, 
-  { path: 'buscador', component: BuscadorComponent },
+  
   { path: 'libros', component: HomeComponent },
   { path: 'libro/:id', component: HomeComponent },
      
