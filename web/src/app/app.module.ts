@@ -10,7 +10,6 @@ import { MisLibrosComponent } from './Profesor/mis-libros/mis-libros.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { BuscadorComponent } from './usuario/buscador/buscador.component';
 import { LibroComponent } from './usuario/libro/libro.component';
 
 @NgModule({
@@ -21,7 +20,6 @@ import { LibroComponent } from './usuario/libro/libro.component';
     CrearUsuariosComponent,
     MisLibrosComponent,
     NavBarComponent,
-    BuscadorComponent,
     LibroComponent
   ],
   imports: [
