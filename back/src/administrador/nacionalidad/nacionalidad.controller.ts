@@ -18,7 +18,7 @@ export class NacionalidadController {
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR'])
     @Post()
-    crear_nacionalidad(@Body() usuarios :String){
+    crear_nacionalidad(@Body('nombre') usuarios :any){
 this.Nacionalidad.crear_autor(usuarios)
 
 

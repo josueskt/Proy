@@ -19,7 +19,7 @@ export class NacionalidadService {
 
 
         try {
-             await this.sql.query('INSERT INTO libros.nacionalida (nombre ) values ($1)', [nombre ])
+             await this.sql.query('INSERT INTO libros.nacionalida (nombre) values ($1)', [nombre])
             return "carrera creada exitosamente "
             
         } catch (error) {
