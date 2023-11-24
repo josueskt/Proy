@@ -19,7 +19,7 @@ export class AutorService {
 
 
         try {
-             await this.sql.query('INSERT INTO libros.autor (nombre , fk_nacionalidad ) values ($1,%2)', [nombre , nacionalidad])
+             await this.sql.query('INSERT INTO libros.autor (nombre , fk_nacionalidad ) values ($1,$2)', [nombre , nacionalidad])
             return "carrera creada exitosamente "
             
         } catch (error) {
