@@ -10,7 +10,7 @@ export class SqlService {
       user: 'postgres',
       host: 'localhost',
       database: 'biblioteca',
-      password:"2062",
+      password:"1234",
       port: 5432,
     });
   }

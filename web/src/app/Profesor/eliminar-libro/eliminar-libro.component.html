@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-12 text-center">
+        <h2>Eliminar Libro</h2>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-6 text-center">
+        <p>¿Estás seguro de que deseas eliminar este libro?</p>
+        <button class="btn btn-danger" (click)="confirmarEliminar()">Eliminar</button>
+        <button class="btn btn-secondary" (click)="cancelarEliminar()">Cancelar</button>
+        <div *ngIf="libroEliminado" class="alert alert-success mt-3">
+          Libro eliminado.
+        </div>
+      </div>
+    </div>
+  </div>
