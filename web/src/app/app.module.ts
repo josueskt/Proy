@@ -12,6 +12,9 @@ import { FormsModule } from '@angular/forms';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { LibroComponent } from './usuario/libro/libro.component';
 import { AuthGuard } from './roles/auth.guard';
+import { EstadisticasComponent } from './Administrador/estadisticas/estadisticas.component';
+import { NacionalidadComponent } from './Administrador/nacionalidad/nacionalidad.component';
+import { CarreraComponent } from './Administrador/carrera/carrera.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +24,10 @@ import { AuthGuard } from './roles/auth.guard';
     CrearUsuariosComponent,
     
     NavBarComponent,
-    LibroComponent
+    LibroComponent,
+    EstadisticasComponent,
+    NacionalidadComponent,
+    CarreraComponent
   ],
   imports: [
     BrowserModule,

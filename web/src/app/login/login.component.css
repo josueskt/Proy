@@ -9,7 +9,7 @@
 }
 .card {
     border: 1px solid #ccc;
-    border-radius: 10px;
+    border-radius: 30px;
     padding: 20px;
     width: 500px;
     height: 300px;
@@ -27,12 +27,15 @@
     text-align: center;
     color: white;
   }
+  input{
+    border-radius: 30px;
+  }
   
   .button-inicio {
     margin: 0 10px;
     border-radius: 10px;
     border-color: #553CEC;
-    background-color: #553CEC;
+    background-color: #9a3cec;
     color: white;
     font-weight: bold;
   }
