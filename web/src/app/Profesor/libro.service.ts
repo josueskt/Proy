@@ -2,10 +2,14 @@ import { Injectable } from '@angular/core';
 
 export interface Libro {
   id: number;
-  img: string;
   titulo: string;
   autor: string;
-  descargas: number;
+  descripcion: string;
+  fechaPublicacion: Date;
+  paginas: number;
+  materia: string;
+  carreras: string;
+  imagenUrl: string
 }
 
 @Injectable({
@@ -13,15 +17,10 @@ export interface Libro {
 })
 export class LibrosService {
   private libros: Libro[] = [
-    { id: 1, img: 'assets/image/image1.png', titulo: 'Libro 1', autor: 'Autor 1', descargas: 0 },
-    { id: 2, img: 'assets/image/image1.png', titulo: 'Libro 2', autor: 'Autor 2', descargas: 1 },
-    { id: 2, img: 'assets/image/image1.png', titulo: 'Libro 2', autor: 'Autor 2', descargas: 1 },
-    { id: 2, img: 'assets/image/image1.png', titulo: 'Libro 2', autor: 'Autor 2', descargas: 1 },
-    { id: 2, img: 'assets/image/image1.png', titulo: 'Libro 2', autor: 'Autor 2', descargas: 1 },
-    { id: 2, img: 'assets/image/image1.png', titulo: 'Libro 2', autor: 'Autor 2', descargas: 1 },
-    { id: 2, img: 'assets/image/image1.png', titulo: 'Libro 2', autor: 'Autor 2', descargas: 1 },
-    { id: 2, img: 'assets/image/image1.png', titulo: 'Libro 2', autor: 'Autor 2', descargas: 1 },
-    { id: 2, img: 'assets/image/image1.png', titulo: 'Libro 2', autor: 'Autor 2', descargas: 1 },
+    { id: 1, titulo: 'Libro 1', autor: 'Autor 1', descripcion: 'nuevo', 
+    fechaPublicacion: new Date(), paginas: 100, materia: 'matematicas', carreras: 'ingenieria', 
+    imagenUrl: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/libro-la-mente-o-cerebro-creativo-design-template-a19552c14c672351ba9ed341c37cadfd_screen.jpg?ts=1637004273', 
+   },
     //...
   ];
 
@@ -33,7 +32,7 @@ export class LibrosService {
     return this.libros.find(libro => libro.id === libroId);
   }
 
-  agregarLibro(libro: any) {
+  agregarLibro(libro: Libro) {
     this.libros.push(libro);
   }
 
@@ -44,7 +43,7 @@ export class LibrosService {
     }
   }
 
-  actualizarLibro(libroActualizado: any) {
+  actualizarLibro(libroActualizado: Libro) {
     const libro = this.libros.find(libro => libro.id === libroActualizado.id);
     if (libro) {
       libro.titulo = libroActualizado.titulo;

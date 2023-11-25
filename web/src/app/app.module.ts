@@ -8,7 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { CrearUsuariosComponent } from './Administrador/crear-usuarios/crear-usuarios.component';
 
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { LibroComponent } from './usuario/libro/libro.component';
 import { AuthGuard } from './roles/auth.guard';
@@ -16,22 +16,34 @@ import { EstadisticasComponent } from './Administrador/estadisticas/estadisticas
 import { NacionalidadComponent } from './Administrador/nacionalidad/nacionalidad.component';
 import { CarreraComponent } from './Administrador/carrera/carrera.component';
 
+import { CatalogoLibrosComponent } from './Profesor/catalogo-libros/catalogo-libros.component';
+import { CrearAutorComponent } from './Profesor/crear-autores/crear-autores.component';
+import { EditarLibroComponent } from './Profesor/editar-libro/editar-libro.component';
+import { EliminarLibroComponent } from './Profesor/eliminar-libro/eliminar-libro.component';
+import { FormularioLibroComponent } from './Profesor/formulario-libro/formulario-libro.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     LoginComponent,
     CrearUsuariosComponent,
-    
+     EstadisticasComponent,
+     NacionalidadComponent,
+      CarreraComponent,
+      LibroComponent,
+       CatalogoLibrosComponent,
+       CrearAutorComponent, 
+       EditarLibroComponent,
+        EliminarLibroComponent,
+         FormularioLibroComponent,
     NavBarComponent,
-    LibroComponent,
-    EstadisticasComponent,
-    NacionalidadComponent,
-    CarreraComponent
+    LibroComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule, HttpClientModule,FormsModule
+    AppRoutingModule, HttpClientModule, FormsModule, ReactiveFormsModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

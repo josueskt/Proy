@@ -33,7 +33,8 @@ export class EditarLibroComponent implements OnInit {
       autor: [this.libro.autor, Validators.required],
       materia: [this.libro.materia, Validators.required],
       carreras: [this.libro.carreras, Validators.required],
-      descripcion: [this.libro.descripcion, Validators.required]
+      descripcion: [this.libro.descripcion, Validators.required],
+      imagenUrl: [this.libro.imagenUrl, Validators.required]  // Agrega esta línea para agregar el campo imagenUrl al formulario
     });
   }
 

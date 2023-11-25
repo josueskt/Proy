@@ -4,7 +4,7 @@ import { HomeComponent } from './usuario/home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './roles/auth.guard';
 import { LibroComponent } from './usuario/libro/libro.component';
-import { MisLibrosComponent } from './profesor/mis-libros/mis-libros.component';
+//import { MisLibrosComponent } from './profesor/mis-libros/mis-libros.component';
 
 
 
@@ -42,18 +42,18 @@ const routes: Routes = [
 
 
   //Rutas de profesor
-  {
-    path: 'mis_libros', component: MisLibrosComponent, canActivate: [AuthGuard],
-    data: { roles: ['PROFESOR'] }
-  },
-  {
-    path: 'mi_libro/:id', component: MisLibrosComponent, canActivate: [AuthGuard],
-    data: { roles: ['PROFESOR'] }
-  },
-  {
-    path: 'crear_autor', component: HomeComponent, canActivate: [AuthGuard],
-    data: { roles: ['PROFESOR'] }
-  },
+  // {
+  //   path: 'mis_libros', component: MisLibrosComponent, canActivate: [AuthGuard],
+  //   data: { roles: ['PROFESOR'] }
+  // },
+  // {
+  //   path: 'mi_libro/:id', component: MisLibrosComponent, canActivate: [AuthGuard],
+  //   data: { roles: ['PROFESOR'] }
+  // },
+  // {
+  //   path: 'crear_autor', component: HomeComponent, canActivate: [AuthGuard],
+  //   data: { roles: ['PROFESOR'] }
+  // },
 
 
 
