@@ -21,6 +21,9 @@ import { CrearAutorComponent } from './Profesor/crear-autores/crear-autores.comp
 import { EditarLibroComponent } from './Profesor/editar-libro/editar-libro.component';
 import { EliminarLibroComponent } from './Profesor/eliminar-libro/eliminar-libro.component';
 import { FormularioLibroComponent } from './Profesor/formulario-libro/formulario-libro.component';
+import { CrearComponent } from './Administrador/carrera/crear/crear.component';
+import { EditarComponent } from './Administrador/carrera/editar/editar.component';
+import { EliminarComponent } from './Administrador/carrera/eliminar/eliminar.component';
 
 
 @NgModule({
@@ -39,7 +42,10 @@ import { FormularioLibroComponent } from './Profesor/formulario-libro/formulario
         EliminarLibroComponent,
          FormularioLibroComponent,
     NavBarComponent,
-    LibroComponent
+    LibroComponent,
+    CrearComponent,
+    EditarComponent,
+    EliminarComponent
   ],
   imports: [
     BrowserModule,
