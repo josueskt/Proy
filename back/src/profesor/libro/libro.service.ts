@@ -58,23 +58,14 @@ export class LibroService {
 // Cierra el flujo después de escribir el contenido
             writeStream.end();
         
-
-           
-        
-            
-           
-
-            
-        
-            
               
             // Guarda el archivo en la carpeta pdfs con el nuevo nombre
        
 
             // Inserta los datos del libro en la base de datos, utilizando el campo nombre_archivo
-          //  await this.sql.query('INSERT INTO libros.libro (titulo, fecha_publ, descripcion, num_paginas, fk_creador, fk_autor, fk_carrera, nombre_archivo) VALUES ($1, CURRENT_DATE, $2, $3, $4, $5, $6, $7)', [
-          //      libro.titulo, libro.descripcion, libro.num_paginas, libro.fk_creador, libro.fk_autor, libro.fk_carrera, uniqueFileName
-          //  ]);
+           await this.sql.query('INSERT INTO libros.libro (titulo, fecha_publ, descripcion, num_paginas, fk_creador, fk_autor, fk_carrera, nombre_archivo) VALUES ($1, CURRENT_DATE, $2, $3, $4, $5, $6, $7)', [
+               libro.titulo, libro.descripcion, libro.num_paginas, libro.fk_creador, libro.fk_autor, libro.fk_carrera, uniqueFileName
+           ]);
 
             return 'Libro creado exitosamente';
         } catch (error) {
