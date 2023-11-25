@@ -2,7 +2,8 @@
 
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { AuthService } from './aunt.service';
+import { AuthService } from './auth.service';
+
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +27,7 @@ export class AuthGuard implements CanActivate {
 
     if (!userRole) {
       // No tiene ningún rol, redirigir a la página no autorizada
-      this.router.navigate(['/']);
+      this.router.navigate(['/home']);
       return false;
     }
     

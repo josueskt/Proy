@@ -1,1 +1,13 @@
-<p>crear works!</p>
+
+<br><br><br><br>
+<!-- crear.component.html -->
+
+<form (ngSubmit)="crearCarrera()">
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" name="nombre" [(ngModel)]="carrera.nombre" required>
+  
+    <!-- Otros campos del formulario según la estructura de tu objeto carrera -->
+  
+    <button type="submit">Crear Carrera</button>
+  </form>
+  

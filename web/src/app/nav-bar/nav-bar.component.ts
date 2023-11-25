@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { AuthService } from '../roles/aunt.service';
+
 import { Router } from '@angular/router';
+import { AuthService } from '../roles/auth.service';
 
 
 @Component({

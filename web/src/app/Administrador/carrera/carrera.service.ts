@@ -14,15 +14,16 @@ export class CarreraService {
     return this.http.get(`${this.baseUrl}`);
   }
 
-  traerPorId(id: number): Observable<any> {
+  traerPorId(id: Number): Observable<any> {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  crearCarrera(datos: any): Observable<any> {
+  crearCarrera(datos:String): Observable<any> {
     return this.http.post(`${this.baseUrl}`, datos);
   }
 
-  eliminarCarrera(id: number): Observable<any> {
+  eliminarCarrera(id: Number): Observable<any> {
+   
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
 

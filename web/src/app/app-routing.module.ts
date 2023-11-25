@@ -4,6 +4,9 @@ import { HomeComponent } from './usuario/home/home.component';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './roles/auth.guard';
 import { LibroComponent } from './usuario/libro/libro.component';
+import { EstadisticasComponent } from './Administrador/estadisticas/estadisticas.component';
+import { CarreraComponent } from './Administrador/carrera/carrera.component';
+import { CrearComponent } from './Administrador/carrera/crear/crear.component';
 //import { MisLibrosComponent } from './profesor/mis-libros/mis-libros.component';
 
 
@@ -35,9 +38,18 @@ const routes: Routes = [
     data: { roles: ['ADMINISTRADOR'] }
   },
   {
-    path: 'Estadisticas', component: HomeComponent, canActivate: [AuthGuard],
+    path: 'estadisticas', component: EstadisticasComponent, canActivate: [AuthGuard],
     data: { roles: ['ADMINISTRADOR'] }
   },
+  {
+    path: 'carrera', component: CarreraComponent, canActivate: [AuthGuard],
+    data: { roles: ['ADMINISTRADOR'] }
+  },
+  {
+    path: 'crear-carrera', component: CrearComponent, canActivate: [AuthGuard],
+    data: { roles: ['ADMINISTRADOR'] }
+  },
+
 
 
 

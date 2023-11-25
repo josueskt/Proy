@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/roles/aunt.service';
+
 import { HomeService } from './home.service';
+import { AuthService } from 'src/app/roles/auth.service';
 
 @Component({
   selector: 'app-home',

@@ -1,10 +1,10 @@
-<nav class="navbar  text-white fixed-top">
-  <div class="container-fluid">
+<nav class="navbar  text-white fixed-top"  *ngIf="rol">
+  <div class="container-fluid" >
     
     <a class="navbar-brand text-white" routerLink="/">HOME</a>
     
     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-      <span class="navbar-toggler-icon   " *ngIf="rol"></span>
+      <span class="navbar-toggler-icon   "></span>
     </button>
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
       <div class="offcanvas-header">
@@ -12,6 +12,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
       </div>
       <div class="offcanvas-body">
+        <!-- PROFESOR --------------------------------------------------------------------------->
+
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3" *ngIf="rol === 'PROFESOR'">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" routerLink="/">Mis libros</a>
@@ -30,6 +32,8 @@
                 
           </li>
         </ul>
+        <!-- ESTUDIANTE --------------------------------------------------------------------------->
+
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3" *ngIf="rol === 'ESTUDIANTE'">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" routerLink="/">Explorar</a>
@@ -43,9 +47,11 @@
                 
           </li>
         </ul>
+
+        <!-- ADMINISTRADOR --------------------------------------------------------------------------->
         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3" *ngIf="rol === 'ADMINISTRADOR'">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/">ESTADISTICAS DE INICIO</a>
+            <a class="nav-link active" aria-current="page" routerLink="/estadisticas">ESTADISTICAS DE INICIO</a>
           </li>
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" routerLink="/"> REGISTRO DE NACIONALIDAD</a>
@@ -54,7 +60,7 @@
             <a class="nav-link active" aria-current="page" routerLink="/">REGISTRO DE USUARIOS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" routerLink="/">REGISTRO DE CARRERAS</a>
+            <a class="nav-link active" aria-current="page" routerLink="/carrera">REGISTRO DE CARRERAS</a>
           </li>
          
           <br>

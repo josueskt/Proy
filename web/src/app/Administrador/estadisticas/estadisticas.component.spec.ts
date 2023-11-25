@@ -19,3 +19,5 @@ describe('EstadisticasComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+export { EstadisticasComponent };
+

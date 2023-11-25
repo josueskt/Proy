@@ -22,7 +22,8 @@ export class CarreraService {
         try {
             const reslut = await this.sql.query('select * from Libros.carrera where id_carrera = ($1)', [id])
             if(reslut.length === 0){
-             return "no existe el id de esta carrera "
+                return { message: "no encontrado" };
+           
             }else{return reslut}
         } catch (error) {
             return error
@@ -37,7 +38,8 @@ export class CarreraService {
 
         try {
              await this.sql.query('INSERT INTO libros.carrera (nombre) values ($1)', [nombre])
-            return "carrera creada exitosamente "
+             
+             return { message: "OK" };
             
         } catch (error) {
             return error
@@ -49,8 +51,8 @@ export class CarreraService {
 
 
         try {
-            await this.sql.query('delete from  libros.carrera where  id_carrera = ($1)', [id])
-           return "carrera eliminada exitosamente "
+            await this.sql.query('delete from  libros.carrera where  id_carrera = $1', [id])
+            return { message: "Carrera eliminada exitosamente" };
            
        } catch (error) {
            return error
@@ -60,7 +62,7 @@ export class CarreraService {
         const ap = bod.nombre
         try {
             await this.sql.query('update libros.carrera set nombre = $2 where  id_carrera = ($1)', [id , ap])
-           return "carrera actualusada  exitosamente "
+            return { message: "Carrera actualizada exitosamente" };
            
        } catch (error) {
            return error

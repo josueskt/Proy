@@ -1,0 +1,21 @@
+.all {
+    background: url('https://concepto.de/wp-content/uploads/2015/03/biblioteca-e1550105792560.jpg') center center no-repeat;
+    background-size: cover;
+}
+
+.container {
+    max-width: 550px;
+    max-height: 86vh;
+    border-radius: 15px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #ccc; /* Borde para visualización */
+    overflow: auto;
+}
+
+.text {
+    text-align: center;
+}
+
+.bta {
+    margin-left: 70%;
+}
