@@ -1,0 +1,26 @@
+<div class="container">
+    <div class="row justify-content-end align-items-center" style="height: 100vh;">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h2 class="text-center">Crear Autor</h2>
+            <form>
+              <div class="text-center">
+                <label for="nombre">Nombre:</label><br>
+                <input type="nombre" id="nombre" name="nombre" [(ngModel)]="Nombre" required>
+              </div>
+              <br>
+              <div class="text-center">
+                <label for="pais">Pais:</label><br>
+                <input type="pais" id="Pais" name="Pais" [(ngModel)]="Pais" required>
+              </div>
+              <br>
+              <div class="text-center">
+                <button type="button" routerLink="/catalogo" class="button-autor">Crear</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
