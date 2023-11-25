@@ -7,11 +7,11 @@ export class EstadisticasController {
     constructor(public estadostica :EstadisticasService){}
 
 @Get()
-@UseGuards(RolesGuard)
-@SetMetadata('roles', ['ADMINISTRADOR'])
+//@UseGuards(RolesGuard)
+//@SetMetadata('roles', ['ADMINISTRADOR'])
 registro_iniciado(){
     
-this.estadostica.historial_iniciados()
+return this.estadostica.historial_iniciados()
 
 }
 

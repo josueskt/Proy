@@ -9,8 +9,8 @@ constructor( public sql:SqlService){}
 async historial_iniciados(){
 
     try {
-        await this.sql.query('select fecha from  usuario.secion')
-       return "carrera creada exitosamente "
+       return await this.sql.query('select fecha from  inst.secion')
+       
        
    } catch (error) {
        return error
