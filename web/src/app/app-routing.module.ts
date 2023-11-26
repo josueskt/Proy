@@ -7,6 +7,7 @@ import { LibroComponent } from './usuario/libro/libro.component';
 import { EstadisticasComponent } from './Administrador/estadisticas/estadisticas.component';
 import { CarreraComponent } from './Administrador/carrera/carrera.component';
 import { CrearComponent } from './Administrador/carrera/crear/crear.component';
+import { CrearUsuariosComponent } from './Administrador/crear-usuarios/crear-usuarios.component';
 //import { MisLibrosComponent } from './profesor/mis-libros/mis-libros.component';
 
 
@@ -34,7 +35,7 @@ const routes: Routes = [
 
   //Rutas de administrador
   {
-    path: 'Registrar_usuarios', component: HomeComponent, canActivate: [AuthGuard],
+    path: 'Registrar_usuarios', component: CrearUsuariosComponent , canActivate: [AuthGuard],
     data: { roles: ['ADMINISTRADOR'] }
   },
   {
