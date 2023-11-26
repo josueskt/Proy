@@ -6,9 +6,10 @@ import { AuthGuard } from './roles/auth.guard';
 
 import { EstadisticasComponent } from './Administrador/estadisticas/estadisticas.component';
 import { CarreraComponent } from './Administrador/carrera/carrera.component';
-import { CrearComponent } from './Administrador/carrera/crear/crear.component';
+
 import { CrearUsuariosComponent } from './Administrador/crear-usuarios/crear-usuarios.component';
 import { NacionalidadComponent } from './Administrador/nacionalidad/nacionalidad.component';
+import { CambioContraComponent } from './cambio-contra/cambio-contra.component';
 import { CatalogoLibrosComponent } from './Profesor/catalogo-libros/catalogo-libros.component';
 import { LibroComponent } from './Profesor/libro/libro.component';
 import { CrearAutorComponent } from './Profesor/crear-autores/crear-autores.component';
@@ -23,6 +24,10 @@ const routes: Routes = [
   //login
 
   { path: 'login', component: LoginComponent },
+  {
+    path: 'cambio_contra', component: CambioContraComponent, canActivate: [AuthGuard],
+    data: { roles: ['PROFESOR', 'ESTUDIANTE', 'ADMINISTRADOR'] }
+  },
 
   //Rutas de usuario
   {
@@ -54,9 +59,6 @@ const routes: Routes = [
     data: { roles: ['ADMINISTRADOR'] }
   },
   {
-    path: 'crear-carrera', component: CrearComponent, canActivate: [AuthGuard],
-    data: { roles: ['ADMINISTRADOR'] }
-  }, {
     path: 'nacionalidad', component: NacionalidadComponent, canActivate: [AuthGuard],
     data: { roles: ['ADMINISTRADOR'] }
   },
