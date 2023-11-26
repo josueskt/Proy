@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 export class CarreraComponent  implements OnInit{ 
 
   Carreras: any[] = [];
+  carrera: any = {};
+
 
   constructor(private carreraService: CarreraService,private router: Router ) {}
 
@@ -33,12 +35,22 @@ export class CarreraComponent  implements OnInit{
         }
       );}
 
-      Crear(){
-        this.router.navigate(['/crear-carrera']);
-      }
+     
       editar(id:Number){
         this.router.navigate(['/carrera',id]);
 
+      }
+      crearCarrera() {
+        this.carreraService.crearCarrera(this.carrera).subscribe(
+          () => {
+            console.log('Carrera creada con éxito');
+            window.location.reload();
+          },
+          (error) => {
+            console.error('Error al crear carrera:', error);
+            // Maneja el error según tus necesidades
+          }
+        );
       }
 
 }

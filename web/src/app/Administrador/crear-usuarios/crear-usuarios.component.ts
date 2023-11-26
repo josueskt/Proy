@@ -15,7 +15,8 @@ export class CrearUsuariosComponent {
   Carreras: any[] = [];
   carrerasFiltradas: any[] = [];
   loader = false
-
+  selectedCarrera: Number =3;
+  
   constructor(private crearUsuariosService: CrearUsuariosService) { }
 
   handleFileInput(event: any): void {
@@ -47,7 +48,7 @@ export class CrearUsuariosComponent {
 
     const formattedData = this.formatData(jsonData);
 
-    console.log(formattedData);
+    
   this.loader = true
     this.crearUsuariosService.crearCarrera(formattedData).subscribe(
       response => {
@@ -69,8 +70,8 @@ export class CrearUsuariosComponent {
       const email = row[13];
       const password = row[2];
       const nombre = row[4];
-      const fk_rol = 1;
-console.log(email)
+      const fk_rol = this.selectedCarrera;
+
       return {
         id_user,
         email,
@@ -102,7 +103,7 @@ console.log(email)
 
   cargarCarreras(): void {
     this.crearUsuariosService.get_user().subscribe((carreras) => {
-      console.log('Carreras:', carreras);
+      
       this.Carreras = carreras;
       this.filtrarCarreras();
     });
