@@ -1,0 +1,34 @@
+.cabecera {
+    display: grid;
+    margin-top: 4rem;
+    justify-content: center;
+    text-align: center;
+}
+.contenedor-libros {
+    display: flex;
+    justify-content: center;
+    gap: 2.6875rem;
+    flex-wrap: wrap;
+    margin-top: 4rem;
+    text-align: center;
+}
+
+.card-libro {
+    display: flex;
+    width: 34.325rem;
+    height: 15.625rem;
+    padding: 0rem 0.625rem;
+    align-items: center;
+    gap: 2.5rem;
+    flex-shrink: 0;
+    border: solid black;
+}
+
+
+
+.portada {
+    padding: 10px;
+    width: 9.25rem;
+    height: 15.625rem;
+    flex-shrink: 0;
+}

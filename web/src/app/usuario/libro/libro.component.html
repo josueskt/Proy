@@ -1,1 +1,15 @@
-<p>libro works!</p>
+<section class="cabecera">
+<div *ngIf="resultados && resultados.length > 0">
+      <h2>Resultados de la búsqueda</h2>
+  </div>
+    <div *ngIf="resultados && resultados.length === 0">
+      <p>No se encontraron resultados para la búsqueda.</p>
+    </div>
+  </section>
+
+  <section class="contenedor-libros">
+  <div class="card-libro"  *ngFor="let libro of resultados">
+      <img class="portada"  [src]="libro.imagen" alt="Portada del libro">
+      <h3>{{ libro.titulo }}</h3>
+  </div>
+</section>
