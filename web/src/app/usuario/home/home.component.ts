@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
     );
   }
   buscarLibros() {
+    console.log(this.selectedCarrera)
     this.homeService.buscarLibros(this.searchText, this.selectedCarrera).subscribe(
       (resultados) => {
         

@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class HomeService {
   private apiUrl = 'http://localhost:3000'; // Reemplaza esto con la URL correcta de tu backend
   router: any;
-
+  url :any
   constructor(private http: HttpClient) {}
 
   // Método para obtener carreras
@@ -17,11 +17,15 @@ export class HomeService {
   }
    
   buscarLibros(cadena: string,carrera:string): Observable<any[]> {
-  if(carrera===null){
-    console.log('entro')
+  if(!carrera){
+    
+     this.url = `${this.apiUrl}/buscador?cadena=${cadena} `;
+  }
+  else{
+    this.url = `${this.apiUrl}/buscador?cadena=${cadena}&carrera=${carrera}`;
 
   }
-    const url = `${this.apiUrl}/buscador?cadena=${cadena} `;
-    return this.http.get<any[]>(url);
+   
+    return this.http.get<any[]>(this.url);
   }
 }

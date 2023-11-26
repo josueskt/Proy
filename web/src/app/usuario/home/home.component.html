@@ -8,7 +8,7 @@
 
     <select class="form-select form-select-lg" [(ngModel)]="selectedCarrera" name="selectedCarrera">
       <option selected disabled>Carrera</option>
-      <option *ngFor="let carrera of carreras" [value]="carrera.id_carrera">{{ carrera.nombre }}</option>
+      <option *ngFor="let carrera of carreras" [value]="carrera.nombre">{{ carrera.nombre }}</option>
     </select>
     <button class="buscar-btn" (click)="buscarLibros()">
       <i class="fas fa-search"></i> 
