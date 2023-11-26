@@ -1,58 +1,53 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LibrosService } from '../libro.service';
+import { LibroService } from '../libro.service';
 
 @Component({
-  selector: 'app-formulario-libro',
+  selector: 'app-libro-form',
   templateUrl: './formulario-libro.component.html',
-  styleUrls: ['./formulario-libro.component.css']
+  styleUrls: ['./formulario-libro.component.css'],
 })
 export class FormularioLibroComponent {
-  @Output() libroAgregado = new EventEmitter<void>();
-
   libroForm: FormGroup;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private libroService: LibrosService,
-    private router: Router
-  ) {
-    this.libroForm = this.formBuilder.group({
+  constructor(private fb: FormBuilder, private libroService: LibroService) {
+    this.libroForm = this.fb.group({
       titulo: ['', Validators.required],
-      autor: ['', Validators.required],
+      imagen: ['', Validators.required],
       descripcion: ['', Validators.required],
-      fechaPublicacion: ['', Validators.required],
-      paginas: ['', Validators.required],
-      materia: ['', Validators.required],
-      carreras: ['', Validators.required],
-      imagenUrl: ['', Validators.required]
+      num_paginas: ['', Validators.required],
+      fk_creador: ['', Validators.required],
+      fk_autor: ['', Validators.required],
+      fk_carrera: ['', Validators.required],
+      archivo: [null, Validators.required], // Asegúrate de que coincida con el campo en el servicio
     });
   }
 
-  agregarLibro(): void {
-    if (this.libroForm.invalid) {
-      return;
+  onFileSelected(event: any): void {
+    const file = event.target.files.length > 0 ? event.target.files[0] : null;
+    this.libroForm.patchValue({ archivo: file });
+  }
+
+  onSubmit() {
+    if (this.libroForm.valid) {
+      const libro = this.libroForm.value;
+
+      // TODO: Implementa lógica para obtener el token de autenticación
+      const token = 'tu_token_aqui'; // Reemplaza con tu implementación real para obtener el token
+
+      this.libroService.crearLibro(libro, token).subscribe(
+        (response) => {
+          console.log('Libro creado con éxito', response);
+          // Aquí podrías redirigir o realizar otras acciones después de la creación exitosa
+        },
+        (error) => {
+          console.error('Error al crear el libro', error);
+          // Manejo de errores
+        }
+      );
+    } else {
+      console.log('Formulario inválido');
+      // Puedes mostrar mensajes de error o realizar otras acciones según tus necesidades
     }
-
-    const libro = {
-      id: new Date().getTime(),
-      titulo: this.libroForm.value.titulo,
-      autor: this.libroForm.value.autor,
-      descripcion: this.libroForm.value.descripcion,
-      fechaPublicacion: this.libroForm.value.fechaPublicacion,
-      paginas: this.libroForm.value.paginas,
-      materia: this.libroForm.value.materia,
-      carreras: this.libroForm.value.carreras,
-      imagenUrl: this.libroForm.value.imagenUrl
-    };
-
-    this.libroService.agregarLibro(libro);
-    this.libroForm.reset();
-    this.libroAgregado.emit();
-
-    // Mostrar mensaje y navegar a la pestaña del catálogo
-    alert('Libro agregado');
-    this.router.navigate(['/catalogo']);
   }
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LibrosService } from '../libro.service';
+import { LibroService } from '../libro.service';
 
 @Component({
   selector: 'app-eliminar-libro',
@@ -14,16 +14,16 @@ export class EliminarLibroComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private librosService: LibrosService
+    private libroService: LibroService
   ) { }
 
   ngOnInit() {
     const libroId = Number(this.route.snapshot.params['id']);
-    this.libro = this.librosService.getLibro(libroId);
+    this.libro = this.libroService.getLibro(libroId);
   }
 
   confirmarEliminar() {
-    this.librosService.eliminarLibro(this.libro.id);
+    this.libroService.eliminarLibro(this.libro.id);
     this.libroEliminado = true;
 
     setTimeout(() => {

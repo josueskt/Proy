@@ -16,7 +16,7 @@ import { EstadisticasComponent } from './Administrador/estadisticas/estadisticas
 import { NacionalidadComponent } from './Administrador/nacionalidad/nacionalidad.component';
 import { CarreraComponent } from './Administrador/carrera/carrera.component';
 
-import { CatalogoLibrosComponent } from './Profesor/catalogo-libros/catalogo-libros.component';
+
 import { CrearAutorComponent } from './Profesor/crear-autores/crear-autores.component';
 import { EditarLibroComponent } from './Profesor/editar-libro/editar-libro.component';
 import { EliminarLibroComponent } from './Profesor/eliminar-libro/eliminar-libro.component';
@@ -25,6 +25,7 @@ import { CrearComponent } from './Administrador/carrera/crear/crear.component';
 import { EditarComponent } from './Administrador/carrera/editar/editar.component';
 import { EliminarComponent } from './Administrador/carrera/eliminar/eliminar.component';
 import { AuthInterceptor } from './roles/auth.interceptor';
+import { CatalogoLibrosComponent } from './Profesor/catalogo-libros/catalogo-libros.component';
 
 
 @NgModule({
@@ -33,15 +34,15 @@ import { AuthInterceptor } from './roles/auth.interceptor';
     HomeComponent,
     LoginComponent,
     CrearUsuariosComponent,
-     EstadisticasComponent,
-     NacionalidadComponent,
-      CarreraComponent,
-      LibroComponent,
-       CatalogoLibrosComponent,
-       CrearAutorComponent, 
-       EditarLibroComponent,
-        EliminarLibroComponent,
-         FormularioLibroComponent,
+    EstadisticasComponent,
+    NacionalidadComponent,
+    CarreraComponent,
+    LibroComponent,
+    CatalogoLibrosComponent,
+    CrearAutorComponent,
+    EditarLibroComponent,
+    EliminarLibroComponent,
+    FormularioLibroComponent,
     NavBarComponent,
     LibroComponent,
     CrearComponent,
@@ -52,7 +53,7 @@ import { AuthInterceptor } from './roles/auth.interceptor';
     BrowserModule,
     AppRoutingModule, HttpClientModule, FormsModule, ReactiveFormsModule
   ],
-  providers: [AuthGuard ,
+  providers: [AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

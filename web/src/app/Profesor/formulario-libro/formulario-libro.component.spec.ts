@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormularioLibroComponent } from './formulario-libro.component';
+import { LibroFormComponent } from './formulario-libro.component';
 
-describe('FormularioLibroComponent', () => {
-  let component: FormularioLibroComponent;
-  let fixture: ComponentFixture<FormularioLibroComponent>;
+describe('LibroFormComponent', () => {
+  let component: LibroFormComponent;
+  let fixture: ComponentFixture<LibroFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [FormularioLibroComponent]
+      declarations: [LibroFormComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(FormularioLibroComponent);
+    fixture = TestBed.createComponent(LibroFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

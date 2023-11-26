@@ -1,53 +1,58 @@
 import { Injectable } from '@angular/core';
-
-export interface Libro {
-  id: number;
-  titulo: string;
-  autor: string;
-  descripcion: string;
-  fechaPublicacion: Date;
-  paginas: number;
-  materia: string;
-  carreras: string;
-  imagenUrl: string
-}
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class LibrosService {
-  private libros: Libro[] = [
-    { id: 1, titulo: 'Libro 1', autor: 'Autor 1', descripcion: 'nuevo', 
-    fechaPublicacion: new Date(), paginas: 100, materia: 'matematicas', carreras: 'ingenieria', 
-    imagenUrl: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/libro-la-mente-o-cerebro-creativo-design-template-a19552c14c672351ba9ed341c37cadfd_screen.jpg?ts=1637004273', 
-   },
-    //...
-  ];
+export class LibroService {
+  private baseUrl: string = 'http://localhost:3000/libro';
 
-  getLibros() {
-    return this.libros;
+  constructor(private http: HttpClient) {}
+
+  getLibros(): Observable<any> {
+    return this.http.get(`${this.baseUrl}`);
   }
 
-  getLibro(libroId: number) {
-    return this.libros.find(libro => libro.id === libroId);
+  getLibro(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  agregarLibro(libro: Libro) {
-    this.libros.push(libro);
+  crearLibro(libro: any, token: string): Observable<any> {
+    const formData = this.createFormData(libro);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.post(`${this.baseUrl}/crear`, formData, { headers });
   }
 
-  eliminarLibro(libroId: number) {
-    const index = this.libros.findIndex(libro => libro.id === libroId);
-    if (index !== -1) {
-      this.libros.splice(index, 1);
-    }
+  eliminarLibro(id: number): Observable<any> {
+    const token = this.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.delete(`${this.baseUrl}/eliminar/${id}`, { headers });
   }
 
-  actualizarLibro(libroActualizado: Libro) {
-    const libro = this.libros.find(libro => libro.id === libroActualizado.id);
-    if (libro) {
-      libro.titulo = libroActualizado.titulo;
-      libro.autor = libroActualizado.autor;
-    }
+  editarLibro(id: number, libro: any): Observable<any> {
+    const formData = this.createFormData(libro);
+    const token = this.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.put(`${this.baseUrl}/editar/${id}`, formData, { headers });
+  }
+
+  private createFormData(libro: any): FormData {
+    const formData = new FormData();
+    formData.append('titulo', libro.titulo);
+    formData.append('imagen', libro.imagen);
+    formData.append('descripcion', libro.descripcion);
+    formData.append('num_paginas', libro.num_paginas);
+    formData.append('fk_creador', libro.fk_creador);
+    formData.append('fk_autor', libro.fk_autor);
+    formData.append('fk_carrera', libro.fk_carrera);
+    formData.append('archivo', libro.archivo);
+    return formData;
+  }
+
+  private getToken(): string {
+    // Implementa tu lógica para obtener el token de autenticación (puede ser desde localStorage, cookies, etc.)
+    // Aquí un ejemplo simple, reemplázalo con tu propia implementación
+    return localStorage.getItem('token') || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoiMTIzNDUiLCJlbWFpbCI6InByb2ZlQGhvdC5jb20iLCJub21icmUiOiJwcm9mZV91bm8iLCJub21icmVfcm9sIjoiUFJPRkVTT1IiLCJpYXQiOjE3MDA5NjYyMjksImV4cCI6MTcwMDk2OTgyOX0.xeDDd1-vCBlshZAyO3sGz6f7rGPJPi9ZCDZpvWgEEEA';
   }
 }
