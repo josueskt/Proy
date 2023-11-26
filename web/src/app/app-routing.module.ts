@@ -7,6 +7,8 @@ import { AuthGuard } from './roles/auth.guard';
 import { EstadisticasComponent } from './Administrador/estadisticas/estadisticas.component';
 import { CarreraComponent } from './Administrador/carrera/carrera.component';
 import { CrearComponent } from './Administrador/carrera/crear/crear.component';
+import { CrearUsuariosComponent } from './Administrador/crear-usuarios/crear-usuarios.component';
+import { NacionalidadComponent } from './Administrador/nacionalidad/nacionalidad.component';
 import { CatalogoLibrosComponent } from './Profesor/catalogo-libros/catalogo-libros.component';
 import { LibroComponent } from './Profesor/libro/libro.component';
 import { CrearAutorComponent } from './Profesor/crear-autores/crear-autores.component';
@@ -40,7 +42,7 @@ const routes: Routes = [
 
   //Rutas de administrador
   {
-    path: 'Registrar_usuarios', component: HomeComponent, canActivate: [AuthGuard],
+    path: 'Registrar_usuarios', component: CrearUsuariosComponent , canActivate: [AuthGuard],
     data: { roles: ['ADMINISTRADOR'] }
   },
   {
@@ -53,6 +55,9 @@ const routes: Routes = [
   },
   {
     path: 'crear-carrera', component: CrearComponent, canActivate: [AuthGuard],
+    data: { roles: ['ADMINISTRADOR'] }
+  }, {
+    path: 'nacionalidad', component: NacionalidadComponent, canActivate: [AuthGuard],
     data: { roles: ['ADMINISTRADOR'] }
   },
 

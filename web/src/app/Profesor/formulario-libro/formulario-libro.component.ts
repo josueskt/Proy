@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LibroService } from '../libro.service';
+import { AuthService } from 'src/app/roles/auth.service';
 
 @Component({
   selector: 'app-libro-form',
@@ -8,46 +9,52 @@ import { LibroService } from '../libro.service';
   styleUrls: ['./formulario-libro.component.css'],
 })
 export class FormularioLibroComponent {
-  libroForm: FormGroup;
+  archivoSeleccionado: File | undefined;
+  miFormulario: FormGroup;
 
-  constructor(private fb: FormBuilder, private libroService: LibroService) {
-    this.libroForm = this.fb.group({
+  
+
+  constructor(private libroService: LibroService, private formBuilder: FormBuilder , private Aunh:AuthService) {
+    this.miFormulario = this.formBuilder.group({
       titulo: ['', Validators.required],
       imagen: ['', Validators.required],
       descripcion: ['', Validators.required],
       num_paginas: ['', Validators.required],
-      fk_creador: ['', Validators.required],
+      fk_creador: [''],
       fk_autor: ['', Validators.required],
       fk_carrera: ['', Validators.required],
-      archivo: [null, Validators.required], // Asegúrate de que coincida con el campo en el servicio
     });
   }
 
-  onFileSelected(event: any): void {
-    const file = event.target.files.length > 0 ? event.target.files[0] : null;
-    this.libroForm.patchValue({ archivo: file });
+  onFileSelected(event: any) {
+    this.archivoSeleccionado = event.target.files[0];
   }
 
-  onSubmit() {
-    if (this.libroForm.valid) {
-      const libro = this.libroForm.value;
-
-      // TODO: Implementa lógica para obtener el token de autenticación
-      const token = 'tu_token_aqui'; // Reemplaza con tu implementación real para obtener el token
-
-      this.libroService.crearLibro(libro, token).subscribe(
-        (response) => {
-          console.log('Libro creado con éxito', response);
-          // Aquí podrías redirigir o realizar otras acciones después de la creación exitosa
-        },
-        (error) => {
-          console.error('Error al crear el libro', error);
-          // Manejo de errores
-        }
-      );
-    } else {
-      console.log('Formulario inválido');
-      // Puedes mostrar mensajes de error o realizar otras acciones según tus necesidades
+  crearLibro() {
+    if (this.miFormulario.invalid) {
+      console.error('Por favor, completa todos los campos del formulario.');
+      return;
     }
+
+    const nuevoLibro = this.miFormulario.value;
+  const creador = this.Aunh.getUserInfo()
+  nuevoLibro.fk_creador = creador.id_user
+    // Verifica si se ha seleccionado un archivo
+    if (!this.archivoSeleccionado) {
+      console.error('Por favor, selecciona un archivo.');
+      return;
+    }
+
+    // Llama al servicio para crear el libro
+    this.libroService.crearLibro(nuevoLibro, this.archivoSeleccionado).subscribe(
+      response => {
+        console.log(response.message);
+        console.log(response.newFileName);
+        // Aquí podrías realizar acciones adicionales después de crear el libro, como redireccionar a otra página.
+      },
+      error => {
+        console.error('Error al crear el libro:', error);
+      }
+    );
   }
 }

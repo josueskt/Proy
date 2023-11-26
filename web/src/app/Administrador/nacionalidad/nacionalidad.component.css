@@ -1,0 +1,21 @@
+.all {
+    background: url('https://yavirac.edu.ec/img/home/sliders/3.jpg') center center no-repeat;
+    background-size: cover;
+}
+
+.container {
+    max-width: 700px;
+    max-height: 86vh;
+    border-radius: 15px;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid #ccc; /* Borde para visualización */
+    overflow: auto;
+}
+
+.text {
+    text-align: center;
+}
+
+.bta {
+    margin-left: 70%;
+}

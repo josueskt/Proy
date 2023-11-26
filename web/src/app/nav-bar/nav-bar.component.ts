@@ -14,6 +14,7 @@ export class NavBarComponent {
   nombre =""
 rol= ""
   hola ="hola"
+  correo = ""
   constructor(private authService: AuthService,private router: Router) {
 
 
@@ -25,6 +26,7 @@ rol= ""
     this.userInfo = this.authService.getUserInfo();
     this.nombre = this.userInfo.nombre
     this.rol = this.userInfo.nombre_rol
+    this.correo  = this.userInfo.email
     
   }
   login_out(){

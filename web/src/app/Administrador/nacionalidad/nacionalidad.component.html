@@ -1,1 +1,41 @@
-<p>nacionalidad works!</p>
+<!-- app.component.html -->
+
+<div class="all">
+    <br><br><br><br>
+    <div class="container">
+        <br><br>
+        <h3 class=" text text-danger text-center">CREAR NACIONALIDAD</h3>
+        <form (ngSubmit)="crearCarrera()" class="mt-3">
+
+          
+            <div class="mb-3 input-group">
+              <label for="nombre" class="form-label sr-only">Nombre:</label>
+              <input type="text" id="nombre" name="nombre" [(ngModel)]="carrera.nombre" class="form-control" placeholder="Nombre" required>
+              <div class="input-group-append">
+                <button type="submit" class="btn btn-primary" [disabled]="!carrera.nombre">Crear</button>
+              </div>
+            </div>
+          </form>
+          
+          
+          
+          
+  
+
+        <h3 class="text text-danger">LISTA DE NACIONALIDADES</h3>
+        <br>
+        <div *ngFor="let carrera of Carreras">
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <h4>{{carrera.nombre}}</h4>
+                    <div>
+                        
+                        
+                        <button class="btn btn-danger" (click)="eliminar(carrera.id_nacionalidad)">Eliminar</button> 
+                    </div>
+                </li>
+                <br>
+            </ul>
+        </div>
+    </div>
+</div>
