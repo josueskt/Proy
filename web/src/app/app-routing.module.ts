@@ -11,7 +11,7 @@ import { CrearUsuariosComponent } from './Administrador/crear-usuarios/crear-usu
 import { NacionalidadComponent } from './Administrador/nacionalidad/nacionalidad.component';
 import { CambioContraComponent } from './cambio-contra/cambio-contra.component';
 import { CatalogoLibrosComponent } from './Profesor/catalogo-libros/catalogo-libros.component';
-import { LibroComponent } from './Profesor/libro/libro.component';
+
 import { CrearAutorComponent } from './Profesor/crear-autores/crear-autores.component';
 import { EditarLibroComponent } from './Profesor/editar-libro/editar-libro.component';
 import { EliminarLibroComponent } from './Profesor/eliminar-libro/eliminar-libro.component';
@@ -19,6 +19,7 @@ import { FormularioLibroComponent } from './Profesor/formulario-libro/formulario
 //import { CrearComponent } from './Administrador/carrera/crear/crear.component';
 import { ExplorarComponent } from './usuario/explorar/explorar.component';
 import { VistalibroComponent } from './usuario/vistalibro/vistalibro.component';
+import { LibroComponent } from './usuario/libro/libro.component';
 //import { MisLibrosComponent } from './profesor/mis-libros/mis-libros.component';
 
 
@@ -39,22 +40,18 @@ const routes: Routes = [
   },
 
   {
-    path: 'libros', component: LibroComponent, canActivate: [AuthGuard],
+    path: 'libro', component: LibroComponent, canActivate: [AuthGuard],
     data: { roles: ['PROFESOR', 'ESTUDIANTE', 'ADMINISTRADOR'] }
   },
   {
-    path: 'libro/:id', component: HomeComponent, canActivate: [AuthGuard],
+    path: 'libro/:id', component: VistalibroComponent, canActivate: [AuthGuard],
     data: { roles: ['PROFESOR', 'ESTUDIANTE', 'ADMINISTRADOR'] }
   },
   {
     path: 'explorar', component: ExplorarComponent, canActivate: [AuthGuard],
     data: { roles: ['PROFESOR', 'ESTUDIANTE', 'ADMINISTRADOR'] }
   },
-  {
-    path: 'vistalibro', component: VistalibroComponent, canActivate: [AuthGuard],
-    data: { roles: ['PROFESOR', 'ESTUDIANTE', 'ADMINISTRADOR'] }
-  },
-
+ 
 
   //Rutas de administrador
   {

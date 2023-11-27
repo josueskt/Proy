@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HomeService } from './home.service';
 import { AuthService } from 'src/app/roles/auth.service';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-home',
@@ -9,6 +10,7 @@ import { AuthService } from 'src/app/roles/auth.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  
   userInfo: any;
   carreras: any[] = [];
   searchText: string='';
@@ -18,7 +20,8 @@ export class HomeComponent implements OnInit {
     private authService: AuthService, 
     private homeService: HomeService,
     private router: Router, 
-    private route: ActivatedRoute 
+    private route: ActivatedRoute ,
+    private dataService: DataService
     ) {}
 
   ngOnInit() {
@@ -39,7 +42,10 @@ export class HomeComponent implements OnInit {
     this.homeService.buscarLibros(this.searchText, this.selectedCarrera).subscribe(
       (resultados) => {
         
-        this.router.navigate(['/libros'], { queryParams: { cadena: this.searchText, resultados: JSON.stringify(resultados) } });
+        console.log(resultados)
+        
+        this.dataService.setResultados(resultados);
+        this.router.navigate(['/libro'])
       },
       (error) => {
         console.error('Error al buscar libros:', error);

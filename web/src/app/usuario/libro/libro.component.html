@@ -9,7 +9,9 @@
 
   <section class="contenedor-libros">
   <div class="card-libro"  *ngFor="let libro of resultados">
+    
       <img class="portada"  [src]="libro.imagen" alt="Portada del libro">
       <h3>{{ libro.titulo }}</h3>
+      <button [routerLink]="['/libro', libro.id_libro]">Ver libro</button>
   </div>
 </section>

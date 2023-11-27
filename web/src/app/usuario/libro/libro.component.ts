@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { LibroService } from './libro.service';
+import { DataService } from '../data.service';
+
 
 @Component({
   selector: 'app-libro',
@@ -8,23 +9,20 @@ import { LibroService } from './libro.service';
   styleUrls: ['./libro.component.css']
 })
 export class LibroComponent implements OnInit {
-  resultados: any[] = [];
+  resultados: any[] = [] ;
   
 
-  constructor(private route: ActivatedRoute, private libroService: LibroService) {}
+  constructor(private dataService: DataService) {}
 
   ngOnInit() {
+    this.dataService.resultados$.subscribe((resultados) => {
+      this.resultados = resultados;
+      console.log('Resultados en otro componente:', this.resultados);
+    });
+  }
 
-      // Obtén los resultados de la URL
-      this.route.queryParams.subscribe(params => {
-        const resultadosString = params['resultados'];
-  
-        // Convierte la cadena JSON de resultados a un array
-        if (resultadosString) {
-          this.resultados = JSON.parse(resultadosString);
-        }
-      });
-    }
   }
  
+
+
 

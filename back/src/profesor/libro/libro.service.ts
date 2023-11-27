@@ -23,7 +23,7 @@ export class LibroService {
 
     async by_id(id: Number): Promise<any> {
         try {
-            const reslut = await this.sql.query('select * from libros.libro where id_carrera = ($1)', [id])
+            const reslut = await this.sql.query('select * from libros.libro where id_libro = ($1)', [id])
             if (reslut.length === 0) {
                 return "no existe el id de esta carrera "
             } else { return reslut }

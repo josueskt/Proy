@@ -8,7 +8,7 @@ export class BuscadorService {
   async buscar_libros(cadena: string, carrera: string) {
     try {
       let query = `
-        SELECT l.titulo , l.fecha_publ , l.descripcion , l.imagen , l.num_paginas , c.nombre as nombre_carrera , a.nombre as autor_nombre
+        SELECT l.id_libro, l.titulo , l.fecha_publ , l.descripcion , l.imagen , l.num_paginas , c.nombre as nombre_carrera , a.nombre as autor_nombre
         FROM libros.libro as l
         LEFT JOIN libros.carrera as c ON l.fk_carrera = c.id_carrera
         LEFT JOIN libros.autor as a ON l.fk_autor = a.id_autor
