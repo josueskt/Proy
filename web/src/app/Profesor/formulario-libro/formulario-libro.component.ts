@@ -1,58 +1,60 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LibrosService } from '../libro.service';
+import { LibroService } from '../libro.service';
+import { AuthService } from 'src/app/roles/auth.service';
 
 @Component({
-  selector: 'app-formulario-libro',
+  selector: 'app-libro-form',
   templateUrl: './formulario-libro.component.html',
-  styleUrls: ['./formulario-libro.component.css']
+  styleUrls: ['./formulario-libro.component.css'],
 })
 export class FormularioLibroComponent {
-  @Output() libroAgregado = new EventEmitter<void>();
+  archivoSeleccionado: File | undefined;
+  miFormulario: FormGroup;
 
-  libroForm: FormGroup;
+  
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private libroService: LibrosService,
-    private router: Router
-  ) {
-    this.libroForm = this.formBuilder.group({
+  constructor(private libroService: LibroService, private formBuilder: FormBuilder , private Aunh:AuthService) {
+    this.miFormulario = this.formBuilder.group({
       titulo: ['', Validators.required],
-      autor: ['', Validators.required],
+      imagen: ['', Validators.required],
       descripcion: ['', Validators.required],
-      fechaPublicacion: ['', Validators.required],
-      paginas: ['', Validators.required],
-      materia: ['', Validators.required],
-      carreras: ['', Validators.required],
-      imagenUrl: ['', Validators.required]
+      num_paginas: ['', Validators.required],
+      fk_creador: [''],
+      fk_autor: ['', Validators.required],
+      fk_carrera: ['', Validators.required],
     });
   }
 
-  agregarLibro(): void {
-    if (this.libroForm.invalid) {
+  onFileSelected(event: any) {
+    this.archivoSeleccionado = event.target.files[0];
+  }
+
+  crearLibro() {
+    if (this.miFormulario.invalid) {
+      console.error('Por favor, completa todos los campos del formulario.');
       return;
     }
 
-    const libro = {
-      id: new Date().getTime(),
-      titulo: this.libroForm.value.titulo,
-      autor: this.libroForm.value.autor,
-      descripcion: this.libroForm.value.descripcion,
-      fechaPublicacion: this.libroForm.value.fechaPublicacion,
-      paginas: this.libroForm.value.paginas,
-      materia: this.libroForm.value.materia,
-      carreras: this.libroForm.value.carreras,
-      imagenUrl: this.libroForm.value.imagenUrl
-    };
+    const nuevoLibro = this.miFormulario.value;
+  const creador = this.Aunh.getUserInfo()
+  nuevoLibro.fk_creador = creador.id_user
+    // Verifica si se ha seleccionado un archivo
+    if (!this.archivoSeleccionado) {
+      console.error('Por favor, selecciona un archivo.');
+      return;
+    }
 
-    this.libroService.agregarLibro(libro);
-    this.libroForm.reset();
-    this.libroAgregado.emit();
-
-    // Mostrar mensaje y navegar a la pestaña del catálogo
-    alert('Libro agregado');
-    this.router.navigate(['/catalogo']);
+    // Llama al servicio para crear el libro
+    this.libroService.crearLibro(nuevoLibro, this.archivoSeleccionado).subscribe(
+      response => {
+        console.log(response.message);
+        console.log(response.newFileName);
+        // Aquí podrías realizar acciones adicionales después de crear el libro, como redireccionar a otra página.
+      },
+      error => {
+        console.error('Error al crear el libro:', error);
+      }
+    );
   }
 }

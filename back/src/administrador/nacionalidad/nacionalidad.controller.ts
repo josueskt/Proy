@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, SetMetadata, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, SetMetadata, UseGuards } from '@nestjs/common';
 
 import { NacionalidadService } from './nacionalidad.service';
 import { RolesGuard } from 'src/roles/roles.guard';
@@ -11,15 +11,23 @@ export class NacionalidadController {
     @SetMetadata('roles', ['ADMINISTRADOR'])
     @Get()
     get_nacionalidad(){
-        this.Nacionalidad.traer_naciolanlidad()
+      return  this.Nacionalidad.traer_naciolanlidad()
 
 
+    }
+    @Delete(":id")
+    @UseGuards(RolesGuard)
+    @SetMetadata('roles', ['ADMINISTRADOR'])
+    eliminar(@Param("id") id :Number ) {
+        console.log("asdad")
+     return this.Nacionalidad.eliminar(id)
     }
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR'])
     @Post()
-    crear_nacionalidad(@Body('nombre') usuarios :any){
-this.Nacionalidad.crear_autor(usuarios)
+    crear_nacionalidad(@Body() datos :any){
+       
+    this.Nacionalidad.crear_autor(datos.nombre)
 
 
     }

@@ -1,77 +1,55 @@
-<div class="row justify-content-center">
-  <div class="col-md-12 text-center">
-    <h1>Agregar Libro</h1>
-  </div>
-</div>
-<div class="container">
-  <form [formGroup]="libroForm" (ngSubmit)="agregarLibro()" novalidate>
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="titulo">Título:</label>
-          <input type="text" id="titulo" class="form-control" formControlName="titulo" required>
-          <div *ngIf="libroForm.get('titulo')?.invalid && libroForm.get('titulo')?.touched" class="text-danger">
-            El título es requerido.
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="fechaPublicacion">Fecha de publicación:</label>
-          <input type="date" id="fechaPublicacion" class="form-control" formControlName="fechaPublicacion" required>
-          <div *ngIf="libroForm.get('fechaPublicacion')?.invalid && libroForm.get('fechaPublicacion')?.touched" class="text-danger">
-            La fecha de publicación es requerida.
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="paginas">Páginas:</label>
-          <input type="number" id="paginas" class="form-control" formControlName="paginas" required>
-          <div *ngIf="libroForm.get('paginas')?.invalid && libroForm.get('paginas')?.touched" class="text-danger">
-            El número de páginas es requerido.
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="form-group">
-          <label for="autor">Autor:</label>
-          <input type="text" id="autor" class="form-control" formControlName="autor" required>
-          <div *ngIf="libroForm.get('autor')?.invalid && libroForm.get('autor')?.touched" class="text-danger">
-            El autor es requerido.
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="materia">Materia:</label>
-          <input type="text" id="materia" class="form-control" formControlName="materia" required>
-          <div *ngIf="libroForm.get('materia')?.invalid && libroForm.get('materia')?.touched" class="text-danger">
-            La materia es requerida.
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="carreras">Carreras:</label>
-          <input type="text" id="carreras" class="form-control" formControlName="carreras" required>
-          <div *ngIf="libroForm.get('carreras')?.invalid && libroForm.get('carreras')?.touched" class="text-danger">
-            Las carreras son requeridas.
-          </div>
-        </div>
-      </div>
+<!-- formulario-libro.component.html -->
+
+<div class="container mt-3">
+  <h2>Formulario de Creación de Libros</h2>
+
+  <form [formGroup]="miFormulario" (ngSubmit)="crearLibro()">
+    <!-- Titulo -->
+    <div class="form-group">
+      <label for="titulo">Título:</label>
+      <input type="text" id="titulo" formControlName="titulo" class="form-control" placeholder="Ingrese el título" />
     </div>
+
+    <!-- Imagen -->
+    <div class="form-group">
+      <label for="imagen">Imagen:</label>
+      <input type="text" id="imagen" formControlName="imagen" class="form-control" placeholder="Ingrese el nombre de la imagen" />
+    </div>
+
+    <!-- Descripcion -->
     <div class="form-group">
       <label for="descripcion">Descripción:</label>
-      <textarea id="descripcion" class="form-control" formControlName="descripcion" required></textarea>
-      <div *ngIf="libroForm.get('descripcion')?.invalid && libroForm.get('descripcion')?.touched" class="text-danger">
-        La descripción es requerida.
-      </div>
+      <textarea id="descripcion" formControlName="descripcion" class="form-control" placeholder="Ingrese la descripción"></textarea>
     </div>
-    <br>
+
+    <!-- Num Paginas -->
     <div class="form-group">
-      <label for="imagenUrl">URL de la imagen:</label>
-      <input type="text" id="imagenUrl" class="form-control" formControlName="imagenUrl" required>
-      <div *ngIf="libroForm.get('imagenUrl')?.invalid && libroForm.get('imagenUrl')?.touched" class="text-danger">
-        La URL de la imagen es requerida.
-      </div>
+      <label for="num_paginas">Número de Páginas:</label>
+      <input type="text" id="num_paginas" formControlName="num_paginas" class="form-control" placeholder="Ingrese el número de páginas" />
     </div>
-    <br>
-    <div class="text-center">
-      <button type="submit" class="btn btn-primary" [disabled]="libroForm.invalid">Agregar</button>
+
+    <!-- Fk Creador -->
+   
+
+    <!-- Fk Autor -->
+    <div class="form-group">
+      <label for="fk_autor">ID del Autor:</label>
+      <input type="text" id="fk_autor" formControlName="fk_autor" class="form-control" placeholder="Ingrese el ID del autor" />
     </div>
-    <br>
+
+    <!-- Fk Carrera -->
+    <div class="form-group">
+      <label for="fk_carrera">ID de la Carrera:</label>
+      <input type="text" id="fk_carrera" formControlName="fk_carrera" class="form-control" placeholder="Ingrese el ID de la carrera" />
+    </div>
+
+    <!-- Seleccionar Archivo -->
+    <div class="form-group">
+      <label for="archivo">Seleccionar Archivo:</label>
+      <input type="file" id="archivo" (change)="onFileSelected($event)" class="form-control-file" />
+    </div>
+
+    <!-- Botón de Enviar -->
+    <button type="submit" class="btn btn-primary">Crear Libro</button>
   </form>
 </div>

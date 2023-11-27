@@ -10,14 +10,14 @@ import { UsuariosController } from './administrador/usuarios/usuarios.controller
 import { EstadisticasController } from './administrador/estadisticas/estadisticas.controller';
 import { LibroController } from './profesor/libro/libro.controller';
 import { LoginController } from './login/login.controller';
-import { RegistrarArcController } from './administrador/registrar_arc/registrar_arc.controller';
+//import { RegistrarArcController } from './administrador/registrar_arc/registrar_arc.controller';
 import { BuscadorController } from './usuarios/buscador/buscador.controller';
 
 
 import { CarreraService } from './administrador/carrera/carrera.service';
 import { EstadisticasService } from './administrador/estadisticas/estadisticas.service';
 import { MateriaService } from './administrador/materia/materia.service';
-import { RegistrarArcService } from './administrador/registrar_arc/registrar_arc.service';
+//import { RegistrarArcService } from './administrador/registrar_arc/registrar_arc.service';
 import { LibroService } from './profesor/libro/libro.service';
 import { LoginService } from './login/login.service';
 import { UsuariosService } from './administrador/usuarios/usuarios.service';
@@ -30,16 +30,18 @@ import { AutorController } from './profesor/autor/autor.controller';
 import { AutorService } from './profesor/autor/autor.service';
 import { NacionalidadController } from './administrador/nacionalidad/nacionalidad.controller';
 import { NacionalidadService } from './administrador/nacionalidad/nacionalidad.service';
+import { CambioContraController } from './usuarios/cambio_contra/cambio_contra.controller';
+import { CambioContraService } from './usuarios/cambio_contra/cambio_contra.service';
 
 
 
 @Module({
   imports: [],
-  controllers: [AppController, TestController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController, RegistrarArcController, BuscadorController, DescargaController, GetLibroController, AutorController, NacionalidadController ],
-  providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, RegistrarArcService, LibroService, LoginService, UsuariosService,  {
+  controllers: [AppController, TestController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController,  BuscadorController, DescargaController, GetLibroController, AutorController, NacionalidadController, CambioContraController ],
+  providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, LibroService, LoginService, UsuariosService,  {
     provide: APP_PIPE,
     useClass: ValidationPipe,
-  }, BuscadorService, GetLibroService, AutorService, NacionalidadService],
+  }, BuscadorService, GetLibroService, AutorService, NacionalidadService, CambioContraService],
 })
 export class AppModule {
  

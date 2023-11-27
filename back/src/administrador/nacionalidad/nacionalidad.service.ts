@@ -8,12 +8,14 @@ export class NacionalidadService {
     }
 
     async traer_naciolanlidad(): Promise<any> {
+     
 
         const reslut = await this.sql.query('select * from Libros.nacionalida')
         return reslut
 
 
     }
+    
 
     async crear_autor(nombre: String ) {
 
@@ -26,6 +28,17 @@ export class NacionalidadService {
             return error
         }
     
+    }
+    async eliminar(id: Number) {
+        console.log("entrop")
+
+        try {
+            await this.sql.query('delete from  libros.nacionalida where  id_nacionalidad = $1', [id])
+            return { message: "Carrera eliminada exitosamente" };
+           
+       } catch (error) {
+           return error
+       }
     }
 
 

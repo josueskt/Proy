@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { LibrosService } from '../libro.service';
-
+import { LibroService } from '../libro.service';
 
 @Component({
   selector: 'app-editar-libro',
@@ -16,7 +15,8 @@ export class EditarLibroComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private librosService: LibrosService,
+    private router: Router,
+    private libroService: LibroService,
     private formBuilder: FormBuilder
   ) { 
     this.libroForm = this.formBuilder.group({});
@@ -24,8 +24,19 @@ export class EditarLibroComponent implements OnInit {
 
   ngOnInit() {
     const libroId = Number(this.route.snapshot.params['id']);
-    this.libro = this.librosService.getLibro(libroId);
+    this.libroService.getLibro(libroId).subscribe(
+      res => {
+        this.libro = res;
+        this.initializeForm();
+      },
+      error => {
+        console.error('Error al obtener el libro:', error);
+        // Aquí puedes manejar el error, por ejemplo, redirigir a una página de error
+      }
+    );
+  }
 
+  initializeForm() {
     this.libroForm = this.formBuilder.group({
       titulo: [this.libro.titulo, Validators.required],
       fechaPublicacion: [this.libro.fechaPublicacion, Validators.required],
@@ -34,17 +45,24 @@ export class EditarLibroComponent implements OnInit {
       materia: [this.libro.materia, Validators.required],
       carreras: [this.libro.carreras, Validators.required],
       descripcion: [this.libro.descripcion, Validators.required],
-      imagenUrl: [this.libro.imagenUrl, Validators.required]  // Agrega esta línea para agregar el campo imagenUrl al formulario
+      imagenUrl: [this.libro.imagenUrl, Validators.required]
     });
   }
 
   guardarCambios() {
     if (this.libroForm.valid) {
-      this.libro = { ...this.libro, ...this.libroForm.value };
-      this.librosService.actualizarLibro(this.libro);
-      // Aquí puedes agregar lógica adicional, como navegar a la página de detalles del libro actualizado
-
-      this.guardadoExitoso = true;
+      const updatedLibro = { ...this.libro, ...this.libroForm.value };
+      this.libroService.editarLibro(this.libro.id, updatedLibro).subscribe(
+        res => {
+          // Aquí puedes agregar lógica adicional, como navegar a la página de detalles del libro actualizado
+          this.guardadoExitoso = true;
+          this.router.navigate([`/libros/${this.libro.id}`]); // Cambia la ruta según tu estructura de rutas
+        },
+        error => {
+          console.error('Error al editar el libro:', error);
+          // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
+        }
+      );
     }
   }
 }
