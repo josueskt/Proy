@@ -4,18 +4,14 @@
   <br>
   <br>
   <div class="mb-3">
-    <input placeholder="Buscar" type="text" class="form-control" name="searchText">
+    <input placeholder="Buscar" type="search" class="form-control" [(ngModel)]="searchText" name="earch">
 
-    <select class="form-select form-select-lg" name="selectedCarrera">
+    <select class="form-select form-select-lg" [(ngModel)]="selectedCarrera" name="selectedCarrera">
       <option selected disabled>Carrera</option>
-      <option value="Control de Incendios">Control de Incendios</option>
-      <option value="Desarrollo de Software">Desarrollo de Software</option>
-      <option value="Diseño de Modas">Diseño de Modas</option>
-      <option value="Guia Nacional">Guia Nacional</option>
-      <option value="Marketing">Marketing</option>
+      <option *ngFor="let carrera of carreras" [value]="carrera.nombre">{{ carrera.nombre }}</option>
     </select>
-    <button class="buscar-btn">
-      <i class="fas fa-search"></i> <!-- Utiliza el ícono de búsqueda de Font Awesome -->
+    <button class="buscar-btn" (click)="buscarLibros()">
+      <i class="fas fa-search"></i> 
     </button>
   </div>
 </div>

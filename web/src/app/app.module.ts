@@ -25,6 +25,9 @@ import { AuthInterceptor } from './roles/auth.interceptor';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CambioContraComponent } from './cambio-contra/cambio-contra.component';
+import { VistalibroComponent } from './usuario/vistalibro/vistalibro.component';
+import { ExplorarComponent } from './usuario/explorar/explorar.component';
+
 
 @NgModule({
   declarations: [
@@ -46,6 +49,9 @@ import { CambioContraComponent } from './cambio-contra/cambio-contra.component';
     EditarComponent,
     EliminarComponent,
     CambioContraComponent,
+    EliminarComponent,
+    VistalibroComponent,
+    ExplorarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,17 @@
 .cabecera {
     display: grid;
-    margin-top: 4rem;
     justify-content: center;
     text-align: center;
+}
+.enlace-libro {
+    text-decoration: none;
+    color: inherit; 
+  }
+.libros {
+    margin: 20px;
+    display: grid;
+    margin-top: 4rem;
+    grid-template-columns: 1fr auto;
 }
 .contenedor-libros {
     display: flex;
