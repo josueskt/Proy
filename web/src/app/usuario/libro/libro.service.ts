@@ -6,6 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LibroService {
+  obtenerLibros() {
+    throw new Error('Method not implemented.');
+  }
   private apiUrl = 'http://localhost:3000/libros';
 
   constructor(private http: HttpClient) {}

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class HomeService {
-  private apiUrl = 'http://localhost:3000'; // Reemplaza esto con la URL correcta de tu backend
+ private apiUrl = 'http://localhost:3000';  // Reemplaza esto con la URL correcta de tu backend
   router: any;
   url :any
   constructor(private http: HttpClient) {}

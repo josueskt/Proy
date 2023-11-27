@@ -7,6 +7,8 @@ import { LibroComponent } from './usuario/libro/libro.component';
 import { EstadisticasComponent } from './Administrador/estadisticas/estadisticas.component';
 import { CarreraComponent } from './Administrador/carrera/carrera.component';
 import { CrearComponent } from './Administrador/carrera/crear/crear.component';
+import { ExplorarComponent } from './usuario/explorar/explorar.component';
+import { VistalibroComponent } from './usuario/vistalibro/vistalibro.component';
 //import { MisLibrosComponent } from './profesor/mis-libros/mis-libros.component';
 
 
@@ -28,6 +30,14 @@ const routes: Routes = [
   },
   {
     path: 'libro/:id', component: HomeComponent, canActivate: [AuthGuard],
+    data: { roles: ['PROFESOR', 'ESTUDIANTE', 'ADMINISTRADOR'] }
+  },
+  {
+    path: 'explorar', component: ExplorarComponent, canActivate: [AuthGuard],
+    data: { roles: ['PROFESOR', 'ESTUDIANTE', 'ADMINISTRADOR'] }
+  },
+  {
+    path: 'vistalibro', component: VistalibroComponent, canActivate: [AuthGuard],
     data: { roles: ['PROFESOR', 'ESTUDIANTE', 'ADMINISTRADOR'] }
   },
 

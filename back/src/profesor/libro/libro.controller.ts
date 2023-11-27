@@ -13,8 +13,8 @@ export class LibroController {
     }
 
     @Get()
-    @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['PROFESOR'])
+    //@UseGuards(RolesGuard)
+   // @SetMetadata('roles', ['PROFESOR'])
     Traer_todos(@Query('nombre') nombre:String) {
         console.log(nombre)
 
@@ -22,14 +22,14 @@ export class LibroController {
 
     }
     @Get(":id")
-    @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['PROFESOR'])
+    //@UseGuards(RolesGuard)
+    //@SetMetadata('roles', ['PROFESOR'])
     by_id(@Param("id") id: Number) {
         return this.carrera.by_id(id)
     }
         @Post()
-        @UsePipes(ValidationPipe)
-        @UseInterceptors(FileInterceptor('file'))
+       // @UsePipes(ValidationPipe)
+        //@UseInterceptors(FileInterceptor('file'))
         async crear(
         @UploadedFile() file: any,@Body('libro') libro:Libro_Upload 
         ): Promise<{ message: string, newFileName: string }> {
@@ -48,16 +48,16 @@ export class LibroController {
         }
   
     @Delete(":id")
-    @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['PROFESOR'])
+    //@UseGuards(RolesGuard)
+    //@SetMetadata('roles', ['PROFESOR'])
     eliminar(@Param("id") id :Number ) {
      return this.carrera.eliminar(id)
 
 
     }
     @Put(":id")
-    @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['PROFESOR'])
+    //@UseGuards(RolesGuard)
+    //@SetMetadata('roles', ['PROFESOR'])
     editar(@Param("id") id :Number , @Body( ) datos:any) {
         const ap = datos.nombre
         return this.carrera.editar(id , ap)

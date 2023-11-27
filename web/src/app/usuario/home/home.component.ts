@@ -45,5 +45,6 @@ export class HomeComponent implements OnInit {
         console.error('Error al buscar libros:', error);
       }
     );
+    
 }
 }

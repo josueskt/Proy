@@ -49,7 +49,7 @@ export class LibroService {
            console.log(uniqueFileName)
 
             // Construye la ruta completa del archivo en la carpeta pdfs
-           const pdfPath = path.join('C:/Users/K1/Desktop/proyecto/Proy/back/src/pdfs', uniqueFileName);
+           const pdfPath = path.join('/home/asom/Proyectos/P_I/Libros/', uniqueFileName);
         
             // Crea el stream de escritura del archivo
            const writeStream = fs.createWriteStream(pdfPath);

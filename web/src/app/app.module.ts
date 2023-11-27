@@ -25,6 +25,8 @@ import { CrearComponent } from './Administrador/carrera/crear/crear.component';
 import { EditarComponent } from './Administrador/carrera/editar/editar.component';
 import { EliminarComponent } from './Administrador/carrera/eliminar/eliminar.component';
 import { AuthInterceptor } from './roles/auth.interceptor';
+import { VistalibroComponent } from './usuario/vistalibro/vistalibro.component';
+import { ExplorarComponent } from './usuario/explorar/explorar.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { AuthInterceptor } from './roles/auth.interceptor';
     LibroComponent,
     CrearComponent,
     EditarComponent,
-    EliminarComponent
+    EliminarComponent,
+    VistalibroComponent,
+    ExplorarComponent
   ],
   imports: [
     BrowserModule,
