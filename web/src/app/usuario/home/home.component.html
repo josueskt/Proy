@@ -7,7 +7,7 @@
     <input placeholder="Buscar" type="search" class="form-control" [(ngModel)]="searchText" name="earch">
 
     <select class="form-select form-select-lg" [(ngModel)]="selectedCarrera" name="selectedCarrera">
-      <option selected disabled>Carrera</option>
+      <option selected disabled>por:Carrera</option>
       <option *ngFor="let carrera of carreras" [value]="carrera.nombre">{{ carrera.nombre }}</option>
     </select>
     <button class="buscar-btn" (click)="buscarLibros()">
