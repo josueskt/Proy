@@ -1,55 +1,59 @@
-<!-- formulario-libro.component.html -->
+<br><br><div class="container mt-3">
+  <h2 class="mb-4">Formulario de Creación de Libros</h2>
 
-<div class="container mt-3">
-  <h2>Formulario de Creación de Libros</h2>
-
-  <form [formGroup]="miFormulario" (ngSubmit)="crearLibro()">
+  <form [formGroup]="miFormulario" (ngSubmit)="crearLibro()" class="row">
     <!-- Titulo -->
-    <div class="form-group">
+    <div class="col-md-6 form-group">
       <label for="titulo">Título:</label>
       <input type="text" id="titulo" formControlName="titulo" class="form-control" placeholder="Ingrese el título" />
+      <div *ngIf="tituloInvalid" class="text-danger mt-2">El título es obligatorio.</div>
     </div>
 
     <!-- Imagen -->
-    <div class="form-group">
-      <label for="imagen">Imagen:</label>
+    <div class="col-md-6 form-group">
+      <label for="imagen">Imagen URL:</label>
       <input type="text" id="imagen" formControlName="imagen" class="form-control" placeholder="Ingrese el nombre de la imagen" />
     </div>
 
     <!-- Descripcion -->
-    <div class="form-group">
+    <div class="col-md-12 form-group">
       <label for="descripcion">Descripción:</label>
       <textarea id="descripcion" formControlName="descripcion" class="form-control" placeholder="Ingrese la descripción"></textarea>
+      <div *ngIf="descripcionInvalid" class="text-danger mt-2">La descripción no debe exceder los 500 caracteres.</div>
     </div>
 
     <!-- Num Paginas -->
-    <div class="form-group">
+    <div class="col-md-6 form-group">
       <label for="num_paginas">Número de Páginas:</label>
       <input type="text" id="num_paginas" formControlName="num_paginas" class="form-control" placeholder="Ingrese el número de páginas" />
+      <div *ngIf="numPaginasInvalid" class="text-danger mt-2">Ingrese un número válido entre 1 y 999 para las páginas.</div>
     </div>
-
-    <!-- Fk Creador -->
-   
 
     <!-- Fk Autor -->
-    <div class="form-group">
-      <label for="fk_autor">ID del Autor:</label>
-      <input type="text" id="fk_autor" formControlName="fk_autor" class="form-control" placeholder="Ingrese el ID del autor" />
+    <div class="col-md-6 form-group">
+      <label for="fk_autor">Autor:</label>
+      <select class="form-select form-select-lg" id="fk_autor" formControlName="fk_autor">
+        <option *ngFor="let autor of autors" [value]="autor.id_autor">{{ autor.nombre }}</option>
+      </select>
     </div>
-
+    
     <!-- Fk Carrera -->
-    <div class="form-group">
-      <label for="fk_carrera">ID de la Carrera:</label>
-      <input type="text" id="fk_carrera" formControlName="fk_carrera" class="form-control" placeholder="Ingrese el ID de la carrera" />
+    <div class="col-md-6 form-group">
+      <label for="fk_carrera">Carrera:</label>
+      <select class="form-select form-select-lg" id="fk_carrera" formControlName="fk_carrera">
+        <option *ngFor="let carrera of carrer" [value]="carrera.id_carrera">{{ carrera.nombre }}</option>
+      </select>
     </div>
 
     <!-- Seleccionar Archivo -->
-    <div class="form-group">
+    <div class="col-md-6 form-group">
       <label for="archivo">Seleccionar Archivo:</label>
       <input type="file" id="archivo" (change)="onFileSelected($event)" class="form-control-file" />
     </div>
 
     <!-- Botón de Enviar -->
-    <button type="submit" class="btn btn-primary">Crear Libro</button>
+    <div class="col-md-12 form-group">
+      <button type="submit" class="btn btn-primary">Crear Libro</button>
+    </div>
   </form>
 </div>

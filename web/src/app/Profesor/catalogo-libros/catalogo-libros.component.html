@@ -14,17 +14,16 @@
             <div class="card card-body">
                 <p>{{ libro.titulo }}</p>
                 <p>Autor: {{ libro.autor }}</p>
-                <img height="200" width="150" [src]="libro.imagenUrl" alt="Portada">
+                <p>carrera {{ libro.carrera }}</p>
+                <img height="200" width="150" [src]="libro.imagen" alt="Portada">
                 <br>
                 <div class="text-center">
-                    <button type="button" routerLink="#" class="button-descarga">Descargar</button>
+                    <button type="button" (click)="descarga(libro.nombre_archivo)" class="button-descarga">Descargar</button>
                 </div>
                 <br>
                 <div class="text-center">
-                    <a [routerLink]="['/libro', libro.id, 'editar']" class="link-sin-subrayado link-separado">
-                        <i class="fas fa-edit"></i> Editar
-                    </a>
-                    <a [routerLink]="['/libro', libro.id, 'eliminar']" class="link-sin-subrayado">
+                   
+                    <a [routerLink]="['/libro', libro.id_libro, 'eliminar']" class="link-sin-subrayado">
                         <i class="fas fa-trash-alt"></i> Eliminar
                     </a>
                 </div>

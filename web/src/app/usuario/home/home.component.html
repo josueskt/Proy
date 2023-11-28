@@ -1,20 +1,16 @@
 <div class="Buscador">
   <h1 class="TituloPrincipal">Biblioteca</h1>
   <br>
-  <br>
-  <br>
+  
   <div class="mb-3">
     <input placeholder="Buscar" type="search" class="form-control" [(ngModel)]="searchText" name="earch">
 
     <select class="form-select form-select-lg" [(ngModel)]="selectedCarrera" name="selectedCarrera">
-      <option selected disabled>por:Carrera</option>
+      <option selected disabled>Carrera</option>
       <option *ngFor="let carrera of carreras" [value]="carrera.nombre">{{ carrera.nombre }}</option>
     </select>
     <button class="buscar-btn" (click)="buscarLibros()">
       <i class="fas fa-search"></i> 
     </button>
   </div>
-</div>
-<div>
-  <button class="libro" type="submit">Libro</button>
 </div>

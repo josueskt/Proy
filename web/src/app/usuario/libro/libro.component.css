@@ -1,34 +1,24 @@
-.cabecera {
-    display: grid;
-    margin-top: 4rem;
-    justify-content: center;
-    text-align: center;
-}
-.contenedor-libros {
-    display: flex;
-    justify-content: center;
-    gap: 2.6875rem;
-    flex-wrap: wrap;
-    margin-top: 4rem;
-    text-align: center;
-}
-
 .card-libro {
-    display: flex;
-    width: 34.325rem;
-    height: 15.625rem;
-    padding: 0rem 0.625rem;
-    align-items: center;
-    gap: 2.5rem;
-    flex-shrink: 0;
-    border: solid black;
-}
-
-
-
-.portada {
-    padding: 10px;
-    width: 9.25rem;
-    height: 15.625rem;
-    flex-shrink: 0;
-}
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .card-libro:hover .overlay {
+    opacity: 1;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8); /* Oscurecimiento del 80% */
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .card-libro:hover .btn-text-white {
+    color: white;
+  }
+  

@@ -10,7 +10,7 @@ export class AutorService {
 
     async traer(): Promise<any> {
 
-        const reslut = await this.sql.query('select * from Libros.autor')
+        const reslut = await this.sql.query('select a.id_autor , a.nombre, n.nombre as nacionalidad from Libros.autor as a  inner join libros.nacionalida as n on  a.fk_nacionalidad = n.id_nacionalidad')
         return reslut
 
 

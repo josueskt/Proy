@@ -1,26 +1,48 @@
-<div class="container">
-    <div class="row justify-content-end align-items-center" style="height: 100vh;">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h2 class="text-center">Crear Autor</h2>
-            <form>
-              <div class="text-center">
-                <label for="nombre">Nombre:</label><br>
-                <input type="nombre" id="nombre" name="nombre" [(ngModel)]="Nombre" required>
-              </div>
-              <br>
-              <div class="text-center">
-                <label for="pais">Pais:</label><br>
-                <input type="pais" id="Pais" name="Pais" [(ngModel)]="Pais" required>
-              </div>
-              <br>
-              <div class="text-center">
-                <button type="button" routerLink="/catalogo" class="button-autor">Crear</button>
-              </div>
-            </form>
-          </div>
+<div class="container " >
+  <div class="row justify-content-end align-items-center" style="height: 70vh;">
+    <div class="col-md-6">
+      <div class="card mt-4">
+        <div class="card-body">
+          <h2 class="text-center mb-4">Crear Autor</h2>
+          <form>
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre:</label>
+              <input type="text" id="nombre" name="nombre" [(ngModel)]="Nombre" class="form-control" required>
+            </div>
+            <div class="mb-3">
+              <label for="nacionalidad" class="form-label">Nacionalidad:</label>
+              <select class="form-select" id="nacionalidad" [(ngModel)]="na" name="selectedCarrera">
+                <option selected disabled>Seleccionar nacionalidad</option>
+                <option *ngFor="let nacionalidad of nacionalida" [value]="nacionalidad.id_nacionalidad">
+                  {{ nacionalidad.nombre }}
+                </option>
+              </select>
+            </div>
+            <div class="text-center">
+              <button type="button" (click)="crearAutor()" class="btn btn-primary">Crear Autor</button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
   </div>
+
+  <div *ngFor="let autor of aut">
+    <table class="table mt-4">
+      <thead>
+        <tr>
+          <th>Autor</th>
+          <th>Nacionalidad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ autor.nombre }}</td>
+          <td>{{ autor.nacionalidad }}</td>
+          <td><button class="btn btn-danger">Eliminar</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

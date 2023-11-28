@@ -32,12 +32,13 @@ import { NacionalidadController } from './administrador/nacionalidad/nacionalida
 import { NacionalidadService } from './administrador/nacionalidad/nacionalidad.service';
 import { CambioContraController } from './usuarios/cambio_contra/cambio_contra.controller';
 import { CambioContraService } from './usuarios/cambio_contra/cambio_contra.service';
+import { MilibroController } from './profesor/libro/milibro/milibro.controller';
 
 
 
 @Module({
   imports: [],
-  controllers: [AppController, TestController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController,  BuscadorController, DescargaController, GetLibroController, AutorController, NacionalidadController, CambioContraController ],
+  controllers: [AppController, TestController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController,  BuscadorController, DescargaController, GetLibroController, AutorController, NacionalidadController, CambioContraController, MilibroController ],
   providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, LibroService, LoginService, UsuariosService,  {
     provide: APP_PIPE,
     useClass: ValidationPipe,

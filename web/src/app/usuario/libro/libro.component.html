@@ -1,17 +1,21 @@
 <section class="cabecera">
-<div *ngIf="resultados && resultados.length > 0">
-      <h2>Resultados de la búsqueda</h2>
+  <div *ngIf="resultados && resultados.length > 0">
+    <h2>Resultados de la búsqueda</h2>
   </div>
-    <div *ngIf="resultados && resultados.length === 0">
-      <p>No se encontraron resultados para la búsqueda.</p>
-    </div>
-  </section>
+  <div *ngIf="resultados && resultados.length === 0">
+    <p>No se encontraron resultados para la búsqueda.</p>
+  </div>
+</section>
 
-  <section class="contenedor-libros">
-  <div class="card-libro"  *ngFor="let libro of resultados">
-    
-      <img class="portada"  [src]="libro.imagen" alt="Portada del libro">
-      <h3>{{ libro.titulo }}</h3>
-      <button [routerLink]="['/libro', libro.id_libro]">Ver libro</button>
+<section class="contenedor-libros row">
+  <div class="col-md-4 mb-4" *ngFor="let libro of resultados">
+    <div class="card card-libro position-relative overflow-hidden">
+      <img class="card-img-top img-fluid" [src]="libro.imagen" alt="Portada del libro">
+      <div class="card-body text-center">
+        <h5 class="card-title text-black">{{ libro.titulo }}</h5>
+        <p class="card-text text-black">Autor: {{libro.autor_nombre}}</p>
+        <a [routerLink]="['/libro', libro.id_libro]" class="btn btn-primary w-80 text-black">Ver libro</a>
+      </div>
+    </div>
   </div>
 </section>

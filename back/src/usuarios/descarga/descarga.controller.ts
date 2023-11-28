@@ -14,7 +14,7 @@ export class DescargaController {
   async getPdf(@Res() res: Response, @Query('filename') filename: string): Promise<void> {
     try{
     const pdfFileName = filename || 'archivo.pdf';
-    const pdfPath = path.join('C:/Users/K1/Desktop/proyecto/Proy/back/src/pdfs', pdfFileName); // Ajusta la ruta según tu estructura
+    const pdfPath = path.join('C:/Users/josue/OneDrive/Escritorio/proyecy/Proy/back/src/pdfs', pdfFileName); // Ajusta la ruta según tu estructura
 
     if (fs.existsSync(pdfPath)) {
       const pdfStream = fs.createReadStream(pdfPath);

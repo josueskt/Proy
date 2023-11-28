@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { LibroService } from '../libro.service';
+import { AuthService } from 'src/app/roles/auth.service';
+import { VistalibroService } from 'src/app/usuario/vistalibro/vistalibro.service';
 
 @Component({
   selector: 'app-catalogo-libros',
@@ -8,17 +10,41 @@ import { LibroService } from '../libro.service';
 })
 export class CatalogoLibrosComponent implements OnInit {
   @Input() libros: any[] = [];
+  userInfo: any;
+  nombre: string='asdasd';
 
-  constructor(private libroService: LibroService) { }
+  constructor(private libroService: LibroService , private auht:AuthService,private libro_des : VistalibroService) { }
 
   ngOnInit() {
-    this.libroService.getLibros().subscribe(
-      (libros: any[]) => {
+    
+    this.userInfo = this.auht.getUserInfo();
+    this.nombre = this.userInfo.id_user
+
+    this.libroService.getLibros(this.nombre).subscribe(
+      (libros) => {
+        
         this.libros = libros;
+        console.log(libros)
       },
       error => {
         console.error('Error al obtener libros:', error);
         // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
+      }
+    );
+  }
+  descarga(archivo: string): void {
+    this.libro_des.descarga(archivo).subscribe(
+      (data: Blob) => {
+        const blob = new Blob([data], { type: 'application/pdf' });
+
+        // Crear un enlace para descargar el archivo
+        const downloadLink = document.createElement('a');
+        downloadLink.href = window.URL.createObjectURL(blob);
+        downloadLink.download = archivo; // El nombre del archivo es el mismo que el proporcionado al método
+        downloadLink.click();
+      },
+      error => {
+        console.error('Error al descargar el archivo', error);
       }
     );
   }

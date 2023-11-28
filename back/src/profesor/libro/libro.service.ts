@@ -13,9 +13,9 @@ export class LibroService {
 
     }
 
-    async traer( nombre :String): Promise<any> {
+    async traer( nombre:String): Promise<any> {
 
-        const reslut = await this.sql.query('select * from libros.libro where fk_creador = ($1)' ,[nombre])
+        const reslut = await this.sql.query('select l.id_libro, l.titulo,l.fecha_publ,l.descripcion,l.imagen,a.nombre as autor,c.nombre as carrera , l.nombre_archivo from libros.libro as l  inner join libros.carrera as c  on c.id_carrera = l.fk_carrera inner join libros.autor as a  on a.id_autor = l.fk_autor  where fk_creador = ($1)' ,[nombre])
         return reslut
 
 
@@ -23,7 +23,23 @@ export class LibroService {
 
     async by_id(id: Number): Promise<any> {
         try {
-            const reslut = await this.sql.query('select * from libros.libro where id_libro = ($1)', [id])
+            const reslut = await this.sql.query(`
+            select
+            l.descripcion ,
+            l.fecha_publ,
+            l.id_libro ,
+            l.imagen, 
+            l.nombre_archivo ,
+            l.num_paginas ,
+            l.titulo,
+            a.nombre as autor,
+            p.nombre as profesor,
+            c.nombre as carrera
+
+            from libros.libro as l right join inst.usuario as p on p.id_user = l.fk_creador
+            right join libros.autor as a on l.fk_autor = a.id_autor
+            right join libros.carrera as c on l.fk_carrera = c.id_carrera   
+            where id_libro = ($1)`, [id])
             if (reslut.length === 0) {
                 return "no existe el id de esta carrera "
             } else { return reslut }
@@ -51,7 +67,7 @@ export class LibroService {
           
 
             // Construye la ruta completa del archivo en la carpeta pdfs
-           const pdfPath = path.join('/home/k2/Escritorio/pro_int/Proy/back/src/pdfs', uniqueFileName);
+           const pdfPath = path.join('C:/Users/josue/OneDrive/Escritorio/proyecy/Proy/back/src/pdfs', uniqueFileName);
         
             // Crea el stream de escritura del archivo
            const writeStream = fs.createWriteStream(pdfPath);
@@ -81,12 +97,12 @@ export class LibroService {
 
 
 
-    async eliminar(id: Number) {
+    async eliminar(id: string) {
 
 
         try {
-            await this.sql.query('delete from  libros.libro where  id_carrera = ($1)', [id])
-            return "carrera eliminada exitosamente "
+            await this.sql.query('delete from  libros.libro where  id_libro = ($1)', [id])
+            return {mesage :'eliminado '}
 
         } catch (error) {
             return error

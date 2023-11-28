@@ -8,7 +8,7 @@ export class NacionalidadController {
     constructor(private Nacionalidad:NacionalidadService){}
 
     @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['ADMINISTRADOR'])
+    @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR'])
     @Get()
     get_nacionalidad(){
       return  this.Nacionalidad.traer_naciolanlidad()

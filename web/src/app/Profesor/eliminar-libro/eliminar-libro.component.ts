@@ -7,9 +7,10 @@ import { LibroService } from '../libro.service';
   templateUrl: './eliminar-libro.component.html',
   styleUrls: ['./eliminar-libro.component.css']
 })
-export class EliminarLibroComponent implements OnInit {
+export class EliminarLibroComponent {
   libro: any;
   libroEliminado: boolean = false;
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -17,18 +18,13 @@ export class EliminarLibroComponent implements OnInit {
     private libroService: LibroService
   ) { }
 
-  ngOnInit() {
-    const libroId = Number(this.route.snapshot.params['id']);
-    this.libro = this.libroService.getLibro(libroId);
-  }
+ 
 
-  confirmarEliminar() {
-    this.libroService.eliminarLibro(this.libro.id);
-    this.libroEliminado = true;
-
-    setTimeout(() => {
-      this.router.navigate(['/catalogo']);
-    }, 2000);
+  Eliminar() {
+    const libro_id = Number(this.route.snapshot.params['id'])
+    this.libroService.eliminarLibro(libro_id);
+    this.router.navigate(['/catalogo']);
+   
   }
 
   cancelarEliminar() {

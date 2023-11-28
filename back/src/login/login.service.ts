@@ -25,7 +25,7 @@ export class LoginService {
                     const token = jwt.sign(
                         { id_user: user.id_user, email: user.email, nombre: user.nombre, nombre_rol: user.nombre_rol },
                         this.jwtSecretKey,
-                        { expiresIn: '1h' } // Configura la expiración del token
+                        { expiresIn: '3000h' } // Configura la expiración del token
 
 
 

@@ -9,8 +9,8 @@ export class UsuariosController {
 
 
 @Get()
-//@UseGuards(RolesGuard)
-//@SetMetadata('roles', ['ADMINISTRADOR'])
+@UseGuards(RolesGuard)
+@SetMetadata('roles', ['ADMINISTRADOR'])
 Get_rol(){
     return this.user.get_rol()
 }
@@ -18,8 +18,8 @@ Get_rol(){
 
 
     @Post()
-    @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['ADMINISTRADOR'])
+    //@UseGuards(RolesGuard)
+    //@SetMetadata('roles', ['ADMINISTRADOR'])
     @UsePipes(ValidationPipe)
     register( @Body() usuarios :RegisterUser[]){
   

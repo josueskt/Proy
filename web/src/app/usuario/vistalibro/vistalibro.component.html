@@ -1,5 +1,27 @@
-<br><br><br><br><br><br>
-{{libro.titulo}}
+<!-- En tu plantilla de Angular (por ejemplo, app.component.html) -->
 
+<div class="container-fluid" style="padding-top: 300px; background-image: url('{{libro.imagen}}'); background-size: cover; background-position: center;">
+    <div class="row align-items-center">
+      <div class="col-md-6 text-left text-white">
+        <h1 style="font-size: 98px; color: #888;">{{libro.titulo}}</h1>
+      </div>
+      <div class="col-md-6 d-flex justify-content-end align-items-end">
+        <button class="btn btn-primary btn-lg" (click)="descarga(libro.nombre_archivo)">Descargar</button>
+      </div>
+    </div>
+  </div>
 
-<button (click)="descarga(libro.nombre_archivo)">descargar </button>
+  <div class="card">
+    <div class="card-body">
+        <div class="d-flex flex-column align-items-start bg-dark text-white p-3 rounded">
+            <h3 class="card-title">Descripcion</h3>
+            <p class="card-text">{{libro.descripcion}}</p>
+            <p class="card-text">Autor: {{libro.autor}}</p>
+            <p class="card-text">Subido por: {{libro.profesor}}</p>
+            <p class="card-text">Fecha de creacion: {{libro.fecha_publ}}</p>
+            <p class="card-text">Numero de paginas: {{libro.num_paginas}}</p>
+        </div>
+    </div>
+</div>
+
+  

@@ -11,11 +11,16 @@ export class VistalibroService {
 
   constructor(private http: HttpClient) {}
 
-  traerTodas(id:string): Observable<any> {
+  traerTodas(id: string): Observable<any> {
     return this.http.get(`${this.baseUrl}/libro/${id}`);
   }
-  descarga(filename:string): Observable<any> {
-    return this.http.get(`${this.baseUrl}/descarga?filename=${filename}`);
+
+  descarga(filename: string): Observable<Blob> {
+    // Configurar opciones para indicar que esperamos un tipo de respuesta binario (Blob)
+    const options = {
+      responseType: 'blob' as 'json'
+    };
+
+    return this.http.get(`${this.baseUrl}/descarga?filename=${filename}`, options) as Observable<Blob>;
   }
 }
-//this.url = `${this.apiUrl}/descarga?cadena=${cadena}&carrera=${carrera}`;

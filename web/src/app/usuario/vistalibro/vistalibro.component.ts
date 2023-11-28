@@ -39,7 +39,7 @@ export class VistalibroComponent {
     this.vistalibroService.descarga(archivo).subscribe(
       (data: Blob) => {
         const blob = new Blob([data], { type: 'application/pdf' });
-
+  
         // Crear un enlace para descargar el archivo
         const downloadLink = document.createElement('a');
         downloadLink.href = window.URL.createObjectURL(blob);
@@ -51,4 +51,4 @@ export class VistalibroComponent {
       }
     );
   }
-}
+}  

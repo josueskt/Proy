@@ -17,7 +17,7 @@ export class HomeService {
   }
    
   buscarLibros(cadena: string,carrera:string): Observable<any[]> {
-  if(carrera ==='por:Carrera'){
+  if(carrera ==='Carrera'){
     
      this.url = `${this.apiUrl}/buscador?cadena=${cadena} `;
   }

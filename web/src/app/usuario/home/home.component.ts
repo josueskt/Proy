@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   userInfo: any;
   carreras: any[] = [];
   searchText: string='';
-  selectedCarrera: string = "por:Carrera";
+  selectedCarrera: string = "Carrera";
 
   constructor(
     private authService: AuthService, 
