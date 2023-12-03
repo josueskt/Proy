@@ -18,8 +18,8 @@ Get_rol(){
 
 
     @Post()
-    //@UseGuards(RolesGuard)
-    //@SetMetadata('roles', ['ADMINISTRADOR'])
+    @UseGuards(RolesGuard)
+    @SetMetadata('roles', ['ADMINISTRADOR'])
     @UsePipes(ValidationPipe)
     register( @Body() usuarios :RegisterUser[]){
   
