@@ -16,7 +16,6 @@ import { CrearAutorComponent } from './Profesor/crear-autores/crear-autores.comp
 import { EditarLibroComponent } from './Profesor/editar-libro/editar-libro.component';
 import { EliminarLibroComponent } from './Profesor/eliminar-libro/eliminar-libro.component';
 import { FormularioLibroComponent } from './Profesor/formulario-libro/formulario-libro.component';
-import { CrearComponent } from './Administrador/carrera/crear/crear.component';
 import { ExplorarComponent } from './usuario/explorar/explorar.component';
 import { VistalibroComponent } from './usuario/vistalibro/vistalibro.component';
 //import { MisLibrosComponent } from './profesor/mis-libros/mis-libros.component';
