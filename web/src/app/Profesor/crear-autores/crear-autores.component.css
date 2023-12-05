@@ -4,36 +4,37 @@ body, html {
   padding: 0;
   height: 100%;
 }
-.container {
-  background-image: url('https://www.ultimasnoticias.ec/files/article_main/uploads/2016/01/01/5D66A8E8-7F87-4E31-B033-533E2A96598F.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  width: 100%;
-}
 
 body{
   background-color: aqua;
 }
+
 .card {
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 20px;
     width: 500px;
-    height: 300px;
+    height: 350px;
     margin: 0 auto;
-    background-color: #ebebebb2;
+    background-color: #302f33b2;
   } 
+
+  .form-label {
+    color: white;
+  }
   
   .card-body {
     margin-bottom: 20px;
   }
-  
-  
-  
+    
   .text-center {
     text-align: center;
     color: white;
+  }
+
+  .btn-primary {
+    background-color: blueviolet;
+    align-items: center;
   }
   
   .button-autor {

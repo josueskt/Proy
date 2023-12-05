@@ -1,9 +1,15 @@
 .container {
-    background-color: #4e4d53b2;
+    background-color: #302f33b2;
     width: 70%;
+    height: 100%;
     color: white;
-};
-
-.btn-primary {
+  }
+  
+  .text {
+    color: white;
+  }
+  
+  .btn-primary {
+    background-color: blueviolet;
     align-items: center;
-}
+  }

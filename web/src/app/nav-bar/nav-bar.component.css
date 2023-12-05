@@ -1,7 +1,7 @@
 .navbar{
-  background-color: rgba(97, 92, 141, 0.847)
+  background-color: rgba(97, 92, 141, 0.932)
 }  
 .nav-link:hover{
-  background-color: rgb(103, 103, 103);
+  background-color: rgb(83, 83, 83);
   color: aliceblue;
 }
