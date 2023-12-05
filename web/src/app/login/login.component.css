@@ -2,7 +2,7 @@
   display: grid;
   place-items: center;
   height: 100%;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.588), rgba(0, 0, 0, 0.5)), url('src/assets/images/fondo.png');
+  background-image:  url('src/assets/images/fondo1.png');
   background-size: cover;
   background-repeat: no-repeat;
 }
