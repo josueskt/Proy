@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VistalibroService } from './vistalibro.service';
 
+
 @Component({
   selector: 'app-vistalibro',
   templateUrl: './vistalibro.component.html',
@@ -28,12 +29,25 @@ export class VistalibroComponent {
         console.log('libro', data);
         this.result = data;
         this.libro = this.result[0];
+        this.libro.fecha_publ = this.formatearFecha(this.libro.fecha_publ)
+        
+        
       },
       error => {
         console.error('Error al obtener información del libro', error);
       }
     );
   }
+  
+  formatearFecha(fecha: string): string {
+    const fechaObjeto = new Date(fecha);
+    const año = fechaObjeto.getFullYear();
+    const mes = ('0' + (fechaObjeto.getMonth() + 1)).slice(-2);
+    const dia = ('0' + fechaObjeto.getDate()).slice(-2);
+    
+    return `${año}-${mes}-${dia}`;
+  }
+
 
   descarga(archivo: string): void {
     this.vistalibroService.descarga(archivo).subscribe(

@@ -1,21 +1,18 @@
+<br><br>
 <section class="cabecera">
-  <div *ngIf="resultados && resultados.length > 0">
-    <h2>Resultados de la búsqueda</h2>
-  </div>
   <div *ngIf="resultados && resultados.length === 0">
-    <p>No se encontraron resultados para la búsqueda.</p>
+    <h1 class="alert alert-danger mt-5">No se encontraron resultados para la búsqueda.</h1>
   </div>
 </section>
 
-<section class="contenedor-libros row">
-  <div class="col-md-4 mb-4" *ngFor="let libro of resultados">
-    <div class="card card-libro position-relative overflow-hidden">
-      <img class="card-img-top img-fluid" [src]="libro.imagen" alt="Portada del libro">
-      <div class="card-body text-center">
-        <h5 class="card-title text-black">{{ libro.titulo }}</h5>
-        <p class="card-text text-black">Autor: {{libro.autor_nombre}}</p>
-        <a [routerLink]="['/libro', libro.id_libro]" class="btn btn-primary w-80 text-black">Ver libro</a>
-      </div>
+<div class="gallery-container">
+  <div class="gallery__item" *ngFor="let libro of resultados" [ngClass]="{'gallery__item-large': libro.esGrande}">
+    <img class="gallery__img" [src]="libro.imagen" alt="Portada del libro">
+    <div class="gallery_content">
+      <h5 class="bg-light p-3 mb-0">{{ libro.titulo }}</h5>
+      <p class="bg-light p-3 mb-0">Autor: {{libro.autor_nombre}}</p>
+      <br><br><br><br><br>
+      <a [routerLink]="['/libro', libro.id_libro]" class="btn btn-lg btn-primary mt-3">Ver libro</a>
     </div>
   </div>
-</section>
+</div>

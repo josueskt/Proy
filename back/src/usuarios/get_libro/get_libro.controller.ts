@@ -7,8 +7,8 @@ export class GetLibroController {
 constructor(private libro:GetLibroService){}
 
     @Get(':id')
-    @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
+  //  @UseGuards(RolesGuard)
+   // @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
     libro_byid(@Param('id') id:Number){
 
 

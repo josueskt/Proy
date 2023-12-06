@@ -28,11 +28,7 @@ export class FormularioLibroComponent implements OnInit {
       titulo: ['', [Validators.required, Validators.maxLength(50)]],
       imagen: ['', Validators.required],
       descripcion: ['', [Validators.required, Validators.maxLength(500)]],
-      num_paginas: ['',
-      [Validators.required,
-      Validators.pattern(/^[1-9]\d*$/), // Asegura que sea un número positivo
-      Validators.min(1),
-      Validators.max(999)]],
+      num_paginas: [''],
       fk_creador: [''],
       fk_autor: [''],
       fk_carrera: [''],

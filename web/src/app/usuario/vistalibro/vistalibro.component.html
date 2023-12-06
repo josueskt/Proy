@@ -1,27 +1,46 @@
 <!-- En tu plantilla de Angular (por ejemplo, app.component.html) -->
 
-<div class="container-fluid" style="padding-top: 300px; background-image: url('{{libro.imagen}}'); background-size: cover; background-position: center;">
+<div class="container-fluid" style="padding-top: 500px ;   object-fit: cover; background-image: url('{{libro.imagen}}'); background-size: cover; background-position: center;">
     <div class="row align-items-center">
       <div class="col-md-6 text-left text-white">
-        <h1 style="font-size: 98px; color: #888;">{{libro.titulo}}</h1>
+        <h1 class="bg-dark" style="font-size: 98px; color: #ffffff;">{{libro.titulo}}</h1>
       </div>
       <div class="col-md-6 d-flex justify-content-end align-items-end">
         <button class="btn btn-primary btn-lg" (click)="descarga(libro.nombre_archivo)">Descargar</button>
       </div>
     </div>
   </div>
+<!-- Asegúrate de incluir moment.js en tu proyecto -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
-  <div class="card">
+<div class="card">
     <div class="card-body">
-        <div class="d-flex flex-column align-items-start bg-dark text-white p-3 rounded">
-            <h3 class="card-title">Descripcion</h3>
-            <p class="card-text">{{libro.descripcion}}</p>
-            <p class="card-text">Autor: {{libro.autor}}</p>
-            <p class="card-text">Subido por: {{libro.profesor}}</p>
-            <p class="card-text">Fecha de creacion: {{libro.fecha_publ}}</p>
-            <p class="card-text">Numero de paginas: {{libro.num_paginas}}</p>
+        <div class="d-flex flex-column justify-content-between bg-dark text-white p-3 rounded w-100">
+            <h3 class="card-title mb-3">Descripción</h3>
+            
+            <p class="card-text mb-2">{{libro.descripcion}}</p>
+            
+            <div class="d-flex">
+                <div class="mr-auto">
+                    <p class="card-text mb-0">Autor: {{libro.autor}}</p>
+                    
+                    <!-- Formatear la fecha con moment.js -->
+                    <p class="card-text mb-0">Fecha de creación:    {{libro.fecha_publ}} </p>
+                    
+                    
+                </div>
+                
+                <div class="ml-auto">
+                    <p class="card-text mb-0">Subido por: {{libro.profesor}}</p>
+                    <p class="card-text mb-0">Número de páginas: {{libro.num_paginas}}</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+
+
+
+
 
   

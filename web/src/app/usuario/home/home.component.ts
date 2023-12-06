@@ -31,12 +31,15 @@ export class HomeComponent implements OnInit {
     this.homeService.getCarreras().subscribe(
       (carreras) => {
         this.carreras = carreras;
+        console.log(this.carreras)
       },
       (error) => {
         console.error('Error al obtener las carreras:', error);
       }
     );
+   
   }
+  
   buscarLibros() {
     console.log(this.selectedCarrera)
     this.homeService.buscarLibros(this.searchText, this.selectedCarrera).subscribe(

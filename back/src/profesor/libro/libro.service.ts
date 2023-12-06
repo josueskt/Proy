@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { SqlService } from 'src/sql/sql.service';
 import { Libro } from './libro.interface';
+import * as pdfParse from 'pdf-parse';
 
 import * as fs from 'fs';
 import * as path from 'path';
@@ -62,12 +63,19 @@ export class LibroService {
             if (!file || !file.buffer) {
                 throw new HttpException('Archivo no válido', HttpStatus.BAD_REQUEST);
               }
+              const pdfBuffer = file.buffer;
+            const data = await pdfParse(pdfBuffer);
+           
+            
+           
+           
+              
             // Genera un nombre único para el archivo PDF
            const uniqueFileName = `${Date.now()}-${file.originalname}`;
           
 
             // Construye la ruta completa del archivo en la carpeta pdfs
-           const pdfPath = path.join('C:/Users/pc/Documents/4to_Software/Proy/back/src/pdfs', uniqueFileName);
+           const pdfPath = path.join('/home/k1/Escritorio/proyecto_int/Proy/back/src/pdfs', uniqueFileName);
         
             // Crea el stream de escritura del archivo
            const writeStream = fs.createWriteStream(pdfPath);
@@ -82,7 +90,7 @@ export class LibroService {
  
           //  Inserta los datos del libro en la base de datos, utilizando el campo nombre_archivo
            await this.sql.query('INSERT INTO libros.libro (titulo, fecha_publ, descripcion, num_paginas, fk_creador, fk_autor, fk_carrera, nombre_archivo , imagen) VALUES ($1, CURRENT_DATE, $2, $3, $4, $5, $6, $7,$8)', [
-               libro.titulo, libro.descripcion, libro.num_paginas, libro.fk_creador, libro.fk_autor, libro.fk_carrera, uniqueFileName,libro.imagen
+               libro.titulo, libro.descripcion, data.numpages, libro.fk_creador, libro.fk_autor, libro.fk_carrera, uniqueFileName,libro.imagen
            ]);
 
             return 'Libro creado exitosamente';

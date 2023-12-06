@@ -8,10 +8,10 @@ constructor(private buscar:BuscadorService){}
 
 
     @Get()
-    //@UseGuards(RolesGuard)
-    //@SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
+    @UseGuards(RolesGuard)
+    @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
     buscador_libro(@Query('cadena') cadena:string,@Query('carrera') carrera:string){
-        console.log("aaa")
+        console.log(carrera)
         return this.buscar.buscar_libros(cadena,carrera)
 
     }

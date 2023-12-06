@@ -18,8 +18,11 @@ export class BuscadorService {
       const params = [`%${cadena}%`];
 
       // Agregar la condición de carrera solo si se proporciona un valor
+
+
+      //cambiar esta ammada por  el id 
       if (carrera) {
-        query += ' AND c.nombre = $2';
+        query += ' AND c.id_carrera = $2';
         params.push(carrera);
       }
 

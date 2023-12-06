@@ -22,7 +22,7 @@ export class LibroController {
     }
     @Get(":id")
     @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['PROFESOR'])
+    @SetMetadata('roles', ['PROFESOR','ADMINISTRADOR','ESTUDIANTE'])
     by_id(@Param("id") id: Number) {
         return this.carrera.by_id(id)
     }
