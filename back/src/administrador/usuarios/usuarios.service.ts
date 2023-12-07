@@ -20,7 +20,7 @@ export class UsuariosService {
                 if(existe.length){console.log("usuario existente")}
                 if (!existe.length) {
 
-
+                   
                     const salt = await bcrypt.genSalt(asaltos);
 
                     const hashedPassword = await bcrypt.hash(user.password, salt);
