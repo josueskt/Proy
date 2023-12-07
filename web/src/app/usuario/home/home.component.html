@@ -1,9 +1,9 @@
-<div class="Buscador">
-  <h1 class="TituloPrincipal">Biblioteca</h1>
+<div class="Buscador " [class.fadeIn]="showBuscador">
+  <h1 class="TituloPrincipal">BIBLIOTECA</h1>
   <br>
   
   <div class="mb-3">
-    <input placeholder="Buscar" type="search" class="form-control" [(ngModel)]="searchText" name="earch">
+    <input placeholder="Busca tu libro" type="search" class="form-control" [(ngModel)]="searchText" name="earch">
 
     <select class="form-select form-select-lg" [(ngModel)]="selectedCarrera" name="selectedCarrera">
       <option selected disabled>Carrera</option>

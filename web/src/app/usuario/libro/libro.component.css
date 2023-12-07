@@ -1,6 +1,6 @@
 .gallery-container {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: auto; /* Ajusta el tamaño automático según el contenido */
   padding: 20px;
   grid-gap: 10px;
@@ -44,5 +44,6 @@
   font-weight: 1000;
   margin: 0;
   width: 100%;
+  
   color: rgb(45, 45, 45);
 }

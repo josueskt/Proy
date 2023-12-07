@@ -10,6 +10,16 @@ import { DataService } from '../data.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
+
+  showBuscador = false; // Inicialmente oculto
+
+  ngAfterViewInit() {
+    // Simulación de un retraso (puedes ajustar esto según tus necesidades)
+    setTimeout(() => {
+      this.showBuscador = true; // Mostrar el buscador después de un cierto tiempo
+    }, 100); // 1000 milisegundos = 1 segundo
+  }
   
   userInfo: any;
   carreras: any[] = [];
