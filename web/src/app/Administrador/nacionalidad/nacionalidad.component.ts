@@ -11,6 +11,8 @@ export class NacionalidadComponent {
 
   Carreras: any[] = [];
   carrera: any = {};
+  errorAlerta:boolean = false;
+  Alertabien:boolean = false;
 
 
   constructor(private carreraService: NacionalidadService,private router: Router ) {}
@@ -30,18 +32,37 @@ export class NacionalidadComponent {
 
       }
       crearCarrera() {
-        console.log(this.carrera.nombre)
-        this.carreraService.crearCarrera(this.carrera).subscribe(
-          () => {
-            console.log('Carrera creada con éxito');
-            window.location.reload();
-          },
-          (error) => {
-            console.error('Error al crear carrera:', error);
-            // Maneja el error según tus necesidades
-          }
-        );
+        const nombreFormateado = this.formatoNombre(this.carrera.nombre);
+        const nombreExistente = this.Carreras.some(c => this.formatoNombre(c.nombre)===nombreFormateado);
+        if (nombreExistente) {
+          this.errorAlerta=true
+          setTimeout(() => {
+            this.errorAlerta = false;
+          }, 4000);
+          
+        } else {
+          this.carreraService.crearCarrera(this.carrera).subscribe(
+            () => {              
+              this.Alertabien=true
+              setTimeout(() => {
+                window.location.reload();
+                this.Alertabien = false;
+              }, 4000);
+            },
+            (error) => {
+              console.error('Error al crear carrera:', error);
+            }
+          );
+        }
       }
+
+      
+      formatoNombre(nombre: string) {
+        return nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase();
+      }
+
+
+
       eliminar(id: number) {
         this.carreraService.eliminarCarrera(id).subscribe(
           (subscribe) => {
