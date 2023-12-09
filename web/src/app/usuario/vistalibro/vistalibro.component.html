@@ -15,35 +15,41 @@
     </div>
   </div>
 <!-- Asegúrate de incluir moment.js en tu proyecto -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
-<div class="card">
+<div class="info">
+
+  <div class="infomacion bg-dark text-white">
+    <h1>Informacion del libro </h1>
+  </div>
+  
+  <div class="card">
     <div class="card-body">
-        <div class="d-flex flex-column justify-content-between bg-dark text-white p-3 rounded w-100">
-            <h3 class="card-title mb-3">Descripción</h3>
+      <div class="d-flex flex-column justify-content-between bg-dark text-white p-3 rounded w-100">
+        <h3 class="card-title mb-3">Descripción</h3>
+        
+        <p class="card-text mb-2">{{libro.descripcion}}</p>
+        
+        <div class="d-flex">
+          <div class="mr-auto">
+            <p class="card-text mb-0">Autor: {{libro.autor}}</p>
             
-            <p class="card-text mb-2">{{libro.descripcion}}</p>
+            <!-- Formatear la fecha con moment.js -->
+            <p class="card-text mb-0">Fecha de creación:    {{libro.fecha_publ}} </p>
             
-            <div class="d-flex">
-                <div class="mr-auto">
-                    <p class="card-text mb-0">Autor: {{libro.autor}}</p>
-                    
-                    <!-- Formatear la fecha con moment.js -->
-                    <p class="card-text mb-0">Fecha de creación:    {{libro.fecha_publ}} </p>
-                    
-                    
-                </div>
-                
-                <div class="ml-auto">
-                    <p class="card-text mb-0">Subido por: {{libro.profesor}}</p>
-                    <p class="card-text mb-0">Número de páginas: {{libro.num_paginas}}</p>
-                </div>
-            </div>
+            
+          </div>
+          
+          <div class="ml-auto">
+            <p class="card-text mb-0">Subido por: {{libro.profesor}}</p>
+            <p class="card-text mb-0">Número de páginas: {{libro.num_paginas}}</p>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-
-
+  
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
 
 
