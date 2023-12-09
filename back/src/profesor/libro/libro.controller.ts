@@ -41,7 +41,7 @@ export class LibroController {
             return { message, newFileName: /* Nombre del archivo generado en el servicio */'gg' }
         } catch (error) {
             // Manejo de errores si es necesario
-            console.log(error)
+           
             return { message: 'Error al procesar la solicitud', newFileName: '' };
         }
     }

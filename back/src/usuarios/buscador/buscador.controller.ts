@@ -11,7 +11,7 @@ constructor(private buscar:BuscadorService){}
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
     buscador_libro(@Query('cadena') cadena:string,@Query('carrera') carrera:string){
-        console.log(carrera)
+       
         return this.buscar.buscar_libros(cadena,carrera)
 
     }
