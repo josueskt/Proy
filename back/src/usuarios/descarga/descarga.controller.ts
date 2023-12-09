@@ -9,8 +9,8 @@ import { RolesGuard } from 'src/roles/roles.guard';
 export class DescargaController {
 
   @Get()
-  @UseGuards(RolesGuard)
-  @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
+ // @UseGuards(RolesGuard)
+ // @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
   async getPdf(@Res() res: Response, @Query('filename') filename: string): Promise<void> {
     try{
     const pdfFileName = filename || 'archivo.pdf';
