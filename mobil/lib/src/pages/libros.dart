@@ -4,13 +4,28 @@ import 'package:flutter/material.dart';
 import 'package:mobil/src/pages/libro_view.dart';
 
 class Libros extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final datos;
 
   const Libros({Key? key, required this.datos}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List myLiyst = datos;
+    List myLiyst;
+    myLiyst = datos;
+    if (myLiyst.isEmpty) {
+      return Scaffold(
+        backgroundColor: Colors.black,
+        appBar: AppBar(
+          backgroundColor: const Color.fromRGBO(76, 74, 95, 1),
+        ),
+        body: Center(
+            child: Text(
+          'NO SE A ENCONTRADO ESE LIBRO',
+          style: TextStyle(color: Colors.white, fontSize: 30),
+        )),
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
