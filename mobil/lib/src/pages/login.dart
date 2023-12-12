@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Login extends StatelessWidget {
   final TextEditingController cedulaController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-
+//funcionando
   Future<void> _login(BuildContext context) async {
     final url = 'http://192.168.3.20:3000/login';
     final response = await http.post(
