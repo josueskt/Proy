@@ -1,12 +1,13 @@
 .title{
    display: flex;
-    height: 29rem;
+    height: 12rem;
     max-width: 60rem;
     padding: 6.4375rem 3.5625rem 5.6875rem 1.875rem;
     align-items: center;
     margin-left: -25px;
     border-radius: 0rem 50rem 0rem 0rem;
     background: #1e1d1d;
+    border: solid white 2px;
 }
 .infomacion{
     margin-top: 50px;
