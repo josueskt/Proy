@@ -29,11 +29,11 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   
-  shared_preferences: 2.1.1
+  shared_preferences: 2.2.2
   url_launcher: ^6.0.0 
   cached_network_image: any
   flutter_downloader: any
-  path_provider: any
+  path_provider: 2.1.1
   image: any
   http: any
   flutter:
@@ -55,7 +55,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

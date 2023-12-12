@@ -24,6 +24,7 @@ class LibroView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: const Color.fromRGBO(76, 74, 95, 1),
       ),
       body: Container(

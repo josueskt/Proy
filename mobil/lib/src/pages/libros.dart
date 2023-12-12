@@ -17,6 +17,7 @@ class Libros extends StatelessWidget {
       return Scaffold(
         backgroundColor: Colors.black,
         appBar: AppBar(
+          iconTheme: IconThemeData(color: Colors.white),
           backgroundColor: const Color.fromRGBO(76, 74, 95, 1),
         ),
         body: Center(
@@ -29,6 +30,7 @@ class Libros extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.white),
         backgroundColor: const Color.fromRGBO(76, 74, 95, 1),
       ),
       body: ListView.builder(

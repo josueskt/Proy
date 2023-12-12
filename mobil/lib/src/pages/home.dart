@@ -4,8 +4,14 @@ import 'package:http/http.dart' as http;
 import 'package:mobil/src/pages/libros.dart';
 import 'package:mobil/src/pages/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(MyApp());
+  });
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -95,6 +101,11 @@ class _HomeState extends State<Home> {
         ),
         actions: [
           PopupMenuButton<String>(
+            iconColor: Colors.amber,
+            icon: const Icon(
+              Icons.menu,
+              size: 40,
+            ),
             onSelected: (value) {
               if (value == 'eliminarToken') {
                 removeTokenFromLocalStorage();
@@ -111,7 +122,7 @@ class _HomeState extends State<Home> {
               return [
                 PopupMenuItem(
                   value: 'eliminarToken',
-                  child: Text('Eliminar Token'),
+                  child: const Text('SALIR'),
                 ),
               ];
             },
@@ -122,7 +133,7 @@ class _HomeState extends State<Home> {
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
-              'https://img.freepik.com/vector-gratis/interior-biblioteca-sala-vacia-leer-libros-estantes-madera_33099-1722.jpg?size=626&ext=jpg&ga=GA1.1.1803636316.1701475200&semt=ais',
+              'https://img.freepik.com/premium-photo/rows-books-shelves-library-generative-ai_123447-29376.jpg',
             ),
             fit: BoxFit.cover,
           ),
@@ -137,7 +148,7 @@ class _HomeState extends State<Home> {
                 child: const Text(
                   'BIBLIOTECA',
                   style: TextStyle(
-                    fontWeight: FontWeight.w200,
+                    fontWeight: FontWeight.w300,
                     fontSize: 50,
                     color: Colors.white,
                   ),
@@ -155,11 +166,21 @@ class _HomeState extends State<Home> {
                           color: Color.fromARGB(255, 255, 255, 255),
                         ),
                         decoration: InputDecoration(
+                          fillColor: Colors.amber,
+                          focusColor: Colors.amber,
                           hintText: 'Buscar un libro',
                           hintStyle: const TextStyle(
                             color: Color.fromARGB(255, 255, 255, 255),
                           ),
-                          border: const OutlineInputBorder(
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.white),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(20.0),
+                              bottomLeft: Radius.circular(10.0),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.amber),
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(20.0),
                               bottomLeft: Radius.circular(10.0),
@@ -174,9 +195,9 @@ class _HomeState extends State<Home> {
                           onTap: () {
                             fetchData(_controller.text);
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.search,
-                            size: 40,
+                            size: 45,
                             color: Colors.amber,
                           ),
                         );
