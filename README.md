@@ -14,3 +14,12 @@ Sigue estos pasos para comenzar con el desarrollo:
 
    ```bash
    git clone https://github.com/tuusuario/turepositorio.git
+
+   # <span style="color:blue">Base de Datos por Interno</span>
+
+<details>
+<summary><strong><span style="color:red">¡Importante!</span></strong></summary>
+
+proyecto basado en angular 16 y nest con sql 
+
+</details>
