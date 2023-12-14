@@ -10,12 +10,14 @@
 
 Sigue estos pasos para comenzar con el desarrollo:
 
+
+# <span style="color:red">Base de datos por unterno </span>
 1. **Clona el Repositorio:**
 
    ```bash
    git clone https://github.com/tuusuario/turepositorio.git
 
-    <span style="color:blue">Base de Datos por Interno</span>
+  
 
 <details>
 <summary><strong><span style="color:red">¡Importante!</span></strong></summary>
