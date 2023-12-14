@@ -1,7 +1,7 @@
 <!-- Proyecto Nombre -->
-
+# <span style="color:red">Biblioteca</span>
 <p align="center">
-  <img src="ruta/a/tu/logo.png" alt="Logo del Proyecto" width="200" height="200">
+  <img src="web/src/assets/images/icon.png" alt="Logo del Proyecto" width="200" height="200">
 </p>
 
 ---
