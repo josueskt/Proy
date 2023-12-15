@@ -11,6 +11,7 @@
   
   .Buscador.fadeIn {
     opacity: 1;
+    width: 70%;
   }
   
   .TituloPrincipal {
@@ -21,15 +22,15 @@
   
   .mb-3 {
     display: grid;
-    margin: 30px;
-    grid-template-columns: 800px 200px 100px;
+    margin-top: 30px;
+    grid-template-columns: 6fr 2fr 1fr;
   }
   
   .mb-3 input {
     width: auto;
-    height: 50px;
+    height: 54px;
     border-radius: 20px 0px 0px 20px;
-    padding-left: 30px;
+    
   }
   
   .mb-3 select {
@@ -58,4 +59,22 @@
   }
   
   /* Resto de tu CSS... */
+  @media screen and (max-width: 600px) {
+    .mb-3 select {
+      width: 20%;
+      border: none;
+      border-radius: 0px 0px 0px 0px;
+
+      
+    }
+    .TituloPrincipal {
+      color: rgb(205, 249, 249);
+      text-align: center;
+      font-size: 40px;
+    }
+    .Buscador.fadeIn {
+      opacity: 1;
+      width: 90%;
+    }
+  }
   
