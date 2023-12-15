@@ -49,8 +49,9 @@ export class VistalibroComponent {
   }
 
 
-  descarga(archivo: string): void {
-    this.vistalibroService.descarga(archivo).subscribe(
+//asd
+  descarga(archivo: string ,id_libro:string): void {
+    this.vistalibroService.descarga(archivo,id_libro).subscribe(
       (data: Blob) => {
         const blob = new Blob([data], { type: 'application/pdf' });
   

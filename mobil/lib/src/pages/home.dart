@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
     try {
       if (token != null) {
         final response = await http.get(
-          Uri.parse('http://192.168.3.20:3000/buscador?cadena=$searchString'),
+          Uri.parse('http://192.168.23.129:3000/buscador?cadena=$searchString'),
           headers: {
             'Authorization': 'Bearer $token',
           },

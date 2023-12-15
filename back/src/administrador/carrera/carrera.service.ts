@@ -51,6 +51,8 @@ export class CarreraService {
 
 
         try {
+            
+            
             await this.sql.query('delete from  libros.carrera where  id_carrera = $1', [id])
             return { message: "Carrera eliminada exitosamente" };
            

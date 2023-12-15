@@ -33,6 +33,7 @@ import { NacionalidadService } from './administrador/nacionalidad/nacionalidad.s
 import { CambioContraController } from './usuarios/cambio_contra/cambio_contra.controller';
 import { CambioContraService } from './usuarios/cambio_contra/cambio_contra.service';
 import { MilibroController } from './profesor/libro/milibro/milibro.controller';
+import { DescargaService } from './usuarios/descarga/descarga.service';
 
 
 
@@ -42,7 +43,7 @@ import { MilibroController } from './profesor/libro/milibro/milibro.controller';
   providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, LibroService, LoginService, UsuariosService,  {
     provide: APP_PIPE,
     useClass: ValidationPipe,
-  }, BuscadorService, GetLibroService, AutorService, NacionalidadService, CambioContraService],
+  }, BuscadorService, GetLibroService, AutorService, NacionalidadService, CambioContraService, DescargaService],
 })
 export class AppModule {
  

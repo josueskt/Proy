@@ -2,7 +2,10 @@ import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart' as url_launcher;
 
 final Uri _url = Uri.parse('https://flutter.dev');
 
@@ -12,11 +15,21 @@ class LibroView extends StatelessWidget {
   const LibroView({Key? key, required this.datos}) : super(key: key);
 
   Future<void> _launchUrl(String filename) async {
-    const baseUrl = 'http://192.168.3.20:3000/descarga';
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    final launch = Uri.parse('$baseUrl?filename=$filename');
-    if (!await launchUrl(launch)) {
-      throw Exception('Could not launch $_url');
+    String? token = prefs.getString('token');
+    if (token == null) {
+      // Código para manejar el caso cuando token es nulo
+    } else {
+      final url = Uri.parse(
+          'http://192.168.23.129:3000/descarga?id_user=1234&id_libro=12&filename=$filename');
+
+      // Abre la URL con url_launcher y proporciona el encabezado 'Authorization'
+      // ignore: deprecated_member_use
+      await url_launcher.launch(
+        url.toString(),
+        headers: {'Authorization': 'Bearer $token'},
+      );
     }
   }
 

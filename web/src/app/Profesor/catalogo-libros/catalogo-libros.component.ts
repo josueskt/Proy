@@ -32,8 +32,8 @@ export class CatalogoLibrosComponent implements OnInit {
       }
     );
   }
-  descarga(archivo: string): void {
-    this.libro_des.descarga(archivo).subscribe(
+  descarga(archivo: string , id_libro:string): void {
+    this.libro_des.descarga(archivo,id_libro).subscribe(
       (data: Blob) => {
         const blob = new Blob([data], { type: 'application/pdf' });
 
