@@ -7,12 +7,18 @@ import { Observable } from 'rxjs';
 })
 export class CrearUsuariosService {
   private baseUrl = 'http://localhost:3000/usuarios_regis';
+  location: any;
   constructor(private http: HttpClient) { }
   crearCarrera(datos:any[]): Observable<any> {
     return this.http.post(`${this.baseUrl}`, datos);
   }
   get_user(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
+  }
+  eliminar(id:Number){
+    
+    return this.http.delete(`${this.baseUrl}/${id}`);
+
   }
 
 }

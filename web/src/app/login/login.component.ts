@@ -47,7 +47,7 @@ export class LoginComponent {
         
 
 
-      console.log(localStorage.getItem('token'))}
+    }
       
       else {
         console.error('Respuesta del servidor inesperada:', response);

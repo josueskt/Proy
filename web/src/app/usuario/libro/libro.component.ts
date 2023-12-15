@@ -20,7 +20,7 @@ export class LibroComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {
     this.dataService.resultados$.subscribe((resultados) => {
       this.resultados = resultados;
-      console.log('Resultados en otro componente:', this.resultados);
+     
   
       // Lógica para seleccionar aleatoriamente los índices de elementos grandes
       const numeroElementosGrandes = Math.floor(Math.random() * this.resultados.length); // Puedes ajustar el número según tus necesidades

@@ -7,6 +7,16 @@ import * as bcrypt from 'bcrypt';
 export class UsuariosService {
     constructor(public sql: SqlService) { }
 
+    async delete_user(id:Number){
+if(id ){
+    await this.sql.query('DELETE FROM inst.usuario where id_user = $1' ,[id])
+    return {"message":"usuario" +id+" eliminado "}
+}else{
+    throw "no se a encontrado el usuario"
+}
+        
+    }
+
     async register(usuarios: Usuario[]) {
 
         const asaltos = 10;

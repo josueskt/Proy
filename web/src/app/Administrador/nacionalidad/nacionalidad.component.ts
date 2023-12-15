@@ -60,21 +60,22 @@ export class NacionalidadComponent {
       formatoNombre(nombre: string) {
         return nombre.charAt(0).toUpperCase() + nombre.slice(1).toLowerCase();
       }
+      id_nacionalidad = 0
+test(id:number){
+
+  this.id_nacionalidad = id
+}
 
 
+      eliminar() {
+        this.carreraService.eliminarCarrera(this.id_nacionalidad).subscribe
 
-      eliminar(id: number) {
-        this.carreraService.eliminarCarrera(id).subscribe(
-          (subscribe) => {
-            console.log(subscribe);
-            // Puedes recargar la lista de carreras después de la eliminación
+            
+           
             window.location.reload();
-          },
-          (error) => {
-            console.error('Error al eliminar carrera:', error);
-            // Maneja el error según tus necesidades
-          }
-        );}
+        
+        
+      }
   
     
 

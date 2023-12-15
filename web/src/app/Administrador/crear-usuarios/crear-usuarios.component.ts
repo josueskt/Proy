@@ -143,4 +143,17 @@ export class CrearUsuariosComponent {
       this.currentPage = pageNumber;
     }
   }
+  id_a = 0 
+  eliminar() {
+    return this.crearUsuariosService.eliminar(this.id_a).subscribe(() => {
+      // La eliminación ha sido exitosa, ahora recargamos la página
+      window.location.reload();
+    });
+    
+    
+  }
+  test(id:number){
+    this.id_a = id
+    
+  }
 }

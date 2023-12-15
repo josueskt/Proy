@@ -19,23 +19,23 @@ export class CarreraComponent  implements OnInit{
 
   ngOnInit() {
     this.carreraService.traerTodas().subscribe((carreras) => {
-      console.log('Carreras:', carreras);
+      
       this.Carreras = carreras
 
     });}
+    id_carrera = 0
+    test(id:number){
+      this.id_carrera = id
 
-    eliminar(id: number) {
-      this.carreraService.eliminarCarrera(id).subscribe(
-        (subscribe) => {
-          console.log(subscribe);
-          // Puedes recargar la lista de carreras después de la eliminación
+    }
+
+    eliminar() {
+      this.carreraService.eliminarCarrera(this.id_carrera)
+        
+          
+          
           window.location.reload();
-        },
-        (error) => {
-          console.error('Error al eliminar carrera:', error);
-          // Maneja el error según tus necesidades
-        }
-      );}
+    }
 
      
       editar(id:Number){

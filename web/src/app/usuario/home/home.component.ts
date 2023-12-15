@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
     this.homeService.getCarreras().subscribe(
       (carreras) => {
         this.carreras = carreras;
-        console.log(this.carreras)
+        
       },
       (error) => {
         console.error('Error al obtener las carreras:', error);
@@ -55,7 +55,7 @@ export class HomeComponent implements OnInit {
     this.homeService.buscarLibros(this.searchText, this.selectedCarrera).subscribe(
       (resultados) => {
         
-        console.log(resultados)
+       
         
         this.dataService.setResultados(resultados);
         this.router.navigate(['/libro'])

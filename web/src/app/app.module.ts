@@ -19,8 +19,7 @@ import { EditarLibroComponent } from './Profesor/editar-libro/editar-libro.compo
 import { EliminarLibroComponent } from './Profesor/eliminar-libro/eliminar-libro.component';
 import { FormularioLibroComponent } from './Profesor/formulario-libro/formulario-libro.component';
 
-import { EditarComponent } from './Administrador/carrera/editar/editar.component';
-import { EliminarComponent } from './Administrador/carrera/eliminar/eliminar.component';
+
 import { AuthInterceptor } from './roles/auth.interceptor';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
@@ -46,10 +45,8 @@ import { ExplorarComponent } from './usuario/explorar/explorar.component';
     FormularioLibroComponent,
     NavBarComponent,
    
-    EditarComponent,
-    EliminarComponent,
     CambioContraComponent,
-    EliminarComponent,
+    
     VistalibroComponent,
     ExplorarComponent
   ],

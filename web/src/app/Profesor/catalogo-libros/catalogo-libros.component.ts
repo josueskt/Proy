@@ -24,7 +24,7 @@ export class CatalogoLibrosComponent implements OnInit {
       (libros) => {
         
         this.libros = libros;
-        console.log(libros)
+       
       },
       error => {
         console.error('Error al obtener libros:', error);

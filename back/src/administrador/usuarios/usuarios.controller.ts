@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, SetMetadata, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, SetMetadata, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
 import { UsuariosService } from './usuarios.service';
 import { RegisterUser } from 'src/dto/user.dto';
 import { RolesGuard } from 'src/roles/roles.guard';
@@ -25,6 +25,11 @@ Get_rol(){
   
     return this.user.register(usuarios)
    
+    }
+    @Delete(':id')
+    eliminar(@Param("id") id :Number ) {
+        return this.user.delete_user(id)
+     
     }
 
 
