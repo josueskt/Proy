@@ -38,10 +38,12 @@ export class CrearAutorComponent {
 
 
 crearAutor() {
-  console.log()
-  this.Autor.crearAutor({nombre :  this.Nombre , nacionalidad:this.na}).subscribe(
+  if(this.Nombre !="" && this.na){
+
+ 
+  this.Autor.crearAutor({nombre : this.Nombre , nacionalidad:this.na}).subscribe(
     () => {
-      console.log('na creada con éxito');
+      
       window.location.reload();
     },
     (error) => {
@@ -49,5 +51,21 @@ crearAutor() {
       // Maneja el error según tus necesidades
     }
   );
+
+}else{
+  alert("lo setimos faltan adatos")
+}
+}
+id_autor = 0
+test(id:number){
+this.id_autor = id
+}
+
+eliminar(){
+  return this.Autor.eliminar(this.id_autor).subscribe(()=>{
+    window.location.reload();
+
+  })
+
 }
 }

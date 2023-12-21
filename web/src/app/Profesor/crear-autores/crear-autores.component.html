@@ -1,3 +1,21 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">SEGURO QUE DESEAS ELIMINAR ESTE AUTOR</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Se eliminaran todos los libros relacionados con este autor
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCELAR</button>
+        <button type="button" class="btn btn-danger" (click)="eliminar()">ELIMINAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <br><br>
 <div class="container " >
   <div class="row justify-content-end align-items-center" style="height: 70vh;">
@@ -34,14 +52,18 @@
         <tr>
           <th>Autor</th>
           <th>Nacionalidad</th>
-          
+          <td>aciones</td>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let autor of aut"   >
           <td>{{ autor.nombre }}</td>
           <td>{{ autor.nacionalidad }}</td>
-         
+          <td>
+          <button (click)="test(autor.id_autor)" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            ELIMINAR 
+          </button> 
+        </td>
         </tr>
       </tbody>
     </table>

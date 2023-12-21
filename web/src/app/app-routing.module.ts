@@ -19,6 +19,7 @@ import { FormularioLibroComponent } from './Profesor/formulario-libro/formulario
 import { ExplorarComponent } from './usuario/explorar/explorar.component';
 import { VistalibroComponent } from './usuario/vistalibro/vistalibro.component';
 import { LibroComponent } from './usuario/libro/libro.component';
+import { CargaLibrosBloqueComponent } from './Administrador/carga-libros-bloque/carga-libros-bloque.component';
 //import { MisLibrosComponent } from './profesor/mis-libros/mis-libros.component';
 
 
@@ -69,6 +70,10 @@ const routes: Routes = [
     path: 'nacionalidad', component: NacionalidadComponent, canActivate: [AuthGuard],
     data: { roles: ['ADMINISTRADOR'] }
   },
+  {
+    path: 'subir_l_bloque', component: CargaLibrosBloqueComponent, canActivate: [AuthGuard],
+    data: { roles: ['ADMINISTRADOR'] }
+  },
 
 
 
@@ -76,7 +81,7 @@ const routes: Routes = [
   //Rutas de profesor
   {
     path: 'catalogo', component: CatalogoLibrosComponent, canActivate: [AuthGuard],
-    data: { roles: ['PROFESOR'] }
+    data: { roles: ['PROFESOR','ADMINISTRADOR'] }
   },
   {
     path: 'libro/:id', component: LibroComponent, canActivate: [AuthGuard],
@@ -96,7 +101,7 @@ const routes: Routes = [
   },
   {
     path: 'libro/:id/eliminar', component: EliminarLibroComponent, canActivate: [AuthGuard],
-    data: { roles: ['PROFESOR'] }
+    data: { roles: ['PROFESOR','ADMINISTRADOR'] }
   },
   {
     path: 'formulario', component: FormularioLibroComponent, canActivate: [AuthGuard],

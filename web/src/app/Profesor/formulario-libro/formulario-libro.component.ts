@@ -97,7 +97,7 @@ export class FormularioLibroComponent implements OnInit {
 
   crearLibro() {
     if (this.miFormulario.invalid) {
-      console.error('Por favor, completa todos los campos del formulario.');
+      alert('Por favor, completa todos los campos del formulario.');
       return;
     }
 

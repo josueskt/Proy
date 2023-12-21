@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, SetMetadata, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, SetMetadata, UseGuards } from '@nestjs/common';
 import { AutorService } from './autor.service';
 import { RolesGuard } from 'src/roles/roles.guard';
 
@@ -20,6 +20,14 @@ traer(){
 @SetMetadata('roles', ['PROFESOR'])
 crear(@Body('nombre') nombre:String, @Body('nacionalidad') nacionalidad:Number){
     this.Autro.crear_autor(nombre,nacionalidad)
+}
+
+
+@Delete(':id')
+eliminar(@Param('id') id:number){
+this.Autro.eliminar(id)
+
+
 }
 
 

@@ -34,16 +34,18 @@ import { CambioContraController } from './usuarios/cambio_contra/cambio_contra.c
 import { CambioContraService } from './usuarios/cambio_contra/cambio_contra.service';
 import { MilibroController } from './profesor/libro/milibro/milibro.controller';
 import { DescargaService } from './usuarios/descarga/descarga.service';
+import { CargaLLoteController } from './administrador/carga_l_lote/carga_l_lote.controller';
+import { CargaLLoteService } from './administrador/carga_l_lote/carga_l_lote.service';
 
 
 
 @Module({
   imports: [],
-  controllers: [AppController, TestController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController,  BuscadorController, DescargaController, GetLibroController, AutorController, NacionalidadController, CambioContraController, MilibroController ],
+  controllers: [AppController, TestController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController,  BuscadorController, DescargaController, GetLibroController, AutorController, NacionalidadController, CambioContraController, MilibroController, CargaLLoteController ],
   providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, LibroService, LoginService, UsuariosService,  {
     provide: APP_PIPE,
     useClass: ValidationPipe,
-  }, BuscadorService, GetLibroService, AutorService, NacionalidadService, CambioContraService, DescargaService],
+  }, BuscadorService, GetLibroService, AutorService, NacionalidadService, CambioContraService, DescargaService, CargaLLoteService],
 })
 export class AppModule {
  

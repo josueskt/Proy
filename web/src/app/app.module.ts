@@ -26,6 +26,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { CambioContraComponent } from './cambio-contra/cambio-contra.component';
 import { VistalibroComponent } from './usuario/vistalibro/vistalibro.component';
 import { ExplorarComponent } from './usuario/explorar/explorar.component';
+import { CargaLibrosBloqueComponent } from './Administrador/carga-libros-bloque/carga-libros-bloque.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { ExplorarComponent } from './usuario/explorar/explorar.component';
     CambioContraComponent,
     
     VistalibroComponent,
-    ExplorarComponent
+    ExplorarComponent,
+    CargaLibrosBloqueComponent
   ],
   imports: [
     BrowserModule,

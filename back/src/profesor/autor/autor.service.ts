@@ -27,6 +27,15 @@ export class AutorService {
         }
     
     }
+    async eliminar(id:number){
+        try {
+            await this.sql.query('DELETE FROM libros.autor where id_autor = $1', [id])
+           return "carrera creada exitosamente "
+           
+       } catch (error) {
+           return error
+       }
+    }
 
 
 }

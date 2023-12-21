@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.userInfo = this.authService.getUserInfo();
-    const nombre = this.userInfo.nombre;
+    
 
     this.homeService.getCarreras().subscribe(
       (carreras) => {

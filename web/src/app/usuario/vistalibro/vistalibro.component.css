@@ -1,22 +1,29 @@
-.title{
-   display: flex;
-    height: 12rem;
-    max-width: 60rem;
-    padding: 6.4375rem 3.5625rem 5.6875rem 1.875rem;
-    align-items: center;
-    margin-left: -25px;
-    border-radius: 0rem 50rem 0rem 0rem;
-    background: #1e1d1d;
-    border: solid white 2px;
-}
-.infomacion{
-    margin-top: 50px;
-    margin: 20px;
-    padding: 10px;
-    text-align: center;
+.cont{
+    display: grid;
+    grid-template-columns: auto minmax(800px, 1fr) auto 1fr;
+    margin: 25px;
     border-radius: 20px;
 }
-.info{
-    padding: 20px;
-    background: white;
+.btn{
+    
+    width: 100%;
+    position: relative;
+    margin-top: 85%;
 }
+.texto{
+    padding: 10px;
+}
+.linea-vertical {
+    border-left: 2px solid black; /* Puedes ajustar el grosor y color según tus preferencias */
+    height: 100%; /* Puedes ajustar la altura según tus preferencias */
+    margin: 0;
+    padding: 0;
+  }
+  .infomacion{
+    margin-top: 100px;
+  }
+  .card-tex{
+    word-wrap: break-word;
+    white-space: pre-line;
+   
+  }

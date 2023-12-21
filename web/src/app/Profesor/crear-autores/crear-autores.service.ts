@@ -21,4 +21,9 @@ export class CrearAutoresService {
   crearAutor(datos:any): Observable<any> {
     return this.http.post(`${this.baseUrl}`, datos);
   }
+
+  eliminar(id:number){
+    return this.http.delete(`${this.baseUrl}/${id}`);
+
+  }
 }
