@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 import { HomeService } from './home.service';
 import { AuthService } from 'src/app/roles/auth.service';
 import { DataService } from '../data.service';
@@ -23,14 +23,14 @@ export class HomeComponent implements OnInit {
   
   userInfo: any;
   carreras: any[] = [];
-  searchText: string='';
-  selectedCarrera: string = "Carrera";
+  searchText='';
+  selectedCarrera = "Carrera";
 
   constructor(
     private authService: AuthService, 
     private homeService: HomeService,
     private router: Router, 
-    private route: ActivatedRoute ,
+    
     private dataService: DataService
     ) {}
 

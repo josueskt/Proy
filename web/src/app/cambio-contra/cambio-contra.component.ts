@@ -8,7 +8,7 @@ import { AuthService } from '../roles/auth.service';
   styleUrls: ['./cambio-contra.component.css']
 })
 export class CambioContraComponent {
-  datos: { id: String, contra: string } = { id: '', contra: '' };
+  datos: { id: string, contra: string } = { id: '', contra: '' };
  mensaje :string | undefined 
  mensaje_2 :string | undefined 
 

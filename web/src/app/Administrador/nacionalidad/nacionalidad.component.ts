@@ -11,8 +11,8 @@ export class NacionalidadComponent {
 
   Carreras: any[] = [];
   carrera: any = {};
-  errorAlerta:boolean = false;
-  Alertabien:boolean = false;
+  errorAlerta = false;
+  Alertabien= false;
 
 
   constructor(private carreraService: NacionalidadService,private router: Router ) {}
@@ -27,7 +27,7 @@ export class NacionalidadComponent {
   
 
      
-      editar(id:Number){
+      editar(id:number){
         this.router.navigate(['/carrera',id]);
 
       }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+
 import { NacionalidadService } from 'src/app/Administrador/nacionalidad.service';
 import { CrearAutoresService } from './crear-autores.service';
 
@@ -9,17 +9,17 @@ import { CrearAutoresService } from './crear-autores.service';
   styleUrls: ['./crear-autores.component.css']
 })
 export class CrearAutorComponent {
-  Nombre: string = "";
-  na: string = "";
+  Nombre= "";
+  na = "";
   nacionalida:any
   aut:any
   
-  constructor(private router: Router , private nacionalidad:NacionalidadService , private Autor:CrearAutoresService) {
+  constructor( private nacionalidad:NacionalidadService , private Autor:CrearAutoresService) {
     
   }
   ngOnInit() {
     this.nacionalidad.traerTodas().subscribe((carreras) => {
-      console.log('Carreras:', carreras);
+     
       this.nacionalida = carreras
        
 

@@ -21,7 +21,8 @@
         </div>
       </div>
       <div class="col-md-6">
-        <button class="btn btn-primary" (click)="procesarArchivo()" [disabled]="!selectedCarrera || !archivoSeleccionado">Procesar Archivo</button>
+        <button class="btn btn-primary" (click)="procesarArchivo()" (keyup)="onKeyUp($event)" [disabled]="!selectedCarrera || !archivoSeleccionado">Procesar Archivo</button>
+
       </div>
     </div>
     <!-- Button trigger modal -->
@@ -87,7 +88,9 @@
       <div class="col-md-6">
         <ul class="pagination">
           <li *ngFor="let pageNumber of getPageNumbers()" [class.active]="pageNumber === currentPage">
-            <a class="page-link" (click)="setCurrentPage(pageNumber)">{{ pageNumber }}</a>
+            <a class="page-link" (click)="setCurrentPage(pageNumber)">{{ pageNumber }}
+               <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events -->
+            </a>
           </li>
         </ul>
       </div>

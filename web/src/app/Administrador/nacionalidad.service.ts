@@ -22,11 +22,11 @@ export class NacionalidadService {
   //   return this.http.get(`${this.baseUrl}/${id}`);
   // }
 
-  crearCarrera(datos:String): Observable<any> {
+  crearCarrera(datos:string): Observable<any> {
     return this.http.post(`${this.baseUrl}`, datos);
   }
 
-   eliminarCarrera(id: Number): Observable<any> {
+   eliminarCarrera(id: number): Observable<any> {
    
      return this.http.delete(`${this.baseUrl}/${id}`);
    }

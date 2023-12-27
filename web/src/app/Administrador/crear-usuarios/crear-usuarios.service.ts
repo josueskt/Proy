@@ -15,7 +15,7 @@ export class CrearUsuariosService {
   get_user(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }
-  eliminar(id:Number){
+  eliminar(id:number){
     
     return this.http.delete(`${this.baseUrl}/${id}`);
 

@@ -9,8 +9,8 @@
         <button type="button" routerLink="/formulario" class="button-anadir">Añadir Libro</button>
     </div>
     <br>
-    <div class="row">
-        <div *ngFor="let libro of libros" class="col-md-3">
+    <div class="row libros">   
+        <div *ngFor="let libro of libros" class="col-md-auto ">
             <div class="card card-body">
 
                 <p>{{ libro.titulo }}</p>

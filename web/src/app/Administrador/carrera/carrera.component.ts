@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 export class CarreraComponent  implements OnInit{ 
   Carreras: any[] = [];
   carrera: any = {};
-  errorAlerta:boolean = false;
-  Alertabien:boolean = false;
+  errorAlerta = false;
+  Alertabien = false;
   
 
 
@@ -38,7 +38,7 @@ export class CarreraComponent  implements OnInit{
     }
 
      
-      editar(id:Number){
+      editar(id:number){
         this.router.navigate(['/carrera',id]);
 
       }

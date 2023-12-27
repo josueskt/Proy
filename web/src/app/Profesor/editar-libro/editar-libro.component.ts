@@ -11,7 +11,7 @@ import { LibroService } from '../libro.service';
 export class EditarLibroComponent implements OnInit {
   libroForm: FormGroup;
   libro: any;
-  guardadoExitoso: boolean = false;
+  guardadoExitoso = false;
 
   constructor(
     private route: ActivatedRoute,

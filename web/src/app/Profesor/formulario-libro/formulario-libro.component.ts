@@ -13,8 +13,8 @@ import { CarreraService } from 'src/app/Administrador/carrera/carrera.service';
 export class FormularioLibroComponent implements OnInit {
   archivoSeleccionado: File | undefined;
   miFormulario: FormGroup;
-  na: string = ""
-  nas: string = ""
+  na = ""
+  nas = ""
   autors: any
   carrer: any
 
@@ -59,7 +59,7 @@ export class FormularioLibroComponent implements OnInit {
     this.autor.traer_autor().subscribe(
       (libros) => {
         this.autors = libros;
-        console.log(libros)
+      
       },
       error => {
         console.error('Error al obtener libros:', error);
@@ -72,7 +72,7 @@ export class FormularioLibroComponent implements OnInit {
     this.Carrera.traerTodas().subscribe(
       (libros) => {
         this.carrer = libros;
-        console.log(libros)
+        
       },
       error => {
         console.error('Error al obtener libros:', error);
@@ -129,9 +129,8 @@ export class FormularioLibroComponent implements OnInit {
 
     // Llama al servicio para crear el libro
     this.libroService.crearLibro(nuevoLibro, this.archivoSeleccionado).subscribe(
-      response => {
-        console.log(response.message);
-        console.log(response.newFileName);
+      () => {
+        alert("libro creado")
 
       },
       error => {

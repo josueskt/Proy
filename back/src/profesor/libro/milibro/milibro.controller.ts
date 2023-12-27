@@ -8,7 +8,7 @@ export class MilibroController {
     constructor(private carrera:LibroService){}
     @Post()
     @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['PROFESOR'])
+    @SetMetadata('roles', ['PROFESOR','ADMINISTRADOR'])
     Traer_todos(@Body('nombre') datos) {
        
 

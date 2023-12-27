@@ -1,7 +1,7 @@
 .catalogo-libros .card {
   background-color: #302f33e8;
   color: white;
-  display: flex;
+  
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -51,4 +51,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 5px; /* Ajusta el valor según tus preferencias */
+}
+.libros{
+  margin: 4%;
 }

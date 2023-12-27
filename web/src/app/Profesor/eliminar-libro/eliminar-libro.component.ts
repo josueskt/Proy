@@ -9,7 +9,7 @@ import { LibroService } from '../libro.service';
 })
 export class EliminarLibroComponent {
   libro: any;
-  libroEliminado: boolean = false;
+  libroEliminado = false;
   
 
   constructor(

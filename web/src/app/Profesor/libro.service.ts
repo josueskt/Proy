@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class LibroService {
-  private baseUrl: string = 'http://localhost:3000/libro';
+  private baseUrl = 'http://localhost:3000/libro';
 
-  private baseUr: string = 'http://localhost:3000/milibro';
+  private baseUr = 'http://localhost:3000/milibro';
 
   constructor(private http: HttpClient , private router:Router) {}
 
@@ -33,9 +33,9 @@ export class LibroService {
   }
 
 
-  eliminarLibro(dato: Number){
+  eliminarLibro(dato: number){
     const url = `${this.baseUrl}/${dato}`;
-    console.log('entra?')
+    
     this.http.delete(url).subscribe(
       (response) => {
         console.log('Libro eliminado con éxito:', response);

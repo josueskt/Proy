@@ -12,8 +12,8 @@ import { AuthService } from '../roles/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  username: string ="";
-  password: string = "";
+  username ="";
+  password = "";
   constructor(private aunt:LoginService,private router: Router ,private authService: AuthService ){}
 
   ngOnInit() {

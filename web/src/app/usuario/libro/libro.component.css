@@ -63,3 +63,16 @@ body {
   
   
 }
+@media screen and (max-width: 768px) {
+  .gallery-container {
+    display: grid;
+    grid-template-columns: 1fr;
+     /* Ajusta el tamaño automático según el contenido */
+    padding: 20px;
+    grid-gap: 15px;
+  }
+  .gallery__item-large{
+    width: 100%;
+    grid-column: span 1;
+  }
+  }

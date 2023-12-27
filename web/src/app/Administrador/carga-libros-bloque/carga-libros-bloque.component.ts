@@ -25,7 +25,7 @@ export class CargaLibrosBloqueComponent {
         
       },
       (error) => {
-        console.error('Error al obtener las carreras:', error);
+        alert('Error al obtener las carreras: '+ error);
       }
     );
    
@@ -54,6 +54,8 @@ export class CargaLibrosBloqueComponent {
 
     } else {
       console.error('No se ha seleccionado ningún archivo.');
+      alert('No se ha seleccionado ningún archivo.');
+      
     }
   }
 

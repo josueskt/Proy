@@ -11,7 +11,7 @@ import { VistalibroService } from 'src/app/usuario/vistalibro/vistalibro.service
 export class CatalogoLibrosComponent implements OnInit {
   @Input() libros: any[] = [];
   userInfo: any;
-  nombre: string='asdasd';
+  nombre='asdasd';
 
   constructor(private libroService: LibroService , private auht:AuthService,private libro_des : VistalibroService) { }
 

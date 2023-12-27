@@ -9,15 +9,20 @@ import { CrearUsuariosService } from './crear-usuarios.service';
 })
 export class CrearUsuariosComponent {
   archivoSeleccionado: File | undefined;
-  filtroCedula: string = '';
-  pageSize: number = 5;
-  currentPage: number = 1;
+  filtroCedula = '';
+  pageSize = 5;
+  currentPage = 1;
   Carreras: any[] = [];
   carrerasFiltradas: any[] = [];
   loader = false
-  selectedCarrera: Number =3;
+  selectedCarrera =3;
   
   constructor(private crearUsuariosService: CrearUsuariosService) { }
+
+
+  onKeyUp(event: KeyboardEvent): void {
+    // Puedes agregar lógica adicional si es necesario
+  }
 
   handleFileInput(event: any): void {
     this.archivoSeleccionado = event.target.files[0];
@@ -128,7 +133,7 @@ export class CrearUsuariosComponent {
     const totalPages = Math.ceil(totalItems / this.pageSize);
     
     // Limita el número de páginas que se mostrarán en la paginación
-    const maxPagesToShow = 7; // Puedes ajustar este número según tus preferencias
+    const maxPagesToShow = 10; // Puedes ajustar este número según tus preferencias
     const startPage = Math.max(1, this.currentPage - Math.floor(maxPagesToShow / 2));
     const endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
   
