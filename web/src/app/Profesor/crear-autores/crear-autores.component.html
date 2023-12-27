@@ -32,9 +32,11 @@
               <label for="nacionalidad" class="form-label">Nacionalidad:</label>
               <select class="form-select" id="nacionalidad" [(ngModel)]="na" name="selectedCarrera">
                 <option selected disabled>Seleccionar nacionalidad</option>
-                <option *ngFor="let nacionalidad of nacionalida" [value]="nacionalidad.id_nacionalidad">
-                  {{ nacionalidad.nombre }}
-                </option>
+                @for (nacionalidad of nacionalida; track nacionalidad) {
+                  <option [value]="nacionalidad.id_nacionalidad">
+                    {{ nacionalidad.nombre }}
+                  </option>
+                }
               </select>
             </div>
             <div class="text-center">
@@ -56,15 +58,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let autor of aut"   >
-          <td>{{ autor.nombre }}</td>
-          <td>{{ autor.nacionalidad }}</td>
-          <td>
-          <button (click)="test(autor.id_autor)" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            ELIMINAR 
-          </button> 
-        </td>
-        </tr>
+        @for (autor of aut; track autor) {
+          <tr   >
+            <td>{{ autor.nombre }}</td>
+            <td>{{ autor.nacionalidad }}</td>
+            <td>
+              <button (click)="test(autor.id_autor)" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                ELIMINAR
+              </button>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
   </div>

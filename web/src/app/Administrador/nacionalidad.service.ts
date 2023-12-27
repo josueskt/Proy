@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {  Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,10 +9,11 @@ export class NacionalidadService {
 
   private baseUrl = 'http://localhost:3000/nacionalidad'; // Reemplaza con la URL de tu backend
 
-  constructor(private http: HttpClient) {}
+  private http =  inject(HttpClient);
+
 
   traerTodas(): Observable<any> {
-    console.log("entro")
+    
     const asr =  this.http.get(`${this.baseUrl}`);
     
     return  asr
@@ -26,9 +27,13 @@ export class NacionalidadService {
     return this.http.post(`${this.baseUrl}`, datos);
   }
 
-   eliminarCarrera(id: number): Observable<any> {
+   eliminarCarrera(id: number){
    
-     return this.http.delete(`${this.baseUrl}/${id}`);
+     return this.http.delete(`${this.baseUrl}/${id}`).subscribe(()=>{
+      window.location.reload();
+     },(error)=>{
+      return error
+     });
    }
 
   // editarCarrera(id: number, nuevosDatos: any): Observable<any> {

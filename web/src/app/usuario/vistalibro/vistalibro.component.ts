@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VistalibroService } from './vistalibro.service';
 
@@ -13,7 +13,8 @@ export class VistalibroComponent {
   libro: any;
   result: any;
 
-  constructor(private route: ActivatedRoute, private vistalibroService: VistalibroService) {}
+  private route=inject(  ActivatedRoute) 
+  private vistalibroService=inject(  VistalibroService)
 
   ngOnInit() {
     this.route.params.subscribe(params => {

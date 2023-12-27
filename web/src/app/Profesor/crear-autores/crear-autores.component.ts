@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import { NacionalidadService } from 'src/app/Administrador/nacionalidad.service';
 import { CrearAutoresService } from './crear-autores.service';
@@ -14,9 +14,10 @@ export class CrearAutorComponent {
   nacionalida:any
   aut:any
   
-  constructor( private nacionalidad:NacionalidadService , private Autor:CrearAutoresService) {
+   private nacionalidad=inject(NacionalidadService)
+    private Autor=inject( CrearAutoresService)
     
-  }
+  
   ngOnInit() {
     this.nacionalidad.traerTodas().subscribe((carreras) => {
      

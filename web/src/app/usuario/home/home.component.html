@@ -1,16 +1,18 @@
 <div class="Buscador " [class.fadeIn]="showBuscador">
   <h1 class="TituloPrincipal">BIBLIOTECA</h1>
   <br>
-  
-  <div class="mb-3">
-    <input placeholder="Busca tu libro" type="search" class="form-control" [(ngModel)]="searchText" name="earch">
 
-    <select class="form-select form-select-lg " [(ngModel)]="selectedCarrera" name="selectedCarrera">
-      <option selected disabled>Carrera</option>
-      <option *ngFor="let carrera of carreras" [value]="carrera.id_carrera">{{ carrera.nombre }}</option>
-    </select>
-    <button class="buscar-btn" (click)="buscarLibros()">
-      <i class="fas fa-search"></i> 
-    </button>
+    <div class="mb-3">
+      <input placeholder="Busca tu libro" type="search" class="form-control" [(ngModel)]="searchText" name="earch">
+
+      <select class="form-select form-select-lg " [(ngModel)]="selectedCarrera" name="selectedCarrera">
+        <option selected disabled>Carrera</option>
+        @for (carrera of carreras; track carrera) {
+          <option [value]="carrera.id_carrera">{{ carrera.nombre }}</option>
+        }
+      </select>
+      <button class="buscar-btn" (click)="buscarLibros()">
+        <i class="fas fa-search"></i>
+      </button>
+    </div>
   </div>
-</div>

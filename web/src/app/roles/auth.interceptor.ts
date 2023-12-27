@@ -1,6 +1,6 @@
 // auth.interceptor.ts
 
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import {
   HttpInterceptor,
   HttpHandler,
@@ -12,7 +12,8 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService) {}
+  private authService=inject( AuthService)
+  
 
   intercept(
     request: HttpRequest<any>,

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject, inject } from '@angular/core';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../roles/auth.service';
@@ -14,7 +14,9 @@ import { AuthService } from '../roles/auth.service';
 export class LoginComponent {
   username ="";
   password = "";
-  constructor(private aunt:LoginService,private router: Router ,private authService: AuthService ){}
+  private aunt =inject(LoginService)
+  private router= inject( Router )
+  private authService = inject( AuthService)
 
   ngOnInit() {
     // Obtener la información del usuario al inicializar el componente

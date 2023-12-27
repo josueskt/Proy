@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as d3 from 'd3';
 import { NumberValue } from 'd3';
@@ -11,8 +11,7 @@ import { NumberValue } from 'd3';
 export class EstadisticasComponent implements OnInit {
   @ViewChild('chart', { static: true }) private chartContainer!: ElementRef;
   estadisticas: any[] = [];
-
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient)
 
   ngOnInit(): void {
     this.http.get<any[]>('http://localhost:3000/estadisticas').subscribe((data) => {

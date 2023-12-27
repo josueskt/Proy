@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { CrearUsuariosService } from './crear-usuarios.service';
 
@@ -17,7 +17,7 @@ export class CrearUsuariosComponent {
   loader = false
   selectedCarrera =3;
   
-  constructor(private crearUsuariosService: CrearUsuariosService) { }
+  private crearUsuariosService= inject(CrearUsuariosService)
 
 
   onKeyUp(event: KeyboardEvent): void {

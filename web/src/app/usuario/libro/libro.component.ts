@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
 import * as Masonry from 'masonry-layout';
 
 import { DataService } from '../data.service';
@@ -15,7 +15,7 @@ export class LibroComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private masonryInstance!: Masonry; // Inicializado aquí
 
-  constructor(private dataService: DataService) {}
+  private dataService=inject(  DataService)
 
   ngOnInit() {
     this.dataService.resultados$.subscribe((resultados) => {

@@ -1,18 +1,28 @@
 <br><br>
 <section class="cabecera">
-  <div *ngIf="resultados && resultados.length === 0">
-    <h1 class="alert alert-danger mt-5">No se encontraron resultados para la búsqueda.</h1>
-  </div>
+  @if (resultados && resultados.length === 0) {
+    <div>
+      <h1 class="alert alert-danger mt-5">No se encontraron resultados para la búsqueda.</h1>
+    </div>
+  }
 </section>
 
 <div class="gallery-container">
-  <div class="gallery__item" *ngFor="let libro of resultados" [ngClass]="{'gallery__item-large': libro.esGrande}">
-    <img class="gallery__img" [src]="libro.imagen" alt="Portada del libro">
-    <div class="gallery_content">
-      <h6 class="titulo p-3 mb-0">{{ libro.titulo | uppercase }}</h6>
+  @for(libro of resultados ; track libro){
+    @defer (on viewport){
+      <div class="gallery__item" [ngClass]="{'gallery__item-large': libro.esGrande}">
+        <img class="gallery__img" [src]="libro.imagen" alt="Portada del libro">
+        <div class="gallery_content">
+          <h6 class="titulo p-3 mb-0">{{ libro.titulo | uppercase }}</h6>
+  
+          <br><br><br><br><br>
+          <a [routerLink]="['/libro', libro.id_libro]" class="btn btn-lg btn-warning mt-3">Ver libro</a>
+        </div>
+      </div>
+    }@placeholder {
+<p>cargando...</p>
+    }
+   
+  }
 
-      <br><br><br><br><br>
-      <a [routerLink]="['/libro', libro.id_libro]" class="btn btn-lg btn-warning mt-3">Ver libro</a>
-    </div>
-  </div>
 </div>

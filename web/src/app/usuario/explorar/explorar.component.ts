@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ExplorarService } from './explorar.service';  // Asegúrate de que la ruta al servicio sea correcta
 import { Observable } from 'rxjs';
 import { HomeService } from '../home/home.service';
@@ -14,10 +14,10 @@ export class ExplorarComponent implements OnInit {
   selectedCarrera: string | null = null;
   librosFiltrados: any[] = [];
 
-  constructor(
-    private explorarService: ExplorarService,
-    private homeService: HomeService
-    ) {}
+  
+    private explorarService=inject( ExplorarService)
+    private homeService=inject( HomeService
+    )
 
   ngOnInit() {
     this.obtenerLibros();

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CarreraService } from './carrera.service';
 import { Router } from '@angular/router';
 
@@ -15,7 +15,9 @@ export class CarreraComponent  implements OnInit{
   
 
 
-  constructor(private carreraService: CarreraService,private router: Router ) {}
+  
+  private router = inject(Router) 
+  private carreraService = inject(CarreraService)
 
   ngOnInit() {
     this.carreraService.traerTodas().subscribe((carreras) => {
@@ -30,11 +32,16 @@ export class CarreraComponent  implements OnInit{
     }
 
     eliminar() {
-      this.carreraService.eliminarCarrera(this.id_carrera)
+      try{
+        this.carreraService.eliminarCarrera(this.id_carrera)
+        //window.location.reload();
+      }catch(error){
+        console.log(error)
+
+      }
+
         
-          
-          
-          window.location.reload();
+
     }
 
      

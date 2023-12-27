@@ -22,9 +22,13 @@ export class CarreraService {
     return this.http.post(`${this.baseUrl}`, datos);
   }
 
-  eliminarCarrera(id: number): Observable<any> {
+  eliminarCarrera(id: number){
    
-    return this.http.delete(`${this.baseUrl}/${id}`);
+    this.http.delete(`${this.baseUrl}/${id}`).subscribe(()=>{
+      window.location.reload();
+    },(error)=>{
+alert(error)
+    });
   }
 
   editarCarrera(id: number, nuevosDatos: any): Observable<any> {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LibroService } from '../libro.service';
@@ -14,13 +14,14 @@ export class EditarLibroComponent implements OnInit {
   guardadoExitoso = false;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private libroService: LibroService,
+    
     private formBuilder: FormBuilder
   ) { 
     this.libroForm = this.formBuilder.group({});
   }
+  private route =inject(ActivatedRoute)
+    private router=inject( Router)
+    private libroService= inject(LibroService)
 
   ngOnInit() {
     const libroId = Number(this.route.snapshot.params['id']);

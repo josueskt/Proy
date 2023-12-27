@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {  Router } from '@angular/router';
 import { HomeService } from './home.service';
 import { AuthService } from 'src/app/roles/auth.service';
@@ -26,13 +26,13 @@ export class HomeComponent implements OnInit {
   searchText='';
   selectedCarrera = "Carrera";
 
-  constructor(
-    private authService: AuthService, 
-    private homeService: HomeService,
-    private router: Router, 
+  
+    private authService=inject( AuthService) 
+    private homeService=inject(  HomeService)
+    private router=inject(  Router)
     
-    private dataService: DataService
-    ) {}
+    private dataService=inject(  DataService)
+    
 
   ngOnInit() {
     this.userInfo = this.authService.getUserInfo();

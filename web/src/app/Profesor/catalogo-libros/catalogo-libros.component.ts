@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, inject } from '@angular/core';
 import { LibroService } from '../libro.service';
 import { AuthService } from 'src/app/roles/auth.service';
 import { VistalibroService } from 'src/app/usuario/vistalibro/vistalibro.service';
+
 
 @Component({
   selector: 'app-catalogo-libros',
@@ -13,7 +14,9 @@ export class CatalogoLibrosComponent implements OnInit {
   userInfo: any;
   nombre='asdasd';
 
-  constructor(private libroService: LibroService , private auht:AuthService,private libro_des : VistalibroService) { }
+  private libroService = inject( LibroService )
+  private auht =inject(AuthService)
+  private libro_des =inject( VistalibroService)
 
   ngOnInit() {
     

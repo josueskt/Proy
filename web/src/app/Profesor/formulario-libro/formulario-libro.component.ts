@@ -34,17 +34,7 @@ export class FormularioLibroComponent implements OnInit {
       fk_carrera: [''],
     });
   }
-  get numPaginasControl(): FormControl {
-    return this.miFormulario.get('num_paginas') as FormControl;
-  }
-
-  // Método para obtener el estado de validez del número de páginas
-  get numPaginasInvalid(): boolean {
-    return (
-      (this.numPaginasControl.hasError('pattern') || this.numPaginasControl.hasError('min') || this.numPaginasControl.hasError('max')) &&
-      this.numPaginasControl.touched
-    );
-  }
+  
   get descripcionControl(): FormControl {
     return this.miFormulario.get('descripcion') as FormControl;
   }

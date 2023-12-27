@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CambioContraService } from './cambio-contra.service';
 import { AuthService } from '../roles/auth.service';
 
@@ -12,7 +12,8 @@ export class CambioContraComponent {
  mensaje :string | undefined 
  mensaje_2 :string | undefined 
 
-  constructor(private cambio_pas: CambioContraService, private Aunth: AuthService) {}
+ private cambio_pas= inject( CambioContraService)
+ private Aunth = inject(AuthService)
 
   cambio_contra() {
     if (!this.datos) {

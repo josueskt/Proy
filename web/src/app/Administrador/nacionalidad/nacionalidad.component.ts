@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { NacionalidadService } from '../nacionalidad.service';
 import { Router } from '@angular/router';
 
@@ -15,11 +15,12 @@ export class NacionalidadComponent {
   Alertabien= false;
 
 
-  constructor(private carreraService: NacionalidadService,private router: Router ) {}
+  private carreraService = inject(NacionalidadService)
+  private router = inject(Router)
 
   ngOnInit() {
     this.carreraService.traerTodas().subscribe((carreras) => {
-      console.log('Carreras:', carreras);
+      
       this.Carreras = carreras
 
     });}
@@ -68,12 +69,14 @@ test(id:number){
 
 
       eliminar() {
-        this.carreraService.eliminarCarrera(this.id_nacionalidad).subscribe
+        try{
+          this.carreraService.eliminarCarrera(this.id_nacionalidad)
 
-            
-           
-            window.location.reload();
+        }catch(error){
+          throw error
+        }
         
+
         
       }
   

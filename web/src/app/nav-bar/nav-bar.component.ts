@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 
-import { Router } from '@angular/router';
+
 import { AuthService } from '../roles/auth.service';
 
 
@@ -15,10 +15,13 @@ export class NavBarComponent {
 rol= ""
   hola ="hola"
   correo = ""
-  constructor(private authService: AuthService,private router: Router) {
 
 
-  }
+    private authService = inject( AuthService)
+    
+
+
+  
 
   
   ngOnInit() {

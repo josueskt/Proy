@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CargaLibrosBloqueService } from './carga-libros-bloque.service';
 import { HomeService } from 'src/app/usuario/home/home.service';
 
@@ -12,7 +12,9 @@ import { HomeService } from 'src/app/usuario/home/home.service';
 export class CargaLibrosBloqueComponent {
 
     
-    constructor(private archivo:CargaLibrosBloqueService, private homeService: HomeService, ){}
+  private archivo= inject(CargaLibrosBloqueService) 
+  private homeService= inject(HomeService)
+  
   archivoSeleccionado: File | undefined;
   carreras:any
   ngOnInit() {
