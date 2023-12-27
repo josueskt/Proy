@@ -29,16 +29,13 @@ export class CarreraController {
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR'])
     crear(@Body() bod: any) {
-        const ap = bod.nombre
-
-      return   this.carrera.crear(ap)
-
-
+      return this.carrera.crear(bod)
     }
     @Delete(":id")
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR'])
     eliminar(@Param("id") id :Number ) {
+        
      return this.carrera.eliminar(id)
 
 

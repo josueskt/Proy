@@ -33,14 +33,12 @@ export class CarreraService {
     }
 
 
-    async crear(nombre: String) {
+    async crear(mod: any) {
 
 
         try {
-             await this.sql.query('INSERT INTO libros.carrera (nombre) values ($1)', [nombre])
+             await this.sql.query('INSERT INTO libros.carrera (nombre) values ($1)', [mod.nombre])
              
-             return { message: "OK" };
-            
         } catch (error) {
             return error
         }
