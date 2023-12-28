@@ -1,10 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VistalibroService } from './vistalibro.service';
+import { UpperCasePipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-vistalibro',
+  standalone: true,
+  imports: [UpperCasePipe],
   templateUrl: './vistalibro.component.html',
   styleUrls: ['./vistalibro.component.css']
 })

@@ -1,10 +1,11 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LibroService } from '../libro.service';
 
 @Component({
-  selector: 'app-editar-libro',
+  selector: 'app-editar-libro',standalone: true,
+  imports: [FormsModule, ReactiveFormsModule ],
   templateUrl: './editar-libro.component.html',
   styleUrls: ['./editar-libro.component.css']
 })

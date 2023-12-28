@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 export class CarreraService {
   private baseUrl = 'http://localhost:3000/carrera'; // Reemplaza con la URL de tu backend
 
-  constructor(private http: HttpClient) {}
+  private http= inject( HttpClient)
 
   traerTodas(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);

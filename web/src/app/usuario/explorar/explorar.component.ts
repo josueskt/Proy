@@ -2,9 +2,12 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ExplorarService } from './explorar.service';  // Asegúrate de que la ruta al servicio sea correcta
 import { Observable } from 'rxjs';
 import { HomeService } from '../home/home.service';
+import { RouterLink } from '@angular/router';
+import { FormGroup, FormsModule, NgModel } from '@angular/forms';
 
 @Component({
-  selector: 'app-explorar',
+  selector: 'app-explorar',standalone: true,
+  imports: [RouterLink ,FormsModule,],
   templateUrl: './explorar.component.html',
   styleUrls: ['./explorar.component.css']
 })

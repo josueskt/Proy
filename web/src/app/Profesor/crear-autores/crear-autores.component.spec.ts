@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CrearAutoresComponent } from './crear-autores.component';
+import { CrearAutorComponent } from './crear-autores.component';
 
 describe('CrearAutoresComponent', () => {
-  let component: CrearAutoresComponent;
-  let fixture: ComponentFixture<CrearAutoresComponent>;
+  let component: CrearAutorComponent;
+  let fixture: ComponentFixture<CrearAutorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CrearAutoresComponent]
+      declarations: [CrearAutorComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(CrearAutoresComponent);
+    fixture = TestBed.createComponent(CrearAutorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

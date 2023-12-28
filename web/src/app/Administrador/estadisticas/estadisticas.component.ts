@@ -5,6 +5,8 @@ import { NumberValue } from 'd3';
 
 @Component({
   selector: 'app-estadisticas',
+  standalone: true,
+  imports: [],
   templateUrl: './estadisticas.component.html',
   styleUrls: ['./estadisticas.component.css']
 })

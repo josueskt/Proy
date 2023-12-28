@@ -1,9 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { NacionalidadService } from '../nacionalidad.service';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-nacionalidad',
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './nacionalidad.component.html',
   styleUrls: ['./nacionalidad.component.css']
 })

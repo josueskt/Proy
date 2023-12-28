@@ -1,9 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CarreraService } from './carrera.service';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-carrera',
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './carrera.component.html',
   styleUrls: ['./carrera.component.css']
 })
@@ -12,10 +15,6 @@ export class CarreraComponent  implements OnInit{
   carrera: any = {};
   errorAlerta = false;
   Alertabien = false;
-  
-
-
-  
   private router = inject(Router) 
   private carreraService = inject(CarreraService)
 
@@ -34,7 +33,7 @@ export class CarreraComponent  implements OnInit{
     eliminar() {
       try{
         this.carreraService.eliminarCarrera(this.id_carrera)
-        //window.location.reload();
+        
       }catch(error){
         console.log(error)
 

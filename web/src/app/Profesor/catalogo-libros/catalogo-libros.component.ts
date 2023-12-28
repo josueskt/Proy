@@ -2,10 +2,13 @@ import { Component, Input, OnInit, inject } from '@angular/core';
 import { LibroService } from '../libro.service';
 import { AuthService } from 'src/app/roles/auth.service';
 import { VistalibroService } from 'src/app/usuario/vistalibro/vistalibro.service';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
   selector: 'app-catalogo-libros',
+  standalone: true,
+  imports: [RouterModule],
   templateUrl: './catalogo-libros.component.html',
   styleUrls: ['./catalogo-libros.component.css']
 })

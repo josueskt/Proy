@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LibroService } from '../libro.service';
 import { AuthService } from 'src/app/roles/auth.service';
 import { CrearAutoresService } from '../crear-autores/crear-autores.service';
@@ -7,6 +7,8 @@ import { CarreraService } from 'src/app/Administrador/carrera/carrera.service';
 
 @Component({
   selector: 'app-libro-form',
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './formulario-libro.component.html',
   styleUrls: ['./formulario-libro.component.css'],
 })

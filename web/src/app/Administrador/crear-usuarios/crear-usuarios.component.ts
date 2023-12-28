@@ -1,13 +1,18 @@
 import { Component, inject } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { CrearUsuariosService } from './crear-usuarios.service';
+import { FormsModule } from '@angular/forms';
+import { PaginatePipe } from 'ngx-pagination';
 
 @Component({
   selector: 'app-crear-usuarios',
+  standalone: true,
+  imports: [FormsModule, ], 
   templateUrl: './crear-usuarios.component.html',
   styleUrls: ['./crear-usuarios.component.css']
 })
 export class CrearUsuariosComponent {
+   constructor(private paginatePipe: PaginatePipe){}
   archivoSeleccionado: File | undefined;
   filtroCedula = '';
   pageSize = 5;
@@ -16,7 +21,7 @@ export class CrearUsuariosComponent {
   carrerasFiltradas: any[] = [];
   loader = false
   selectedCarrera =3;
-  
+ 
   private crearUsuariosService= inject(CrearUsuariosService)
 
 

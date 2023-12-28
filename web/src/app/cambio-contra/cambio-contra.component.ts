@@ -1,9 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { CambioContraService } from './cambio-contra.service';
 import { AuthService } from '../roles/auth.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-cambio-contra',
+  standalone: true,
+  imports: [FormsModule],
+  
   templateUrl: './cambio-contra.component.html',
   styleUrls: ['./cambio-contra.component.css']
 })

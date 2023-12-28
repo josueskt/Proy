@@ -23,6 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     // Agregar el encabezado de autorización solo si hay un token
     if (token) {
+      console.log("vale el wuadr")
       const cloned = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
@@ -35,3 +36,7 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(request);
   }
 }
+
+
+
+

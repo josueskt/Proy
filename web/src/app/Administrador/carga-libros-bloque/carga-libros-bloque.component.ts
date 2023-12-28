@@ -5,6 +5,8 @@ import { HomeService } from 'src/app/usuario/home/home.service';
 
 @Component({
   selector: 'app-carga-libros-bloque',
+  standalone: true,
+  imports: [],
   templateUrl: './carga-libros-bloque.component.html',
   styleUrls: ['./carga-libros-bloque.component.css']
 })

@@ -2,9 +2,14 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, inj
 import * as Masonry from 'masonry-layout';
 
 import { DataService } from '../data.service';
+import { RouterLink } from '@angular/router';
+import { NgClass, UpperCasePipe } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-libro',
+  standalone: true,
+  imports: [RouterLink ,UpperCasePipe,FormsModule ,NgClass],
   templateUrl: './libro.component.html',
   styleUrls: ['./libro.component.css']
 })

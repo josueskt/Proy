@@ -2,12 +2,15 @@ import { Component, Inject, inject } from '@angular/core';
 import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../roles/auth.service';
+import { FormsModule } from '@angular/forms';
 
 
 
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })

@@ -2,9 +2,12 @@ import { Component, inject } from '@angular/core';
 
 import { NacionalidadService } from 'src/app/Administrador/nacionalidad.service';
 import { CrearAutoresService } from './crear-autores.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-crear-autor',
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './crear-autores.component.html',
   styleUrls: ['./crear-autores.component.css']
 })
