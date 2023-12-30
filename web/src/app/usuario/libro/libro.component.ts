@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, inject } from '@angular/core';
-import * as Masonry from 'masonry-layout';
+import Masonry from 'masonry-layout';
 
 import { DataService } from '../data.service';
 import { RouterLink } from '@angular/router';

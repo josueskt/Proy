@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError } from 'rxjs';
 import * as XLSX from 'xlsx';
 import { HttpClient } from '@angular/common/http';
-import { AuthService } from 'src/app/roles/auth.service';
+
 import { Router } from '@angular/router';
+import { AuthService } from '../../roles/auth.service';
 
 @Injectable({
   providedIn: 'root'

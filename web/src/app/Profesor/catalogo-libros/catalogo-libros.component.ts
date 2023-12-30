@@ -1,8 +1,9 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { LibroService } from '../libro.service';
-import { AuthService } from 'src/app/roles/auth.service';
-import { VistalibroService } from 'src/app/usuario/vistalibro/vistalibro.service';
+import { AuthService } from '../../roles/auth.service';
+
 import { RouterModule } from '@angular/router';
+import { VistalibroService } from '../../usuario/vistalibro/vistalibro.service';
 
 
 @Component({

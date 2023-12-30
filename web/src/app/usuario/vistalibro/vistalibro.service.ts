@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/roles/auth.service';
+import { AuthService } from '../../roles/auth.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,9 @@ export class VistalibroService {
 
   private baseUrl = 'http://localhost:3000'; // Reemplaza con la URL de tu backend
 
-  constructor(private http: HttpClient , private ahunt : AuthService ) {}
-
+  constructor(private http: HttpClient , ) {}
+  private ahunt = inject( AuthService)
+   
   u = this.ahunt.getUserInfo()
   user = this.u.id_user
   

@@ -46,8 +46,8 @@
                 </tr>
               </thead>
               <tbody>
-                <!-- remplasar este pipe en furutas verciones | paginate: { itemsPerPage: pageSize, currentPage: currentPage } -->
-                @for (carrera of carrerasFiltradas ; track carrera) {
+                <!--  -->
+                @for (carrera of carrerasFiltradas  | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; track carrera) {
                   <tr>
                     <td>{{ carrera.nombre }}</td>
                     <td>{{ carrera.id_user }}</td>

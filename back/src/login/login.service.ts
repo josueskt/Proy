@@ -6,7 +6,7 @@ import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class LoginService {
-    private readonly jwtSecretKey = 'AU1234_ggqqgato$$ap';
+    private readonly jwtSecretKey = process.env.Key_Key;
     constructor(public sql: SqlService) { }
     async Login(datos: login) {
         try {

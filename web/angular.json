@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "web": {
+    "test": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -11,19 +11,18 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/web",
+            "outputPath": "dist/test",
             "index": "src/index.html",
-            "main": "src/main.ts",
+            "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets",
-              "src/assets/images/icon.png"
+              "src/assets"
             ],
             "styles": [
               "src/styles.css"
@@ -47,12 +46,9 @@
               "outputHashing": "all"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -61,10 +57,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "web:build:production"
+              "buildTarget": "test:build:production"
             },
             "development": {
-              "buildTarget": "web:build:development"
+              "buildTarget": "test:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -72,7 +68,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "web:build"
+            "buildTarget": "test:build"
           }
         },
         "test": {
@@ -92,23 +88,8 @@
             ],
             "scripts": []
           }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
-          }
         }
       }
     }
-  },
-  "cli": {
-    "analytics": "7cc5009f-c0c5-4268-ae5e-48e61f4ca19d",
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
   }
 }

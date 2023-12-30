@@ -5,7 +5,7 @@ import { Reflector } from '@nestjs/core';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  private readonly jwtSecretKey = 'AU1234_ggqqgato$$ap';
+  private readonly jwtSecretKey = process.env.Key_Key
 
   constructor(private reflector: Reflector) {}
 

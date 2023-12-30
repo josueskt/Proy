@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CargaLibrosBloqueService } from './carga-libros-bloque.service';
-import { HomeService } from 'src/app/usuario/home/home.service';
+import { HomeService } from '../../usuario/home/home.service';
+
 
 
 @Component({
@@ -24,7 +25,7 @@ export class CargaLibrosBloqueComponent {
     
 
     this.homeService.getCarreras().subscribe(
-      (carreras) => {
+      (carreras) => { 
         this.carreras = carreras;
         
       },

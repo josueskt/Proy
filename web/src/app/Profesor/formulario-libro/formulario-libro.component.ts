@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LibroService } from '../libro.service';
-import { AuthService } from 'src/app/roles/auth.service';
+import { AuthService } from '../../roles/auth.service';
 import { CrearAutoresService } from '../crear-autores/crear-autores.service';
-import { CarreraService } from 'src/app/Administrador/carrera/carrera.service';
+import { CarreraService } from '../../Administrador/carrera/carrera.service';
+
 
 @Component({
   selector: 'app-libro-form',

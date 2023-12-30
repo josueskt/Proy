@@ -1,8 +1,9 @@
 import { Component, inject } from '@angular/core';
 
-import { NacionalidadService } from 'src/app/Administrador/nacionalidad.service';
+
 import { CrearAutoresService } from './crear-autores.service';
 import { FormsModule } from '@angular/forms';
+import { NacionalidadService } from '../../Administrador/nacionalidad.service';
 
 @Component({
   selector: 'app-crear-autor',

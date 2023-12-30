@@ -1,20 +1,15 @@
-import { Component, NgModule } from '@angular/core';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
-import { PaginatePipe } from 'ngx-pagination';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [NavBarComponent ,RouterOutlet, HttpClientModule,],
+  imports: [CommonModule, RouterOutlet , NavBarComponent],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
-
-  
+  styleUrl: './app.component.css'
 })
-
 export class AppComponent {
-  title = "biblioteca";
+  title = 'test';
 }
