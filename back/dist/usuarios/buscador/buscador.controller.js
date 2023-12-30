@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BuscadorController = void 0;
 const common_1 = require("@nestjs/common");
 const buscador_service_1 = require("./buscador.service");
-const roles_guard_1 = require("../../roles/roles.guard");
 let BuscadorController = class BuscadorController {
     constructor(buscar) {
         this.buscar = buscar;
@@ -27,8 +26,6 @@ let BuscadorController = class BuscadorController {
 exports.BuscadorController = BuscadorController;
 __decorate([
     (0, common_1.Get)(),
-    (0, common_1.UseGuards)(roles_guard_1.RolesGuard),
-    (0, common_1.SetMetadata)('roles', ['ADMINISTRADOR', 'PROFESOR', 'ESTUDIANTE']),
     __param(0, (0, common_1.Query)('cadena')),
     __param(1, (0, common_1.Query)('carrera')),
     __metadata("design:type", Function),

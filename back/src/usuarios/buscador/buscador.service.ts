@@ -6,8 +6,11 @@ export class BuscadorService {
   constructor(private sql: SqlService) {}
 
   async buscar_libros(cadena: string, carrera: string) {
+    const params = [`%${cadena}%`];
+    let restul
+    let query
     try {
-      let query = `
+       query = `
         SELECT l.id_libro, l.titulo ,l.nombre_archivo , l.fecha_publ , l.descripcion , l.imagen , l.num_paginas , c.nombre as nombre_carrera , a.nombre as autor_nombre
         FROM libros.libro as l
         LEFT JOIN libros.carrera as c ON l.fk_carrera = c.id_carrera
@@ -15,18 +18,38 @@ export class BuscadorService {
         WHERE l.titulo LIKE $1
       `;
 
-      const params = [`%${cadena}%`];
+      
 
-      // Agregar la condición de carrera solo si se proporciona un valor
+      
+       restul = await this.sql.query(query, params);
+
+      if(!restul.length){
+        query = `
+        SELECT l.id_libro, l.titulo ,l.nombre_archivo , l.fecha_publ , l.descripcion , l.imagen , l.num_paginas , c.nombre as nombre_carrera , a.nombre as autor_nombre
+        FROM libros.libro as l
+        LEFT JOIN libros.carrera as c ON l.fk_carrera = c.id_carrera
+        LEFT JOIN libros.autor as a ON l.fk_autor = a.id_autor
+        WHERE a.nombre LIKE $1
+      `;
+      restul = await this.sql.query(query, params);
 
 
-      //cambiar esta ammada por  el id 
+        
+        return restul
+      }
       if (carrera) {
         query += ' AND c.id_carrera = $2';
         params.push(carrera);
       }
+      else{
+        return restul
+      }
+      
+    
 
-      return await this.sql.query(query, params);
+     
+
+      
     } catch (error) {
       return error;
     }
