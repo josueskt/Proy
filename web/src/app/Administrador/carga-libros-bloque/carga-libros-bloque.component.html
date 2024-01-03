@@ -1,0 +1,27 @@
+<br><br><br><br><br>
+<div class="mb-3">
+
+  <input type="file" class="form-control" (change)="handleFileInput($event)" />
+</div>
+<button class="btn btn-primary" (click)="procesarArchivo()" [disabled]="!archivoSeleccionado">Procesar Archivo</button>
+<br><br><br>
+<h1 class="text text-danger">lista de carreras </h1>
+<br><br>
+<div class="">
+  <table class="table table-bordered table-striped">
+    <thead class="thead-dark">
+      <tr>
+        <th>id</th>
+        <th>nombre carrera</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (carrera of carreras; track carrera) {
+        <tr>
+          <td>{{ carrera.id_carrera }}</td>
+          <td>{{ carrera.nombre }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
