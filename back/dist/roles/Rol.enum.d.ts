@@ -1,5 +1,0 @@
-export declare enum Roles {
-    ADMINISTRADOR = "ADMINISTRADOR",
-    PROFESOR = "PROFESOR",
-    ESTUDIANTE = "ESTUDIANTE"
-}
