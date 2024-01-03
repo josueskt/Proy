@@ -4,6 +4,7 @@ back_end/dist/
 back_end/*.env
 
 # Angular (web)
+web/node_modules
 web/node_modules/
 web/dist/
 web/e2e/

@@ -38,15 +38,23 @@ let BuscadorService = class BuscadorService {
         WHERE a.nombre LIKE $1
       `;
                 restul = await this.sql.query(query, params);
-                return restul;
+            }
+            if (!restul.length) {
+                query = `
+        SELECT l.id_libro, l.titulo ,l.nombre_archivo , l.fecha_publ , l.descripcion , l.imagen , l.num_paginas , c.nombre as nombre_carrera , a.nombre as autor_nombre
+        FROM libros.libro as l
+        LEFT JOIN libros.carrera as c ON l.fk_carrera = c.id_carrera
+        LEFT JOIN libros.autor as a ON l.fk_autor = a.id_autor
+        WHERE l.nombre_archivo LIKE $1
+      `;
+                restul = await this.sql.query(query, params);
             }
             if (carrera) {
                 query += ' AND c.id_carrera = $2';
                 params.push(carrera);
+                restul = await this.sql.query(query, params);
             }
-            else {
-                return restul;
-            }
+            return restul;
         }
         catch (error) {
             return error;
