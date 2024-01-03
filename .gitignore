@@ -1,7 +1,7 @@
 # Nest (backend)
-back_end/node_modules/
-back_end/dist/
-back_end/*.env
+back/node_modules/
+back/dist/
+back/*.env
 
 # Angular (web)
 web/node_modules
