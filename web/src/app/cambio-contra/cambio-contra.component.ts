@@ -7,14 +7,14 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-cambio-contra',
   standalone: true,
   imports: [FormsModule],
-  
   templateUrl: './cambio-contra.component.html',
   styleUrls: ['./cambio-contra.component.css']
 })
 export class CambioContraComponent {
-  datos: { id: string, contra: string } = { id: '', contra: '' };
- mensaje :string | undefined 
- mensaje_2 :string | undefined 
+ datos: { id: string, contra: string, repeatContra: string } = { id: '', contra: '', repeatContra: '' };
+ mensaje :string | undefined
+ mensaje_2 :string | undefined
+ hide = true;
 
  private cambio_pas= inject( CambioContraService)
  private Aunth = inject(AuthService)
@@ -25,6 +25,11 @@ export class CambioContraComponent {
     } else {
       const asd = this.Aunth.getUserInfo();
       this.datos.id = asd.id_user;
+
+      if(this.datos.contra !== this.datos.repeatContra) {
+        this.mensaje = 'Las contraseñas no coinciden';
+        return;
+      }
 
       // Validar la contraseña
       if (this.validarContrasena(this.datos.contra)) {

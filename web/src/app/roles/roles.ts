@@ -1,6 +1,5 @@
 export const ROLES = {
-    ADMINISTRADOR : 'ADMINISTRADOR', //primer lor a crear 
-    PROFESOR : 'PROFESOR', // segundo rol a crear 
-    ESTUDIANTE : 'ESTUDIANTE', // terser rol a crear
+    ADMINISTRADOR : 'ADMINISTRADOR', //primer rol a crear
+    PROFESOR : 'PROFESOR', // segundo rol a crear
+    ESTUDIANTE : 'ESTUDIANTE', // tercer rol a crear
   }
-  

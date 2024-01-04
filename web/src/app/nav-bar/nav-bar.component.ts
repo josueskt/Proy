@@ -15,33 +15,23 @@ import { RouterLink } from '@angular/router';
 export class NavBarComponent {
   userInfo: any;
   nombre =""
-rol= ""
+  rol= ""
   hola ="hola"
   correo = ""
 
+  private authService = inject( AuthService)
 
-    private authService = inject( AuthService)
-    
-
-
-  
-
-  
   ngOnInit() {
     // Obtener la información del usuario al inicializar el componente
     this.userInfo = this.authService.getUserInfo();
     this.nombre = this.userInfo.nombre
     this.rol = this.userInfo.nombre_rol
     this.correo  = this.userInfo.email
-    
-  }
-  login_out(){
-    
-    localStorage.removeItem('token');
-    window.location.reload();
 
   }
-  
-  
+  login_out(){
+    localStorage.removeItem('token');
+    window.location.reload();
+  }
 
 }
