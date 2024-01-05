@@ -1,0 +1,39 @@
+.cont {
+    display: grid;
+    grid-template-columns: auto minmax(800px, 1fr) auto 1fr;
+    margin: 25px;
+    border-radius: 20px;
+    margin-top: 150px;
+  }
+
+  .des {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .btn {
+    width: 100%;
+    position: relative;
+    margin-top: 0;
+  }
+
+  .texto {
+    padding: 10px;
+  }
+
+  .linea-vertical {
+    border-left: 2px solid black;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .infomacion {
+    margin-top: 100px;
+  }
+
+  .card-tex {
+    word-wrap: break-word;
+    white-space: pre-line;
+  }

@@ -1,0 +1,65 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">SEGURO QUE DESEAS ELIMINAR ESTE AUTOR</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Se eliminaran todos los libros relacionados con este autor
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CANCELAR</button>
+        <button type="button" class="btn btn-danger" (click)="eliminar()">ELIMINAR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br><br>
+<div class="container " >
+  <div class="row justify-content-end align-items-center" style="height: 70vh;">
+    <div class="col-md-6">
+      <div class="card mt-4">
+        <div class="card-body">
+          <h2 class="text-center mb-4">Crear Autor</h2>
+          <form>
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre:</label>
+              <input type="text" id="nombre" name="nombre" [(ngModel)]="Nombre" class="form-control" required>
+            </div>
+            
+            <div class="text-center">
+              <button type="button" (click)="crearAutor()" class="btn btn-primary">Crear Autor</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div >
+    <table class="table mt-4">
+      <thead>
+        <tr>
+          <th>Autor</th>
+          <th>Nacionalidad</th>
+          <td>aciones</td>
+        </tr>
+      </thead>
+      <tbody>
+        @for (autor of aut; track autor) {
+          <tr   >
+            <td>{{ autor.nombre }}</td>
+            <td>{{ autor.nacionalidad }}</td>
+            <td>
+              <button (click)="test(autor.id_autor)" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                ELIMINAR
+              </button>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
