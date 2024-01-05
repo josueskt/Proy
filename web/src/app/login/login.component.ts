@@ -20,7 +20,7 @@ import { heroUsers } from '@ng-icons/heroicons/outline';
 export class LoginComponent {
   username ="";
   password = "";
-  hide = true;
+  showPassword: boolean = false;
   private aunt =inject(LoginService)
   private router= inject( Router )
   private authService = inject( AuthService)
@@ -36,6 +36,9 @@ export class LoginComponent {
     
   }
 
+  showHidePassword() {
+    this.showPassword = !this.showPassword;
+  }
 
 
   login() {
