@@ -7,7 +7,7 @@ export class LibroTipoService {
 constructor(private sql:SqlService){}
  async crear(nombre:string){
     try {
-        return await this.sql.query('INSEET INTO libros.tipo (nombre) values ($1)',[nombre])
+        return await this.sql.query('INSERT INTO libros.tipo (nombre) values ($1)',[nombre])
 
 
     } catch (error) {
