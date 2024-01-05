@@ -15,6 +15,7 @@ import { ExplorarComponent } from './usuario/explorar/explorar.component';
 import { HomeComponent } from './usuario/home/home.component';
 import { LibroComponent } from './usuario/libro/libro.component';
 import { VistalibroComponent } from './usuario/vistalibro/vistalibro.component';
+import { TipoLibroComponent } from './Administrador/tipo-libro/tipo-libro.component';
 
 
 export const routes: Routes = [
@@ -63,6 +64,10 @@ export const routes: Routes = [
   
   {
     path: 'subir_l_bloque', component: CargaLibrosBloqueComponent, canActivate: [AuthGuard],
+    data: { roles: ['ADMINISTRADOR'] }
+  },
+  {
+    path: 'tipo-libro', component: TipoLibroComponent, canActivate: [AuthGuard],
     data: { roles: ['ADMINISTRADOR'] }
   },
 
