@@ -34,8 +34,6 @@ constructor(private sql:SqlService){}
         return error
     }
 
-
-
  }
 
 }

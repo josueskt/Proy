@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { error } from 'console';
 import { SqlService } from 'src/sql/sql.service';
 
 @Injectable()
@@ -18,7 +17,7 @@ export class CarreraService {
 
     }
 
-    async by_id(id: Number): Promise<any> {
+    async by_id(id: number): Promise<any> {
         try {
             const reslut = await this.sql.query('select * from Libros.carrera where id_carrera = ($1)', [id])
             if(reslut.length === 0){
@@ -28,11 +27,7 @@ export class CarreraService {
         } catch (error) {
             return error
         }
-
-
     }
-
-
     async crear(mod: any) {
 
 
@@ -45,11 +40,9 @@ export class CarreraService {
 
     }
 
-    async eliminar(id: Number) {
+    async eliminar(id: number) {
 
-
-        try {
-            
+        try {            
             
             await this.sql.query('delete from  libros.carrera where  id_carrera = $1', [id])
             return { message: "Carrera eliminada exitosamente" };
@@ -58,7 +51,7 @@ export class CarreraService {
            return error
        }
     }
-    async editar(id: Number , bod:any) {
+    async editar(id: number , bod:any) {
         const ap = bod.nombre
         try {
             await this.sql.query('update libros.carrera set nombre = $2 where  id_carrera = ($1)', [id , ap])
@@ -69,9 +62,5 @@ export class CarreraService {
        }
 
     }
-
-
-
-
 
 }

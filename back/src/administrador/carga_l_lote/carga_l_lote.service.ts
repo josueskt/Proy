@@ -39,18 +39,12 @@ export class CargaLLoteService {
       const matches = contentDisposition.match(/filename="(.+)"$/);
       const nombreOriginal = matches ? matches[1] : `${Date.now()}-${googleDriveFileId}.pdf`;
 
-
-
       // Ruta completa del archivo
       const filePath = path.join(directorioDestino, nombreOriginal);
 
       // Guarda el archivo en el sistema de archivos local
       const writer = fs.createWriteStream(filePath);
       response.data.pipe(writer);
-
-
-
-
 
       // ponder en el mapeo de exel esta made de fk_autor,_fk:carrera_fktipo
       await this.sql.query(`INSERT INTO libros.libro (
@@ -110,24 +104,18 @@ export class CargaLLoteService {
     try {
 
       let id_autor = await this.sql.query('SELECT id_autor FROM libros.autor WHERE nombre = ($1)', [dato.autor])
-      let id_tipo = await this.sql.query('SELECT id_tipo FROM libros.tipo WHERE nombre = ($1)', [dato.tipo])
+      const id_tipo = await this.sql.query('SELECT id_tipo FROM libros.tipo WHERE nombre = ($1)', [dato.tipo])
 
       if (!id_autor[0]) {
         await this.sql.query('INSERT INTO libros.autor(nombre) VALUES($1)', [dato.autor])
         id_autor = await this.sql.query('SELECT id_autor FROM libros.autor WHERE nombre = ($1)', [dato.autor])
 
-
-
       }
       dato.autor = id_autor[0].id_autor
       dato.tipo = id_tipo[0].id_tipo
-      
-
 
       // Descargar el archivo
       await this.descargarArchivo(dato, id);
-
-
 
     } catch (error) {
       console.error('Error en la función libros_bloque:', error);

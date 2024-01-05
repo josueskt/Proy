@@ -27,17 +27,11 @@ export class LoginService {
                         this.jwtSecretKey,
                         { expiresIn: '3000h' } // Configura la expiración del token
 
-
-
-
-
                       );
 
                         this.sql.query('INSERT INTO inst.secion(fk_user,fecha) values($1,CURRENT_DATE)',[user.id_user])
-
             
-                      return { token };
-            
+                      return { token };            
 
                 } else {
                     return { message: 'Contraseña incorrecta' };

@@ -14,7 +14,7 @@ export class MateriaService {
             return error
         }
     };
-    async by_id(id:Number) {
+    async by_id(id:number) {
         try {
             return await this.sql.query('select * from  libros.materia where id_materia = $1' , [id])
 
@@ -32,7 +32,7 @@ export class MateriaService {
             return error
         }
     };
-    async editar(id:Number , bod) {
+    async editar(id:number , bod) {
 
         const n = bod.nombre; 
         const fk = bod.fk_carrera
@@ -44,7 +44,7 @@ export class MateriaService {
             return error
         }
     };
-    async eliminar( id:Number) {
+    async eliminar( id:number) {
         try {
             await this.sql.query('delete from libros.materia where id_materia = ($1)' ,[id])
             return "carrera eliminada exitosamente "

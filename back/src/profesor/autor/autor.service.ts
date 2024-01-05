@@ -15,7 +15,7 @@ export class AutorService {
 
 
     }
-    async crear_autor(nombre: String ) {
+    async crear_autor(nombre: string ) {
 
 
         try {

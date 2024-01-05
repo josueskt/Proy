@@ -1,8 +1,8 @@
-import { Controller, Get, Query, Res, SetMetadata, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query, Res } from '@nestjs/common';
 import * as fs from 'fs';
-import { Response, query } from 'express';
+import { Response } from 'express';
 import * as path from 'path';
-import { RolesGuard } from 'src/roles/roles.guard';
+//import { RolesGuard } from 'src/roles/roles.guard';
 import { DescargaService } from './descarga.service';
 
 

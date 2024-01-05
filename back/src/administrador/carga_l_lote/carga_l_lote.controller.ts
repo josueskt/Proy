@@ -1,4 +1,4 @@
-import { Controller, Post, Body, HttpException, HttpStatus, Get } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { CargaLLoteService } from './carga_l_lote.service';
 // Ajusta la ruta según la ubicación de tu servicio
 
@@ -12,7 +12,7 @@ export class CargaLLoteController {
     const id = body.id_user.id_user
 
     
-    for (let dato of datos) {
+    for (const dato of datos) {
       if (dato.titulo) {
         
         this.fileService.libros_bloque(dato, id)

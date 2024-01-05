@@ -1,4 +1,4 @@
 export interface materia{
-nombre : String
-fk_carrera:Number
+nombre : string;
+fk_carrera: number;
 }

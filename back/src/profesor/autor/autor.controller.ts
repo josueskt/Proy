@@ -18,7 +18,7 @@ traer(){
 @Post()
 @UseGuards(RolesGuard)
 @SetMetadata('roles', ['PROFESOR'])
-crear(@Body('nombre') nombre:String){
+crear(@Body('nombre') nombre:string){
     this.Autro.crear_autor(nombre)
 }
 

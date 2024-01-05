@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString, Length, MaxLength, MinLength } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString, Length } from "class-validator";
 
 export class RegisterUser {
     @IsNotEmpty()
