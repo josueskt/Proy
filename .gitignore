@@ -8,6 +8,8 @@ web/node_modules
 web/node_modules/
 web/dist/
 web/e2e/
+web/.vscode/
+web/.angular/
 
 # Flutter (mobil)
 mobil/.dart_tool/

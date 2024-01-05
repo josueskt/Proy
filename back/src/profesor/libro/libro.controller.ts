@@ -27,7 +27,7 @@ export class LibroController {
         return this.carrera.by_id(id)
     }
     @Post()
-    @UsePipes(ValidationPipe)
+   @UsePipes(ValidationPipe)
     @UseInterceptors(FileInterceptor('file'))
     async crear(
         @UploadedFile() file: any, @Body('libro') libro:Libro
