@@ -3,20 +3,24 @@ import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../roles/auth.service';
 import { FormsModule } from '@angular/forms';
-
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { featherAirplay } from '@ng-icons/feather-icons';
+import { heroUsers } from '@ng-icons/heroicons/outline';
 
 
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgIconComponent],
+  viewProviders: [provideIcons({ featherAirplay, heroUsers })],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   username ="";
   password = "";
+  hide = true;
   private aunt =inject(LoginService)
   private router= inject( Router )
   private authService = inject( AuthService)
@@ -31,7 +35,6 @@ export class LoginComponent {
     }
     
   }
-
 
 
 
