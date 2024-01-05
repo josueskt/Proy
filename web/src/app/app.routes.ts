@@ -4,10 +4,6 @@ import { CargaLibrosBloqueComponent } from './Administrador/carga-libros-bloque/
 import { CarreraComponent } from './Administrador/carrera/carrera.component';
 import { CrearUsuariosComponent } from './Administrador/crear-usuarios/crear-usuarios.component';
 import { EstadisticasComponent } from './Administrador/estadisticas/estadisticas.component';
-<<<<<<< HEAD
-
-=======
->>>>>>> fendando
 import { CatalogoLibrosComponent } from './Profesor/catalogo-libros/catalogo-libros.component';
 import { CrearAutorComponent } from './Profesor/crear-autores/crear-autores.component';
 import { EditarLibroComponent } from './Profesor/editar-libro/editar-libro.component';
@@ -64,10 +60,7 @@ export const routes: Routes = [
     path: 'carrera', component: CarreraComponent, canActivate: [AuthGuard],
     data: { roles: ['ADMINISTRADOR'] }
   },
-<<<<<<< HEAD
   
-=======
->>>>>>> fendando
   {
     path: 'subir_l_bloque', component: CargaLibrosBloqueComponent, canActivate: [AuthGuard],
     data: { roles: ['ADMINISTRADOR'] }
