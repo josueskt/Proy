@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Put, Query, SetMetadata, UseGuards } from '@nestjs/common';
+import { Body, Controller, Post, SetMetadata, UseGuards } from '@nestjs/common';
 import { RolesGuard } from 'src/roles/roles.guard';
 import { CambioContraService } from './cambio_contra.service';
 
@@ -9,11 +9,6 @@ export class CambioContraController {
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
     buscador_libro(@Body()datos :any){
- return this.cambio.Contra(datos.id,datos.contra)
-        
-
-
+    return this.cambio.Contra(datos.id,datos.contra)  
     }
-
-
 }

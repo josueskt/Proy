@@ -5,17 +5,19 @@ import { HttpClient } from '@angular/common/http';
 
 import { Router } from '@angular/router';
 import { AuthService } from '../../roles/auth.service';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CargaLibrosBloqueService {
-  
 
-   
-    constructor(private http: HttpClient,private Aunh: AuthService, private router: Router, ) { }
+  base = environment.URL;
+  private baseUrl =  `${this.base}carga-l-lote`;
+
+
+  constructor(private http: HttpClient,private Aunh: AuthService, private router: Router, ) { }
   creador = this.Aunh.getUserInfo();
-  private baseUrl = 'http://localhost:3000/carga-l-lote';
 
   processExcel(data: any): void {
     const workbook: XLSX.WorkBook = XLSX.read(data, { type: 'binary' });
@@ -31,7 +33,7 @@ export class CargaLibrosBloqueService {
      const datos = {datos:formattedData,id_user:this.creador}
       this.librosPorBloque(datos).subscribe(
         response => {
-          
+
           console.log('Respuesta del servidor:', response);
           this.router.navigate(['/catalogo'])
 
@@ -42,11 +44,11 @@ export class CargaLibrosBloqueService {
           // Puedes manejar el error según tus necesidades
         }
       );
-     
-    
+
+
   }
-  
- 
+
+
 
   private formatData(jsonData: any[]): any[] {
     const data = jsonData.slice(1);
@@ -65,12 +67,12 @@ export class CargaLibrosBloqueService {
     });
 
     const uniqueData = this.removeDuplicates(formattedData, 'titulo');
-    
+
 
     return uniqueData;
   }
 
- 
+
 
 
   librosPorBloque(datos: any): Observable<any> {

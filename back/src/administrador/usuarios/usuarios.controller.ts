@@ -17,9 +17,9 @@ Get_rol(){
 
 
 
-    @Post()
-   @UseGuards(RolesGuard)
-   @SetMetadata('roles', ['ADMINISTRADOR'])
+   @Post()
+ //  @UseGuards(RolesGuard)
+  // @SetMetadata('roles', ['ADMINISTRADOR'])
     @UsePipes(ValidationPipe)
     register( @Body() usuarios :RegisterUser[]){
   
@@ -27,12 +27,8 @@ Get_rol(){
    
     }
     @Delete(':id')
-    eliminar(@Param("id") id :Number ) {
-        return this.user.delete_user(id)
-     
+    eliminar(@Param("id") id : number ) {
+        return this.user.delete_user(id)     
     }
-
-
-
 
 }

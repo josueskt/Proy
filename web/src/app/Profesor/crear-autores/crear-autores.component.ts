@@ -1,8 +1,7 @@
 import { Component, inject } from '@angular/core';
-
-
 import { CrearAutoresService } from './crear-autores.service';
 import { FormsModule } from '@angular/forms';
+
 
 
 @Component({
@@ -17,23 +16,19 @@ export class CrearAutorComponent {
   
   
   aut:any
-  
-   
     private Autor=inject( CrearAutoresService)
-    
-  
+
+
   ngOnInit() {
    
     this.Autor.traer_autor().subscribe((autores) => {
      this.aut = autores
-      
-       
 
     });
-  
+
   }
-  
- 
+
+
 
 
 
@@ -43,7 +38,7 @@ crearAutor() {
  
   this.Autor.crearAutor({nombre : this.Nombre }).subscribe(
     () => {
-      
+
       window.location.reload();
     },
     (error) => {

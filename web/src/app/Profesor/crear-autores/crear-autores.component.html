@@ -43,7 +43,6 @@
       <thead>
         <tr>
           <th>Autor</th>
-          <th>Nacionalidad</th>
           <td>aciones</td>
         </tr>
       </thead>
@@ -51,7 +50,6 @@
         @for (autor of aut; track autor) {
           <tr   >
             <td>{{ autor.nombre }}</td>
-            <td>{{ autor.nacionalidad }}</td>
             <td>
               <button (click)="test(autor.id_autor)" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 ELIMINAR

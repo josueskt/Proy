@@ -4,7 +4,7 @@ import * as bcrypt from 'bcrypt';
 @Injectable()
 export class CambioContraService {
 constructor(private sql:SqlService){}
-    async Contra(id:String , Contra:String){
+    async Contra(id: string , Contra: string){
         try {
             const hashedPassword = await bcrypt.hash(Contra, 10);
             const reslut = await this.sql.query('UPDATE inst.usuario Set password = $1 where id_user = $2',[hashedPassword,id])
