@@ -1,9 +1,7 @@
 export interface Usuario{
-id_user: String
-email:String
-password:String
-nombre:String
-fk_rol:Number
-
-
+id_user: string;
+email:string;
+password:string;
+nombre:string;
+fk_rol:number;
 }

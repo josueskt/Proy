@@ -1,6 +1,6 @@
-import { Controller, Get, Query, SetMetadata, UseGuards } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { BuscadorService } from './buscador.service';
-import { RolesGuard } from 'src/roles/roles.guard';
+//import { RolesGuard } from 'src/roles/roles.guard';
 
 @Controller('buscador')
 export class BuscadorController {

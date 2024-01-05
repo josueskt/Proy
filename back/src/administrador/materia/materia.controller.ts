@@ -1,6 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, SetMetadata, UseGuards } from '@nestjs/common';
 import { MateriaService } from './materia.service';
-import { identity } from 'rxjs';
 import { materia } from './materia.interface';
 import { RolesGuard } from 'src/roles/roles.guard';
 
@@ -17,7 +16,7 @@ export class MateriaController {
     @Get(':id')
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR'])
-    by_id(@Param("id") id: Number) {
+    by_id(@Param("id") id: number) {
         return this.materia.by_id(id)
     }
     @Post()
@@ -29,13 +28,13 @@ export class MateriaController {
     @Put(":id")
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR'])
-    editar(@Param("id") id: Number, @Body() bod: materia) {
+    editar(@Param("id") id: number, @Body() bod: materia) {
         return this.materia.editar(id, bod)
     };
     @Delete(":id")
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR'])
-    eliminar(@Param("id") id: Number) {
+    eliminar(@Param("id") id: number) {
         return this.materia.eliminar(id)
     };
 }

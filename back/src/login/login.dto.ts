@@ -1,4 +1,4 @@
 export interface login{
-    cedula:String
-    password:String
+    cedula:string
+    password:string
 }

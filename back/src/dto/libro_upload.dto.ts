@@ -2,18 +2,18 @@ import { IsNotEmpty } from "class-validator"
 
 export class Libro_Upload{
 @IsNotEmpty()
-titulo  : String
+titulo  : string
 //asds
 @IsNotEmpty()
-imagen:String
+imagen:string
 @IsNotEmpty()
-descripcion : String
+descripcion : string
 @IsNotEmpty()
-num_paginas :String
+num_paginas :string
 @IsNotEmpty()
-fk_creador :String
+fk_creador :string
 @IsNotEmpty()
-fk_autor:Number
+fk_autor:number
 @IsNotEmpty()
-fk_carrera: Number
+fk_carrera: number
 }

@@ -21,7 +21,7 @@ export class CarreraController {
     @Get(":id")
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR'])
-    by_id(@Param("id") id: Number) {
+    by_id(@Param("id") id: number) {
         return this.carrera.by_id(id)
     }
     
@@ -34,7 +34,7 @@ export class CarreraController {
     @Delete(":id")
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR'])
-    eliminar(@Param("id") id :Number ) {
+    eliminar(@Param("id") id :number ) {
         
      return this.carrera.eliminar(id)
 
@@ -43,7 +43,7 @@ export class CarreraController {
     @Put(":id")
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR'])
-    editar(@Param("id") id :Number , @Body( ) datos:any) {
+    editar(@Param("id") id :number , @Body( ) datos:any) {
        
         return this.carrera.editar(id , datos)
 
