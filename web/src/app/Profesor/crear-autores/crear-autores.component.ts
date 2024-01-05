@@ -1,9 +1,8 @@
 import { Component, inject } from '@angular/core';
-
-
 import { CrearAutoresService } from './crear-autores.service';
 import { FormsModule } from '@angular/forms';
-import { NacionalidadService } from '../../Administrador/nacionalidad.service';
+
+
 
 @Component({
   selector: 'app-crear-autor',
@@ -14,41 +13,32 @@ import { NacionalidadService } from '../../Administrador/nacionalidad.service';
 })
 export class CrearAutorComponent {
   Nombre= "";
-  na = "";
-  nacionalida:any
+  
+  
   aut:any
-  
-   private nacionalidad=inject(NacionalidadService)
     private Autor=inject( CrearAutoresService)
-    
-  
-  ngOnInit() {
-    this.nacionalidad.traerTodas().subscribe((carreras) => {
-     
-      this.nacionalida = carreras
-       
 
-    })
+
+  ngOnInit() {
+   
     this.Autor.traer_autor().subscribe((autores) => {
      this.aut = autores
-      
-       
 
     });
-  
+
   }
-  
- 
+
+
 
 
 
 crearAutor() {
-  if(this.Nombre !="" && this.na){
+  if(this.Nombre !="" ){
 
  
-  this.Autor.crearAutor({nombre : this.Nombre , nacionalidad:this.na}).subscribe(
+  this.Autor.crearAutor({nombre : this.Nombre }).subscribe(
     () => {
-      
+
       window.location.reload();
     },
     (error) => {

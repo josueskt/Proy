@@ -14,26 +14,24 @@ import { HomeService } from '../../usuario/home/home.service';
 
 export class CargaLibrosBloqueComponent {
 
-    
-  private archivo= inject(CargaLibrosBloqueService) 
+
+  private archivo= inject(CargaLibrosBloqueService)
   private homeService= inject(HomeService)
-  
+
   archivoSeleccionado: File | undefined;
   carreras:any
   ngOnInit() {
-    
-    
 
     this.homeService.getCarreras().subscribe(
-      (carreras) => { 
+      (carreras) => {
         this.carreras = carreras;
-        
+
       },
       (error) => {
         alert('Error al obtener las carreras: '+ error);
       }
     );
-   
+
   }
 
 
@@ -45,7 +43,7 @@ export class CargaLibrosBloqueComponent {
   }
 
   procesarArchivo(): void {
-    
+
     if (this.archivoSeleccionado) {
       const reader: FileReader = new FileReader();
 
@@ -60,13 +58,13 @@ export class CargaLibrosBloqueComponent {
     } else {
       console.error('No se ha seleccionado ningún archivo.');
       alert('No se ha seleccionado ningún archivo.');
-      
+
     }
   }
 
 
 
- 
+
 
 
 }

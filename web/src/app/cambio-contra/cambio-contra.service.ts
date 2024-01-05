@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CambioContraService {
 
-  private loginUrl = 'http://localhost:3000/cambio-contra';
+  base = environment.URL;
+  private loginUrl =  `${this.base}cambio-contra`;
 
   constructor(private http: HttpClient) { }
 

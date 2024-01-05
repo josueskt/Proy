@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { SqlService } from 'src/sql/sql.service';
-import { Libro } from './libro.interface';
+
 import * as pdfParse from 'pdf-parse';
 
 import * as fs from 'fs';
@@ -15,7 +15,7 @@ export class LibroService {
     }
 
     async traer(nombre: String): Promise<any> {
-//as
+        //as
         const reslut = await this.sql.query(
             `SELECT
             l.id_libro,
@@ -37,7 +37,7 @@ export class LibroService {
         GROUP BY
             l.id_libro, l.titulo, l.fecha_publ, l.descripcion, l.imagen, a.nombre, c.nombre, l.nombre_archivo;
         `
-       , [nombre])
+            , [nombre])
         return reslut
 
 
@@ -73,65 +73,74 @@ export class LibroService {
     }
 
 
-    async crear(libros: any, file: any): Promise<string> {
+    async crear(libros, file: any): Promise<string> {
 
 
         const libro = JSON.parse(libros);
-
-        try {
-
-
-            if (!file || !file.buffer) {
-                throw new HttpException('Archivo no válido', HttpStatus.BAD_REQUEST);
-            }
-            const pdfBuffer = file.buffer;
-            const data = await pdfParse(pdfBuffer);
+        console.log(libro)
+        console.log(''+libro.editorial)
+return 'asd'
+        // try {
 
 
-
-
-
-            // Genera un nombre único para el archivo PDF
-            const uniqueFileName = `${Date.now()}-${file.originalname}`;
-
-
-            // Construye la ruta completa del archivo en la carpeta pdfs
-            const pdfPath = path.join( process.env.Docs, uniqueFileName);
-
-            // Crea el stream de escritura del archivo
-            const writeStream = fs.createWriteStream(pdfPath);
-            writeStream.write(file.buffer);
-
-            // Cierra el flujo después de escribir el contenido
-            writeStream.end();
-
-
-            // Guarda el archivo en la carpeta pdfs con el nuevo nombre
-
-
-            //  Inserta los datos del libro en la base de datos, utilizando el campo nombre_archivo
-            await this.sql.query('INSERT INTO libros.libro (titulo, fecha_publ, descripcion, num_paginas, fk_creador, fk_autor, fk_carrera, nombre_archivo , imagen) VALUES ($1, CURRENT_DATE, $2, $3, $4, $5, $6, $7,$8)', [
-                libro.titulo, libro.descripcion, data.numpages, libro.fk_creador, libro.fk_autor, libro.fk_carrera, uniqueFileName, libro.imagen
-            ]);
-
-            return 'Libro creado exitosamente';
-        } catch (error) {
+        //     if (!file || !file.buffer) {
+        //         throw new HttpException('Archivo no válido', HttpStatus.BAD_REQUEST);
+        //     }
+        //     const pdfBuffer = file.buffer;
+        //     const data = await pdfParse(pdfBuffer);
 
 
 
-            console.error('Error al crear el libro con PDF:', error);
-            throw new HttpException(`Error al crear el libro con PDF: ${error.message}`, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+
+
+        //     // Genera un nombre único para el archivo PDF
+        //     const uniqueFileName = `${Date.now()}-${file.originalname}`;
+
+
+        //     // Construye la ruta completa del archivo en la carpeta pdfs
+        //     const pdfPath = path.join(process.env.Docs, uniqueFileName);
+
+        //     // Crea el stream de escritura del archivo
+        //     const writeStream = fs.createWriteStream(pdfPath);
+        //     writeStream.write(file.buffer);
+
+        //     // Cierra el flujo después de escribir el contenido
+        //     writeStream.end();
+
+
+        //     // Guarda el archivo en la carpeta pdfs con el nuevo nombre
+
+
+        //     //  Inserta los datos del libro en la base de datos, utilizando el campo nombre_archivo
+        //     await this.sql.query('INSERT INTO libros.libro (titulo,year_of_publication,review, fk_creador, fk_autor, fk_carrera, nombre_archivo , imagen , isbn ,codigo,editorial,fk_tipo) VALUES ($1, CURRENT_DATE, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11)', [
+        //         libro.titulo,
+        //         libro.descripcion,
+        //         libro.fk_creador,
+        //         libro.fk_autor,
+        //         libro.fk_carrera,
+        //         uniqueFileName,
+        //         libro.imagen,
+        //         libro.isbn,
+        //         libro.codigo,
+        //         libro.editorial,
+        //         libro.fk_tipo
+        //     ]);
+
+        //     return 'Libro creado exitosamente';
+        // } catch (error) {
+        //     console.error('Error al crear el libro con PDF:', error);
+        //     throw new HttpException(`Error al crear el libro con PDF: ${error.message}`, HttpStatus.INTERNAL_SERVER_ERROR);
+        // }
     }
 
 
 
     async eliminar(id: string) {
 
-        
+
         try {
-            
-             await this.sql.query('DELETE FROM tramites.prestamo WHERE fk_libro = $1;', [id])
+
+            await this.sql.query('DELETE FROM tramites.prestamo WHERE fk_libro = $1;', [id])
             await this.sql.query('DELETE FROM  libros.libro WHERE  id_libro = $1;', [id])
             return { mesage: 'eliminado ' }
 

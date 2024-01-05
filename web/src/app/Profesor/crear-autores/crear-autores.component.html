@@ -28,17 +28,7 @@
               <label for="nombre" class="form-label">Nombre:</label>
               <input type="text" id="nombre" name="nombre" [(ngModel)]="Nombre" class="form-control" required>
             </div>
-            <div class="mb-3">
-              <label for="nacionalidad" class="form-label">Nacionalidad:</label>
-              <select class="form-select" id="nacionalidad" [(ngModel)]="na" name="selectedCarrera">
-                <option selected disabled>Seleccionar nacionalidad</option>
-                @for (nacionalidad of nacionalida; track nacionalidad) {
-                  <option [value]="nacionalidad.id_nacionalidad">
-                    {{ nacionalidad.nombre }}
-                  </option>
-                }
-              </select>
-            </div>
+            
             <div class="text-center">
               <button type="button" (click)="crearAutor()" class="btn btn-primary">Crear Autor</button>
             </div>
@@ -53,7 +43,6 @@
       <thead>
         <tr>
           <th>Autor</th>
-          <th>Nacionalidad</th>
           <td>aciones</td>
         </tr>
       </thead>
@@ -61,7 +50,6 @@
         @for (autor of aut; track autor) {
           <tr   >
             <td>{{ autor.nombre }}</td>
-            <td>{{ autor.nacionalidad }}</td>
             <td>
               <button (click)="test(autor.id_autor)" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 ELIMINAR

@@ -30,12 +30,14 @@ export class LibroController {
     @UsePipes(ValidationPipe)
     @UseInterceptors(FileInterceptor('file'))
     async crear(
-        @UploadedFile() file: any, @Body('libro') libro
+        @UploadedFile() file: any, @Body('libro') libro:Libro
     ): Promise<{ message: string, newFileName: string }> {
        
         try {
 
             // Llama al servicio para crear el libro con el archivo PDF
+            console.log(libro)
+           
             const message = await this.carrera.crear(libro, file);
 
             return { message, newFileName: /* Nombre del archivo generado en el servicio */'gg' }

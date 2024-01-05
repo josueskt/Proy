@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CarreraService {
-  private baseUrl = 'http://localhost:3000/carrera'; // Reemplaza con la URL de tu backend
+
+  base = environment.URL;
+  private baseUrl =  `${this.base}carrera`;
 
   constructor(private http: HttpClient) {}
 
@@ -23,7 +26,7 @@ export class CarreraService {
   }
 
   eliminarCarrera(id: number){
-   
+
     this.http.delete(`${this.baseUrl}/${id}`).subscribe(()=>{
       window.location.reload();
     },(error)=>{

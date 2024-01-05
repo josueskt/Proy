@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, ValidationPipe } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -28,24 +28,25 @@ import { GetLibroController } from './usuarios/get_libro/get_libro.controller';
 import { GetLibroService } from './usuarios/get_libro/get_libro.service';
 import { AutorController } from './profesor/autor/autor.controller';
 import { AutorService } from './profesor/autor/autor.service';
-import { NacionalidadController } from './administrador/nacionalidad/nacionalidad.controller';
-import { NacionalidadService } from './administrador/nacionalidad/nacionalidad.service';
+
 import { CambioContraController } from './usuarios/cambio_contra/cambio_contra.controller';
 import { CambioContraService } from './usuarios/cambio_contra/cambio_contra.service';
 import { MilibroController } from './profesor/libro/milibro/milibro.controller';
 import { DescargaService } from './usuarios/descarga/descarga.service';
 import { CargaLLoteController } from './administrador/carga_l_lote/carga_l_lote.controller';
 import { CargaLLoteService } from './administrador/carga_l_lote/carga_l_lote.service';
+import { LibroTipoController } from './administrador/libro_tipo/libro_tipo.controller';
+import { LibroTipoService } from './administrador/libro_tipo/libro_tipo.service';
 
 
 
 @Module({
   imports: [],
-  controllers: [AppController, TestController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController,  BuscadorController, DescargaController, GetLibroController, AutorController, NacionalidadController, CambioContraController, MilibroController, CargaLLoteController ],
+  controllers: [AppController, TestController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController,  BuscadorController, DescargaController, GetLibroController, AutorController, CambioContraController, MilibroController, CargaLLoteController, LibroTipoController ],
   providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, LibroService, LoginService, UsuariosService,  {
     provide: APP_PIPE,
     useClass: ValidationPipe,
-  }, BuscadorService, GetLibroService, AutorService, NacionalidadService, CambioContraService, DescargaService, CargaLLoteService],
+  }, BuscadorService, GetLibroService, AutorService, CambioContraService, DescargaService, CargaLLoteService, LibroTipoService],
 })
 export class AppModule {
  

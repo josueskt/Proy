@@ -20,10 +20,12 @@ export class FormularioLibroComponent implements OnInit {
   nas = ""
   autors: any
   carrer: any
+  tipos:any
 
   ngOnInit() {
     this.get_autor()
     this.get_carrera()
+    this.get_tipos()
   }
 
   constructor(private libroService: LibroService, private formBuilder: FormBuilder, private Aunh: AuthService, private autor: CrearAutoresService, private Carrera: CarreraService) {
@@ -31,10 +33,13 @@ export class FormularioLibroComponent implements OnInit {
       titulo: ['', [Validators.required, Validators.maxLength(50)]],
       imagen: ['', Validators.required],
       descripcion: ['', [Validators.required, Validators.maxLength(500)]],
-      num_paginas: [''],
       fk_creador: [''],
       fk_autor: [''],
       fk_carrera: [''],
+      tipo: ['', Validators.required],
+      codigo: ['', Validators.required],
+      editorial: ['', Validators.required],
+      isbn: ['', Validators.required]
     });
   }
   
@@ -72,6 +77,9 @@ export class FormularioLibroComponent implements OnInit {
         // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
       }
     );
+
+  }
+  get_tipos(){
 
   }
   get tituloControl(): FormControl {

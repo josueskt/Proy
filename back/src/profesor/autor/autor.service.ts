@@ -10,16 +10,16 @@ export class AutorService {
 
     async traer(): Promise<any> {
 
-        const reslut = await this.sql.query('select a.id_autor , a.nombre, n.nombre as nacionalidad from Libros.autor as a  inner join libros.nacionalida as n on  a.fk_nacionalidad = n.id_nacionalidad')
+        const reslut = await this.sql.query('select id_autor , nombre  from Libros.autor ')
         return reslut
 
 
     }
-    async crear_autor(nombre: String ,nacionalidad:Number) {
+    async crear_autor(nombre: String ) {
 
 
         try {
-             await this.sql.query('INSERT INTO libros.autor (nombre , fk_nacionalidad ) values ($1,$2)', [nombre , nacionalidad])
+             await this.sql.query('INSERT INTO libros.autor (nombre) values ($1)', [nombre])
             return "carrera creada exitosamente "
             
         } catch (error) {

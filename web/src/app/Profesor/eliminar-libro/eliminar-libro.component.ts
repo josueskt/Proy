@@ -10,21 +10,17 @@ import { LibroService } from '../libro.service';
 export class EliminarLibroComponent {
   libro: any;
   libroEliminado = false;
-  
 
-  
+
     private route=inject( ActivatedRoute)
     private router=inject( Router)
     private libroService=inject( LibroService)
-  
-
- 
 
   Eliminar() {
     const libro_id = Number(this.route.snapshot.params['id'])
     this.libroService.eliminarLibro(libro_id);
     this.router.navigate(['/catalogo']);
-   
+
   }
 
   cancelarEliminar() {

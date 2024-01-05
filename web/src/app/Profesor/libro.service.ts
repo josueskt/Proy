@@ -2,20 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable({
   providedIn: 'root',
 })
 export class LibroService {
-  private baseUrl = 'http://localhost:3000/libro';
-
-  private baseUr = 'http://localhost:3000/milibro';
+  base = environment.URL;
+  private baseUrl =  `${this.base}libro`;
+  private baseUr = `${this.base}milibro`;
 
   constructor(private http: HttpClient , private router:Router) {}
 
   getLibros(datos:string): Observable<any> {
-   
+
     return this.http.post(`${this.baseUr}`,{nombre:datos});
   }
 
@@ -29,13 +30,13 @@ export class LibroService {
     formData.append('file', file, file.name);
     this.router.navigate(['/catalogo']);
     return this.http.post<{ message: string, newFileName: string }>(`${this.baseUrl}`, formData);
-    
+
   }
 
 
   eliminarLibro(dato: number){
     const url = `${this.baseUrl}/${dato}`;
-    
+
     this.http.delete(url).subscribe(
       (response) => {
         console.log('Libro eliminado con éxito:', response);
@@ -47,15 +48,15 @@ export class LibroService {
         // Puedes manejar el error de alguna manera aquí
       }
     );
-      
-     
+
+
   }
-  
+
 
   editarLibro(id: number, libro: any): Observable<any> {
     const formData = this.createFormData(libro);
-  
-   
+
+
     return this.http.put(`${this.baseUrl}/editar/${id}`, formData);
   }
 
@@ -72,5 +73,5 @@ export class LibroService {
     return formData;
   }
 
-  
+
 }
