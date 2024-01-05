@@ -54,15 +54,24 @@ export class CargaLibrosBloqueService {
     const data = jsonData.slice(1);
 
     const formattedData = data.map(row => {
+    
+
       const titulo = row[0];
+      const review = row[5];
       const autor = row[1];
-      const descripcion = row[5];
       const carrera = row[8];
-      const imagen = row[11];
-      const archivo = row[10];
+      const archivo = row[9];
+      const imagen = row[10];
+      
+      const isbn = row[4];
+      const codigo = row[7];
+      const editorial = row[3];
+      const tipo = row[11];
+      const year = row[2];
+
 
       return {
-        titulo, autor, descripcion, carrera, imagen, archivo
+        titulo, autor, review, carrera, imagen, archivo,isbn,codigo,editorial,tipo,year
       };
     });
 

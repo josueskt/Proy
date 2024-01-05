@@ -10,8 +10,8 @@ export class BuscadorService {
     let query
     try {
       query = `
-        SELECT l.id_libro, l.titulo ,l.nombre_archivo , l.fecha_publ , l.descripcion , l.imagen , l.num_paginas , c.nombre as nombre_carrera , a.nombre as autor_nombre
-        FROM libros.libro as l
+      SELECT l.id_libro, l.titulo ,l.nombre_archivo , l.year_of_publication , l.review , l.imagen  , c.nombre as nombre_carrera , a.nombre as autor_nombre
+      FROM libros.libro as l
         LEFT JOIN libros.carrera as c ON l.fk_carrera = c.id_carrera
         LEFT JOIN libros.autor as a ON l.fk_autor = a.id_autor
         WHERE l.titulo LIKE $1
@@ -20,7 +20,7 @@ export class BuscadorService {
       //busca por nombre del autor 
       if (!restul.length) {
         query = `
-        SELECT l.id_libro, l.titulo ,l.nombre_archivo , l.fecha_publ , l.descripcion , l.imagen , l.num_paginas , c.nombre as nombre_carrera , a.nombre as autor_nombre
+        SELECT l.id_libro, l.titulo ,l.nombre_archivo , l.year_of_publication , l.review , l.imagen , c.nombre as nombre_carrera , a.nombre as autor_nombre
         FROM libros.libro as l
         LEFT JOIN libros.carrera as c ON l.fk_carrera = c.id_carrera
         LEFT JOIN libros.autor as a ON l.fk_autor = a.id_autor
@@ -33,8 +33,8 @@ export class BuscadorService {
       if (!restul.length) {
 
         query = `
-        SELECT l.id_libro, l.titulo ,l.nombre_archivo , l.fecha_publ , l.descripcion , l.imagen , l.num_paginas , c.nombre as nombre_carrera , a.nombre as autor_nombre
-        FROM libros.libro as l
+        SELECT l.id_libro, l.titulo ,l.nombre_archivo , l.year_of_publication , l.review , l.imagen  , c.nombre as nombre_carrera , a.nombre as autor_nombre
+      FROM libros.libro as l
         LEFT JOIN libros.carrera as c ON l.fk_carrera = c.id_carrera
         LEFT JOIN libros.autor as a ON l.fk_autor = a.id_autor
         WHERE l.nombre_archivo LIKE $1

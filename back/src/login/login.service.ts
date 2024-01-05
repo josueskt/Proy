@@ -13,7 +13,7 @@ export class LoginService {
 
             const cedula = datos.cedula
             const password = datos.password
-            const result = await this.sql.query('SELECT u.id_user , u.email,u.password,u.nombre ,r.nombre_rol  FROM inst.usuario AS u INNER JOIN inst.rol AS r ON u.fk_rol = r.id_rol where id_user = ($1);', [cedula])
+            const result = await this.sql.query('SELECT u.id_user , u.email,u.password,u.nombre ,r.nombre_rol  FROM inst.usuario AS u INNER JOIN inst.rol AS r ON u.fk_rol = r.id_rol where email = ($1);', [cedula])
 
             if (result.length === 1) {
                 const user = result[0];
@@ -21,7 +21,7 @@ export class LoginService {
                 // Verificar la contraseña
                 const passwordMatch = await bcrypt.compare(password, user.password);
 
-                if (passwordMatch) {
+                if (passwordMatch) {    
                     const token = jwt.sign(
                         { id_user: user.id_user, email: user.email, nombre: user.nombre, nombre_rol: user.nombre_rol },
                         this.jwtSecretKey,

@@ -4,6 +4,7 @@ import { LibroService } from '../libro.service';
 import { AuthService } from '../../roles/auth.service';
 import { CrearAutoresService } from '../crear-autores/crear-autores.service';
 import { CarreraService } from '../../Administrador/carrera/carrera.service';
+import { LibroTipoService } from './libro-tipo.service';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class FormularioLibroComponent implements OnInit {
     this.get_tipos()
   }
 
-  constructor(private libroService: LibroService, private formBuilder: FormBuilder, private Aunh: AuthService, private autor: CrearAutoresService, private Carrera: CarreraService) {
+  constructor(private libroService: LibroService, private formBuilder: FormBuilder, private Aunh: AuthService, private autor: CrearAutoresService, private Carrera: CarreraService , private Tipo:LibroTipoService) {
     this.miFormulario = this.formBuilder.group({
       titulo: ['', [Validators.required, Validators.maxLength(50)]],
       imagen: ['', Validators.required],
@@ -80,6 +81,16 @@ export class FormularioLibroComponent implements OnInit {
 
   }
   get_tipos(){
+    this.Tipo.getLibro().subscribe(
+      (tip) => {
+        this.tipos = tip;
+        
+      },
+      error => {
+        console.error('Error al obtener libros:', error);
+        // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
+      }
+    );
 
   }
   get tituloControl(): FormControl {

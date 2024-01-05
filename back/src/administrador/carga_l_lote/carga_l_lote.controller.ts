@@ -14,6 +14,7 @@ export class CargaLLoteController {
     
     for (let dato of datos) {
       if (dato.titulo) {
+        
         this.fileService.libros_bloque(dato, id)
       }
     }

@@ -23,10 +23,8 @@
   <div class="col-md-6 form-group">
     <label for="fk_autor">tipo:</label>
     <select class="form-select form-select-lg" id="tipo" formControlName="tipo">
-      <option value="1">asd</option>
-      <option value="2">asd</option>
       @for (autor of tipos; track autor) {
-        <option [value]="autor.id_autor">{{ autor.nombre }}</option>
+        <option [value]="autor.id_tipo">{{ autor.nombre }}</option>
       }
     </select>
   </div>

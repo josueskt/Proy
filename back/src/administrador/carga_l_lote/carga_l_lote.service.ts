@@ -9,7 +9,7 @@ import { SqlService } from 'src/sql/sql.service';
 export class CargaLLoteService {
   constructor(private readonly sql: SqlService) {
   }
-  async descargarArchivo(dato:any , id:string): Promise<void> {
+  async descargarArchivo(dato: any, id: string): Promise<void> {
     const directorioDestino = process.env.Docs;
 
     if (!directorioDestino) {
@@ -27,7 +27,7 @@ export class CargaLLoteService {
         fs.mkdirSync(directorioDestino, { recursive: true });
       }
 
-      // Realiza la solicitud HTTP para descargar el archivo
+      // Realiza la solicitud http
       const response = await axios({
         url,
         method: 'GET',
@@ -48,10 +48,38 @@ export class CargaLLoteService {
       const writer = fs.createWriteStream(filePath);
       response.data.pipe(writer);
 
-     
-      await this.sql.query('INSERT INTO libros.libro (titulo, fecha_publ, descripcion, num_paginas, fk_creador, fk_autor, fk_carrera, nombre_archivo , imagen) VALUES ($1, CURRENT_DATE, $2, $3, $4, $5, $6, $7,$8)', [
-        dato.titulo, dato.descripcion, 0, id, 2, dato.carrera, nombreOriginal, imagen
-    ]);
+
+
+
+
+      // ponder en el mapeo de exel esta made de fk_autor,_fk:carrera_fktipo
+      await this.sql.query(`INSERT INTO libros.libro (
+        titulo,
+        year_of_publication,
+        review,
+        imagen,
+        nombre_archivo,
+        isbn,
+        fk_creador,
+        fk_autor,
+        fk_carrera,
+        fk_tipo,
+        codigo,
+        editorial) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)`, [
+        dato.titulo,
+        dato.year,
+        dato.review,
+        imagen,
+        nombreOriginal,
+        dato.isbn,
+        id,
+        dato.autor,
+        dato.carrera,
+        dato.tipo,
+        dato.codigo,
+        dato.editorial
+       
+      ]);
 
       return new Promise((resolve, reject) => {
         writer.on('finish', resolve);
@@ -75,26 +103,39 @@ export class CargaLLoteService {
       return null;
     }
   }
-  
 
 
-  async libros_bloque(dato: any , id:string): Promise<void> {
+
+  async libros_bloque(dato: any, id: string): Promise<void> {
     try {
 
-    
-    
-      // Descargar el archivo
-    await this.descargarArchivo(dato ,id);
-  
-     
+      let id_autor = await this.sql.query('SELECT id_autor FROM libros.autor WHERE nombre = ($1)', [dato.autor])
+      let id_tipo = await this.sql.query('SELECT id_tipo FROM libros.tipo WHERE nombre = ($1)', [dato.tipo])
+
+      if (!id_autor[0]) {
+        await this.sql.query('INSERT INTO libros.autor(nombre) VALUES($1)', [dato.autor])
+        id_autor = await this.sql.query('SELECT id_autor FROM libros.autor WHERE nombre = ($1)', [dato.autor])
+
+
+
+      }
+      dato.autor = id_autor[0].id_autor
+      dato.tipo = id_tipo[0].id_tipo
       
+
+
+      // Descargar el archivo
+      await this.descargarArchivo(dato, id);
+
+
+
     } catch (error) {
       console.error('Error en la función libros_bloque:', error);
-      
+
     }
   }
-    
-  }
+
+}
 
 
 
