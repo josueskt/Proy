@@ -21,7 +21,9 @@ export class FormularioLibroComponent implements OnInit {
   nas = ""
   autors: any
   carrer: any
-  tipos:any
+  tipos: any
+
+  tipo_selected = 'PDF'
 
   ngOnInit() {
     this.get_autor()
@@ -29,7 +31,7 @@ export class FormularioLibroComponent implements OnInit {
     this.get_tipos()
   }
 
-  constructor(private libroService: LibroService, private formBuilder: FormBuilder, private Aunh: AuthService, private autor: CrearAutoresService, private Carrera: CarreraService , private Tipo:LibroTipoService) {
+  constructor(private libroService: LibroService, private formBuilder: FormBuilder, private Aunh: AuthService, private autor: CrearAutoresService, private Carrera: CarreraService, private Tipo: LibroTipoService) {
     this.miFormulario = this.formBuilder.group({
       titulo: ['', [Validators.required, Validators.maxLength(50)]],
       imagen: ['', Validators.required],
@@ -40,10 +42,29 @@ export class FormularioLibroComponent implements OnInit {
       tipo: ['', Validators.required],
       codigo: ['', Validators.required],
       editorial: ['', Validators.required],
-      isbn: ['', Validators.required]
+      isbn: ['', Validators.required],
+      archivo_url:['']
     });
   }
   
+  cambio( value:Event){
+    const nombreAutor = (event.target as HTMLSelectElement).value;
+  // me muero 
+  for (let ti of this.tipos) {
+    if (ti.id_tipo == nombreAutor) {
+      if ( ti.nombre === 'PDF') {
+        this.tipo_selected = 'PDF'
+
+      }
+      else if (ti.nombre === 'URL') {
+        this.tipo_selected = 'URL'
+      }
+
+    }
+  }
+  
+  }
+
   get descripcionControl(): FormControl {
     return this.miFormulario.get('descripcion') as FormControl;
   }
@@ -58,7 +79,7 @@ export class FormularioLibroComponent implements OnInit {
     this.autor.traer_autor().subscribe(
       (libros) => {
         this.autors = libros;
-      
+
       },
       error => {
         console.error('Error al obtener libros:', error);
@@ -71,7 +92,7 @@ export class FormularioLibroComponent implements OnInit {
     this.Carrera.traerTodas().subscribe(
       (libros) => {
         this.carrer = libros;
-        
+
       },
       error => {
         console.error('Error al obtener libros:', error);
@@ -80,11 +101,11 @@ export class FormularioLibroComponent implements OnInit {
     );
 
   }
-  get_tipos(){
+  get_tipos() {
     this.Tipo.getLibro().subscribe(
       (tip) => {
         this.tipos = tip;
-        
+
       },
       error => {
         console.error('Error al obtener libros:', error);
@@ -134,20 +155,49 @@ export class FormularioLibroComponent implements OnInit {
 
 
     // Verifica si se ha seleccionado un archivo
-    if (!this.archivoSeleccionado) {
-      console.error('Por favor, selecciona un archivo.');
-      return;
+
+    
+
+    for (let ti of this.tipos) {
+      if (ti.id_tipo == nuevoLibro.tipo) {
+        if (this.archivoSeleccionado && ti.nombre === 'PDF') {
+          // Llama al servicio para crear el libro
+  this.libroService.crearLibro(nuevoLibro, this.archivoSeleccionado).subscribe(
+    () => {
+      alert("libro creado")
+
+    },
+    error => {
+      console.error('Error al crear el libro:', error);
+    }
+  );
+
+        }
+        else if (ti.nombre === 'URL' && !this.archivoSeleccionado) {
+          this.libroService.crearLibro(nuevoLibro, this.archivoSeleccionado).subscribe(
+            () => {
+              alert("libro creado")
+        
+            },
+            error => {
+              console.error('Error al crear el libro:', error);
+            }
+          );
+        }
+        else if (!this.archivoSeleccionado) {
+
+          console.error('Por favor, selecciona un archivo.');
+          return;
+        }
+
+      }
     }
 
-    // Llama al servicio para crear el libro
-    this.libroService.crearLibro(nuevoLibro, this.archivoSeleccionado).subscribe(
-      () => {
-        alert("libro creado")
 
-      },
-      error => {
-        console.error('Error al crear el libro:', error);
-      }
-    );
+
   }
+  
+
+ 
 }
+

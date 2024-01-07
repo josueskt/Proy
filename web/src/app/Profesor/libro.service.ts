@@ -27,7 +27,10 @@ export class LibroService {
   crearLibro(libro: any, file: File): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('libro', JSON.stringify(libro));
-    formData.append('file', file, file.name);
+    if(file){
+      formData.append('file', file, file.name);
+    }
+    
     this.router.navigate(['/catalogo']);
     return this.http.post<{ message: string, newFileName: string }>(`${this.baseUrl}`, formData);
 

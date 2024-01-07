@@ -10,10 +10,11 @@ export class BuscadorService {
     let query
     try {
       query = `
-      SELECT l.id_libro, l.titulo ,l.nombre_archivo , l.year_of_publication , l.review , l.imagen  , c.nombre as nombre_carrera , a.nombre as autor_nombre
+      SELECT l.id_libro, l.titulo ,l.nombre_archivo , l.year_of_publication , l.review , l.imagen  , c.nombre as nombre_carrera , a.nombre as autor_nombre , t.nombre as tipo
       FROM libros.libro as l
         LEFT JOIN libros.carrera as c ON l.fk_carrera = c.id_carrera
         LEFT JOIN libros.autor as a ON l.fk_autor = a.id_autor
+        LEFT JOIN libros.tipo as t on l.fk_tipo = t.id_tipo
         WHERE l.titulo LIKE $1
       `;
       restul = await this.sql.query(query, params);
