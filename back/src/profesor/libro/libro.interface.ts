@@ -1,12 +1,12 @@
 export interface Libro {
-titulo  : String
-imagen:String
-review : String
+titulo  : string
+imagen:string
+review : string
 year:string
 isbn:string
-fk_creador :String
-fk_autor:Number
-fk_carrera: Number
+fk_creador :string
+fk_autor:number
+fk_carrera: number
 fk_tipo:string
 codigo:string
 editorial:string

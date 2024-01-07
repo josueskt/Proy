@@ -4,14 +4,12 @@ import { GetLibroService } from './get_libro.service';
 
 @Controller('get-libro')
 export class GetLibroController {
-constructor(private libro:GetLibroService){}
+  constructor(private libro: GetLibroService) {}
 
-    @Get(':id')
+  @Get(':id')
   //  @UseGuards(RolesGuard)
-   // @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
-    libro_byid(@Param('id') id:number){
-
-
-        return this.libro.libro_byid(id)
-    }
+  // @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
+  libro_byid(@Param('id') id: number) {
+    return this.libro.libro_byid(id);
+  }
 }

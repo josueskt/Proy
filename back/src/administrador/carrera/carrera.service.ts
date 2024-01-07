@@ -1,19 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { MessageDto } from 'src/common/message.dto';
 import { SqlService } from 'src/sql/sql.service';
 
 @Injectable()
 export class CarreraService {
-
 
     constructor(private readonly sql: SqlService) {
 
     }
 
     async traer(): Promise<any> {
-
         const reslut = await this.sql.query('select * from Libros.carrera')
         return reslut
-
 
     }
 
@@ -21,7 +19,7 @@ export class CarreraService {
         try {
             const reslut = await this.sql.query('select * from Libros.carrera where id_carrera = ($1)', [id])
             if(reslut.length === 0){
-                return { message: "no encontrado" };
+                return  new BadRequestException(new MessageDto('No se encontro la carrera'));  
            
             }else{return reslut}
         } catch (error) {
@@ -29,7 +27,6 @@ export class CarreraService {
         }
     }
     async crear(mod: any) {
-
 
         try {
              await this.sql.query('INSERT INTO libros.carrera (nombre) values ($1)', [mod.nombre])
@@ -41,11 +38,10 @@ export class CarreraService {
     }
 
     async eliminar(id: number) {
-
-        try {            
+        try {          
             
             await this.sql.query('delete from  libros.carrera where  id_carrera = $1', [id])
-            return { message: "Carrera eliminada exitosamente" };
+            return new MessageDto('Carrera eliminada exitosamente');
            
        } catch (error) {
            return error
@@ -55,7 +51,7 @@ export class CarreraService {
         const ap = bod.nombre
         try {
             await this.sql.query('update libros.carrera set nombre = $2 where  id_carrera = ($1)', [id , ap])
-            return { message: "Carrera actualizada exitosamente" };
+            return new MessageDto('Carrera editada exitosamente');
            
        } catch (error) {
            return error

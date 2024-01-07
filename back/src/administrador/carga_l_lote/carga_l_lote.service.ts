@@ -1,10 +1,10 @@
 // carga-l-lote.service.ts
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import axios from 'axios';
 import * as fs from 'fs';
 import * as path from 'path';
+import { MessageDto } from 'src/common/message.dto';
 import { SqlService } from 'src/sql/sql.service';
-
 @Injectable()
 export class CargaLLoteService {
   constructor(private readonly sql: SqlService) {
@@ -13,7 +13,7 @@ export class CargaLLoteService {
     const directorioDestino = process.env.Docs;
 
     if (!directorioDestino) {
-      throw new Error('La variable de entorno Docs no está configurada');
+      throw new NotFoundException(new MessageDto('La variable de entorno Docs no está configurada'));      
     }
 
     const googleDriveFileId = this.getDriveFileId(dato.archivo);
@@ -80,8 +80,7 @@ export class CargaLLoteService {
         writer.on('error', reject);
       });
     } catch (error) {
-      console.error('Error al descargar o guardar el archivo:', error);
-      throw new Error('Error al descargar o guardar el archivo');
+      throw new NotFoundException(new MessageDto('Error al descargar o guardar el archivo'));     
     }
   }
 
@@ -141,8 +140,6 @@ export class CargaLLoteService {
     }
   }
 
-
-
   async libros_bloque(dato: any, id: string): Promise<void> {
     try {
 
@@ -169,9 +166,8 @@ console.log("es url")
       // Descargar el archivo
      //
 
-    } catch (error) {
-      console.error('Error en la función libros_bloque:', error);
-
+    } catch (error) {      
+      throw new NotFoundException(new MessageDto('Error en la función libros_bloque'));
     }
   }
 
