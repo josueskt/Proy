@@ -44,7 +44,7 @@ export class LibroService {
             l.year_of_publication,
             l.id_libro ,
             l.imagen, 
-            l.nombre_archivo ,
+            l.nombre_archivo ,            
             l.titulo,
             a.nombre as autor,
             p.nombre as profesor,
@@ -52,8 +52,7 @@ export class LibroService {
             t.nombre as tipo
             from libros.libro as l right join inst.usuario as p on p.id_user = l.fk_creador
             right join libros.autor as a on l.fk_autor = a.id_autor
-            right join libros.carrera as c on l.fk_carrera = c.id_carrera  
-            LEFT JOIN libros.tipo as t on l.fk_tipo = t.id_tipo 
+            right join libros.carrera as c on l.fk_carrera = c.id_carrera   
             where id_libro = ($1)`,
         [id],
       );
@@ -67,9 +66,8 @@ export class LibroService {
     }
   }
 
-    async crear(libros, file: any): Promise<string> {
-        const libro = JSON.parse(libros);
-        
+  async crear(libros, file: any): Promise<string> {
+    const libro = JSON.parse(libros);
 
     try {
       if (!file || !file.buffer) {
@@ -104,68 +102,27 @@ export class LibroService {
                 fk_tipo,
                 codigo,
                 editorial
-                ) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)`, [
-                libro.titulo,
-                2004,
-                libro.descripcion,
-                libro.imagen,
-                uniqueFileName,
-                libro.isbn,
-                libro.fk_creador,
-                libro.fk_autor,
-                libro.fk_carrera,
-                libro.tipo,
-                libro.codigo,
-                libro.editorial
-               
-            ]);
-
-            return 'Libro creado exitosamente';
-        } catch (error) {
-            console.error('Error al crear el libro con PDF:', error);
-            return error
-          //  throw new HttpException(`Error al crear el libro con PDF: ${error.message}`, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        }else
-        {
-            console.log(libro)
-
-            await this.sql.query(`INSERT INTO libros.libro (
-                titulo,
-                year_of_publication,
-                review,
-                imagen ,
-                nombre_archivo ,
-                isbn ,
-                fk_creador,
-                fk_autor,
-                fk_carrera,
-                fk_tipo,
-                codigo,
-                editorial
-                ) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)`, [
-                libro.titulo,
-                2004,
-                libro.descripcion,
-                libro.imagen,
-                libro.archivo_url,
-                libro.isbn,
-                libro.fk_creador,
-                libro.fk_autor,
-                libro.fk_carrera,
-                libro.tipo,
-                libro.codigo,
-                libro.editorial
-               
-            ]);
-        }
-        
-
-        
+                ) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)`,
+        [
+          libro.titulo,
+          2004,
+          libro.descripcion,
+          libro.imagen,
+          uniqueFileName,
+          libro.isbn,
+          libro.fk_creador,
+          libro.fk_autor,
+          libro.fk_carrera,
+          libro.fk_tipo,
+          libro.codigo,
+          libro.editorial,
+        ],
+      );
+      return 'Libro creado exitosamente'
+    } catch (error) {      
+      throw new HttpException(new MessageDto(`Error al crear el libro con PDF: ${error.message}`), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-
+  }
 
   async eliminar(id: string) {
     try {
