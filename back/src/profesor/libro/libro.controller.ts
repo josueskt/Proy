@@ -36,7 +36,7 @@ export class LibroController {
         try {
 
             // Llama al servicio para crear el libro con el archivo PDF
-            console.log(libro)
+            
            
             const message = await this.carrera.crear(libro, file);
 

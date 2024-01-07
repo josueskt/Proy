@@ -55,7 +55,7 @@ export class CarreraComponent  implements OnInit{
           this.errorAlerta=true
           setTimeout(() => {
             this.errorAlerta = false;
-          }, 4000);
+          }, 40);
           
         } else {
           this.carreraService.crearCarrera(this.carrera).subscribe(

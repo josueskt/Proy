@@ -1,0 +1,30 @@
+<br><br><br>
+<form (ngSubmit)="crear()" class="mt-3">
+    <!-- Agrega otros campos del formulario según la estructura de tu objeto carrera -->
+
+    <div class="mb-3 input-group">
+      <label for="nombre" class="form-label sr-only">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" [(ngModel)]="nombre" class="form-control" placeholder="Nombre" required>
+      <div class="input-group-append">
+        <button type="submit" class="btn btn-primary" [disabled]="!nombre">Crear</button>
+      </div>
+    </div>
+  </form>
+
+<table class="table bg-white">
+    <tr>
+        <th>id</th>
+        <th>nombre tipo</th>
+    </tr>
+    @for (tipo of tipos; track $index) {
+
+    <tr>
+        
+        <td>
+            {{tipo.id_tipo}}
+        </td>
+        <td>
+            {{tipo.nombre}}
+        </td>
+    </tr>}
+</table>

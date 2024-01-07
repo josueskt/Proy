@@ -85,6 +85,49 @@ export class CargaLLoteService {
     }
   }
 
+
+  // funcion que guarda el libro completo  nts no descarga simon :·   
+  async Sin_Descarga( dato:any , id ){
+
+    try{
+      const imagen_url = this.getDriveFileId(dato.imagen);
+      const imagen = `https://drive.google.com/uc?id=${imagen_url}`
+      
+      await this.sql.query(`INSERT INTO libros.libro (
+        titulo,
+        year_of_publication,
+        review,
+        imagen,
+        nombre_archivo,
+        isbn,
+        fk_creador,
+        fk_autor,
+        fk_carrera,
+        fk_tipo,
+        codigo,
+        editorial) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)`, [
+        dato.titulo,
+        dato.year,
+        dato.review,
+        imagen,
+        dato.archivo,
+        dato.isbn,
+        id,
+        dato.autor,
+        dato.carrera,
+        dato.tipo,
+        dato.codigo,
+        dato.editorial
+       
+      ]);
+
+    }catch(error){
+      throw error
+
+    }
+
+  }
+
   getDriveFileId(link: string): string | null {
     const startIndex = link.indexOf('/d/') + 3; // Sumamos 3 para omitir "/d/"
     const endIndex = link.indexOf('/view');
@@ -111,11 +154,20 @@ export class CargaLLoteService {
         id_autor = await this.sql.query('SELECT id_autor FROM libros.autor WHERE nombre = ($1)', [dato.autor])
 
       }
+      const nombre_tipo = dato.tipo
       dato.autor = id_autor[0].id_autor
       dato.tipo = id_tipo[0].id_tipo
+console.log(dato)
+      if(nombre_tipo ==='URL'){
+console.log("es url")
 
+
+      }
+      else if(nombre_tipo === 'PDF'){
+        await this.descargarArchivo(dato, id);
+      }
       // Descargar el archivo
-      await this.descargarArchivo(dato, id);
+     //
 
     } catch (error) {
       console.error('Error en la función libros_bloque:', error);

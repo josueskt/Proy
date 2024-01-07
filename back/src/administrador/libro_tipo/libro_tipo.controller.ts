@@ -14,8 +14,9 @@ export class LibroTipoController {
     @Post()
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR'])
-    crear(@Body() bod:string) {
-       return this.Libro.crear(bod)
+    crear(@Body() bod:{"datos":string}) {
+        
+       return this.Libro.crear(bod.datos)
     };
     @Delete(":id")
     @UseGuards(RolesGuard)

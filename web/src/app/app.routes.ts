@@ -15,7 +15,8 @@ import { ExplorarComponent } from './usuario/explorar/explorar.component';
 import { HomeComponent } from './usuario/home/home.component';
 import { LibroComponent } from './usuario/libro/libro.component';
 import { VistalibroComponent } from './usuario/vistalibro/vistalibro.component';
-import { TipoLibroComponent } from './Administrador/tipo-libro/tipo-libro.component';
+import { LibroTipoComponent } from './Administrador/libro-tipo/libro-tipo.component';
+
 
 
 export const routes: Routes = [
@@ -67,7 +68,7 @@ export const routes: Routes = [
     data: { roles: ['ADMINISTRADOR'] }
   },
   {
-    path: 'tipo-libro', component: TipoLibroComponent, canActivate: [AuthGuard],
+    path: 'tipo-libro', component: LibroTipoComponent, canActivate: [AuthGuard],
     data: { roles: ['ADMINISTRADOR'] }
   },
 
