@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VistalibroService } from './vistalibro.service';
 import { UpperCasePipe } from '@angular/common';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 
 @Component({
@@ -15,16 +16,30 @@ export class VistalibroComponent {
   id = '';
   libro: any;
   result: any;
-
+  urlSegura:any
+  private sanitizer = inject(DomSanitizer) 
   private route=inject(  ActivatedRoute) 
   private vistalibroService=inject(  VistalibroService)
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
-      console.log('ID de la ruta actual:', this.id);
+      
       this.getLibroById(this.id);
+      
     });
+    
+  }
+  
+  
+  cargarPDF() {
+    const url = this.libro.nombre_archivo;
+     this.urlSegura = this.sanitizeUrl(url);
+    
+    // Ahora puedes usar urlSegura en tu plantilla
+  }
+  sanitizeUrl(url: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
   getLibroById(id: string): void {
@@ -33,8 +48,8 @@ export class VistalibroComponent {
         console.log('libro', data);
         this.result = data;
         this.libro = this.result[0];
-        this.libro.fecha_publ = this.formatearFecha(this.libro.fecha_publ)
-        
+       
+        this.cargarPDF()
         
       },
       error => {

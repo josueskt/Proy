@@ -43,26 +43,26 @@ export class FormularioLibroComponent implements OnInit {
       codigo: ['', Validators.required],
       editorial: ['', Validators.required],
       isbn: ['', Validators.required],
-      archivo_url:['']
+      archivo_url: ['']
     });
   }
-  
-  cambio( value:Event){
+
+  cambio(value: Event) {
     const nombreAutor = (event.target as HTMLSelectElement).value;
-  // me muero 
-  for (let ti of this.tipos) {
-    if (ti.id_tipo == nombreAutor) {
-      if ( ti.nombre === 'PDF') {
-        this.tipo_selected = 'PDF'
+    // me muero 
+    for (let ti of this.tipos) {
+      if (ti.id_tipo == nombreAutor) {
+        if (ti.nombre === 'PDF') {
+          this.tipo_selected = 'PDF'
+
+        }
+        else if (ti.nombre === 'URL') {
+          this.tipo_selected = 'URL'
+        }
 
       }
-      else if (ti.nombre === 'URL') {
-        this.tipo_selected = 'URL'
-      }
-
     }
-  }
-  
+
   }
 
   get descripcionControl(): FormControl {
@@ -156,28 +156,28 @@ export class FormularioLibroComponent implements OnInit {
 
     // Verifica si se ha seleccionado un archivo
 
-    
+
 
     for (let ti of this.tipos) {
       if (ti.id_tipo == nuevoLibro.tipo) {
         if (this.archivoSeleccionado && ti.nombre === 'PDF') {
           // Llama al servicio para crear el libro
-  this.libroService.crearLibro(nuevoLibro, this.archivoSeleccionado).subscribe(
-    () => {
-      alert("libro creado")
+          this.libroService.crearLibro(nuevoLibro, this.archivoSeleccionado).subscribe(
+            () => {
+              alert("libro creado")
 
-    },
-    error => {
-      console.error('Error al crear el libro:', error);
-    }
-  );
+            },
+            error => {
+              console.error('Error al crear el libro:', error);
+            }
+          );
 
         }
         else if (ti.nombre === 'URL' && !this.archivoSeleccionado) {
           this.libroService.crearLibro(nuevoLibro, this.archivoSeleccionado).subscribe(
             () => {
               alert("libro creado")
-        
+
             },
             error => {
               console.error('Error al crear el libro:', error);
@@ -196,8 +196,8 @@ export class FormularioLibroComponent implements OnInit {
 
 
   }
-  
 
- 
+
+
 }
 

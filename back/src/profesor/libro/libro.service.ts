@@ -149,6 +149,9 @@ export class LibroService {
         {
             console.log(libro)
 
+            const archivo_url = this.getDriveFileId(libro.archivo_url);
+    const url = `https://drive.google.com/uc?id=${archivo_url}`
+
             await this.sql.query(`INSERT INTO libros.libro (
                 titulo,
                 year_of_publication,
@@ -167,7 +170,7 @@ export class LibroService {
                 2004,
                 libro.descripcion,
                 libro.imagen,
-                libro.archivo_url,
+                url,
                 libro.isbn,
                 libro.fk_creador,
                 libro.fk_autor,
@@ -211,5 +214,17 @@ export class LibroService {
     }
 
 
+    getDriveFileId(link: string): string | null {
+        const startIndex = link.indexOf('/d/') + 3; // Sumamos 3 para omitir "/d/"
+        const endIndex = link.indexOf('/view');
+    
+        // Verificar que las subcadenas "/d/" y "/view" estén presentes en el enlace
+        if (startIndex !== -1 && endIndex !== -1) {
+          return link.substring(startIndex, endIndex);
+        } else {
+          // Si no se encuentran las subcadenas esperadas, devolver null o manejar el error según tus necesidades
+          return null;
+        }
+      }
 
 }
