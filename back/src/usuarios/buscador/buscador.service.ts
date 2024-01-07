@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { MessageDto } from 'src/common/message.dto';
 import { SqlService } from 'src/sql/sql.service';
 
 @Injectable()
@@ -31,7 +32,6 @@ export class BuscadorService {
       }
       // busca por el nombre del archivo este es un test 
       if (!restul.length) {
-
         query = `
         SELECT l.id_libro, l.titulo ,l.nombre_archivo , l.year_of_publication , l.review , l.imagen  , c.nombre as nombre_carrera , a.nombre as autor_nombre
       FROM libros.libro as l
@@ -48,11 +48,9 @@ export class BuscadorService {
         restul = await this.sql.query(query, params);
 
       }
-
-
       return restul
     } catch (error) {
-      return error;
+      return new MessageDto(`Error al buscar los libros, error: ${error}`);
     }
   }
 }

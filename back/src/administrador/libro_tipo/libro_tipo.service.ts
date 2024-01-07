@@ -1,14 +1,16 @@
 import { Injectable } from '@nestjs/common';
+import { MessageDto } from 'src/common/message.dto';
 import { SqlService } from 'src/sql/sql.service';
 
 @Injectable()
 export class LibroTipoService {
 
 constructor(private sql:SqlService){}
+
  async crear(nombre:string){
     try {
-        return await this.sql.query('INSEET INTO libros.tipo (nombre) values ($1)',[nombre])
-
+         await this.sql.query('INSERT INTO libros.tipo (nombre) values ($1)',[nombre])
+         return new MessageDto('Tipo de libro creado exitosamente' );
 
     } catch (error) {
         return error
@@ -18,7 +20,6 @@ constructor(private sql:SqlService){}
     try {
         return await this.sql.query('select * from  libros.tipo')
 
-
     } catch (error) {
         return error
     }
@@ -27,8 +28,8 @@ constructor(private sql:SqlService){}
  async eliminar(id:number){
 
     try {
-        return await this.sql.query('Delete from libros.tipo where id_tipo = $1',[id])
-
+        await this.sql.query('Delete from libros.tipo where id_tipo = $1',[id])
+        return new MessageDto('Tipo de libro eliminado exitosamente' );
 
     } catch (error) {
         return error

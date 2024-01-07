@@ -6,16 +6,12 @@ import { RolesGuard } from 'src/roles/roles.guard';
 export class CarreraController {
 
     constructor(public carrera: CarreraService) { }
-
     @Get()
     @UseGuards(RolesGuard)
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
     Traer_todos() {
-
-
         return this.carrera.traer()
-
     }
   
     @Get(":id")

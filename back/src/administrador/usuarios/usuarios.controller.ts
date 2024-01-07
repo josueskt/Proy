@@ -15,8 +15,6 @@ Get_rol(){
     return this.user.get_rol()
 }
 
-
-
    @Post()
  //  @UseGuards(RolesGuard)
   // @SetMetadata('roles', ['ADMINISTRADOR'])

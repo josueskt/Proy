@@ -3,7 +3,6 @@ import { IsNotEmpty } from "class-validator"
 export class Libro_Upload{
 @IsNotEmpty()
 titulo  : string
-//asds
 @IsNotEmpty()
 imagen:string
 @IsNotEmpty()
