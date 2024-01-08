@@ -23,8 +23,7 @@ import { UsuariosService } from './administrador/usuarios/usuarios.service';
 import { APP_PIPE } from '@nestjs/core';
 import { BuscadorService } from './usuarios/buscador/buscador.service';
 import { DescargaController } from './usuarios/descarga/descarga.controller';
-import { GetLibroController } from './usuarios/get_libro/get_libro.controller';
-import { GetLibroService } from './usuarios/get_libro/get_libro.service';
+
 import { AutorController } from './profesor/autor/autor.controller';
 import { AutorService } from './profesor/autor/autor.service';
 
@@ -37,15 +36,17 @@ import { CargaLLoteService } from './administrador/carga_l_lote/carga_l_lote.ser
 import { LibroTipoController } from './administrador/libro_tipo/libro_tipo.controller';
 import { LibroTipoService } from './administrador/libro_tipo/libro_tipo.service';
 
+import { PalabrasClaveService } from './administrador/palabras-clave/palabras-clave.service';
+
 
 
 @Module({
   imports: [],
-  controllers: [AppController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController,  BuscadorController, DescargaController, GetLibroController, AutorController, CambioContraController, MilibroController, CargaLLoteController, LibroTipoController ],
+  controllers: [AppController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController,  BuscadorController, DescargaController, AutorController, CambioContraController, MilibroController, CargaLLoteController, LibroTipoController ],
   providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, LibroService, LoginService, UsuariosService,  {
     provide: APP_PIPE,
     useClass: ValidationPipe,
-  }, BuscadorService, GetLibroService, AutorService, CambioContraService, DescargaService, CargaLLoteService, LibroTipoService],
+  }, BuscadorService, AutorService, CambioContraService, DescargaService, CargaLLoteService, LibroTipoService,  PalabrasClaveService],
 })
 export class AppModule {
  

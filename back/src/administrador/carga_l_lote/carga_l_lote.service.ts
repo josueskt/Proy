@@ -5,9 +5,10 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { MessageDto } from 'src/common/message.dto';
 import { SqlService } from 'src/sql/sql.service';
+import { PalabrasClaveService } from '../palabras-clave/palabras-clave.service';
 @Injectable()
 export class CargaLLoteService {
-  constructor(private readonly sql: SqlService) {
+  constructor(private readonly sql: SqlService , private palabra:PalabrasClaveService) {
   }
   async descargarArchivo(dato: any, id: string): Promise<void> {
     const directorioDestino = process.env.Docs;
@@ -47,7 +48,7 @@ export class CargaLLoteService {
       response.data.pipe(writer);
 
       // ponder en el mapeo de exel esta made de fk_autor,_fk:carrera_fktipo
-      await this.sql.query(`INSERT INTO libros.libro (
+      const valor =  await this.sql.query(`INSERT INTO libros.libro (
         titulo,
         year_of_publication,
         review,
@@ -59,7 +60,7 @@ export class CargaLLoteService {
         fk_carrera,
         fk_tipo,
         codigo,
-        editorial) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)`, [
+        editorial) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)  RETURNING id_libro`, [
         dato.titulo,
         dato.year,
         dato.review,
@@ -74,6 +75,8 @@ export class CargaLLoteService {
         dato.editorial
        
       ]);
+    this.palabra.Generar_palabras(dato.palabras, valor[0].id_libro)
+
 
       return new Promise((resolve, reject) => {
         writer.on('finish', resolve);
@@ -89,10 +92,14 @@ export class CargaLLoteService {
   async Sin_Descarga( dato:any , id ){
 
     try{
-      const imagen_url = this.getDriveFileId(dato.imagen);
-      const imagen = `https://drive.google.com/uc?id=${imagen_url}`
+      const googleDriveFileId = this.getDriveFileId(dato.archivo);
+    const imagen_url = this.getDriveFileId(dato.imagen);
+    const imagen = `https://drive.google.com/uc?id=${imagen_url}`
+    const url = `https://drive.google.com/uc?id=${googleDriveFileId}`;
+    
+
       
-      await this.sql.query(`INSERT INTO libros.libro (
+      const valor =   await this.sql.query(`INSERT INTO libros.libro (
         titulo,
         year_of_publication,
         review,
@@ -104,12 +111,12 @@ export class CargaLLoteService {
         fk_carrera,
         fk_tipo,
         codigo,
-        editorial) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)`, [
+        editorial) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12) RETURNING id_libro`, [
         dato.titulo,
         dato.year,
         dato.review,
         imagen,
-        dato.archivo,
+        url,
         dato.isbn,
         id,
         dato.autor,
@@ -120,6 +127,9 @@ export class CargaLLoteService {
        
       ]);
 
+    this.palabra.Generar_palabras(dato.palabras, valor[0].id_libro)
+      
+ 
     }catch(error){
       throw error
 
@@ -154,9 +164,11 @@ export class CargaLLoteService {
       const nombre_tipo = dato.tipo
       dato.autor = id_autor[0].id_autor
       dato.tipo = id_tipo[0].id_tipo
-console.log(dato)
+//console.log(dato)
       if(nombre_tipo ==='URL'){
-console.log("es url")
+
+       
+     await this.Sin_Descarga(dato,id)
 
 
       }
@@ -170,8 +182,11 @@ console.log("es url")
       throw new NotFoundException(new MessageDto('Error en la función libros_bloque'));
     }
   }
+  
 
 }
+
+
 
 
 

@@ -5,12 +5,13 @@ import * as pdfParse from 'pdf-parse';
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { PalabrasClaveService } from 'src/administrador/palabras-clave/palabras-clave.service';
 
 
 @Injectable()
 export class LibroService {
 
-    constructor(private readonly sql: SqlService) {
+    constructor(private readonly sql: SqlService, private palabra:PalabrasClaveService) {
 
     }
 
@@ -53,6 +54,9 @@ export class LibroService {
             l.imagen, 
             l.nombre_archivo ,
             l.titulo,
+            l.isbn,
+            l.editorial,
+            l.codigo,
             a.nombre as autor,
             p.nombre as profesor,
             c.nombre as carrera,
@@ -109,20 +113,20 @@ export class LibroService {
 
 
             //  Inserta los datos del libro en la base de datos, utilizando el campo nombre_archivo
-            await this.sql.query(`INSERT INTO libros.libro (
+           const valor =  await this.sql.query(`INSERT INTO libros.libro (
                 titulo,
                 year_of_publication,
                 review,
-                imagen ,
+                imagen,
                 nombre_archivo ,
-                isbn ,
+                isbn,
                 fk_creador,
                 fk_autor,
                 fk_carrera,
                 fk_tipo,
                 codigo,
                 editorial
-                ) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)`, [
+                ) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12) RETURNING id_libro;`, [
                 libro.titulo,
                 2004,
                 libro.descripcion,
@@ -137,6 +141,7 @@ export class LibroService {
                 libro.editorial
                
             ]);
+            this.palabra.Generar_palabras(libro.palabras, valor[0].id_libro)
 
             return 'Libro creado exitosamente';
         } catch (error) {
@@ -152,7 +157,7 @@ export class LibroService {
             const archivo_url = this.getDriveFileId(libro.archivo_url);
     const url = `https://drive.google.com/uc?id=${archivo_url}`
 
-            await this.sql.query(`INSERT INTO libros.libro (
+    const valor =    await this.sql.query(`INSERT INTO libros.libro (
                 titulo,
                 year_of_publication,
                 review,
@@ -165,7 +170,7 @@ export class LibroService {
                 fk_tipo,
                 codigo,
                 editorial
-                ) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)`, [
+                ) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)RETURNING id_libro;`, [
                 libro.titulo,
                 2004,
                 libro.descripcion,
@@ -175,11 +180,13 @@ export class LibroService {
                 libro.fk_creador,
                 libro.fk_autor,
                 libro.fk_carrera,
-                libro.tipo,
+                libro.tipo, 
                 libro.codigo,
                 libro.editorial
                
             ]);
+            this.palabra.Generar_palabras(libro.palabras, valor[0].id_libro)
+
         }
         
 

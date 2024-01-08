@@ -43,7 +43,8 @@ export class FormularioLibroComponent implements OnInit {
       codigo: ['', Validators.required],
       editorial: ['', Validators.required],
       isbn: ['', Validators.required],
-      archivo_url: ['']
+      archivo_url: [''],
+      palabras: ['']
     });
   }
 
