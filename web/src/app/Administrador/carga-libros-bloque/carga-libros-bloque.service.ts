@@ -35,7 +35,7 @@ export class CargaLibrosBloqueService {
         response => {
 
           console.log('Respuesta del servidor:', response);
-          this.router.navigate(['/catalogo'])
+          this.router.navigate(['/profe'])
 
           // Puedes manejar la respuesta del servidor según tus necesidades
         },
@@ -54,7 +54,7 @@ export class CargaLibrosBloqueService {
     const data = jsonData.slice(1);
 
     const formattedData = data.map(row => {
-    
+
 
       const titulo = row[0];
       const review = row[5];
@@ -62,7 +62,7 @@ export class CargaLibrosBloqueService {
       const carrera = row[8];
       const archivo = row[9];
       const imagen = row[10];
-      
+
       const isbn = row[4];
       const codigo = row[7];
       const editorial = row[3];

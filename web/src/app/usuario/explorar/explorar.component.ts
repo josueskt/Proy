@@ -1,9 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ExplorarService } from './explorar.service';  // Asegúrate de que la ruta al servicio sea correcta
-import { Observable } from 'rxjs';
+
 import { HomeService } from '../home/home.service';
 import { RouterLink } from '@angular/router';
-import { FormGroup, FormsModule, NgModel } from '@angular/forms';
+import { FormsModule, } from '@angular/forms';
 
 @Component({
   selector: 'app-explorar',standalone: true,
@@ -17,7 +17,7 @@ export class ExplorarComponent implements OnInit {
   selectedCarrera: string | null = null;
   librosFiltrados: any[] = [];
 
-  
+
     private explorarService=inject( ExplorarService)
     private homeService=inject( HomeService
     )
@@ -45,5 +45,5 @@ export class ExplorarComponent implements OnInit {
       }
     );
   }
-  
+
 }

@@ -27,10 +27,10 @@ export class AuthGuard implements CanActivate {
 
     if (!userRole) {
       // No tiene ningún rol, redirigir a la página no autorizada
-      this.router.navigate(['/home']);
+      this.router.navigate(['/user']);
       return false;
     }
-    
+
     const requiredRoles = (next.data as { roles: string[] }).roles;
 
     if (requiredRoles && !requiredRoles.includes(userRole)) {

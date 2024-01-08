@@ -16,7 +16,6 @@ export class NavBarComponent {
   userInfo: any;
   nombre =""
   rol= ""
-  hola ="hola"
   correo = ""
 
   private authService = inject( AuthService)

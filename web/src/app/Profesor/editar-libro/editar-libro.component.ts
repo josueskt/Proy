@@ -15,9 +15,9 @@ export class EditarLibroComponent implements OnInit {
   guardadoExitoso = false;
 
   constructor(
-    
+
     private formBuilder: FormBuilder
-  ) { 
+  ) {
     this.libroForm = this.formBuilder.group({});
   }
   private route =inject(ActivatedRoute)
@@ -58,7 +58,7 @@ export class EditarLibroComponent implements OnInit {
         res => {
           // Aquí puedes agregar lógica adicional, como navegar a la página de detalles del libro actualizado
           this.guardadoExitoso = true;
-          this.router.navigate([`/libros/${this.libro.id}`]); // Cambia la ruta según tu estructura de rutas
+          this.router.navigate([`/profe/libros/${this.libro.id}`]); // Cambia la ruta según tu estructura de rutas
         },
         error => {
           console.error('Error al editar el libro:', error);

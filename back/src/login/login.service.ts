@@ -1,9 +1,10 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException,  } from '@nestjs/common';
 import { SqlService } from 'src/sql/sql.service';
 import { login } from './login.dto';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { MessageDto } from 'src/common/message.dto';
+//import { MessageDto } from 'src/common/message.dto';
 
 @Injectable()
 export class LoginService {
@@ -43,14 +44,14 @@ export class LoginService {
 
           return { token };
         } else {
-            return new UnauthorizedException(new MessageDto('contraseña errónea'));
+         return new UnauthorizedException(new MessageDto('contraseña errónea'));        
         }
 
       } else {
-        return new UnauthorizedException(new MessageDto('no existe el usuario'));
+        return new UnauthorizedException(new MessageDto('no existe el usuario'));        
       }
     } catch (error) {
-      return new UnauthorizedException(new MessageDto(`Error: ${error}`));
+      return new UnauthorizedException(new MessageDto(`Error: ${error} exeption`));      
     }
   }
 }

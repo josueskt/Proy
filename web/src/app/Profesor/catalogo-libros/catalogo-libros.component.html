@@ -6,7 +6,7 @@
     </div>
   </div>
   <div>
-    <button type="button" routerLink="/formulario" class="button-anadir">Añadir Libro</button>
+    <button type="button" routerLink="/profe/formulario" class="button-anadir">Añadir Libro</button>
   </div>
   <br>
     <div class="row libros">
@@ -23,7 +23,7 @@
               </div>
               <br>
                 <div class="text-center">
-                  <a [routerLink]="['/libro', libro.id_libro, 'eliminar']" class="link-sin-subrayado">
+                  <a [routerLink]="['/profe/libro', libro.id_libro, 'eliminar']" class="link-sin-subrayado">
                     <i class="fas fa-trash-alt"></i> Eliminar
                   </a>
                   <div>

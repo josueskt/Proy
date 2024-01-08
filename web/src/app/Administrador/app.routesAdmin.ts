@@ -4,32 +4,39 @@ import { CargaLibrosBloqueComponent } from './carga-libros-bloque/carga-libros-b
 import { CarreraComponent } from './carrera/carrera.component';
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 import { EstadisticasComponent } from './estadisticas/estadisticas.component';
+import { AdministradorComponent } from './administrador.component';
+import { LibroTipoComponent } from './libro-tipo/libro-tipo.component';
+
 
 export const routesAdmin: Routes = [
-  //Rutas de administrador
-  {
-    path: 'Registrar_usuarios',
-    component: CrearUsuariosComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['ADMINISTRADOR'] },
-  },
-  {
-    path: 'estadisticas',
-    component: EstadisticasComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['ADMINISTRADOR'] },
-  },
-  {
-    path: 'carrera',
-    component: CarreraComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['ADMINISTRADOR'] },
-  },
 
   {
-    path: 'subir_l_bloque',
-    component: CargaLibrosBloqueComponent,
+    path: 'admin',
+    component: AdministradorComponent,
     canActivate: [AuthGuard],
     data: { roles: ['ADMINISTRADOR'] },
-  },
+    children: [
+      {
+        path: 'estadisticas',
+        component: EstadisticasComponent,
+      },
+      {
+        path: 'Registrar_usuarios',
+        component: CrearUsuariosComponent,
+      },
+      {
+        path: 'carrera',
+        component: CarreraComponent,
+      },
+
+      {
+        path: 'subir_l_bloque',
+        component: CargaLibrosBloqueComponent,
+      },
+      {
+        path: 'tipo-libro',
+        component: LibroTipoComponent, canActivate: [AuthGuard],
+      },
+    ]
+  }
 ];

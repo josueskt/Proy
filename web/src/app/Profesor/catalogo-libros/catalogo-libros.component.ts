@@ -23,15 +23,15 @@ export class CatalogoLibrosComponent implements OnInit {
   private libro_des =inject( VistalibroService)
 
   ngOnInit() {
-    
+
     this.userInfo = this.auht.getUserInfo();
     this.nombre = this.userInfo.id_user
 
     this.libroService.getLibros(this.nombre).subscribe(
       (libros) => {
-        
+
         this.libros = libros;
-       
+
       },
       error => {
         console.error('Error al obtener libros:', error);
