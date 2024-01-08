@@ -1,23 +1,21 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
-
 
 @Injectable({
   providedIn: 'root',
 })
 export class LibroService {
   base = environment.URL;
-  private baseUrl =  `${this.base}libro`;
+  private baseUrl = `${this.base}libro`;
   private baseUr = `${this.base}milibro`;
 
-  constructor(private http: HttpClient , private router:Router) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
-  getLibros(datos:string): Observable<any> {
-
-    return this.http.post(`${this.baseUr}`,{nombre:datos});
+  getLibros(datos: string): Observable<any> {
+    return this.http.post(`${this.baseUr}`, { nombre: datos });
   }
 
   getLibro(id: number): Observable<any> {
@@ -27,23 +25,24 @@ export class LibroService {
   crearLibro(libro: any, file: File): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('libro', JSON.stringify(libro));
-    if(file){
+    if (file) {
       formData.append('file', file, file.name);
     }
-    
-    this.router.navigate(['/catalogo']);
-    return this.http.post<{ message: string, newFileName: string }>(`${this.baseUrl}`, formData);
 
+    this.router.navigate(['/profe']);
+    return this.http.post<{ message: string; newFileName: string }>(
+      `${this.baseUrl}`,
+      formData
+    );
   }
 
-
-  eliminarLibro(dato: number){
+  eliminarLibro(dato: number) {
     const url = `${this.baseUrl}/${dato}`;
 
     this.http.delete(url).subscribe(
       (response) => {
         console.log('Libro eliminado con éxito:', response);
-        this.router.navigate(['/catalogo']);
+        this.router.navigate(['/profe']);
         // Puedes agregar más lógica aquí si es necesario
       },
       (error) => {
@@ -51,14 +50,10 @@ export class LibroService {
         // Puedes manejar el error de alguna manera aquí
       }
     );
-
-
   }
-
 
   editarLibro(id: number, libro: any): Observable<any> {
     const formData = this.createFormData(libro);
-
 
     return this.http.put(`${this.baseUrl}/editar/${id}`, formData);
   }
@@ -75,6 +70,4 @@ export class LibroService {
     formData.append('archivo', libro.archivo);
     return formData;
   }
-
-
 }

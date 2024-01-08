@@ -6,39 +6,39 @@ import { CrearAutorComponent } from './crear-autores/crear-autores.component';
 import { EditarLibroComponent } from './editar-libro/editar-libro.component';
 import { EliminarLibroComponent } from './eliminar-libro/eliminar-libro.component';
 import { FormularioLibroComponent } from './formulario-libro/formulario-libro.component';
-
-
+import { ProfesorComponent } from './profesor.component';
 
 export const routesProfesor: Routes = [
-
-  //Rutas de profesor
   {
-    path: 'catalogo', component: CatalogoLibrosComponent, canActivate: [AuthGuard],
-    data: { roles: ['PROFESOR','ADMINISTRADOR'] }
+    path: 'profe',
+    component: ProfesorComponent,
+    canActivate: [AuthGuard],
+    data: { roles: ['PROFESOR', 'ADMINISTRADOR'] },
+    children: [
+      {
+        path: '',
+        component: CatalogoLibrosComponent,
+      },
+      {
+        path: 'libro/:id',
+        component: LibroComponent,
+      },
+      {
+        path: 'crear_autor',
+        component: CrearAutorComponent,
+      },
+      {
+        path: 'libro/:id/editar',
+        component: EditarLibroComponent,
+      },
+      {
+        path: 'libro/:id/eliminar',
+        component: EliminarLibroComponent,
+      },
+      {
+        path: 'formulario',
+        component: FormularioLibroComponent,
+      },
+    ],
   },
-  {
-    path: 'libro/:id', component: LibroComponent, canActivate: [AuthGuard],
-    data: { roles: ['PROFESOR'] }
-  },
-  {
-    path: 'crear_autor', component: CrearAutorComponent, canActivate: [AuthGuard],
-    data: { roles: ['PROFESOR'] }
-  },
-  {
-    path: 'crear-autores', component: CrearAutorComponent, canActivate: [AuthGuard],
-    data: { roles: ['PROFESOR'] }
-  },
-  {
-    path: 'libro/:id/editar', component: EditarLibroComponent, canActivate: [AuthGuard],
-    data: { roles: ['PROFESOR'] }
-  },
-  {
-    path: 'libro/:id/eliminar', component: EliminarLibroComponent, canActivate: [AuthGuard],
-    data: { roles: ['PROFESOR','ADMINISTRADOR'] }
-  },
-  {
-    path: 'formulario', component: FormularioLibroComponent, canActivate: [AuthGuard],
-    data: { roles: ['PROFESOR'] }
-  },
-
 ];

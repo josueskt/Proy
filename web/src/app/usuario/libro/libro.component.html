@@ -14,15 +14,15 @@
         <img class="gallery__img" [src]="libro.imagen" alt="Portada del libro">
         <div class="gallery_content">
           <h6 class="titulo p-3 mb-0">{{ libro.titulo | uppercase }}</h6>
-  
+
           <br><br><br><br><br>
-          <a [routerLink]="['/libro', libro.id_libro]" class="btn btn-lg btn-warning mt-3">Ver libro</a>
+          <a [routerLink]="['/user/libro', libro.id_libro]" class="btn btn-lg btn-warning mt-3">Ver libro</a>
         </div>
       </div>
     }@placeholder {
 <p>cargando...</p>
     }
-   
+
   }
 
 </div>

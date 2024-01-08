@@ -4,11 +4,10 @@ import { LoginService } from './login.service';
 
 @Controller('login')
 export class LoginController {
-    constructor(private Login:LoginService){}
+  constructor(private Login: LoginService) {}
 
-    @Post()
-    login(@Body() datos:login){
- return this.Login.Login(datos)
-
-    }
+  @Post()
+  login(@Body() datos: login) {
+    return this.Login.Login(datos);
+  }
 }

@@ -24,50 +24,50 @@ export class HomeComponent implements OnInit {
       this.showBuscador = true; // Mostrar el buscador después de un cierto tiempo
     }, 100); // 1000 milisegundos = 1 segundo
   }
-  
+
   userInfo: any;
   carreras: any[] = [];
   searchText='';
   selectedCarrera = "Carrera";
 
-  
-    private authService=inject( AuthService) 
+
+    private authService=inject( AuthService)
     private homeService=inject(  HomeService)
     private router=inject(  Router)
-    
+
     private dataService=inject(  DataService)
-    
+
 
   ngOnInit() {
     this.userInfo = this.authService.getUserInfo();
-    
+
 
     this.homeService.getCarreras().subscribe(
       (carreras) => {
         this.carreras = carreras;
-        
+
       },
       (error) => {
         console.error('Error al obtener las carreras:', error);
       }
     );
-   
+
   }
-  
+
   buscarLibros() {
     console.log(this.selectedCarrera)
     this.homeService.buscarLibros(this.searchText, this.selectedCarrera).subscribe(
       (resultados) => {
-        
-       
-        
+
+
+
         this.dataService.setResultados(resultados);
-        this.router.navigate(['/libro'])
+        this.router.navigate(['/user/libro'])
       },
       (error) => {
         console.error('Error al buscar libros:', error);
       }
     );
-    
+
 }
 }

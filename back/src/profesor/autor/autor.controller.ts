@@ -10,7 +10,7 @@ constructor(private Autro:AutorService){}
 
 @Get()
 @UseGuards(RolesGuard)
-@SetMetadata('roles', ['PROFESOR' ])
+@SetMetadata('roles', ['PROFESOR', 'ADMINISTRADOR'])
 traer(){
   return   this.Autro.traer()
 }
