@@ -7,19 +7,25 @@
     <div class="col-md-6 form-group">
       <label for="titulo">Título:</label>
       <input type="text" id="titulo" formControlName="titulo" class="form-control" placeholder="Ingrese el título" />
-      @if (tituloInvalid) {
-      <div class="text-danger mt-2">El título es obligatorio.</div>
+      @if (validator_titulo) {
+      <div class="text-danger mt-2">{{validator_titulo}}</div>
       }
     </div>
     <div class="col-md-6 form-group">
       <label for="titulo">Codigo:</label>
       <input type="text" id="codigo" formControlName="codigo" class="form-control"
         placeholder="Ingrese el codigo del libro " />
+        @if (validator_codigo) {
+          <div class="text-danger mt-2">{{validator_codigo}}</div>
+          }
     </div>
     <div class="col-md-6 form-group">
       <label for="titulo">Editorial:</label>
       <input type="text" id="editorial" formControlName="editorial" class="form-control"
         placeholder="Ingrese el nombre de la editorial" />
+        @if (validator_editorial) {
+          <div class="text-danger mt-2">{{validator_editorial}}</div>
+          }
     </div>
 
     <!-- Imagen -->
@@ -27,11 +33,19 @@
       <label for="imagen">Imagen URL:</label>
       <input type="text" id="imagen" formControlName="imagen" class="form-control"
         placeholder="Ingrese el nombre de la imagen" />
+        @if (validator_imagen) {
+          <div class="text-danger mt-2">{{validator_imagen}}</div>
+          }
+       
     </div>
+    
     <div class="col-md-6 form-group">
       <label for="imagen">isbn:</label>
       <input type="text" id="isbn" formControlName="isbn" class="form-control"
         placeholder="Ingrese el nombre de la imagen" />
+        @if (validator_isbn) {
+          <div class="text-danger mt-2">{{validator_isbn}}</div>
+          }
     </div>
 
     <!-- Fk Autor -->
@@ -87,11 +101,9 @@
       <label for="descripcion">Reseña o sinapsis</label>
       <textarea id="descripcion" formControlName="descripcion" class="form-control"
         placeholder="Ingrese una reseña"></textarea>
-      @if (descripcionInvalid) {
-      <div class="text-danger mt-2">
-        La descripción no debe exceder los 500 caracteres.
-      </div>
-      }
+        @if (validator_descripcion) {
+          <div class="text-danger mt-2">{{validator_descripcion}}</div>
+          }
     </div>
 
     <!-- Botón de Enviar -->

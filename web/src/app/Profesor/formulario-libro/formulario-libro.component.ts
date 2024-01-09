@@ -29,6 +29,19 @@ export class FormularioLibroComponent implements OnInit {
   carrer: any;
   tipos: any;
 
+  validator_titulo = ''
+  validator_imagen = ''
+  validator_descripcion = ''
+  validator_fk_creador = ''
+  validator_fk_autor = ''
+  validator_fk_carrera = ''
+  validator_tipo = ''
+  validator_codigo = ''
+  validator_editorial = ''
+  validator_isbn = ''
+  validator_archivo_ur = ''
+  validator_palabras = ''
+
   tipo_selected = 'PDF';
 
   ngOnInit() {
@@ -89,57 +102,50 @@ export class FormularioLibroComponent implements OnInit {
 
   get_autor() {
     this.autor.traer_autor().subscribe({
-      next:(libros) => {
+      next: (libros) => {
         this.autors = libros;
       },
-      error:(error) => {
+      error: (error) => {
         console.error('Error al obtener libros:', error);
         // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
       }
-  });
+    });
   }
   get_carrera() {
     this.Carrera.traerTodas().subscribe({
-     next: (libros) => {
+      next: (libros) => {
         this.carrer = libros;
       },
-     error: (error) => {
+      error: (error) => {
         console.error('Error al obtener libros:', error);
         // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
-      }}
+      }
+    }
     );
   }
   get_tipos() {
     this.Tipo.getLibro().subscribe({
-     next: (tip) => {
+      next: (tip) => {
         this.tipos = tip;
       },
-     error: (error) => {
+      error: (error) => {
         console.error('Error al obtener libros:', error);
         // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
       }
-  });
+    });
   }
-  get tituloControl(): FormControl {
-    return this.miFormulario.get('titulo') as FormControl;
-  }
+ 
 
   // Método para obtener el estado de validez del título
-  get tituloInvalid(): boolean {
-    return (
-      this.tituloControl.hasError('required') && this.tituloControl.touched
-    );
-  }
+  
 
   onFileSelected(event: any) {
     this.archivoSeleccionado = event.target.files[0];
   }
 
   crearLibro() {
-    if (this.miFormulario.invalid) {
-      alert('Por favor, completa todos los campos del formulario.');
-      return;
-    }
+
+
 
     const nuevoLibro = this.miFormulario.value;
 
@@ -149,6 +155,8 @@ export class FormularioLibroComponent implements OnInit {
     // Verifica que los controles del formulario y las variables no sean nulos
     const controlFkAutor = this.miFormulario.get('fk_autor');
     const controlFkCarrera = this.miFormulario.get('fk_carrera');
+
+
 
     if (!controlFkAutor || !controlFkCarrera) {
       console.error(
@@ -161,6 +169,91 @@ export class FormularioLibroComponent implements OnInit {
 
     nuevoLibro.fk_carrera = controlFkCarrera.value;
 
+    // verificaciones
+
+   
+    
+ 
+    
+
+     var validado:boolean
+     
+    
+
+  if (!nuevoLibro.titulo) {
+    this.validator_titulo = 'campo requerido'
+    console.error("eror falta titulo")
+    validado = false
+    
+  }
+  if (!nuevoLibro.imagen) {
+    this.validator_imagen = 'campo requirido'
+    console.error("eror falta titulo")
+    validado = false
+    
+  }
+  if (!nuevoLibro.descripcion) {
+    this.validator_descripcion = 'requiere una descripcion'
+    console.error("eror falta titulo")
+    validado = false
+    ;
+  }
+  
+  if (!nuevoLibro.fk_autor) {
+    console.error("eror falta titulo")
+    this.validator_fk_autor = 'autor faltante'
+    validado = false
+    ;
+  }
+  if (!nuevoLibro.fk_carrera) {
+    console.error("eror falta titulo")
+    this.validator_fk_carrera = 'carrera faltante'
+    validado = false
+    ;
+  }
+  if (!nuevoLibro.tipo) {
+    console.error("eror falta titulo")
+  this.validator_tipo = 'tipo de libro requerido'
+  validado = false
+
+    ;
+  }
+  if (!nuevoLibro.codigo) {
+    console.error("eror falta titulo")
+    this.validator_codigo = 'codigo requerido'
+    validado = false
+    ;
+  }
+  
+  if (!nuevoLibro.editorial) {
+    console.error("eror falta titulo")
+    this.validator_editorial = 'editorial requerida'
+    validado = false
+    ;
+  }
+  if (!nuevoLibro.isbn) {
+    this.validator_isbn = 'isbn requerido'
+    
+    console.error("eror falta titulo")
+    validado = false
+    ;
+  }
+  // if (!nuevoLibro.archivo_url && nuevoLibro.tipo === 'URL') {
+  //   this.validator_archivo_ur = ''
+  //   validado = false
+
+  //   console.error("eror falta titulo")
+    
+  // }
+  if(!validado){
+    return 
+  }
+
+
+ 
+ 
+ 
+    
     // Verifica si se ha seleccionado un archivo
 
     for (let ti of this.tipos) {
@@ -169,21 +262,21 @@ export class FormularioLibroComponent implements OnInit {
           // Llama al servicio para crear el libro
           this.libroService
             .crearLibro(nuevoLibro, this.archivoSeleccionado).subscribe(
-            
-            {
-              next:(r)=>(console.log(r)),
 
-              error:(e)=>{console.log(e)}
-            }
+              {
+                next: (r) => (console.log(r)),
+
+                error: (e) => { console.log(e) }
+              }
             );
         } else if (ti.nombre === 'URL' && !this.archivoSeleccionado) {
           this.libroService
             .crearLibro(nuevoLibro, this.archivoSeleccionado)
             .subscribe(
               {
-              next:(r)=>(console.log(r)),
+                next: (r) => (console.log(r)),
 
-                error:(e)=>{console.log(e)}
+                error: (e) => { console.log(e) }
 
               }
             );
