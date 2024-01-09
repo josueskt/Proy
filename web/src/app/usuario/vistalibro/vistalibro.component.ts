@@ -43,8 +43,8 @@ export class VistalibroComponent {
   }
 
   getLibroById(id: string): void {
-    this.vistalibroService.traerTodas(id).subscribe(
-      (data) => {
+    this.vistalibroService.traerTodas(id).subscribe({
+     next: (data) => {
         console.log('libro', data);
         this.result = data;
         this.libro = this.result[0];
@@ -52,10 +52,10 @@ export class VistalibroComponent {
         this.cargarPDF()
         
       },
-      error => {
+     error: (error) => {
         console.error('Error al obtener información del libro', error);
       }
-    );
+     } );
   }
   
   formatearFecha(fecha: string): string {
@@ -70,8 +70,8 @@ export class VistalibroComponent {
 
 //asd
   descarga(archivo: string ,id_libro:string): void {
-    this.vistalibroService.descarga(archivo,id_libro).subscribe(
-      (data: Blob) => {
+    this.vistalibroService.descarga(archivo,id_libro).subscribe({
+     next: (data: Blob) => {
         const blob = new Blob([data], { type: 'application/pdf' });
   
         // Crear un enlace para descargar el archivo
@@ -80,9 +80,9 @@ export class VistalibroComponent {
         downloadLink.download = archivo; // El nombre del archivo es el mismo que el proporcionado al método
         downloadLink.click();
       },
-      error => {
+     error: (error) => {
         console.error('Error al descargar el archivo', error);
       }
-    );
+     } );
   }
 }  

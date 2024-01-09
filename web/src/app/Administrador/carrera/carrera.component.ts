@@ -50,18 +50,18 @@ export class CarreraComponent implements OnInit {
         this.errorAlerta = false;
       }, 40);
     } else {
-      this.carreraService.crearCarrera(this.carrera).subscribe(
-        () => {
+      this.carreraService.crearCarrera(this.carrera).subscribe({
+        next:() => {
           this.Alertabien = true;
           setTimeout(() => {
             window.location.reload();
             this.Alertabien = false;
-          }, 4000);
+          });
         },
-        (error) => {
+        error:(error) => {
           console.error('Error al crear carrera:', error);
         }
-      );
+    });
     }
   }
 

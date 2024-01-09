@@ -49,7 +49,7 @@ export class LibroController {
 
       return {
         message,
-        newFileName: /* Nombre del archivo generado en el servicio */ 'gg',
+        newFileName: /* Nombre del archivo generado en el servicio */ 'libro creado',
       };
     } catch (error) {
       // Manejo de errores si es necesario

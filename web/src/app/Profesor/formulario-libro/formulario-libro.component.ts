@@ -88,37 +88,37 @@ export class FormularioLibroComponent implements OnInit {
   }
 
   get_autor() {
-    this.autor.traer_autor().subscribe(
-      (libros) => {
+    this.autor.traer_autor().subscribe({
+      next:(libros) => {
         this.autors = libros;
       },
-      (error) => {
+      error:(error) => {
         console.error('Error al obtener libros:', error);
         // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
       }
-    );
+  });
   }
   get_carrera() {
-    this.Carrera.traerTodas().subscribe(
-      (libros) => {
+    this.Carrera.traerTodas().subscribe({
+     next: (libros) => {
         this.carrer = libros;
       },
-      (error) => {
+     error: (error) => {
         console.error('Error al obtener libros:', error);
         // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
-      }
+      }}
     );
   }
   get_tipos() {
-    this.Tipo.getLibro().subscribe(
-      (tip) => {
+    this.Tipo.getLibro().subscribe({
+     next: (tip) => {
         this.tipos = tip;
       },
-      (error) => {
+     error: (error) => {
         console.error('Error al obtener libros:', error);
         // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
       }
-    );
+  });
   }
   get tituloControl(): FormControl {
     return this.miFormulario.get('titulo') as FormControl;
@@ -168,24 +168,23 @@ export class FormularioLibroComponent implements OnInit {
         if (this.archivoSeleccionado && ti.nombre === 'PDF') {
           // Llama al servicio para crear el libro
           this.libroService
-            .crearLibro(nuevoLibro, this.archivoSeleccionado)
-            .subscribe(
-              () => {
-                alert('libro creado');
-              },
-              (error) => {
-                console.error('Error al crear el libro:', error);
-              }
+            .crearLibro(nuevoLibro, this.archivoSeleccionado).subscribe(
+            
+            {
+              next:(r)=>(console.log(r)),
+
+              error:(e)=>{console.log(e)}
+            }
             );
         } else if (ti.nombre === 'URL' && !this.archivoSeleccionado) {
           this.libroService
             .crearLibro(nuevoLibro, this.archivoSeleccionado)
             .subscribe(
-              () => {
-                alert('libro creado');
-              },
-              (error) => {
-                console.error('Error al crear el libro:', error);
+              {
+              next:(r)=>(console.log(r)),
+
+                error:(e)=>{console.log(e)}
+
               }
             );
         } else if (!this.archivoSeleccionado) {

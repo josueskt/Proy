@@ -23,15 +23,15 @@ export class CrearAutorComponent {
 
   crearAutor() {
     if (this.Nombre != '') {
-      this.Autor.crearAutor({ nombre: this.Nombre }).subscribe(
-        () => {
+      this.Autor.crearAutor({ nombre: this.Nombre }).subscribe({
+      next:  () => {
           window.location.reload();
         },
-        (error) => {
+        error: (error) => {
           console.error('Error al crear na:', error);
           // Maneja el error según tus necesidades
         }
-      );
+       } );
     } else {
       alert('lo setimos faltan adatos');
     }

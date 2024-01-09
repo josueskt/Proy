@@ -1,7 +1,7 @@
 // auth.guard.ts
 
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { CanActivate, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
 
@@ -12,8 +12,8 @@ export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
+    route: ActivatedRouteSnapshot,
+    
   ): boolean {
     const token = this.authService.getToken();
 
@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate {
       return false;
     }
 
-    const requiredRoles = (next.data as { roles: string[] }).roles;
+    const requiredRoles = (route.data as { roles: string[] }).roles;
 
     if (requiredRoles && !requiredRoles.includes(userRole)) {
       // No tiene el rol necesario, redirigir a la página no autorizada

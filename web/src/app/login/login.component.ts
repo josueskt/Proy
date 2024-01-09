@@ -40,8 +40,8 @@ export class LoginComponent {
   }
 
   login() {
-    this.aunt.login(this.username, this.password).subscribe(
-      (response) => {
+    this.aunt.login(this.username, this.password).subscribe({
+     next: (response) => {
         // Maneja la respuesta del servidor aquí (por ejemplo, almacena el token)
         if (response.message) {
           this.toastrService.error(response.response.message, 'Fail', {
@@ -59,10 +59,8 @@ export class LoginComponent {
           console.error('Respuesta del servidor inesperada:', response);
         }
       },
-      (error) => {
-        // Maneja el error aquí
-        console.error('Error en la autenticación:', error);
-      }
+      error:(e) =>  console.error('Error en la autenticación:', e)
+    }
     );
   }
   login_out() {

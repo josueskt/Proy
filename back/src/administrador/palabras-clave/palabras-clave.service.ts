@@ -6,6 +6,7 @@ export class PalabrasClaveService {
 
     constructor(private sql:SqlService){}
     async Generar_palabras(palabras:string, id:string){
+      
     const Palabras_separadas = palabras.split(',');
     const palabrasSinEspacios = Palabras_separadas.map(palabra => palabra.trim());
 

@@ -33,16 +33,16 @@ export class CambioContraComponent {
 
       // Validar la contraseña
       if (this.validarContrasena(this.datos.contra)) {
-        this.cambio_pas.password(this.datos).subscribe(
-          () => {
+        this.cambio_pas.password(this.datos).subscribe({
+         next: () => {
             this.mensaje_2 = "Contraseña Actualizada"
            this.datos.contra =""
           },
-          (error) => {
+          error:(error) => {
             console.error('Error al cambiar la contraseña:', error);
             // Maneja el error según tus necesidades
           }
-        );
+      });
       } else {
         this.mensaje = 'requiere un caracter en mayuscula , minuscula , caracter especial 8 caracteres minimo'
       }

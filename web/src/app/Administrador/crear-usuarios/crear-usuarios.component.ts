@@ -59,16 +59,16 @@ export class CrearUsuariosComponent {
 
     
   this.loader = true
-    this.crearUsuariosService.crearCarrera(formattedData).subscribe(
-      response => {
+    this.crearUsuariosService.crearCarrera(formattedData).subscribe({
+     next: (response) => {
         this.loader = false
         console.log('Datos procesados con éxito:', response);
         this.cargarCarreras();
       },
-      error => {
+      error:(error) => {
         console.error('Error al procesar datos:', error);
       }
-    );
+     } );
   }
 
   private formatData(jsonData: any[]): any[] {

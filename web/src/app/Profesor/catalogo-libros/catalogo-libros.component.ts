@@ -27,21 +27,21 @@ export class CatalogoLibrosComponent implements OnInit {
     this.userInfo = this.auht.getUserInfo();
     this.nombre = this.userInfo.id_user
 
-    this.libroService.getLibros(this.nombre).subscribe(
-      (libros) => {
+    this.libroService.getLibros(this.nombre).subscribe({
+     next: (libros) => {
 
         this.libros = libros;
 
       },
-      error => {
+     error: (error) => {
         console.error('Error al obtener libros:', error);
         // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
       }
-    );
+     } );
   }
   descarga(archivo: string , id_libro:string): void {
-    this.libro_des.descarga(archivo,id_libro).subscribe(
-      (data: Blob) => {
+    this.libro_des.descarga(archivo,id_libro).subscribe({
+     next: (data: Blob) => {
         const blob = new Blob([data], { type: 'application/pdf' });
 
         // Crear un enlace para descargar el archivo
@@ -50,9 +50,9 @@ export class CatalogoLibrosComponent implements OnInit {
         downloadLink.download = archivo; // El nombre del archivo es el mismo que el proporcionado al método
         downloadLink.click();
       },
-      error => {
+     error: error => {
         console.error('Error al descargar el archivo', error);
       }
-    );
+     } );
   }
 }

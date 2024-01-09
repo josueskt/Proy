@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
     // Simulación de un retraso (puedes ajustar esto según tus necesidades)
     setTimeout(() => {
       this.showBuscador = true; // Mostrar el buscador después de un cierto tiempo
-    }, 100); // 1000 milisegundos = 1 segundo
+    }, 10); // 1000 milisegundos = 1 segundo
   }
 
   userInfo: any;
@@ -42,32 +42,32 @@ export class HomeComponent implements OnInit {
     this.userInfo = this.authService.getUserInfo();
 
 
-    this.homeService.getCarreras().subscribe(
-      (carreras) => {
+    this.homeService.getCarreras().subscribe({
+     next: (carreras) => {
         this.carreras = carreras;
 
       },
-      (error) => {
+      error :(error) => {
         console.error('Error al obtener las carreras:', error);
       }
-    );
+     } );
 
   }
 
   buscarLibros() {
     console.log(this.selectedCarrera)
-    this.homeService.buscarLibros(this.searchText, this.selectedCarrera).subscribe(
-      (resultados) => {
+    this.homeService.buscarLibros(this.searchText, this.selectedCarrera).subscribe({
+     next: (resultados) => {
 
 
 
         this.dataService.setResultados(resultados);
         this.router.navigate(['/user/libro'])
       },
-      (error) => {
+     error: (error) => {
         console.error('Error al buscar libros:', error);
       }
-    );
+      }  );
 
 }
 }

@@ -22,15 +22,16 @@ export class CargaLibrosBloqueComponent {
   carreras:any
   ngOnInit() {
 
-    this.homeService.getCarreras().subscribe(
-      (carreras) => {
+    this.homeService.getCarreras().subscribe({
+     next: (carreras) => {
         this.carreras = carreras;
 
       },
-      (error) => {
+      error:(error) => {
         alert('Error al obtener las carreras: '+ error);
-      }
-    );
+      }}
+    )
+  
 
   }
 
