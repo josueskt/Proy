@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CarreraService } from './carrera.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-carrera',
@@ -17,6 +18,7 @@ export class CarreraComponent implements OnInit {
   Alertabien = false;
   private router = inject(Router);
   private carreraService = inject(CarreraService);
+  private toastrService: ToastrService = inject(ToastrService);
 
   ngOnInit() {
     this.carreraService.traerTodas().subscribe((carreras) => {
@@ -46,20 +48,28 @@ export class CarreraComponent implements OnInit {
     );
     if (nombreExistente) {
       this.errorAlerta = true;
+      this.toastrService.error('ese nombre ya existe' , 'Fail', {
+        timeOut: 3000,  positionClass: 'toast-top-center',
+      });
       setTimeout(() => {
         this.errorAlerta = false;
-      }, 40);
+      }, 2000);
     } else {
       this.carreraService.crearCarrera(this.carrera).subscribe(
-        () => {
+        (data) => {
+          this.toastrService.success('Carrera creada exitosamente', 'OK', {
+            timeOut: 3000, positionClass: 'toast-top-center'
+          });
           this.Alertabien = true;
           setTimeout(() => {
             window.location.reload();
             this.Alertabien = false;
-          }, 4000);
+          }, 1000);
         },
         (error) => {
-          console.error('Error al crear carrera:', error);
+          this.toastrService.error('Error al crear la carrera' , 'Fail', {
+            timeOut: 3000,  positionClass: 'toast-top-center',
+          });
         }
       );
     }
