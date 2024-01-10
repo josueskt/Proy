@@ -3,6 +3,7 @@ import * as XLSX from 'xlsx';
 import { CrearUsuariosService } from './crear-usuarios.service';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-crear-usuarios',
@@ -20,8 +21,9 @@ export class CrearUsuariosComponent {
   carrerasFiltradas: any[] = [];
   loader = false
   selectedCarrera =3;
-  
+
   private crearUsuariosService= inject(CrearUsuariosService)
+  private toastrService: ToastrService = inject(ToastrService);
 
 
   onKeyUp(event: KeyboardEvent): void {
@@ -44,7 +46,9 @@ export class CrearUsuariosComponent {
       reader.readAsBinaryString(this.archivoSeleccionado);
 
     } else {
-      console.error('No se ha seleccionado ningún archivo.');
+      this.toastrService.error('No se ha seleccionado nigun archivo', 'Fail', {
+        timeOut: 3000,  positionClass: 'toast-top-center',
+      });
     }
   }
 
@@ -57,16 +61,21 @@ export class CrearUsuariosComponent {
 
     const formattedData = this.formatData(jsonData);
 
-    
+
   this.loader = true
     this.crearUsuariosService.crearCarrera(formattedData).subscribe({
      next: (response) => {
         this.loader = false
-        console.log('Datos procesados con éxito:', response);
+        this.toastrService.success(response.message, 'OK', {
+          timeOut: 3000,  positionClass: 'toast-top-center',
+        });
         this.cargarCarreras();
       },
-      error:(error) => {
-        console.error('Error al procesar datos:', error);
+     error: (error) => {
+        this.loader = false
+        this.toastrService.error(error.error.message, 'Fail', {
+          timeOut: 3000,  positionClass: 'toast-top-center',
+        });
       }
      } );
   }
@@ -112,7 +121,7 @@ export class CrearUsuariosComponent {
 
   cargarCarreras(): void {
     this.crearUsuariosService.get_user().subscribe((carreras) => {
-      
+
       this.Carreras = carreras;
       this.filtrarCarreras();
     });
@@ -135,34 +144,34 @@ export class CrearUsuariosComponent {
   getPageNumbers(): number[] {
     const totalItems = this.carrerasFiltradas.length;
     const totalPages = Math.ceil(totalItems / this.pageSize);
-    
+
     // Limita el número de páginas que se mostrarán en la paginación
     const maxPagesToShow = 10; // Puedes ajustar este número según tus preferencias
     const startPage = Math.max(1, this.currentPage - Math.floor(maxPagesToShow / 2));
     const endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
-  
+
     return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
   }
-  
+
 
   setCurrentPage(pageNumber: number): void {
     const totalPages = this.getPageNumbers().length;
-  
+
     if (pageNumber >= 1 && pageNumber <= totalPages) {
       this.currentPage = pageNumber;
     }
   }
-  id_a = 0 
+  id_a = 0
   eliminar() {
     return this.crearUsuariosService.eliminar(this.id_a).subscribe(() => {
       // La eliminación ha sido exitosa, ahora recargamos la página
       window.location.reload();
     });
-    
-    
+
+
   }
   test(id:number){
     this.id_a = id
-    
+
   }
 }

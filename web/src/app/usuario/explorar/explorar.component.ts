@@ -4,6 +4,7 @@ import { ExplorarService } from './explorar.service';  // Asegúrate de que la r
 import { HomeService } from '../home/home.service';
 import { RouterLink } from '@angular/router';
 import { FormsModule, } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-explorar',standalone: true,
@@ -19,8 +20,8 @@ export class ExplorarComponent implements OnInit {
 
 
     private explorarService=inject( ExplorarService)
-    private homeService=inject( HomeService
-    )
+    private homeService=inject( HomeService)
+    private toastrService: ToastrService = inject(ToastrService);
 
   ngOnInit() {
     this.obtenerLibros();
@@ -33,7 +34,10 @@ export class ExplorarComponent implements OnInit {
 
       },
       (error: any) => {
-        console.error('Error al obtener libros:', error);
+        this.toastrService.error('Error al obtener libros:', 'Fail', {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+        });
       }
     );
     this.homeService.getCarreras().subscribe(
@@ -41,7 +45,10 @@ export class ExplorarComponent implements OnInit {
         this.carreras = carreras;
       },
       (error: any) => {
-        console.error('Error al obtener las carreras:', error);
+        this.toastrService.error('Error al obtener las carreras:', 'Fail', {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+        });
       }
     );
   }

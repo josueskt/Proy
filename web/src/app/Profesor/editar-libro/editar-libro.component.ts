@@ -2,6 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { LibroService } from '../libro.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-editar-libro',standalone: true,
@@ -23,17 +24,24 @@ export class EditarLibroComponent implements OnInit {
   private route =inject(ActivatedRoute)
     private router=inject( Router)
     private libroService= inject(LibroService)
+    private toastrService: ToastrService = inject(ToastrService);
+
 
   ngOnInit() {
     const libroId = Number(this.route.snapshot.params['id']);
     this.libroService.getLibro(libroId).subscribe(
       res => {
+        this.toastrService.success('libro editado exitosamente', 'Success', {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+        });
         this.libro = res;
         this.initializeForm();
       },
       error => {
-        console.error('Error al obtener el libro:', error);
-        // Aquí puedes manejar el error, por ejemplo, redirigir a una página de error
+        this.toastrService.error('Error al obtener libro' , 'Fail', {
+          timeOut: 3000,  positionClass: 'toast-top-center',
+        });
       }
     );
   }
@@ -56,12 +64,17 @@ export class EditarLibroComponent implements OnInit {
       const updatedLibro = { ...this.libro, ...this.libroForm.value };
       this.libroService.editarLibro(this.libro.id, updatedLibro).subscribe(
         res => {
-          // Aquí puedes agregar lógica adicional, como navegar a la página de detalles del libro actualizado
+          this.toastrService.success('Libro guardado con exito', 'Success', {
+            timeOut: 3000,
+            positionClass: 'toast-top-center',
+          });
           this.guardadoExitoso = true;
           this.router.navigate([`/profe/libros/${this.libro.id}`]); // Cambia la ruta según tu estructura de rutas
         },
         error => {
-          console.error('Error al editar el libro:', error);
+          this.toastrService.error('Error al editar libro' , 'Fail', {
+            timeOut: 3000,  positionClass: 'toast-top-center',
+          });
           // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
         }
       );

@@ -11,6 +11,7 @@ export class CrearUsuariosService {
   base = environment.URL;
   private baseUrl =  `${this.base}usuarios_regis`;
   location: any;
+  
   constructor(private http: HttpClient) { }
   crearCarrera(datos:any[]): Observable<any> {
     return this.http.post(`${this.baseUrl}`, datos);

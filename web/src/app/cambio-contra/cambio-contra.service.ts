@@ -14,7 +14,6 @@ export class CambioContraService {
   constructor(private http: HttpClient) { }
 
   password( datos:any): Observable<any> {
-    // Realiza la solicitud HTTP para autenticar al usuario
     return this.http.post(this.loginUrl , datos);
   }
 }

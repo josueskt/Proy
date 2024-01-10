@@ -12,6 +12,7 @@ import { AuthService } from '../../roles/auth.service';
 import { CrearAutoresService } from '../crear-autores/crear-autores.service';
 import { CarreraService } from '../../Administrador/carrera/carrera.service';
 import { LibroTipoService } from './libro-tipo.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-libro-form',
@@ -56,7 +57,8 @@ export class FormularioLibroComponent implements OnInit {
     private Aunh: AuthService,
     private autor: CrearAutoresService,
     private Carrera: CarreraService,
-    private Tipo: LibroTipoService
+    private Tipo: LibroTipoService,
+    private toastrService: ToastrService
   ) {
     this.miFormulario = this.formBuilder.group({
       titulo: ['', [Validators.required, Validators.maxLength(50)]],
@@ -76,7 +78,6 @@ export class FormularioLibroComponent implements OnInit {
 
   cambio(value: Event) {
     const nombreAutor = (event.target as HTMLSelectElement).value;
-    // me muero
     for (let ti of this.tipos) {
       if (ti.id_tipo == nombreAutor) {
         if (ti.nombre === 'PDF') {
@@ -92,7 +93,7 @@ export class FormularioLibroComponent implements OnInit {
     return this.miFormulario.get('descripcion') as FormControl;
   }
 
-  // Método para obtener el estado de validez de la descripción
+
   get descripcionInvalid(): boolean {
     return (
       this.descripcionControl.hasError('maxlength') &&
@@ -105,9 +106,10 @@ export class FormularioLibroComponent implements OnInit {
       next: (libros) => {
         this.autors = libros;
       },
-      error: (error) => {
-        console.error('Error al obtener libros:', error);
-        // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
+     error: (error) => {
+        this.toastrService.error('Error al obtener autores' , 'Fail', {
+          timeOut: 3000,  positionClass: 'toast-top-center',
+        });
       }
     });
   }
@@ -116,21 +118,22 @@ export class FormularioLibroComponent implements OnInit {
       next: (libros) => {
         this.carrer = libros;
       },
-      error: (error) => {
-        console.error('Error al obtener libros:', error);
-        // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
+      error:(error) => {
+        this.toastrService.error('Error al obtener carreras' , 'Fail', {
+          timeOut: 3000,  positionClass: 'toast-top-center',
+        });
       }
-    }
-    );
+     } );
   }
   get_tipos() {
     this.Tipo.getLibro().subscribe({
       next: (tip) => {
         this.tipos = tip;
       },
-      error: (error) => {
-        console.error('Error al obtener libros:', error);
-        // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
+      error:(error) => {
+        this.toastrService.error('Error al obtener libros' , 'Fail', {
+          timeOut: 3000,  positionClass: 'toast-top-center',
+        });
       }
     });
   }
@@ -159,9 +162,9 @@ export class FormularioLibroComponent implements OnInit {
 
 
     if (!controlFkAutor || !controlFkCarrera) {
-      console.error(
-        'Alguno de los controles (fk_autor o fk_carrera) no está disponible en el formulario.'
-      );
+      this.toastrService.error('Alguno de los controles (fk_autor o fk_carrera) no está disponible en el formulario.' , 'Fail', {
+        timeOut: 3000,  positionClass: 'toast-top-center',
+      });
       return;
     }
 
@@ -261,27 +264,37 @@ export class FormularioLibroComponent implements OnInit {
         if (this.archivoSeleccionado && ti.nombre === 'PDF') {
           // Llama al servicio para crear el libro
           this.libroService
-            .crearLibro(nuevoLibro, this.archivoSeleccionado).subscribe(
-
-              {
-                next: (r) => (console.log(r)),
-
-                error: (e) => { console.log(e) }
+            .crearLibro(nuevoLibro, this.archivoSeleccionado)
+            .subscribe({next:
+              () => {
+                alert('libro creado');
+              },
+              error:(error) => {
+                console.error('Error al crear el libro:', error);
               }
-            );
+             } );
         } else if (ti.nombre === 'URL' && !this.archivoSeleccionado) {
           this.libroService
             .crearLibro(nuevoLibro, this.archivoSeleccionado)
-            .subscribe(
-              {
-                next: (r) => (console.log(r)),
-
-                error: (e) => { console.log(e) }
-
+            .subscribe({
+             next: (data) => {
+                this.toastrService.success(data.response.message, 'Success', {
+                  timeOut: 3000,
+                  positionClass: 'toast-top-center',
+                });
+              },
+             error: (error) => {
+                this.toastrService.error(error.error.message, 'Fail', {
+                  timeOut: 3000,
+                  positionClass: 'toast-top-center',
+                 } );
               }
-            );
+        });
         } else if (!this.archivoSeleccionado) {
-          console.error('Por favor, selecciona un archivo.');
+          this.toastrService.error('Por Favor selecciona un archivo', 'Fail', {
+            timeOut: 3000,
+            positionClass: 'toast-top-center',
+          });
           return;
         }
       }

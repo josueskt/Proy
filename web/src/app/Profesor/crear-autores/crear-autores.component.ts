@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CrearAutoresService } from './crear-autores.service';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-crear-autor',
@@ -11,9 +12,11 @@ import { FormsModule } from '@angular/forms';
 })
 export class CrearAutorComponent {
   Nombre = '';
-
+  Alertabien: boolean = false;
   aut: any;
+
   private Autor = inject(CrearAutoresService);
+  private toastrService: ToastrService = inject(ToastrService);
 
   ngOnInit() {
     this.Autor.traer_autor().subscribe((autores) => {
@@ -24,16 +27,26 @@ export class CrearAutorComponent {
   crearAutor() {
     if (this.Nombre != '') {
       this.Autor.crearAutor({ nombre: this.Nombre }).subscribe({
-      next:  () => {
-          window.location.reload();
+       next: () => {
+          this.toastrService.success('Autor creado exitosamente', 'OK', {
+            timeOut: 3000, positionClass: 'toast-top-center'
+          });
+          this.Alertabien = true;
+          setTimeout(() => {
+            window.location.reload();
+            this.Alertabien = false;
+          }, 1000);
         },
-        error: (error) => {
-          console.error('Error al crear na:', error);
-          // Maneja el error según tus necesidades
+      error:  (error) => {
+          this.toastrService.error('Error al crear Autor' , 'Fail', {
+            timeOut: 3000,  positionClass: 'toast-top-center',
+          });
         }
        } );
     } else {
-      alert('lo setimos faltan adatos');
+      this.toastrService.error('Faltan datos' , 'Fail', {
+        timeOut: 3000,  positionClass: 'toast-top-center',
+      });
     }
   }
   id_autor = 0;

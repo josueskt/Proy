@@ -5,6 +5,7 @@ import { HomeService } from './home.service';
 import { DataService } from '../data.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../roles/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -15,9 +16,7 @@ import { AuthService } from '../../roles/auth.service';
 })
 export class HomeComponent implements OnInit {
 
-
   showBuscador = false; // Inicialmente oculto
-
   ngAfterViewInit() {
     // Simulación de un retraso (puedes ajustar esto según tus necesidades)
     setTimeout(() => {
@@ -30,12 +29,11 @@ export class HomeComponent implements OnInit {
   searchText='';
   selectedCarrera = "Carrera";
 
-
     private authService=inject( AuthService)
     private homeService=inject(  HomeService)
     private router=inject(  Router)
-
     private dataService=inject(  DataService)
+    private toastrService: ToastrService = inject(ToastrService);
 
 
   ngOnInit() {
@@ -47,8 +45,11 @@ export class HomeComponent implements OnInit {
         this.carreras = carreras;
 
       },
-      error :(error) => {
-        console.error('Error al obtener las carreras:', error);
+     error: (error) => {
+        this.toastrService.error('Error al obtener las carreras:', 'Fail', {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+        });
       }
      } );
 
@@ -65,7 +66,10 @@ export class HomeComponent implements OnInit {
         this.router.navigate(['/user/libro'])
       },
      error: (error) => {
-        console.error('Error al buscar libros:', error);
+        this.toastrService.error('Error al buscar libros:', 'Fail', {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+        });
       }
       }  );
 

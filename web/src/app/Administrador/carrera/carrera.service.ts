@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +12,7 @@ export class CarreraService {
   base = environment.URL;
   private baseUrl =  `${this.base}carrera`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,  private toastrService: ToastrService) {}
 
   traerTodas(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
@@ -30,7 +31,9 @@ export class CarreraService {
     this.http.delete(`${this.baseUrl}/${id}`).subscribe(()=>{
       window.location.reload();
     },(error)=>{
-alert(error)
+      this.toastrService.error(error.error.message, 'Fail', {
+        timeOut: 3000,  positionClass: 'toast-top-center',
+      });
     });
   }
 

@@ -2,6 +2,8 @@ import { Component, inject } from '@angular/core';
 import { CambioContraService } from './cambio-contra.service';
 import { AuthService } from '../roles/auth.service';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cambio-contra',
@@ -12,12 +14,12 @@ import { FormsModule } from '@angular/forms';
 })
 export class CambioContraComponent {
  datos: { id: string, contra: string, repeatContra: string } = { id: '', contra: '', repeatContra: '' };
- mensaje :string | undefined
- mensaje_2 :string | undefined
  hide = true;
 
  private cambio_pas= inject( CambioContraService)
  private Aunth = inject(AuthService)
+ private toastrService: ToastrService = inject(ToastrService);
+ private router: Router = inject(Router);
 
   cambio_contra() {
     if (!this.datos) {
@@ -27,26 +29,37 @@ export class CambioContraComponent {
       this.datos.id = asd.id_user;
 
       if(this.datos.contra !== this.datos.repeatContra) {
-        this.mensaje = 'Las contraseñas no coinciden';
+        this.toastrService.error('Las contraseñas deben ser iguales', 'Fail', {
+          timeOut: 3000,  positionClass: 'toast-top-center',
+        });
         return;
       }
 
       // Validar la contraseña
       if (this.validarContrasena(this.datos.contra)) {
         this.cambio_pas.password(this.datos).subscribe({
-         next: () => {
-            this.mensaje_2 = "Contraseña Actualizada"
-           this.datos.contra =""
+         next: (data) => {
+            this.toastrService.success('Contraseña Actualizada', 'OK', {
+              timeOut: 3000, positionClass: 'toast-top-center'
+            });
+            this.volver();
           },
-          error:(error) => {
-            console.error('Error al cambiar la contraseña:', error);
-            // Maneja el error según tus necesidades
+         error: (error) => {
+            this.toastrService.error(error.error.message, 'Fail', {
+              timeOut: 3000,  positionClass: 'toast-top-center',
+            });
           }
       });
       } else {
-        this.mensaje = 'requiere un caracter en mayuscula , minuscula , caracter especial 8 caracteres minimo'
+        this.toastrService.error('requiere un caracter en mayuscula , minuscula , caracter especial 8 caracteres minimo', 'Fail', {
+          timeOut: 3000,  positionClass: 'toast-top-center',
+        });
       }
     }
+  }
+
+  volver(): void {
+    this.router.navigate(['/user']);
   }
 
   validarContrasena(contrasena: string): boolean {

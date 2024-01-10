@@ -24,16 +24,6 @@
 
 <div class="all">
   <div class="container">
-    @if (errorAlerta) {
-    <div class="alert alert-danger" role="alert">
-      El nombre de la carrera ya existe.
-    </div>
-    } @if (Alertabien) {
-    <div class="alert alert-success" role="alert">
-      Carrera creada con éxito.
-    </div>
-    }
-
     <h3 class="text text-light text-center">CREAR CARRERA</h3>
     <form (ngSubmit)="crearCarrera()" class="mt-3">
       <!-- Agrega otros campos del formulario según la estructura de tu objeto carrera -->
