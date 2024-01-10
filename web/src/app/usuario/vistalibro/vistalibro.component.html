@@ -4,10 +4,14 @@
   <div class="row">
  
 
-
-     <div class="col-md-4">
-       <img src="{{libro.imagen}}" alt="{{libro.titulo}}" class="img-fluid img-thumbnail">
+    
+     <div class="col-md-5">
+      <!-- imagen -->
+       <img src="{{libro.imagen}}" alt="{{libro.titulo}}" class="img-fluid img-thumbnail" width="1000" height="650">
+       <!-- fin imagen -->
+       <!-- boton descarga -->
        <div class="des">
+        
         @if(libro.tipo ==='PDF'){
           <button class="btn btn-warning btn-lg" (click)="descarga(libro.nombre_archivo, libro.id_libro)">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-arrow-down"
@@ -25,9 +29,12 @@
         }
        
       </div>
+      <!--fin boton descarga -->
      </div>
- 
-     <div class="col-md-8">
+     
+
+     <!-- informacion libro -->
+     <div class="col-md-7">
  
        <h1 class="text-primary">{{libro.titulo | uppercase}}</h1>
  
@@ -66,13 +73,14 @@
          </div>
  
        </div>
- 
-     </div>
-     
-  </div>
- 
+       <br>
+       <!-- vista previa -->
   <div class="container">
     <embed src="https://drive.google.com/uc?id=1TIb4KHMAqZRS29AQIB31hNL5qG3MD5Ol" type="application/pdf" width="100%" height="600px">
   </div>
-   
+   <!-- fin vista previa -->
+     </div>
+     <!-- fin informacion libro-->
+  </div>
+  
  </div>
