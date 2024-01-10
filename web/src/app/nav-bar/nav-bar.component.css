@@ -1,7 +1,8 @@
 .navbar{
-  background-color: rgba(97, 92, 141, 0.932)
+  background-color: #17304A
 }  
 .nav-link:hover{
-  background-color: rgb(83, 83, 83);
-  color: aliceblue;
+  background-color:#17304A;
+  border-radius: 13px;
+  color: white;
 }
