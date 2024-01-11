@@ -37,3 +37,8 @@
     word-wrap: break-word;
     white-space: pre-line;
   }
+
+  .container-borde {
+    border: 2px solid white; 
+    padding: 10px; 
+  }
