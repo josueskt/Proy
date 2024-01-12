@@ -1,13 +1,11 @@
-.container {
-    padding: 20px;
-    border: solid white 1px;
-    border-radius: 20px;
-    background-color: #302f33b2;
-    width: 70%;
-    max-height: 70%;
-    color: white;
-  }
-  
+.fondo-plomo-transparente {
+  background-color: rgba(128, 128, 128, 0.5); /* Plomo con un 50% de opacidad */
+  padding: 20px; /* Añade un poco de espacio alrededor del formulario */
+  border-radius: 12px; /* Bordes redondeados */
+  width: 100%; /* Cubre todo el ancho del div */
+  box-sizing: border-box; /* Incluye el padding y el border dentro del ancho total */
+}
+
   .text {
     color: white;
   }
