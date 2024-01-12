@@ -15,11 +15,12 @@
 <div class="gallery-container" #contenedorLibros>
   <!-- Utiliza un bucle para mostrar solo los resultados de la página actual -->
   <div *ngFor="let libro of currentResults" class="card mb-3">
+    <h6 class="card-title">{{ libro.titulo | uppercase }}</h6>
     <img class="card-img-top" [src]="libro.imagen" alt="Portada del libro">
-    <div class="card-body">
-      <h6 class="card-title">{{ libro.titulo | uppercase }}</h6>
+    <div class="card-body d-flex justify-content-center align-items-center">
       <a [routerLink]="['/user/libro', libro.id_libro]" class="btn btn-warning">Ver libro</a>
     </div>
+    
   </div>
   
 </div>
