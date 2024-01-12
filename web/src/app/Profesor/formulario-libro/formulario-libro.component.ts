@@ -240,7 +240,8 @@ export class FormularioLibroComponent implements OnInit {
     console.error("eror falta titulo")
     validado = false
     ;
-  }
+    
+  }else{ validado =true }
   // if (!nuevoLibro.archivo_url && nuevoLibro.tipo === 'URL') {
   //   this.validator_archivo_ur = ''
   //   validado = false
