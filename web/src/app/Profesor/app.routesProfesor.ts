@@ -4,7 +4,6 @@ import { LibroComponent } from '../usuario/libro/libro.component';
 import { CatalogoLibrosComponent } from './catalogo-libros/catalogo-libros.component';
 import { CrearAutorComponent } from './crear-autores/crear-autores.component';
 import { EditarLibroComponent } from './editar-libro/editar-libro.component';
-import { EliminarLibroComponent } from './eliminar-libro/eliminar-libro.component';
 import { FormularioLibroComponent } from './formulario-libro/formulario-libro.component';
 import { ProfesorComponent } from './profesor.component';
 
@@ -30,10 +29,6 @@ export const routesProfesor: Routes = [
       {
         path: 'libro/:id/editar',
         component: EditarLibroComponent,
-      },
-      {
-        path: 'libro/:id/eliminar',
-        component: EliminarLibroComponent,
       },
       {
         path: 'formulario',

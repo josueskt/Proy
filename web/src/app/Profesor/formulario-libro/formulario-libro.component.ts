@@ -151,7 +151,6 @@ export class FormularioLibroComponent implements OnInit {
 
 
     const nuevoLibro = this.miFormulario.value;
-
     const creador = this.Aunh.getUserInfo();
     nuevoLibro.fk_creador = creador.id_user;
 

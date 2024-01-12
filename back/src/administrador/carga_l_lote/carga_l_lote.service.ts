@@ -179,7 +179,6 @@ export class CargaLLoteService {
       }
       // Descargar el archivo
      //
-
     } catch (error) {      
       throw new NotFoundException(new MessageDto('Error en la función libros_bloque'));
     }

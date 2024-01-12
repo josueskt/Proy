@@ -23,9 +23,9 @@
               </div>
               <br>
                 <div class="text-center">
-                  <a [routerLink]="['/profe/libro', libro.id_libro, 'eliminar']" class="link-sin-subrayado">
-                    <i class="fas fa-trash-alt"></i> Eliminar
-                  </a>
+                  <button class="bg-transparent btn" (click)="libro.id_libro !== undefined ? borrar(libro.id_libro.toString()) : null">
+                    <span class="text-danger" >Eliminar</span>
+                  </button>
                   <div>
                     <p style="display: inline-block; margin-right: 10px;">Descargas:</p>
                     <div class="descargas-circulo">
