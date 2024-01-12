@@ -5,6 +5,7 @@ import { AuthService } from '../../roles/auth.service';
 import { RouterModule } from '@angular/router';
 import { VistalibroService } from '../../usuario/vistalibro/vistalibro.service';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -27,6 +28,11 @@ export class CatalogoLibrosComponent implements OnInit {
   ngOnInit() {
     this.userInfo = this.auht.getUserInfo();
     this.nombre = this.userInfo.id_user
+    this.traerLibros();
+  }
+
+
+  traerLibros(){
     this.libroService.getLibros(this.nombre).subscribe(
       (libros) => {
         this.libros = libros;
@@ -38,6 +44,7 @@ export class CatalogoLibrosComponent implements OnInit {
       }
     );
   }
+
   descarga(archivo: string , id_libro:string): void {
     this.libro_des.descarga(archivo,id_libro).subscribe(
       (data: Blob) => {
@@ -55,4 +62,25 @@ export class CatalogoLibrosComponent implements OnInit {
       }
     );
   }
+
+
+  borrar(libro_id: number): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Si elimina este libro no podra recuperarlo',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.value) {
+        this.libroService.eliminarLibro(libro_id);
+        Swal.fire('OK', 'Libro eliminado', 'success');
+        this.traerLibros();
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelado', 'Se conserva el libro', 'error');
+      }
+    });
+  }
+
 }

@@ -143,12 +143,10 @@ export class FormularioLibroComponent implements OnInit {
       this.toastrService.error('Por favor, completa todos los campos del formulario.' , 'Fail', {
         timeOut: 3000,  positionClass: 'toast-top-center',
       });
-
       return;
     }
 
     const nuevoLibro = this.miFormulario.value;
-
     const creador = this.Aunh.getUserInfo();
     nuevoLibro.fk_creador = creador.id_user;
 
@@ -177,7 +175,7 @@ export class FormularioLibroComponent implements OnInit {
             .crearLibro(nuevoLibro, this.archivoSeleccionado)
             .subscribe(
               (data) => {
-                this.toastrService.success(data.response.message, 'Success', {
+                this.toastrService.success('Libro creado exitosamente', 'Success', {
                   timeOut: 3000,
                   positionClass: 'toast-top-center',
                 });
@@ -194,7 +192,7 @@ export class FormularioLibroComponent implements OnInit {
             .crearLibro(nuevoLibro, this.archivoSeleccionado)
             .subscribe(
               (data) => {
-                this.toastrService.success(data.response.message, 'Success', {
+                this.toastrService.success('Libro creado exitosamente', 'Success', {
                   timeOut: 3000,
                   positionClass: 'toast-top-center',
                 });

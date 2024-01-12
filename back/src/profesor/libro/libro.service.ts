@@ -1,8 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { SqlService } from 'src/sql/sql.service';
 
-import * as pdfParse from 'pdf-parse';
-
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -14,7 +12,7 @@ export class LibroService {
 
     }
 
-    async traer(nombre: String): Promise<any> {
+    async traer(nombre: string): Promise<any> {
         //as
         const reslut = await this.sql.query(
             `SELECT
@@ -43,7 +41,7 @@ export class LibroService {
 
     }
 
-    async by_id(id: Number): Promise<any> {
+    async by_id(id: number): Promise<any> {
         try {
             const reslut = await this.sql.query(`
             select
@@ -82,15 +80,6 @@ export class LibroService {
             if (!file || !file.buffer) {
                 throw new HttpException('Archivo no válido', HttpStatus.BAD_REQUEST);
             }
-            const pdfBuffer = file.buffer;
-            const data = await pdfParse(pdfBuffer);
-
-            
-
-
-
-
-
             // Genera un nombre único para el archivo PDF
             const uniqueFileName = `${Date.now()}-${file.originalname}`;
 
@@ -201,7 +190,7 @@ export class LibroService {
             return error
         }
     }
-    async editar(id: Number, bod: String) {
+    async editar(id: number, bod: string) {
 
         try {
             await this.sql.query('update libros.libro set nombre = $2 where  id_carrera = ($1)', [id, bod])

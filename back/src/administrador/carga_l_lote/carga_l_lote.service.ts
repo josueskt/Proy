@@ -154,18 +154,15 @@ export class CargaLLoteService {
       const nombre_tipo = dato.tipo
       dato.autor = id_autor[0].id_autor
       dato.tipo = id_tipo[0].id_tipo
-console.log(dato)
+//console.log(dato)
       if(nombre_tipo ==='URL'){
-console.log("es url")
-
-
+        console.log("es url")
       }
       else if(nombre_tipo === 'PDF'){
         await this.descargarArchivo(dato, id);
       }
       // Descargar el archivo
      //
-
     } catch (error) {      
       throw new NotFoundException(new MessageDto('Error en la función libros_bloque'));
     }

@@ -42,7 +42,6 @@ export class VistalibroComponent {
   getLibroById(id: string): void {
     this.vistalibroService.traerTodas(id).subscribe(
       (data) => {
-        console.log('libro', data);
         this.result = data;
         this.libro = this.result[0];
 

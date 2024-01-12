@@ -36,7 +36,6 @@ export class CargaLibrosBloqueService {
 
           console.log('Respuesta del servidor:', response);
           this.router.navigate(['/profe'])
-
           // Puedes manejar la respuesta del servidor según tus necesidades
         },
         error => {
@@ -44,8 +43,6 @@ export class CargaLibrosBloqueService {
           // Puedes manejar el error según tus necesidades
         }
       );
-
-
   }
 
 
@@ -76,8 +73,6 @@ export class CargaLibrosBloqueService {
     });
 
     const uniqueData = this.removeDuplicates(formattedData, 'titulo');
-
-
     return uniqueData;
   }
 
