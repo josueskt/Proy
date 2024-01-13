@@ -41,7 +41,7 @@ export class FormularioLibroComponent implements OnInit {
   validator_editorial = ''
   validator_isbn = ''
   validator_archivo_ur = ''
-  validator_palabras = ''
+  
 
   tipo_selected = 'PDF';
 
@@ -249,6 +249,9 @@ export class FormularioLibroComponent implements OnInit {
     
   // }
   if(!validado){
+    this.toastrService.error('capos requeridos' , 'Fail', {
+      timeOut: 3000,  positionClass: 'toast-top-center',
+    });
     return 
   }
 
@@ -274,6 +277,16 @@ export class FormularioLibroComponent implements OnInit {
               }
              } );
         } else if (ti.nombre === 'URL' && !this.archivoSeleccionado) {
+          if (!nuevoLibro.archivo_url) {
+            this.validator_archivo_ur = 'ulr del archivo requerido'
+            this.toastrService.error('Url requerida', 'Fail', {
+              timeOut: 3000,
+              positionClass: 'toast-top-center',
+            });
+            
+           return
+          }
+            ;
           this.libroService
             .crearLibro(nuevoLibro, this.archivoSeleccionado)
             .subscribe({
