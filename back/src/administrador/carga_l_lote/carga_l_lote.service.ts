@@ -94,6 +94,8 @@ export class CargaLLoteService {
     try{
       const googleDriveFileId = this.getDriveFileId(dato.archivo);
     const imagen_url = this.getDriveFileId(dato.imagen);
+    
+
     const imagen = `https://drive.google.com/uc?id=${imagen_url}`
     const url = `https://drive.google.com/uc?id=${googleDriveFileId}`;
     
@@ -177,7 +179,6 @@ export class CargaLLoteService {
       }
       // Descargar el archivo
      //
-
     } catch (error) {      
       throw new NotFoundException(new MessageDto('Error en la función libros_bloque'));
     }

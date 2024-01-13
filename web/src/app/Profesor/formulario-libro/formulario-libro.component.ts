@@ -151,7 +151,6 @@ export class FormularioLibroComponent implements OnInit {
 
 
     const nuevoLibro = this.miFormulario.value;
-
     const creador = this.Aunh.getUserInfo();
     nuevoLibro.fk_creador = creador.id_user;
 
@@ -240,7 +239,8 @@ export class FormularioLibroComponent implements OnInit {
     console.error("eror falta titulo")
     validado = false
     ;
-  }
+    
+  }else{ validado =true }
   // if (!nuevoLibro.archivo_url && nuevoLibro.tipo === 'URL') {
   //   this.validator_archivo_ur = ''
   //   validado = false

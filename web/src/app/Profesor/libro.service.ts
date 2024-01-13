@@ -28,7 +28,6 @@ export class LibroService {
     if (file) {
       formData.append('file', file, file.name);
     }
-
     this.router.navigate(['/profe']);
     return this.http.post<{ message: string; newFileName: string }>(
       `${this.baseUrl}`,
