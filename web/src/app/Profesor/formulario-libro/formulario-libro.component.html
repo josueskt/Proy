@@ -78,8 +78,19 @@
 
       <!-- Opciones adicionales -->
       <div class="col-md-6">
-
-         
+        <!-- Seleccionar Archivo -->
+    @if(tipo_selected ==='PDF'){
+        <div class="col-md-12 form-group text-center">
+          <input type="file" id="archivo" (change)="onFileSelected($event)" class="form-control-file" />
+        </div>
+        }@else{
+        <div class="col-md-12 form-group">
+          <label for="archivo_url">ULR del archivo:</label>
+          <input type="text" id="archivo_url" formControlName="archivo_url" class="form-control"
+            placeholder="Ingrese la url donde se encuentra el libro" />
+        </div>
+        }
+          <!-- Aquí puedes agregar el código para el cambio entre archivo y URL -->
       </div>
 
       <!-- Palabras clave -->
