@@ -24,5 +24,8 @@
   </div>
   
 </div>
-
+<div class="pagination-buttons mt-4 center">
+  <button (click)="previousPage()" [disabled]="currentPage === 1" class="btn btn-primary">Anterior</button>
+  <button (click)="nextPage()" class="btn btn-primary">Siguiente</button>
+</div>
 
