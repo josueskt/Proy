@@ -6,10 +6,9 @@
 
     
      <div class="col-md-5">
-      <!-- imagen -->
+      
        <img [src]="imagen" alt="imagen no encontrada" (error)="eror_carga_imagen()" class="img-fluid img-thumbnail" width="1000" height="650">
-       <!-- fin imagen -->
-       <!-- boton descarga -->
+    
        <div class="des">
         
         @if(libro.tipo ==='PDF'){
@@ -77,11 +76,13 @@
        
   
   @if(libro.tipo ==='PDF'){
-  
-    <embed [src]="pdfUrl" type="application/pdf" width="100%" height="600px" />
+    
+    <embed [src]="pdfUrl"  type="application/pdf" width="100%" height="600px" />
+
+
   }@else {
-    <div class="container-borde">
-    <iframe [src]="urlSegura" width="100%" height="600px" frameborder="0"></iframe>
+    <div >
+    <embed [src]="urlSegura" width="100%" height="600px" type="application/pdf">
 
   </div>
 

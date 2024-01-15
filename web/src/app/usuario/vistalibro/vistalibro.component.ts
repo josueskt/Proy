@@ -35,6 +35,7 @@ export class VistalibroComponent {
   
   eror_carga_imagen(){
     
+    
     this.imagen = './assets/images/imagennoencontrada.png'
   }
 
