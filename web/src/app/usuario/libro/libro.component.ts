@@ -1,8 +1,8 @@
 import {
-  
+
   Component,
   ElementRef,
-  
+
   OnInit,
   ViewChild,
   inject,
@@ -22,11 +22,11 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./libro.component.css'],
 })
 export class LibroComponent implements OnInit {
- 
+
   resultados: any[] = [];
   currentResults: any[] = []; // Resultados para la página actual
   currentPage = 1; // Página actual
-  itemsPerPage = 10; // Cantidad de libros por página
+  itemsPerPage = 12; // Cantidad de libros por página
 
   @ViewChild('contenedorLibros') contenedorLibros!: ElementRef;
    // Inicializado aquí
@@ -36,20 +36,13 @@ export class LibroComponent implements OnInit {
     this.dataService.resultados$.subscribe((resultados) => {
       this.resultados = resultados;
       this.updateCurrentResults(); // Actualiza los resultados actuales
-     
+
     });
   }
 
   eror_carga_imagen(libro){
-    console.log(libro.imagen)
-    libro.imagen = './assets/images/imagennoencontrada.png' 
+    libro.imagen = './assets/images/imagennoencontrada.png'
   }
-
- 
-
- 
-
- 
 
   updateCurrentResults() {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
