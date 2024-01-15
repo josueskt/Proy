@@ -53,6 +53,11 @@ export class LibroComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
+  eror_carga_imagen(libro){
+    
+    libro.imagen = './assets/images/imagennoencontrada.png'
+  }
+
   ngAfterViewInit() {
     this.initMasonry();
   }

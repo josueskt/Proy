@@ -7,7 +7,7 @@
     
      <div class="col-md-5">
       <!-- imagen -->
-       <img src="{{libro.imagen}}" alt="{{libro.titulo}}" class="img-fluid img-thumbnail" width="1000" height="650">
+       <img [src]="imagen" alt="imagen no encontrada" (error)="eror_carga_imagen()" class="img-fluid img-thumbnail" width="1000" height="650">
        <!-- fin imagen -->
        <!-- boton descarga -->
        <div class="des">
@@ -24,7 +24,7 @@
           </button>
         }@else if (libro.tipo==='URL') {
           <a href='{{libro.nombre_archivo}}' target="_blank" class="btn btn-primary">
-            <button class="btn btn-warning btn-lg">Ir a Ejemplo.com</button>
+            <button class="btn btn-warning btn-lg">Ir al link del pdf</button>
         </a>
         }
        
@@ -74,14 +74,24 @@
  
        </div>
        <br>
-       <!-- vista previa -->
-  <!-- <div class="container-borde">
+       
+  
+  @if(libro.tipo ==='PDF'){
+  
+    <embed [src]="pdfUrl" type="application/pdf" width="100%" height="600px" />
+  }@else {
+    <div class="container-borde">
     <iframe [src]="urlSegura" width="100%" height="600px" frameborder="0"></iframe>
 
-  </div> -->
-   <!-- fin vista previa -->
+  </div>
+
+  }
+ 
+  
+
+   
      </div>
-     <!-- fin informacion libro-->
+   
   </div>
   
  </div>
