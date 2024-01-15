@@ -33,6 +33,7 @@ export class CargaLLoteService {
         url,
         method: 'GET',
         responseType: 'stream',
+        
       });
 
       // Obtiene el nombre del archivo original del encabezado de respuesta
