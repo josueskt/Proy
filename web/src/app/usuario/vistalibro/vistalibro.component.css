@@ -5,6 +5,14 @@
     border-radius: 20px;
     margin-top: 150px;
   }
+  .etiqueta{
+    transform: skew(-30deg);
+    border: solid 2px black;
+  }
+  .etiqueta_texto{
+    transform: skew(30deg);
+
+  }
 
   .des {
     display: flex;

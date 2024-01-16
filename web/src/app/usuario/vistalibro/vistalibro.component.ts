@@ -1,9 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VistalibroService } from './vistalibro.service';
 import { UpperCasePipe } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
+import { HomeService } from '../home/home.service';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'app-vistalibro',
@@ -14,6 +16,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class VistalibroComponent {
   id = '';
+  etiquetas:any;
   libro: any;
   imagen:any
   result: any;
@@ -21,6 +24,10 @@ export class VistalibroComponent {
   pdfUrl: SafeResourceUrl | null = null;
   private sanitizer = inject(DomSanitizer);
   private route = inject(ActivatedRoute);
+  private dataService = inject(DataService)
+  private homeService = inject(HomeService)
+  private router=inject(  Router)
+
   private vistalibroService = inject(VistalibroService);
   private toastrService: ToastrService = inject(ToastrService);
 
@@ -29,6 +36,8 @@ export class VistalibroComponent {
       this.id = params['id'];
 
       this.getLibroById(this.id);
+      this.traer_etiquetas(this.id)
+
     });
   }
 
@@ -48,6 +57,17 @@ export class VistalibroComponent {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
+  traer_etiquetas(id:string){
+this.vistalibroService.treer_etiqueta(id).subscribe(
+{
+  next:(res)=>{
+    this.etiquetas = res
+    console.log(res)
+  }
+}
+
+)
+  }
   getLibroById(id: string): void {
     this.vistalibroService.traerTodas(id).subscribe({
      next: (data) => {
@@ -67,7 +87,29 @@ export class VistalibroComponent {
       }
      } );
   }
+  buscar_etiqueta(nombre:string){
+  
+    this.homeService.buscarLibros(nombre,'').subscribe({
+      next: (resultados) => {
+ 
+ 
+ 
+         this.dataService.setResultados(resultados);
+         this.router.navigate(['/user/libro'])
+       },
+      error: (error) => {
+         this.toastrService.error('Error al buscar libros:', 'Fail', {
+           timeOut: 3000,
+           positionClass: 'toast-top-center',
+         });
+       }
+       }  );
+  }
 
+
+  error_carga_pdf(){
+    alert('no se pudo ')
+  }
   formatearFecha(fecha: string): string {
     const fechaObjeto = new Date(fecha);
     const año = fechaObjeto.getFullYear();

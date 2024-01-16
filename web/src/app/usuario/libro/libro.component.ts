@@ -26,7 +26,7 @@ export class LibroComponent implements OnInit {
   resultados: any[] = [];
   currentResults: any[] = []; // Resultados para la página actual
   currentPage = 1; // Página actual
-  itemsPerPage = 10; // Cantidad de libros por página
+  itemsPerPage = 12; // Cantidad de libros por página
 
   @ViewChild('contenedorLibros') contenedorLibros!: ElementRef;
    // Inicializado aquí

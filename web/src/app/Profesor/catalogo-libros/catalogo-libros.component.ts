@@ -42,6 +42,11 @@ export class CatalogoLibrosComponent implements OnInit {
      } );
   }
 
+  eror_carga_imagen(libro){
+    
+    
+    libro.imagen = './assets/images/imagennoencontrada.png'
+  }
 
   traerLibros(){
     this.libroService.getLibros(this.nombre).subscribe({
