@@ -19,7 +19,13 @@ export class CargaLLoteService {
 
     const googleDriveFileId = this.getDriveFileId(dato.archivo);
     const imagen_url = this.getDriveFileId(dato.imagen);
-    const imagen = `https://drive.google.com/uc?id=${imagen_url}`
+    if(imagen_url){
+      var imagen = `https://drive.google.com/uc?id=${imagen_url}`
+
+    }
+    else{
+      imagen = dato.imagen
+    }
     const url = `https://drive.google.com/uc?id=${googleDriveFileId}`;
 
     try {

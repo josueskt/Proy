@@ -1,4 +1,6 @@
 <br><br><br>
+
+<hr>
 <div class="container">
 
   <div class="row">
@@ -30,12 +32,16 @@
       </div>
       <div>
         <br>
-        <h2 class=" text-white">ETIQUETAS</h2>
+        <div class="etiquetas">
+          @if(etiquetas.length != 0){
+            <h2 class=" text-white">ETIQUETAS</h2>
+          }
+          @for(etiqueta of etiquetas ;  track etiqueta.id_palabra){
         
-        @for(etiqueta of etiquetas ;  track etiqueta.id_palabra){
-
-          <button class=" btn-danger etiqueta" (click)="buscar_etiqueta(etiqueta.nombre)"><p class="etiqueta_texto">{{etiqueta.nombre}} </p></button>    
-            }
+            <button class=" btn-danger etiqueta" (click)="buscar_etiqueta(etiqueta.nombre)"><p class="etiqueta_texto">{{etiqueta.nombre}} </p></button>    
+              }
+        </div>
+      
         
 
       </div>
@@ -47,7 +53,7 @@
      <!-- informacion libro -->
      <div class="col-md-7">
  
-       <h1 class="text-primary">{{libro.titulo | uppercase}}</h1>
+       <h1 class="text-danger bg-white rounded">{{libro.titulo | uppercase}}</h1>
  
        <div class="card">
  
@@ -66,18 +72,21 @@
            <div class="d-flex justify-content-between">
  
              <div class="col-5">
-               <p><strong>Título:</strong> {{libro.titulo}}</p>
+
                <p><strong>Autor:</strong> {{libro.autor}}</p>
-               <p><strong>Número de páginas:</strong> {{libro.num_paginas}}</p>
+               <p><strong>ISBN:</strong> {{libro.isbn}}</p>
+               <p><strong>Editorial:</strong> {{libro.editorial}}</p>
+
                <p><strong>Año del libro:</strong> {{libro.year_of_publication}}</p>
              </div>
  
-             <div class="col-8">
+             <div class="col-7">
  
               <p><strong>Subido por:</strong> {{libro.profesor}}</p>
               <p><strong>Descripción:</strong>{{libro.review}} </p>             
  
              </div>
+           
  
            </div>
  
