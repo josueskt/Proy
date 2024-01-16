@@ -1,12 +1,10 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { LibroService } from '../libro.service';
 import { AuthService } from '../../roles/auth.service';
-
 import { RouterModule } from '@angular/router';
 import { VistalibroService } from '../../usuario/vistalibro/vistalibro.service';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
-
 
 @Component({
   selector: 'app-catalogo-libros',
@@ -18,7 +16,7 @@ import Swal from 'sweetalert2';
 export class CatalogoLibrosComponent implements OnInit {
   @Input() libros: any[] = [];
   userInfo: any;
-  nombre='asdasd';
+  nombre='';
 
   private libroService = inject( LibroService )
   private auht =inject(AuthService)
@@ -51,7 +49,7 @@ export class CatalogoLibrosComponent implements OnInit {
   traerLibros(){
     this.libroService.getLibros(this.nombre).subscribe({
       next: (libros) => {
- 
+
          this.libros = libros;
        },
        error:(error) => {
@@ -61,6 +59,7 @@ export class CatalogoLibrosComponent implements OnInit {
        }
       } );
   }
+
   descarga(archivo: string , id_libro:string): void {
     this.libro_des.descarga(archivo,id_libro).subscribe({
      next: (data: Blob) => {

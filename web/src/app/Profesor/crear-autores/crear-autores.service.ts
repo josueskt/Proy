@@ -27,6 +27,5 @@ export class CrearAutoresService {
 
   eliminar(id:number){
     return this.http.delete(`${this.baseUrl}/${id}`);
-
   }
 }

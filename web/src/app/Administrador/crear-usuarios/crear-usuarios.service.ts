@@ -11,7 +11,7 @@ export class CrearUsuariosService {
   base = environment.URL;
   private baseUrl =  `${this.base}usuarios_regis`;
   location: any;
-  
+
   constructor(private http: HttpClient) { }
   crearCarrera(datos:any[]): Observable<any> {
     return this.http.post(`${this.baseUrl}`, datos);
@@ -20,9 +20,7 @@ export class CrearUsuariosService {
     return this.http.get(`${this.baseUrl}`);
   }
   eliminar(id:number){
-
     return this.http.delete(`${this.baseUrl}/${id}`);
-
   }
 
 }
