@@ -1,4 +1,11 @@
 /* loader.component.css */
+
+:host{
+  display: grid;
+  padding-top: 50px;
+  background-color: #ffffff;
+  
+}
 .loader-overlay {
     position: fixed;
     top: 0;

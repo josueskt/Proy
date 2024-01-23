@@ -11,13 +11,13 @@ import Masonry from 'masonry-layout';
 
 import { DataService } from '../data.service';
 import { RouterLink } from '@angular/router';
-import { NgClass, NgFor, UpperCasePipe } from '@angular/common';
+import { NgClass, UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-libro',
   standalone: true,
-  imports: [RouterLink, UpperCasePipe, FormsModule, NgClass, NgFor],
+  imports: [RouterLink, UpperCasePipe, FormsModule, NgClass],
   templateUrl: './libro.component.html',
   styleUrls: ['./libro.component.css'],
 })

@@ -1,4 +1,4 @@
-<br><br><br>
+
 <div class="catalogo-libros">
   <div class="row justify-content-center">
     <div class="col-md-12 text-center">
@@ -16,7 +16,7 @@
             <p>{{ libro.titulo }}</p>
             <p>Autor: {{ libro.autor }}</p>
             <p>Carrera {{ libro.carrera }}</p>
-            <img height="200" width="150" [src]="libro.imagen" alt="Portada" [routerLink]="['/user/libro', libro.id_libro]">
+            <img height="200" width="150" [src]="libro.imagen" (error)="eror_carga_imagen(libro)" alt="Portada">
             <br>
               <div class="text-center">
                 <button type="button" (click)="descarga(libro.nombre_archivo,libro.id_libro)" class="button-descarga">Descargar</button>
