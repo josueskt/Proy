@@ -14,7 +14,9 @@ import { Router } from '@angular/router';
 })
 export class CambioContraComponent {
  datos: { id: string, contra: string, repeatContra: string } = { id: '', contra: '', repeatContra: '' };
- hide = true;
+ showPassword: boolean = false;
+ showPassword2: boolean = false;
+
 
  private cambio_pas= inject( CambioContraService)
  private Aunth = inject(AuthService)
@@ -66,5 +68,13 @@ export class CambioContraComponent {
     // Expresión regular para validar la contraseña
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/;
     return regex.test(contrasena);
+  }
+
+  showHidePassword() {
+    this.showPassword = !this.showPassword;
+  }
+
+  showHidePassword2() {
+    this.showPassword2 = !this.showPassword2;
   }
 }

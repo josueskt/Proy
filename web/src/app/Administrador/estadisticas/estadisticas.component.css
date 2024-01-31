@@ -1,6 +1,7 @@
-.bg-light {
-    margin-top: 60px;
-   
+:host{
+    display: grid;
+    padding-top: 50px;
+    
 }
 .bg-dark{
     padding: 40px;

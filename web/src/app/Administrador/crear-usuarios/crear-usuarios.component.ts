@@ -4,6 +4,8 @@ import { CrearUsuariosService } from './crear-usuarios.service';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crear-usuarios',
@@ -24,6 +26,7 @@ export class CrearUsuariosComponent {
 
   private crearUsuariosService= inject(CrearUsuariosService)
   private toastrService: ToastrService = inject(ToastrService);
+  private router: Router = inject(Router);
 
 
   onKeyUp(event: KeyboardEvent): void {
@@ -37,14 +40,15 @@ export class CrearUsuariosComponent {
   procesarArchivo(): void {
     if (this.archivoSeleccionado) {
       const reader: FileReader = new FileReader();
-
       reader.onload = (e: any) => {
         const data = e.target.result;
         this.processExcel(data);
       };
-
       reader.readAsBinaryString(this.archivoSeleccionado);
-
+      this.toastrService.success('Se ha cargado el archivo', 'OK', {
+        timeOut: 3000,  positionClass: 'toast-top-center',
+      });
+      this.cargarCarreras();
     } else {
       this.toastrService.error('No se ha seleccionado nigun archivo', 'Fail', {
         timeOut: 3000,  positionClass: 'toast-top-center',
@@ -56,12 +60,8 @@ export class CrearUsuariosComponent {
     const workbook: XLSX.WorkBook = XLSX.read(data, { type: 'binary' });
     const sheetName: string = workbook.SheetNames[0];
     const worksheet: XLSX.WorkSheet = workbook.Sheets[sheetName];
-
     const jsonData: any[] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-
     const formattedData = this.formatData(jsonData);
-
-
   this.loader = true
     this.crearUsuariosService.crearCarrera(formattedData).subscribe({
      next: (response) => {
@@ -73,9 +73,7 @@ export class CrearUsuariosComponent {
       },
      error: (error) => {
         this.loader = false
-        this.toastrService.error(error.error.message, 'Fail', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
-        });
+        this.cargarCarreras();
       }
      } );
   }
@@ -121,7 +119,6 @@ export class CrearUsuariosComponent {
 
   cargarCarreras(): void {
     this.crearUsuariosService.get_user().subscribe((carreras) => {
-
       this.Carreras = carreras;
       this.filtrarCarreras();
     });
@@ -156,22 +153,28 @@ export class CrearUsuariosComponent {
 
   setCurrentPage(pageNumber: number): void {
     const totalPages = this.getPageNumbers().length;
-
     if (pageNumber >= 1 && pageNumber <= totalPages) {
       this.currentPage = pageNumber;
     }
   }
-  id_a = 0
-  eliminar() {
-    return this.crearUsuariosService.eliminar(this.id_a).subscribe(() => {
-      // La eliminación ha sido exitosa, ahora recargamos la página
-      window.location.reload();
+  borrar(id_a: number): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Si elimina este Usuario no lo podra recuperar',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.value) {
+        this.crearUsuariosService.eliminar(id_a).subscribe(() => {
+          Swal.fire('OK', 'Usuario eliminado', 'success');
+          this.cargarCarreras();
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelado', 'Se conserva el Usuario', 'error');
+      }
     });
-
-
   }
-  test(id:number){
-    this.id_a = id
 
-  }
 }

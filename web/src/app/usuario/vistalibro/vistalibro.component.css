@@ -1,9 +1,24 @@
+:host{
+  display: grid;
+  padding-top: 70px;
+  background-color: #fbf6d1;
+  
+}
 .cont {
     display: grid;
     grid-template-columns: auto minmax(800px, 1fr) auto 1fr;
     margin: 25px;
     border-radius: 20px;
     margin-top: 150px;
+  }
+  
+  .etiqueta{
+    transform: skew(-30deg);
+    border: solid 2px black;
+  }
+  .etiqueta_texto{
+    transform: skew(30deg);
+
   }
 
   .des {

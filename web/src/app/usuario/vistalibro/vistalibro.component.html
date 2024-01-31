@@ -1,4 +1,6 @@
-<br><br><br>
+
+
+
 <div class="container">
 
   <div class="row">
@@ -10,7 +12,7 @@
        <img src="{{libro.imagen}}" alt="{{libro.titulo}}" class="img-fluid img-thumbnail" width="1000" height="650">
        <!-- fin imagen -->
        <!-- boton descarga -->
-       
+       <div class="des">
         
         @if(libro.tipo ==='PDF'){
           <button class="btn btn-warning btn-lg" (click)="descarga(libro.nombre_archivo, libro.id_libro)">
@@ -24,11 +26,11 @@
           </button>
         }@else if (libro.tipo==='URL') {
           <a href='{{libro.nombre_archivo}}' target="_blank" class="btn btn-primary">
-            <button class="btn btn-warning btn-lg">Ir a Ejemplo.com</button>
+            <button class="btn btn-warning btn-lg">Ir al link del pdf</button>
         </a>
         }
        
-      
+      </div>
       <!--fin boton descarga -->
      </div>
      
@@ -36,11 +38,12 @@
      <!-- informacion libro -->
      <div class="col-md-7">
  
-       <h1 class="text-primary">{{libro.titulo | uppercase}}</h1>
+       <h1 class="text-danger bg-white rounded">{{libro.titulo | uppercase}}</h1>
  
        <div class="card">
  
          <div class="card-header bg-dark text-white">
+
            <h3>Información del libro</h3>
          </div>
  
@@ -55,18 +58,21 @@
            <div class="d-flex justify-content-between">
  
              <div class="col-5">
-               <p><strong>Título:</strong> {{libro.titulo}}</p>
+
                <p><strong>Autor:</strong> {{libro.autor}}</p>
-               <p><strong>Número de páginas:</strong> {{libro.num_paginas}}</p>
+               <p><strong>ISBN:</strong> {{libro.isbn}}</p>
+               <p><strong>Editorial:</strong> {{libro.editorial}}</p>
+
                <p><strong>Año del libro:</strong> {{libro.year_of_publication}}</p>
              </div>
  
-             <div class="col-8">
+             <div class="col-7">
  
               <p><strong>Subido por:</strong> {{libro.profesor}}</p>
               <p><strong>Descripción:</strong>{{libro.review}} </p>             
  
              </div>
+           
  
            </div>
  
@@ -74,14 +80,27 @@
  
        </div>
        <br>
-       <!-- vista previa -->
-  <!-- <div class="container-borde">
-    <iframe [src]="urlSegura" width="100%" height="600px" frameborder="0"></iframe>
+       
+  
+  @if(libro.tipo ==='PDF'){
+    
+    <embed [src]="pdfUrl"  type="application/pdf" width="100%" height="600px" />
 
-  </div> -->
-   <!-- fin vista previa -->
+
+  }@else {
+    <div >
+    <!-- <embed [src]="urlSegura" width="100%" (error)="error_carga_pdf()" height="600px" type="application/pdf"> -->
+
+  </div>
+
+  }
+ 
+ 
+  
+
+   
      </div>
-     <!-- fin informacion libro-->
+   
   </div>
   
  </div>

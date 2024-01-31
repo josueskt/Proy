@@ -3,6 +3,7 @@ import { CarreraService } from './carrera.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-carrera',
@@ -21,26 +22,39 @@ export class CarreraComponent implements OnInit {
   private toastrService: ToastrService = inject(ToastrService);
 
   ngOnInit() {
+    this.traerCarrera();
+  }
+
+
+  traerCarrera(){
     this.carreraService.traerTodas().subscribe((carreras) => {
       this.Carreras = carreras;
     });
   }
-  id_carrera = 0;
-  test(id: number) {
-    this.id_carrera = id;
-  }
 
-  eliminar() {
-    try {
-      this.carreraService.eliminarCarrera(this.id_carrera);
-    } catch (error) {
-      console.log(error);
-    }
+  borrar(id_carrera: number): void {
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: 'Si elimina esta carrera se eliminara con los libros que contenga',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí',
+      cancelButtonText: 'No',
+    }).then((result) => {
+      if (result.value) {
+        this.carreraService.eliminarCarrera(id_carrera);
+        Swal.fire('OK', 'carrera eliminada', 'success');
+        this.traerCarrera();
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire('Cancelado', 'Se conserva la carrera', 'error');
+      }
+    });
   }
 
   editar(id: number) {
     this.router.navigate(['/admin/carrera', id]);
   }
+
   crearCarrera() {
     const nombreFormateado = this.formatoNombre(this.carrera.nombre);
     const nombreExistente = this.Carreras.some(
@@ -64,10 +78,12 @@ export class CarreraComponent implements OnInit {
           setTimeout(() => {
             window.location.reload();
             this.Alertabien = false;
-          });
+          },600);
         },
        error: (error) => {
-          console.error('Error al crear carrera:', error);
+          this.toastrService.error(`Error al crear carrera`, 'Fail', {
+            timeOut: 3000,  positionClass: 'toast-top-center',
+          });
         }
     });
     }

@@ -27,9 +27,7 @@ export class CarreraService {
   }
 
   eliminarCarrera(id: number){
-
     this.http.delete(`${this.baseUrl}/${id}`).subscribe(()=>{
-      window.location.reload();
     },(error)=>{
       this.toastrService.error(error.error.message, 'Fail', {
         timeOut: 3000,  positionClass: 'toast-top-center',

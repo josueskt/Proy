@@ -23,6 +23,11 @@ export class VistalibroService {
     return this.http.get(`${this.baseUrl}libro/${id}`);
   }
 
+  treer_etiqueta(id:string){
+
+    return this.http.get(`${this.baseUrl}etiquetas/${id}`);
+
+  }
 
   descarga(filename: string , id_libro : string): Observable<Blob> {
 
@@ -34,4 +39,6 @@ export class VistalibroService {
     // http://localhost:3000/descarga?id_user=1&id_libro=1&filename=hola.pdf
     return this.http.get(`${this.baseUrl}descarga?id_user=${this.user}&id_libro=${id_libro}&filename=${filename}`, options) as Observable<Blob>;
   }
+
+
 }
