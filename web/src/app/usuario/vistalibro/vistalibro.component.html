@@ -9,7 +9,8 @@
     
      <div class="col-md-5">
       <!-- imagen -->
-       <img src="{{libro.imagen}}" alt="{{libro.titulo}}" class="img-fluid img-thumbnail" width="1000" height="650">
+      <img [src]="imagen" alt="imagen no encontrada" (error)="eror_carga_imagen()" class="img-fluid img-thumbnail" width="1000" height="650">
+    
        <!-- fin imagen -->
        <!-- boton descarga -->
        
