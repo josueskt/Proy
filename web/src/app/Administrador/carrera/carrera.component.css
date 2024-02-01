@@ -1,3 +1,10 @@
+:host{
+    display: grid;
+    padding-top: 50px;
+    background-color: #ffffff;
+    height: 100%;
+  }
+
 .all {
     background: url('https://concepto.de/wp-content/uploads/2015/03/biblioteca-e1550105792560.jpg') center center no-repeat;
     background-size: cover;
