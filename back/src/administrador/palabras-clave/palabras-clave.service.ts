@@ -18,7 +18,7 @@ export class PalabrasClaveService {
      for(let palabra of palabrasSinEspacios){
         try{
         
-     const existe =  await this.sql.query('SELECT id_palabra FROM libros.palabras_clave WHERE nombre = $1', [palabra])
+     const existe =  await this.sql.query('SELECT id_palabra FROM libros.palabras_clave WHERE nombre = $1', [palabra.toLowerCase()])
 
      if(!existe[0]){
        

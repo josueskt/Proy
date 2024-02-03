@@ -26,7 +26,7 @@ export class CrearUsuariosComponent {
 
   private crearUsuariosService= inject(CrearUsuariosService)
   private toastrService: ToastrService = inject(ToastrService);
-  private router: Router = inject(Router);
+ 
 
 
   onKeyUp(event: KeyboardEvent): void {
@@ -117,9 +117,27 @@ export class CrearUsuariosComponent {
     this.cargarCarreras();
   }
 
+
+  cambio_estado(id:number,estado:boolean){
+ this.crearUsuariosService.cambio_estado(id,estado).subscribe({
+
+  next: (response:{message:string}) => {
+    this.loader = false
+    this.toastrService.success(response.message, 'OK', {
+      timeOut: 3000,  positionClass: 'toast-top-center',
+    });
+    this.cargarCarreras();
+  },
+  error:(e)=>{
+    throw(e)
+  }
+ })
+  }
+
   cargarCarreras(): void {
     this.crearUsuariosService.get_user().subscribe((carreras) => {
       this.Carreras = carreras;
+      console.log(carreras)
       this.filtrarCarreras();
     });
   }

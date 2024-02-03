@@ -9,12 +9,12 @@ export class CargaLLoteController {
   async carga_por_lote(@Body() body: any) {
     const datos = body.datos;
     const id = body.id_user.id_user  
-    console.log(datos)  
-    // for (const dato of datos) {
-    //   if (dato.titulo) {        
-    //     this.fileService.libros_bloque(dato, id)
-    //   }
-    // }
+    
+    for (const dato of datos) {
+      if (dato.titulo) {        
+        this.fileService.libros_bloque(dato, id)
+      }
+    }
 
   }
 }

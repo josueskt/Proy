@@ -6,55 +6,74 @@ import * as path from 'path';
 import { MessageDto } from 'src/common/message.dto';
 import { SqlService } from 'src/sql/sql.service';
 import { PalabrasClaveService } from '../palabras-clave/palabras-clave.service';
+
 @Injectable()
 export class CargaLLoteService {
-  constructor(private readonly sql: SqlService , private palabra:PalabrasClaveService) {
+
+
+  promesa_uno = false
+  promesa_Dos = false
+  constructor(private readonly sql: SqlService, private palabra: PalabrasClaveService) {
   }
   async descargarArchivo(dato: any, id: string): Promise<void> {
     const directorioDestino = process.env.Docs;
+    var nombreOriginal
 
     if (!directorioDestino) {
-      throw new NotFoundException(new MessageDto('La variable de entorno Docs no está configurada'));      
+      throw new NotFoundException(new MessageDto('La variable de entorno Docs no está configurada'));
     }
 
     const googleDriveFileId = this.getDriveFileId(dato.archivo);
     const imagen_url = this.getDriveFileId(dato.imagen);
-    if(imagen_url){
+    if (imagen_url) {
       var imagen = `https://drive.google.com/uc?id=${imagen_url}`
 
     }
-    else{
+    else {
       imagen = dato.imagen
     }
     const url = `https://drive.google.com/uc?id=${googleDriveFileId}`;
 
+
     try {
-      // Verifica si el directorio de destino existe, y créalo si no
+
       if (!fs.existsSync(directorioDestino)) {
         fs.mkdirSync(directorioDestino, { recursive: true });
       }
 
-      // Realiza la solicitud http
-      const response = await axios({
-        url,
-        method: 'GET',
-        responseType: 'stream',
-        
-      });
+      try{
 
-      // Obtiene el nombre del archivo original del encabezado de respuesta
-      const contentDisposition = response.headers['content-disposition'];
-      const matches = contentDisposition.match(/filename="(.+)"$/);
-      const nombreOriginal = matches ? matches[1] : `${Date.now()}-${googleDriveFileId}.pdf`;
+        const myPromise: Promise<string> = this.descargar_todo(imagen, directorioDestino);
 
-      // Ruta completa del archivo
-      const filePath = path.join(directorioDestino, nombreOriginal);
+         await myPromise
+          .then((result: string) => {
+         imagen = result
+            console.log(result);
+            this.promesa_uno = true
+          })
+          .catch((error: any) => {
+            
+            console.error(error);
+          });
+  
+          const myPromis: Promise<string> = this.descargar_todo(url, directorioDestino);
+  
+          await  myPromis
+            .then((result: string) => {
+              nombreOriginal = result
+              const promesa_dos = true
+            })
+            .catch((error: any) => {
+              
+              console.error(error);
+            });
 
-      // Guarda el archivo en el sistema de archivos local
-      const writer = fs.createWriteStream(filePath);
-      response.data.pipe(writer);
+      }catch(error){
+        throw new NotFoundException(new MessageDto('Error al descargar o guardar el archivo'));
+      }
 
-      // ponder en el mapeo de exel esta made de fk_autor,_fk:carrera_fktipo
+
+
       const valor =  await this.sql.query(`INSERT INTO libros.libro (
         titulo,
         year_of_publication,
@@ -68,9 +87,9 @@ export class CargaLLoteService {
         fk_tipo,
         codigo,
         editorial) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)  RETURNING id_libro`, [
-        dato.titulo,
+        dato.titulo.toLowerCase(),
         dato.year,
-        dato.review,
+        dato.review.toLowerCase(),
         imagen,
         nombreOriginal,
         dato.isbn,
@@ -80,35 +99,68 @@ export class CargaLLoteService {
         dato.tipo,
         dato.codigo,
         dato.editorial
-       
+
       ]);
-    this.palabra.Generar_palabras(dato.palabras, valor[0].id_libro)
 
 
-      return new Promise((resolve, reject) => {
-        writer.on('finish', resolve);
-        writer.on('error', reject);
-      });
+     this.palabra.Generar_palabras(dato.palabras, valor[0].id_libro)
+
+ 
+
     } catch (error) {
-      throw new NotFoundException(new MessageDto('Error al descargar o guardar el archivo'));     
+      throw new NotFoundException(new MessageDto('Error al guardar el la base '));
     }
+  }
+
+  async descargar_todo(url, destino) {
+
+    const response = await axios({
+      url,
+      method: 'GET',
+      responseType: 'stream',
+    });
+   
+    const contentDispositionHeader = response.headers['content-disposition'];
+
+   // Obtener la extensión del archivo desde la URL
+   const match = contentDispositionHeader.match(/filename="(.+)"$/);
+   const nombreOriginal = match ? match[1] : 'archivo';
+
+   let extensionOriginal = path.extname(nombreOriginal);
+   if(!extensionOriginal){
+    extensionOriginal = '.webp'
+   }
+   const nombreUnico = `archivo_${Date.now()}${extensionOriginal}`;
+
+    const rutaCompleta = path.join(destino, nombreUnico);
+
+    const writer = fs.createWriteStream(rutaCompleta);
+    response.data.pipe(writer);
+
+    
+
+return nombreUnico
+
+
+
+
   }
 
 
   // funcion que guarda el libro completo  nts no descarga simon :·   
-  async Sin_Descarga( dato:any , id ){
+  async Sin_Descarga(dato: any, id) {
 
-    try{
+    try {
       const googleDriveFileId = this.getDriveFileId(dato.archivo);
-    const imagen_url = this.getDriveFileId(dato.imagen);
-    
+      const imagen_url = this.getDriveFileId(dato.imagen);
 
-    const imagen = `https://drive.google.com/uc?id=${imagen_url}`
-    const url = `https://drive.google.com/uc?id=${googleDriveFileId}`;
-    
 
-      
-      const valor =   await this.sql.query(`INSERT INTO libros.libro (
+      const imagen = `https://drive.google.com/uc?id=${imagen_url}`
+      const url = `https://drive.google.com/uc?id=${googleDriveFileId}`;
+
+
+
+      const valor = await this.sql.query(`INSERT INTO libros.libro (
         titulo,
         year_of_publication,
         review,
@@ -133,13 +185,13 @@ export class CargaLLoteService {
         dato.tipo,
         dato.codigo,
         dato.editorial
-       
+
       ]);
 
-    this.palabra.Generar_palabras(dato.palabras, valor[0].id_libro)
-      
- 
-    }catch(error){
+      this.palabra.Generar_palabras(dato.palabras, valor[0].id_libro)
+
+
+    } catch (error) {
       throw error
 
     }
@@ -173,24 +225,24 @@ export class CargaLLoteService {
       const nombre_tipo = dato.tipo
       dato.autor = id_autor[0].id_autor
       dato.tipo = id_tipo[0].id_tipo
-//console.log(dato)
-      if(nombre_tipo ==='URL'){
 
-       
-     await this.Sin_Descarga(dato,id)
+      if (nombre_tipo === 'URL') {
+
+
+        await this.Sin_Descarga(dato, id)
 
 
       }
-      else if(nombre_tipo === 'PDF'){
+      else if (nombre_tipo === 'PDF') {
         await this.descargarArchivo(dato, id);
       }
       // Descargar el archivo
-     //
-    } catch (error) {      
+      //
+    } catch (error) {
       throw new NotFoundException(new MessageDto('Error en la función libros_bloque'));
     }
   }
-  
+
 
 }
 

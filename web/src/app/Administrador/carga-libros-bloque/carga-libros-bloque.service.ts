@@ -57,13 +57,13 @@ export class CargaLibrosBloqueService {
       const review = row[5];
       const autor = row[1];
       const carrera = row[8];
-      const archivo = row[9];
-      const imagen = row[10];
+      const archivo = row[10];
+      const imagen = row[11];
 
       const isbn = row[4];
       const codigo = row[7];
       const editorial = row[3];
-      const tipo = row[11];
+      const tipo = row[12];
       const year = row[2];
       const palabras = row[6]
 

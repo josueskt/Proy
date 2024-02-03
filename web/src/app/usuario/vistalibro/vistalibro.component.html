@@ -30,7 +30,17 @@
             <button class="btn btn-warning btn-lg">Ir al link del pdf</button>
         </a>
         }
-       
+        <div>
+          <br>
+          <h2 class=" text-white">ETIQUETAS</h2>
+  
+          @for(etiqueta of etiquetas ;  track etiqueta.id_palabra){
+  
+            <button class=" btn-danger etiqueta" (click)="buscar_etiqueta(etiqueta.nombre)"><p class="etiqueta_texto">{{etiqueta.nombre}} </p></button>    
+              }
+  
+  
+        </div>
       
       <!--fin boton descarga -->
      </div>

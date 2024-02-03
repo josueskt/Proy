@@ -1,87 +1,100 @@
 @if (!loader) {
-  <div>
-  
-    <div class="container mt-4">
-      <div class="row">
-        <h2 class="mb-4 text-white">Subir Usuarios</h2>
-        <div class="col-md-6">
-          <div class="mb-3">
-            <input type="file" class="form-control" (change)="handleFileInput($event)" />
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="mb-3">
-            <select class="form-select" name="selectedCarrera" [(ngModel)]="selectedCarrera">
-              <option value="1">ADMINISTRADOR</option>
-              <option value="2">PROFESOR</option>
-              <option value="3">ESTUDIANTE</option>
-            </select>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <button class="btn btn-primary" (click)="procesarArchivo()" (keyup)="onKeyUp($event)" [disabled]="!selectedCarrera || !archivoSeleccionado">Procesar Archivo</button>
+<div>
+
+  <div class="container mt-4">
+    <div class="row">
+      <h2 class="mb-4 text-white">Subir Usuarios</h2>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <input type="file" class="form-control" (change)="handleFileInput($event)" />
         </div>
       </div>
-      <!-- Button trigger modal -->
-      <hr>
-        
-          <h1>Usuarios</h1>
-          <hr>
-            <div class="row mt-4">
-              <div class="col-md-6">
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="Buscar por cédula" [(ngModel)]="filtroCedula"
-                    name="filtroCedula" />
-                  <button class="btn btn-primary text-white btn-outline-secondary" type="button" (click)="filtrarCarreras()">Buscar</button>
-                </div>
-              </div>
-            </div>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Identificación</th>
-                  <th scope="col">ROL</th>
-                  <th scope="col">Email</th>
-                  <th>OPCIONES</th>
-                </tr>
-              </thead>
-              <tbody>
-                <!--  -->
-                @for (carrera of carrerasFiltradas  | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; track carrera) {
-                  <tr>
-                    <td>{{ carrera.nombre }}</td>
-                    <td>{{ carrera.id_user }}</td>
-                    <td>{{ carrera.nombre_rol }}</td>
-                    <td>{{ carrera.email }}</td>
-                    <td>
-                      <button class="btn btn-danger" (click)="carrera.id_user !== undefined ? borrar(carrera.id_user.toString()) : null">
-                        <span class="text-white" >Eliminar</span>
-                      </button>
-                    </td>
-                    </tr>
-                  }
-                </tbody>
-              </table>
-              <div class="row">
-                <div class="col-md-6">
-                  <ul class="pagination">
-                    @for (pageNumber of getPageNumbers(); track pageNumber) {
-                      <li [class.active]="pageNumber === currentPage">
-                        <a class="page-link" (click)="setCurrentPage(pageNumber)">{{ pageNumber }}
-                          <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events -->
-                        </a>
-                      </li>
-                    }
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <select class="form-select" name="selectedCarrera" [(ngModel)]="selectedCarrera">
+            <option value="1">ADMINISTRADOR</option>
+            <option value="2">PROFESOR</option>
+            <option value="3">ESTUDIANTE</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <button class="btn btn-primary" (click)="procesarArchivo()" (keyup)="onKeyUp($event)"
+          [disabled]="!selectedCarrera || !archivoSeleccionado">Procesar Archivo</button>
+      </div>
+    </div>
+    <!-- Button trigger modal -->
+    <hr>
+
+    <h1>Usuarios</h1>
+    <hr>
+    <div class="row mt-4">
+      <div class="col-md-6">
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Buscar por cédula" [(ngModel)]="filtroCedula"
+            name="filtroCedula" />
+          <button class="btn btn-primary text-white btn-outline-secondary" type="button"
+            (click)="filtrarCarreras()">Buscar</button>
+        </div>
+      </div>
+    </div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Nombre</th>
+          <th scope="col">Identificación</th>
+          <th scope="col">ROL</th>
+          <th scope="col">Email</th>
+          <th scope="col">Estado</th>
+          <th>OPCIONES</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--  -->
+        @for (carrera of carrerasFiltradas | paginate: { itemsPerPage: pageSize, currentPage: currentPage }; track
+        carrera) {
+        <tr>
+          <td>{{ carrera.nombre }}</td>
+          <td>{{ carrera.id_user }}</td>
+          <td>{{ carrera.nombre_rol }}</td>
+          <td>{{ carrera.email }}</td>
+          <td>
+            @if(carrera.activo){
+            <button class="btn btn-danger" (click)="cambio_estado(carrera.id_user,carrera)">Desactivar</button>
+            }@else {
+            <button class="btn btn-danger" (click)="cambio_estado(carrera.id_user,carrera)">Activar</button>
+            }
+          </td>
+
+          <td>
+            <button class="btn btn-danger"
+              (click)="carrera.id_user !== undefined ? borrar(carrera.id_user.toString()) : null">
+              <span class="text-white">Eliminar</span>
+            </button>
+          </td>
+        </tr>
         }
-        @if (loader) {
-          <div class="loader-overlay">
-            <h1 class="text-center text-danger">Creando Usuarios .</h1>
-            <div class="loader"></div>
-          </div>
-        }
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="col-md-6">
+        <ul class="pagination">
+          @for (pageNumber of getPageNumbers(); track pageNumber) {
+          <li [class.active]="pageNumber === currentPage">
+            <a class="page-link" (click)="setCurrentPage(pageNumber)">{{ pageNumber }}
+              <!-- eslint-disable-next-line @angular-eslint/template/click-events-have-key-events -->
+            </a>
+          </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+}
+@if (loader) {
+<div class="loader-overlay">
+  <h1 class="text-center text-danger">Creando Usuarios .</h1>
+  <div class="loader"></div>
+</div>
+}

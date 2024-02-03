@@ -6,14 +6,14 @@ import { MessageDto } from 'src/common/message.dto';
 
 @Injectable()
 export class UsuariosService {
-  constructor(public sql: SqlService) {}
+  constructor(public sql: SqlService) { }
 
   async delete_user(id: number) {
     if (id) {
       await this.sql.query('DELETE FROM inst.usuario where id_user = $1', [id]);
       return new MessageDto(`usuario ${id} eliminado`);
     } else {
-        throw new NotFoundException(new MessageDto('No se encontro el usuario'));
+      throw new NotFoundException(new MessageDto('No se encontro el usuario'));
     }
   }
   async register(usuarios: Usuario[]) {
@@ -31,27 +31,28 @@ export class UsuariosService {
           const salt = await bcrypt.genSalt(asaltos);
           const hashedPassword = await bcrypt.hash(user.password, salt);
           this.sql.query(
-            'INSERT INTO inst.usuario(id_user,email,password,nombre,fk_rol) values($1,$2,$3,$4,$5)',
+            'INSERT INTO inst.usuario(id_user,email,password,nombre,fk_rol,activo) values($1,$2,$3,$4,$5,$6)',
             [
               user.id_user,
               user.email,
               hashedPassword,
               user.nombre,
               user.fk_rol,
+              true
             ],
           );
-          new MessageDto('Usuario creado');         
+          new MessageDto('Usuario creado');
         }
       }
       return new MessageDto('Usuarios creados');
-    } catch (error) {      
+    } catch (error) {
       throw new NotFoundException(new MessageDto('Error al crear usuarios'));
     }
   }
 
   async get_rol() {
     const reslut = await this.sql.query(
-      'select u.id_user, u.email ,u.nombre, r.nombre_rol from inst.usuario as u left join inst.rol as r  ON u.fk_rol = r.id_rol',
+      'select u.id_user, u.activo ,u.email ,u.nombre, r.nombre_rol from inst.usuario as u left join inst.rol as r  ON u.fk_rol = r.id_rol',
     );
     return reslut;
   }
@@ -60,4 +61,16 @@ export class UsuariosService {
     const reslut = await this.sql.query('select nombre_rol from inst.rol');
     return reslut;
   }
+
+
+  async editar_usuario(id: number, datos: any) {
+    if (datos.cambio) {
+      datos.activo = !datos.activo
+    
+        await this.sql.query('UPDATE inst.usuario SET activo = $1 WHERE id_user = $2', [datos.activo, id]);
+        return new MessageDto('Estado actualizado');
+    }
+    return new MessageDto('Estado actualizado');
+  }
+  
 }

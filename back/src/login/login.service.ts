@@ -15,15 +15,21 @@ export class LoginService {
       const cedula = datos.cedula;
       const password = datos.password;
       const result = await this.sql.query(
-        'SELECT u.id_user , u.email,u.password,u.nombre ,r.nombre_rol  FROM inst.usuario AS u INNER JOIN inst.rol AS r ON u.fk_rol = r.id_rol where email = ($1);',
+        'SELECT u.id_user , u.activo, u.email,u.password,u.nombre ,r.nombre_rol  FROM inst.usuario AS u INNER JOIN inst.rol AS r ON u.fk_rol = r.id_rol where email = ($1);',
         [cedula],
       );
 
       if (result.length === 1) {
         const user = result[0];
+        if(!user.activo){
+         return new UnauthorizedException(new MessageDto('Este usuario no esta activo '));        
+           
+        }else{
+          var passwordMatch = await bcrypt.compare(password, user.password);
+
+        }
 
         // Verificar la contraseña
-        const passwordMatch = await bcrypt.compare(password, user.password);
 
         if (passwordMatch) {
           const token = jwt.sign(

@@ -1,18 +1,19 @@
-import { Controller, Get, NotFoundException, Query, Res } from '@nestjs/common';
+import { Controller, Get, NotFoundException, Query, Res, SetMetadata, UseGuards } from '@nestjs/common';
 import * as fs from 'fs';
 import { Response } from 'express';
 import * as path from 'path';
 //import { RolesGuard } from 'src/roles/roles.guard';
 import { DescargaService } from './descarga.service';
 import { MessageDto } from 'src/common/message.dto';
+import { RolesGuard } from 'src/roles/roles.guard';
 
 @Controller('descarga')
 export class DescargaController {
   constructor(private descarga: DescargaService) {}
 
   @Get()
-  //@UseGuards(RolesGuard)
-  //@SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
+  @UseGuards(RolesGuard)
+  @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
   async getPdf(
     @Res() res: Response,
     @Query('filename') filename: string,

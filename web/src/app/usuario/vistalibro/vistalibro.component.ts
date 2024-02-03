@@ -6,6 +6,8 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { HomeService } from '../home/home.service';
 import { DataService } from '../data.service';
+import { environment } from '../../../../environments/environment';
+
 
 @Component({
   selector: 'app-vistalibro',
@@ -44,7 +46,8 @@ export class VistalibroComponent {
   
   eror_carga_imagen(){
     
-    
+  
+
     this.imagen = './assets/images/imagennoencontrada.png'
   }
 
@@ -73,8 +76,11 @@ this.vistalibroService.treer_etiqueta(id).subscribe(
      next: (data) => {
         console.log('libro', data);
         this.result = data;
+          //http://localhost:3000/imagen?filename=archivo_1706919208106.webp
+
+    const baseUrl = environment.URL;
         this.libro = this.result[0];
-        this.imagen = this.sanitizeUrl(this.libro.imagen)
+        this.imagen = this.sanitizeUrl(baseUrl+'imagen?filename='+this.libro.imagen)
         if(this.libro.tipo ==='PDF'){
         this.mostrar(this.libro.nombre_archivo, this.libro.id_libro)}
         this.cargarPDF();

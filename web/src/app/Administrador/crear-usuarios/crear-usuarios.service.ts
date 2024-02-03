@@ -22,5 +22,17 @@ export class CrearUsuariosService {
   eliminar(id:number){
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
+  
+  
+
+  cambio_estado(id:number,datos:any){
+
+const data = {
+  ...datos,
+  "cambio":true
+}
+    return this.http.put(`${this.baseUrl}/${id}` , data);
+
+  }
 
 }

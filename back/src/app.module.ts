@@ -39,16 +39,18 @@ import { LibroTipoService } from './administrador/libro_tipo/libro_tipo.service'
 import { PalabrasClaveService } from './administrador/palabras-clave/palabras-clave.service';
 import { EtiquetasController } from './usuarios/etiquetas/etiquetas.controller';
 import { EtiquetasService } from './usuarios/etiquetas/etiquetas.service';
+import { ImagenController } from './usuarios/imagen/imagen.controller';
+import { ImagenService } from './usuarios/imagen/imagen.service';
 
 
 
 @Module({
   imports: [],
-  controllers: [AppController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController,  BuscadorController, DescargaController, AutorController, CambioContraController, MilibroController, CargaLLoteController, LibroTipoController, EtiquetasController ],
+  controllers: [AppController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController,  BuscadorController, DescargaController, AutorController, CambioContraController, MilibroController, CargaLLoteController, LibroTipoController, EtiquetasController, ImagenController ],
   providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, LibroService, LoginService, UsuariosService,  {
     provide: APP_PIPE,
     useClass: ValidationPipe,
-  }, BuscadorService, AutorService, CambioContraService, DescargaService, CargaLLoteService, LibroTipoService,  PalabrasClaveService, EtiquetasService],
+  }, BuscadorService, AutorService, CambioContraService, DescargaService, CargaLLoteService, LibroTipoService,  PalabrasClaveService, EtiquetasService, ImagenService],
 })
 export class AppModule {
  
