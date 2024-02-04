@@ -1,15 +1,12 @@
-
 :host{
   display: grid;
+  height: 100%;
   padding-top: 50px;
   background-color: #fbf6d1;
-  
+  overflow-x: hidden;
 }
-@import url('https://fonts.googleapis.com/css2?family=Syne+Tactile:wght@400;700&display=swap');
 
-body {
-  font-family: 'Syne Tactile', sans-serif;
-}
+
 
 .gallery-container {
   display: grid;

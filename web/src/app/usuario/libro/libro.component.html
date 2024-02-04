@@ -1,12 +1,19 @@
 
 
-<section class="cabecera">
-  @if (resultados && resultados.length === 0) {
-    <div>
-      <h1 class="alert alert-danger mt-5">No se encontraron resultados para la búsqueda.</h1>
-    </div>
+<section class="cabecera " style="display: grid; place-items: center;">
+  @if (!resultados.length) {
+    
+    <div class="card " style=" height: 400px; width: 300px;">
+      <div class="card-body text-center w-100">
+          <h1 class="">No se encontraron resultados para la búsqueda.</h1>
+          <a [routerLink]="['/user']" class="btn btn-warning">regresar</a>
+      </div>
+  </div>
+  
+  
   }
 </section>
+@if (resultados.length) {
 <div class="pagination-buttons mt-4 text-center">
   <button (click)="previousPage()" [disabled]="currentPage === 1" class="btn btn-primary"> <span class="carousel-control-prev-icon" aria-hidden="true"></span> </button>
   <button (click)="nextPage()" class="btn btn-primary"> <span class="carousel-control-next-icon" aria-hidden="true"></span></button>
@@ -31,4 +38,4 @@
   <button (click)="nextPage()" class="btn btn-primary"> <span class="carousel-control-next-icon" aria-hidden="true"></span></button>
 </div>
 
-
+}

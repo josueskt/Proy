@@ -5,11 +5,13 @@ import { RouterModule } from '@angular/router';
 import { VistalibroService } from '../../usuario/vistalibro/vistalibro.service';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
+import { environment } from '../../../../environments/environment';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-catalogo-libros',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule ,CommonModule],
   templateUrl: './catalogo-libros.component.html',
   styleUrls: ['./catalogo-libros.component.css']
 })
@@ -41,9 +43,10 @@ export class CatalogoLibrosComponent implements OnInit {
   }
 
   eror_carga_imagen(libro){
-    
-    
-    libro.imagen = './assets/images/imagennoencontrada.png'
+    if(!libro.imagen.includes("http://")){
+const baseUrl = environment.URL;
+      libro.imagen = baseUrl+'imagen?filename='+libro.imagen
+    }else( libro.imagen = './assets/images/imagennoencontrada.png')
   }
 
   traerLibros(){
