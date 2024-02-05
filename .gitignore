@@ -2,7 +2,7 @@
 back/node_modules/
 back/dist/
 back/*.env
-
+back/src/pdfs
 # Angular (web)
 web/node_modules
 web/node_modules/
