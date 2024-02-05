@@ -45,7 +45,7 @@ export class LoginComponent {
         // Maneja la respuesta del servidor aquí (por ejemplo, almacena el token)
         if (response.message) {
           this.toastrService.error(response.response.message, 'Fail', {
-            timeOut: 3000, positionClass: 'toast-top-center',
+            timeOut: 4000, positionClass: 'toast-top-center',
           });
         } else if (response.token) {
           localStorage.setItem('token', response.token);

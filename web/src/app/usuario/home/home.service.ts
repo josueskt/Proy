@@ -19,6 +19,7 @@ export class HomeService {
   }
 
   buscarLibros(cadena: string,carrera:string): Observable<any[]> {
+    cadena =  cadena.toLowerCase()
   if(carrera ==='Carrera'){
 
      this.url = `${this.apiUrl}buscador?cadena=${cadena} `;

@@ -53,8 +53,8 @@ export class CambioContraComponent {
           }
       });
       } else {
-        this.toastrService.error('requiere un caracter en mayuscula , minuscula , caracter especial 8 caracteres minimo', 'Fail', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
+        this.toastrService.error('requiere un caracter en mayuscula , minuscula , caracter especial , 8 caracteres minimo', 'Fail', {
+          timeOut: 6000,  positionClass: 'toast-top-center',
         });
       }
     }
