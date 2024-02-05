@@ -2,13 +2,10 @@
 
   <div class="row">
 
-
-
     <div class="col-md-5">
       <!-- imagen -->
       <div class="d-flex justify-content-center">
-        <img [src]="imagen" alt="imagen no encontrada" (error)="eror_carga_imagen()" class="img-fluid img-thumbnail"
-          width="350">
+        <img [src]="imagen" alt="imagen no encontrada" (error)="eror_carga_imagen()" class="img-fluid img-thumbnail imagen-responsive">
       </div>
       <br>
       <!-- fin imagen -->
@@ -76,11 +73,11 @@
   <div class="d-flex justify-content-center">
     <div class="row">
       <div class="col" style="margin: 0; padding: 0;">
-        <div class="btn-group" role="group">
+        <div class="etiquetas-container">
           @for(etiqueta of etiquetas ; track etiqueta.id_palabra) {
-            <button class="btn btn-danger mx-2 btn-custom-height btn-auto-height" style="margin: 0; padding: 0;" (click)="buscar_etiqueta(etiqueta.nombre)">
-              <p class="etiqueta_texto" style="margin: 0; white-space: nowrap;">{{etiqueta.nombre}}</p>
-            </button>
+            <span class="etiqueta" (click)="buscar_etiqueta(etiqueta.nombre)">
+              <p class="etiqueta_texto">{{ etiqueta.nombre }}</p>
+            </span>
           }
         </div>
       </div>
