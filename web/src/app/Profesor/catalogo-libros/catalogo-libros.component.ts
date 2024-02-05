@@ -46,6 +46,7 @@ export class CatalogoLibrosComponent implements OnInit {
     if(!libro.imagen.includes("http://")){
 const baseUrl = environment.URL;
       libro.imagen = baseUrl+'imagen?filename='+libro.imagen
+      console.log(libro.imagen)
     }else( libro.imagen = './assets/images/imagennoencontrada.png')
   }
 

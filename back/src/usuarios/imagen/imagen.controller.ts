@@ -9,8 +9,8 @@ import { RolesGuard } from 'src/roles/roles.guard';
 export class ImagenController {
 
     @Get()
-    @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
+   // @UseGuards(RolesGuard)
+   // @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
     async getPdf(
       @Res() res: Response,
       @Query('filename') filename: string,

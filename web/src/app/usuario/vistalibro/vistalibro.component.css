@@ -2,8 +2,11 @@
   display: grid;
   padding-top: 70px;
   background-color: #fbf6d1;
-  
+  height: 100%;
+  overflow-x: hidden;
+
 }
+
 .cont {
     display: grid;
     grid-template-columns: auto minmax(800px, 1fr) auto 1fr;
