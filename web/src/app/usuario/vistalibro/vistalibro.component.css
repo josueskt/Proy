@@ -1,62 +1,101 @@
-:host{
+:host {
   display: grid;
   padding-top: 70px;
   background-color: #fbf6d1;
   height: 100%;
   overflow-x: hidden;
-
 }
 
 .cont {
-    display: grid;
-    grid-template-columns: auto minmax(800px, 1fr) auto 1fr;
-    margin: 25px;
-    border-radius: 20px;
-    margin-top: 150px;
-  }
-  
-  .etiqueta{
-    transform: skew(-30deg);
-    border: solid 2px black;
-  }
-  .etiqueta_texto{
-    transform: skew(30deg);
+  display: grid;
+  grid-template-columns: auto minmax(800px, 1fr) auto 1fr;
+  margin: 25px;
+  border-radius: 20px;
+  margin-top: 150px;
+}
 
-  }
+.etiqueta {
+  transform: skew(-30deg);
+  border: solid 2px black;
+}
 
+.etiqueta_texto {
+  transform: (30deg);
+}
+
+.des {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  width: 100%;
+  position: relative;
+  margin-top: 0;
+}
+
+.btn-custom-height {
+  height: 30px;
+}
+
+.btn-auto-height {
+  width: auto !important;
+}
+
+.texto {
+  padding: 10px;
+}
+
+.linea-vertical {
+  border-left: 2px solid black;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.infomacion {
+  margin-top: 100px;
+}
+
+.description-container {
+  max-height: 700px;
+  overflow-y: auto;
+}
+
+.card-tex {
+  word-wrap: break-word;
+  white-space: pre-line;
+}
+
+.container-borde {
+  border: 2px solid white;
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .cont {
+    grid-template-columns: 1fr;
+    margin: 10px;
+    margin-top: 80px;
+  }
+  .etiqueta,
+  .etiqueta_texto {
+    transform: skew(0deg);
+  }
   .des {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    align-items: flex-start;
   }
-
   .btn {
-    width: 100%;
-    position: relative;
-    margin-top: 0;
+    margin-top: 10px;
   }
-
-  .texto {
-    padding: 10px;
-  }
-
   .linea-vertical {
-    border-left: 2px solid black;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+    display: none;
   }
-
   .infomacion {
-    margin-top: 100px;
+    margin-top: 50px;
   }
-
-  .card-tex {
-    word-wrap: break-word;
-    white-space: pre-line;
+  .description-container {
+    max-height: 300px;
   }
-
-  .container-borde {
-    border: 2px solid white; 
-    padding: 10px; 
-  }
+}
