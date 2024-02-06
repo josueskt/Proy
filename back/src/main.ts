@@ -13,7 +13,8 @@ async function bootstrap() {
 
   // Habilita CORS
   app.enableCors({
-    origin: 'http://192.168.237.129:4200',
+    
+    origin: process.env.origin,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });

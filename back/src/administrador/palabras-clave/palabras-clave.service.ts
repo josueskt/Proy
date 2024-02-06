@@ -26,7 +26,7 @@ export class PalabrasClaveService {
 
 
         
-        const id_palabra =  await this.sql.query('INSERT INTO libros.palabras_clave(nombre)VALUES($1) RETURNING id_palabra', [palabra])
+        const id_palabra =  await this.sql.query('INSERT INTO libros.palabras_clave(nombre)VALUES($1) RETURNING id_palabra', [palabra.toLowerCase()])
         const id_P = id_palabra[0].id_palabra
      await this.sql.query('INSERT INTO libros.palabras_libro(fk_libro,fk_palabra)VALUES($1,$2)', [id,id_P])
      
