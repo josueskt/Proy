@@ -10,6 +10,7 @@ web/dist/
 web/e2e/
 web/.vscode/
 web/.angular/
+web/environments
 
 # Flutter (mobil)
 mobil/.dart_tool/
