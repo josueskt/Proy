@@ -144,7 +144,13 @@ export class LibroService {
             console.log(libro)
 
             const archivo_url = this.getDriveFileId(libro.archivo_url);
-    const url = `https://drive.google.com/uc?id=${archivo_url}`
+            if(!archivo_url){
+
+            var url = libro.archivo_url
+            }else{
+                 url = `https://drive.google.com/uc?id=${archivo_url}`
+            }
+   
 
     const valor =    await this.sql.query(`INSERT INTO libros.libro (
                 titulo,

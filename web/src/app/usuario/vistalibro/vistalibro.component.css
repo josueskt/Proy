@@ -1,9 +1,24 @@
 :host {
   display: grid;
   padding-top: 70px;
-  background-color: #fbf6d1;
+  background-color: rgb(255, 255, 255);
   height: 100%;
   overflow-x: hidden;
+}
+.text-back{
+  background-color: #17304A;
+}
+.imagen-responsive{
+
+  box-shadow: 10px 5px 5px rgb(101, 101, 101);
+}
+
+.titulo :nth-child(2){
+  border: 3px solid black;
+}
+.card{
+  border: 2px solid black;
+
 }
 
 @media only screen and (max-width: 360px) {
@@ -22,12 +37,16 @@
   align-items: center;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #ff3333;
+  background-color: #17304A;
   padding: 6px 12px;
   margin-right: 8px;
   margin-bottom: 8px;
   font-size: 14px;
   color: #333;
+}
+.etiqueta:hover{
+  cursor: pointer;
+  background-color: #070b10;
 }
 
 .etiqueta p {

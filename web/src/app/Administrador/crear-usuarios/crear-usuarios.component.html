@@ -46,7 +46,8 @@
           <th scope="col">ROL</th>
           <th scope="col">Email</th>
           <th scope="col">Estado</th>
-          <th>OPCIONES</th>
+          <th>ELIMINAR</th>
+          <th>EDITAR</th>
         </tr>
       </thead>
       <tbody>
@@ -60,9 +61,9 @@
           <td>{{ carrera.email }}</td>
           <td>
             @if(carrera.activo){
-            <button class="btn btn-danger" (click)="cambio_estado(carrera.id_user,carrera)">Desactivar</button>
+            <button class="btn btn-primary" (click)="cambio_estado(carrera.id_user,carrera)">Desactivar</button>
             }@else {
-            <button class="btn btn-danger" (click)="cambio_estado(carrera.id_user,carrera)">Activar</button>
+            <button class="btn btn-dark" (click)="cambio_estado(carrera.id_user,carrera)">Activar</button>
             }
           </td>
 
@@ -71,6 +72,9 @@
               (click)="carrera.id_user !== undefined ? borrar(carrera.id_user.toString()) : null">
               <span class="text-white">Eliminar</span>
             </button>
+          </td>
+          <td>
+            <a href='../admin/editar_usuario/{{carrera.id_user}}'><button class="btn btn-info">editar</button></a>
           </td>
         </tr>
         }

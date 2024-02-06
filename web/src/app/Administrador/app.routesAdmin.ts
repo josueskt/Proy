@@ -6,6 +6,7 @@ import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.componen
 import { EstadisticasComponent } from './estadisticas/estadisticas.component';
 import { AdministradorComponent } from './administrador.component';
 import { LibroTipoComponent } from './libro-tipo/libro-tipo.component';
+import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
 
 
 export const routesAdmin: Routes = [
@@ -36,7 +37,10 @@ export const routesAdmin: Routes = [
       {
         path: 'tipo-libro',
         component: LibroTipoComponent, canActivate: [AuthGuard],
-      },
+      },{
+        path:'editar_usuario/:id',
+        component:EditarUsuarioComponent,canActivate:[AuthGuard]
+      }
     ]
   }
 ];

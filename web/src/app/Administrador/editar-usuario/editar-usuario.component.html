@@ -1,0 +1,32 @@
+<div class="container mt-5">
+    <div class="card mx-auto" style="max-width: 400px;">
+      <h1 class="card-header text-center">Editar Usuario</h1>
+      <div class="card-body">
+        <form (ngSubmit)="onSubmit()" #formulario="ngForm">
+          <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" [ngModelOptions]="{standalone: true}" [(ngModel)]="usuario.nombre" class="form-control" required>
+          </div>
+  
+          <div class="form-group">
+            <label for="Email">Correo electrónico:</label>
+            <input type="email" id="Email" name="email" [ngModelOptions]="{standalone: true}" [(ngModel)]="usuario.email" class="form-control" required>
+          </div>
+  
+        
+  
+          <div class="form-group">
+            <label for="opciones">ROL:</label>
+            <select id="opciones" [(ngModel)]="usuario.fk_rol" [ngModelOptions]="{standalone: true}" class="form-control">
+              <option [value]="1">ADMINISTRADOR</option>
+              <option [value]="2">PROFESOR</option>
+              <option [value]="3">ESTUDIANTE</option>
+            </select>
+          </div>
+  
+          <button type="submit" [disabled]="formulario.invalid" class="btn btn-primary btn-block">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+  

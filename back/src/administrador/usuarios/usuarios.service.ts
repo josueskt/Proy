@@ -57,20 +57,29 @@ export class UsuariosService {
     return reslut;
   }
 
-  async get_usets() {
-    const reslut = await this.sql.query('select nombre_rol from inst.rol');
-    return reslut;
+
+  async get_users_id(id: string) {
+    const reslut = await this.sql.query('SELECT nombre ,email, id_user ,fk_rol FROM inst.usuario WHERE id_user = $1', [id]);
+    return reslut
+
   }
 
 
   async editar_usuario(id: number, datos: any) {
     if (datos.cambio) {
       datos.activo = !datos.activo
-    
-        await this.sql.query('UPDATE inst.usuario SET activo = $1 WHERE id_user = $2', [datos.activo, id]);
-        return new MessageDto('Estado actualizado');
+
+      await this.sql.query('UPDATE inst.usuario SET activo = $1 WHERE id_user = $2', [datos.activo, id]);
+      return new MessageDto('Estado actualizado');
+    } else {
+
+
+
+      await this.sql.query('UPDATE inst.usuario SET nombre = $1 , email  = $2 , fk_rol = $3 WHERE id_user = $4', [datos.nombre, datos.email, datos.fk_rol, id]);
+
+
     }
     return new MessageDto('Estado actualizado');
   }
-  
+
 }

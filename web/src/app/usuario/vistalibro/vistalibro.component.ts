@@ -45,10 +45,15 @@ export class VistalibroComponent {
 
   
   eror_carga_imagen(){
-    
+    console.log(this.imagen)
+   if(!this.imagen.includes("http://")){
+const baseUrl = environment.URL;
+      this.imagen = baseUrl+'imagen?filename='+this.imagen
+     
+    }else( this.imagen = './assets/images/imagennoencontrada.png')
   
 
-    this.imagen = './assets/images/imagennoencontrada.png'
+    
   }
 
   cargarPDF() {
@@ -74,13 +79,13 @@ this.vistalibroService.treer_etiqueta(id).subscribe(
   getLibroById(id: string): void {
     this.vistalibroService.traerTodas(id).subscribe({
      next: (data) => {
-        console.log('libro', data);
+       
         this.result = data;
-          //http://localhost:3000/imagen?filename=archivo_1706919208106.webp
+          
 
-    const baseUrl = environment.URL;
+    
         this.libro = this.result[0];
-        this.imagen = this.sanitizeUrl(baseUrl+'imagen?filename='+this.libro.imagen)
+        this.imagen = this.libro.imagen
         if(this.libro.tipo ==='PDF'){
         this.mostrar(this.libro.nombre_archivo, this.libro.id_libro)}
         this.cargarPDF();

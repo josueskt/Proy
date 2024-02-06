@@ -31,6 +31,11 @@ export class UsuariosController {
     eliminar(@Param("id") id: number) {
         return this.user.delete_user(id)
     }
+    @Get(':id')
+    byid(@Param('id') id:string){
+        return this.user.get_users_id(id)
+
+    }
 
     @Put(':id')
     actualisar( @Param('id') id: number,@Body() datos:any){
