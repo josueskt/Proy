@@ -76,7 +76,7 @@
         <div class="etiquetas-container">
           @for(etiqueta of etiquetas ; track etiqueta.id_palabra) {
             <span class="etiqueta" (click)="buscar_etiqueta(etiqueta.nombre)">
-              <p class="etiqueta_texto">{{ etiqueta.nombre }}</p>
+              <p class="etiqueta_texto text-white">{{ etiqueta.nombre }}</p>
             </span>
           }
         </div>
