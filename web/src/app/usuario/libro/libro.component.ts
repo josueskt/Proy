@@ -16,6 +16,7 @@ export class LibroComponent implements OnInit {
   currentResults: any[] = []; // Resultados para la página actual
   currentPage = 1; // Página actual
   itemsPerPage = 12; // Cantidad de libros por página
+  totalPages = 0;
   @ViewChild('contenedorLibros') contenedorLibros!: ElementRef;
    // Inicializado aquí
   private dataService = inject(DataService);
@@ -25,6 +26,7 @@ export class LibroComponent implements OnInit {
       this.resultados = resultados;
       this.updateCurrentResults(); // Actualiza los resultados actuales
     });
+    this.totalPages = Math.ceil(this.resultados.length / this.itemsPerPage);
   }
   eror_carga_imagen(libro){
     if(!libro.imagen.includes("http://")){
