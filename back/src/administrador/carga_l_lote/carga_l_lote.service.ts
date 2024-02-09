@@ -11,15 +11,15 @@ import { PalabrasClaveService } from '../palabras-clave/palabras-clave.service';
 export class CargaLLoteService {
 
 
-  promesa_uno = false
-  promesa_Dos = false
+
   constructor(private readonly sql: SqlService, private palabra: PalabrasClaveService) {
   }
+   directorioDestino = process.env.Docs;
   async descargarArchivo(dato: any, id: string): Promise<void> {
-    const directorioDestino = process.env.Docs;
+  
     var nombreOriginal
 
-    if (!directorioDestino) {
+    if (!this.directorioDestino) {
       throw new NotFoundException(new MessageDto('La variable de entorno Docs no está configurada'));
     }
 
@@ -30,41 +30,42 @@ export class CargaLLoteService {
 
     }
     else {
+      console.log('no pude')
       imagen = dato.imagen
     }
     const url = `https://drive.google.com/uc?id=${googleDriveFileId}`;
-
+ 
 
     try {
 
-      if (!fs.existsSync(directorioDestino)) {
-        fs.mkdirSync(directorioDestino, { recursive: true });
+      if (!fs.existsSync(this.directorioDestino)) {
+        fs.mkdirSync(this.directorioDestino, { recursive: true });
       }
 
       try{
 
-        const myPromise: Promise<string> = this.descargar_todo(imagen, directorioDestino);
+        const myPromise: Promise<string> = this.descargar_todo(imagen, this.directorioDestino);
 
          await myPromise
           .then((result: string) => {
          imagen = result
-            console.log(result);
-            this.promesa_uno = true
+           
+            
           })
           .catch((error: any) => {
-            
+            console.log('no pude descargarlo img ');
             console.error(error);
           });
   
-          const myPromis: Promise<string> = this.descargar_todo(url, directorioDestino);
+          const myPromis: Promise<string> = this.descargar_todo(url, this.directorioDestino);
   
           await  myPromis
             .then((result: string) => {
               nombreOriginal = result
-              const promesa_dos = true
+            
             })
             .catch((error: any) => {
-              
+              console.log('no pude descargarlo pdf ');
               console.error(error);
             });
 
@@ -141,13 +142,8 @@ export class CargaLLoteService {
 
 return nombreUnico
 
-
-
-
   }
-
-
-  // funcion que guarda el libro completo  nts no descarga simon :·   
+  
   async Sin_Descarga(dato: any, id) {
 
     try {
@@ -227,11 +223,7 @@ return nombreUnico
       dato.tipo = id_tipo[0].id_tipo
 
       if (nombre_tipo === 'URL') {
-
-
         await this.Sin_Descarga(dato, id)
-
-
       }
       else if (nombre_tipo === 'PDF') {
         await this.descargarArchivo(dato, id);

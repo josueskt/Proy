@@ -58,6 +58,7 @@ const baseUrl = environment.URL;
 
   cargarPDF() {
     const url = this.libro.nombre_archivo;
+    console.log(this.libro)
     this.urlSegura = this.sanitizeUrl(url);
     // Ahora puedes usar urlSegura en tu plantilla
   }
