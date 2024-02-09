@@ -31,18 +31,7 @@ export class CatalogoLibrosComponent implements OnInit {
     this.userInfo = this.auht.getUserInfo();
     this.nombre = this.userInfo.id_user
     this.traerLibros()
-    this.libroService.getLibros(this.nombre).subscribe({
-     next: (libros) => {
-
-        this.libros = libros;
-      },
-      error:(error) => {
-        this.toastrService.error('Error al obtener libros:', 'Fail', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
-        });
-      }
-     } );
-    
+        
   }
   
   calculateTotalPages(): void {
