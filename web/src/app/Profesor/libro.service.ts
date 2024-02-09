@@ -8,6 +8,9 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root',
 })
 export class LibroService {
+  getLibrosPaginados(nombre: string, currentPage: number, itemsPerPage: number) {
+    throw new Error('Method not implemented.');
+  }
   base = environment.URL;
   private baseUrl = `${this.base}libro`;
   private baseUr = `${this.base}milibro`;

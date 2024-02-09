@@ -19,7 +19,9 @@ export class CatalogoLibrosComponent implements OnInit {
   @Input() libros: any[] = [];
   userInfo: any;
   nombre='';
-
+  currentPage = 1;
+  itemsPerPage = 12;
+  totalPages: number;
   private libroService = inject( LibroService )
   private auht =inject(AuthService)
   private libro_des =inject( VistalibroService)
@@ -40,6 +42,23 @@ export class CatalogoLibrosComponent implements OnInit {
         });
       }
      } );
+    
+  }
+  
+  calculateTotalPages(): void {
+    this.totalPages = Math.ceil(this.libros.length / this.itemsPerPage);
+  }
+
+  setPage(page: number): void {
+    if (page >= 1 && page <= this.totalPages) {
+      this.currentPage = page;
+    }
+  }
+
+  getPaginatedLibros(): any[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.libros.slice(startIndex, endIndex);
   }
 
   eror_carga_imagen(libro){
@@ -50,18 +69,18 @@ const baseUrl = environment.URL;
     }else( libro.imagen = './assets/images/imagennoencontrada.png')
   }
 
-  traerLibros(){
+  traerLibros() {
     this.libroService.getLibros(this.nombre).subscribe({
       next: (libros) => {
-
-         this.libros = libros;
-       },
-       error:(error) => {
-         this.toastrService.error('Error al obtener libros:', 'Fail', {
-           timeOut: 3000,  positionClass: 'toast-top-center',
-         });
-       }
-      } );
+        this.libros = libros;
+        this.calculateTotalPages();
+      },
+      error: (error) => {
+        this.toastrService.error('Error al obtener libros:', 'Fail', {
+          timeOut: 3000, positionClass: 'toast-top-center',
+        });
+      }
+    });
   }
 
   descarga(archivo: string , id_libro:string): void {
@@ -101,5 +120,6 @@ const baseUrl = environment.URL;
       }
     });
   }
+
 
 }

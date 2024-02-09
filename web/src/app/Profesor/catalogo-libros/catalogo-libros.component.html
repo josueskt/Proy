@@ -10,7 +10,16 @@
   </div>
   <br>
     <div class="row libros">
-      @for (libro of libros; track libro) {
+      <div class="pagination-buttons mt-4 text-center">
+        <button (click)="setPage(currentPage - 1)" [disabled]="currentPage === 1" class="btn btn-primary">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <span class="page-info">Pagina {{ currentPage }} de {{ totalPages }}</span>
+        <button (click)="setPage(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn btn-primary">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+      </div>
+      @for (libro of getPaginatedLibros(); track libro) {
         <div class="col-md-auto ">
           <div class="card card-body">
             <p>{{ libro.titulo | slice:0:25 }}</p>
@@ -36,4 +45,13 @@
               </div>
             </div>
           }
+          <div class="pagination-buttons mt-4 text-center">
+            <button (click)="setPage(currentPage - 1)" [disabled]="currentPage === 1" class="btn btn-primary">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            </button>
+            <span class="page-info">Pagina {{ currentPage }} de {{ totalPages }}</span>
+            <button (click)="setPage(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn btn-primary">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            </button>
+          </div>
         </div>
