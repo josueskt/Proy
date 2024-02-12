@@ -26,6 +26,7 @@ export class CatalogoLibrosComponent implements OnInit {
   private auht =inject(AuthService)
   private libro_des =inject( VistalibroService)
   private toastrService: ToastrService = inject(ToastrService);
+libro: any;
 
   ngOnInit() {
     this.userInfo = this.auht.getUserInfo();
@@ -109,6 +110,40 @@ const baseUrl = environment.URL;
       }
     });
   }
-
-
+  visiblePages(): number[] {
+    const pagesToShow = 5;
+    const pages: number[] = [];
+  
+    if (this.totalPages <= pagesToShow) {
+      for (let i = 1; i <= this.totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      const middle = Math.ceil(pagesToShow / 2);
+      let startPage = this.currentPage - middle + 1;
+      let endPage = startPage + pagesToShow - 1;
+  
+      if (startPage <= 0) {
+        startPage = 1;
+        endPage = pagesToShow;
+      } else if (endPage > this.totalPages) {
+        endPage = this.totalPages;
+        startPage = endPage - pagesToShow + 1;
+      }
+  
+      for (let i = startPage; i <= endPage; i++) {
+        pages.push(i);
+      }
+    }
+  
+    return pages;
+  }
+  
+  goToFirstPage(): void {
+    this.setPage(1);
+  }
+  
+  goToLastPage(): void {
+    this.setPage(this.totalPages);
+  }
 }

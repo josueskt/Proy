@@ -1,3 +1,4 @@
+<br>
 <div class="catalogo-libros">
   <div class="row justify-content-center">
     <div class="col-md-12 text-center">
@@ -5,19 +6,41 @@
     </div>
   </div>
   <div>
-    <button type="button" routerLink="/profe/formulario" class="button-anadir">Añadir Libro</button>
+    
+    <button type="button" routerLink="/profe/formulario" class="button-anadir"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-plus-fill" viewBox="0 0 16 16">
+      <path d="M10.067.87a2.89 2.89 0 0 0-4.134 0l-.622.638-.89-.011a2.89 2.89 0 0 0-2.924 2.924l.01.89-.636.622a2.89 2.89 0 0 0 0 4.134l.637.622-.011.89a2.89 2.89 0 0 0 2.924 2.924l.89-.01.622.636a2.89 2.89 0 0 0 4.134 0l.622-.637.89.011a2.89 2.89 0 0 0 2.924-2.924l-.01-.89.636-.622a2.89 2.89 0 0 0 0-4.134l-.637-.622.011-.89a2.89 2.89 0 0 0-2.924-2.924l-.89.01zM8.5 6v1.5H10a.5.5 0 0 1 0 1H8.5V10a.5.5 0 0 1-1 0V8.5H6a.5.5 0 0 1 0-1h1.5V6a.5.5 0 0 1 1 0"/>
+    </svg><span class="ml-2">Añadir Libro</span> </button>
   </div>
-  <br>
+  
   <div class="row libros">
+    <div class="mt-4 text-center">
+      <span class="page-info">Pagina {{ currentPage }} de {{ totalPages }}</span>
+    </div>
     <div class="pagination-buttons mt-4 text-center">
-      <button (click)="setPage(currentPage - 1)" [disabled]="currentPage === 1" class="btn btn-primary mr-2">
+      <button (click)="setPage(1)" [disabled]="currentPage === 1" class="btn btn-primary mr-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
           <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
         </svg>
       </button>
-      <span class="page-info">Pagina {{ currentPage }} de {{ totalPages }}</span>
+      <button (click)="setPage(currentPage - 1)" [disabled]="currentPage === 1" class="btn btn-primary mr-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223"/>
+        </svg>
+      </button>
+      @for (page of visiblePages(); track libros){
+      <ng-container>
+        <button (click)="setPage(page)" class="btn btn-outline-primary mx-1" [class.active]="currentPage === page">
+          {{ page }}
+        </button>
+      </ng-container>
+    }
       <button (click)="setPage(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn btn-primary ml-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+        </svg>
+      </button>
+      <button (click)="setPage(totalPages)" [disabled]="currentPage === totalPages" class="btn btn-primary ml-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708"/>
           <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"/>
@@ -65,15 +88,34 @@
 
       }
     </div>
+    <div class="mt-4 text-center">
+      <span class="page-info">Pagina {{ currentPage }} de {{ totalPages }}</span>
+    </div>
     <div class="pagination-buttons mt-4 text-center">
-      <button (click)="setPage(currentPage - 1)" [disabled]="currentPage === 1" class="btn btn-primary mr-2">
+      <button (click)="setPage(1)" [disabled]="currentPage === 1" class="btn btn-primary mr-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-left" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M8.354 1.646a.5.5 0 0 1 0 .708L2.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
           <path fill-rule="evenodd" d="M12.354 1.646a.5.5 0 0 1 0 .708L6.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
         </svg>
       </button>
-      <span class="page-info">Pagina {{ currentPage }} de {{ totalPages }}</span>
+      <button (click)="setPage(currentPage - 1)" [disabled]="currentPage === 1" class="btn btn-primary mr-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-left" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223"/>
+        </svg>
+      </button>
+      @for (page of visiblePages(); track libros){
+      <ng-container>
+        <button (click)="setPage(page)" class="btn btn-outline-primary mx-1" [class.active]="currentPage === page">
+          {{ page }}
+        </button>
+      </ng-container>
+    }
       <button (click)="setPage(currentPage + 1)" [disabled]="currentPage === totalPages" class="btn btn-primary ml-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-compact-right" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671"/>
+        </svg>
+      </button>
+      <button (click)="setPage(totalPages)" [disabled]="currentPage === totalPages" class="btn btn-primary ml-2">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-double-right" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M3.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L9.293 8 3.646 2.354a.5.5 0 0 1 0-.708"/>
           <path fill-rule="evenodd" d="M7.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L13.293 8 7.646 2.354a.5.5 0 0 1 0-.708"/>
