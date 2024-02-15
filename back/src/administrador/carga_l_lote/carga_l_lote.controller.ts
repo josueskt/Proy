@@ -20,9 +20,6 @@ export class CargaLLoteController {
           
         this.fileService.libros_bloque(dato, id)
          
-        }else{
-          console.log('no hay nada');
-      
         }
       
         index++;

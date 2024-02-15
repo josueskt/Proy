@@ -91,7 +91,7 @@ this.vistalibroService.treer_etiqueta(id).subscribe(
         this.mostrar(this.libro.nombre_archivo, this.libro.id_libro)}
         this.cargarPDF();
       },
-     error: (error) => {
+     error: () => {
         this.toastrService.error('Error al obtener información del libro', 'Fail', {
           timeOut: 3000,
           positionClass: 'toast-top-center',
@@ -109,7 +109,7 @@ this.vistalibroService.treer_etiqueta(id).subscribe(
          this.dataService.setResultados(resultados);
          this.router.navigate(['/user/libro'])
        },
-      error: (error) => {
+      error: () => {
          this.toastrService.error('Error al buscar libros:', 'Fail', {
            timeOut: 3000,
            positionClass: 'toast-top-center',
@@ -150,7 +150,7 @@ mostrar(archivo: string ,id_libro:string): void {
       
      
     },
-   error: (error) => {
+   error: () => {
       this.toastrService.error('Error al mostrar el PDF','Fail', {
         timeOut: 3000,
         positionClass: 'toast-top-center',
@@ -176,7 +176,7 @@ mostrar(archivo: string ,id_libro:string): void {
         downloadLink.download = archivo; // El nombre del archivo es el mismo que el proporcionado al método
         downloadLink.click();
       },
-     error: (error) => {
+     error: () => {
         this.toastrService.error('Error al descargar el archivo','Fail', {
           timeOut: 3000,
           positionClass: 'toast-top-center',

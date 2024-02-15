@@ -30,7 +30,7 @@ export class CargaLLoteService {
 
     }
     else {
-      console.log('no pude')
+      
       imagen = dato.imagen
     }
     const url = `https://drive.google.com/uc?id=${googleDriveFileId}`;
@@ -122,10 +122,14 @@ export class CargaLLoteService {
     });
    
     const contentDispositionHeader = response.headers['content-disposition'];
+    if (!contentDispositionHeader) {
+
+  }
 
    // Obtener la extensión del archivo desde la URL
    const match = contentDispositionHeader.match(/filename="(.+)"$/);
    const nombreOriginal = match ? match[1] : 'archivo';
+
 
    let extensionOriginal = path.extname(nombreOriginal);
    if(!extensionOriginal){
@@ -169,9 +173,9 @@ return nombreUnico
         fk_tipo,
         codigo,
         editorial) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12) RETURNING id_libro`, [
-        dato.titulo,
+        dato.titulo.toLowerCase(),
         dato.year,
-        dato.review,
+        dato.review.toLowerCase(),
         imagen,
         url,
         dato.isbn,
