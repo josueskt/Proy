@@ -1,8 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LibroService } from '../libro.service';
-import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
+import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { EditarLibroService } from './editar-libro.service';
 import { editar_libro } from './editar_libto';
 
