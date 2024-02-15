@@ -19,12 +19,12 @@ export class EditarLibroService {
     return this.http.get(`${this.apiUrl}carrera`);
   }
 
-  editarImagen(id: number, file: File , image:File ,libro:editar_libro) {
+  editarImagen(id: string, file: File , image:File ,libro:editar_libro) {
     const formData = new FormData();
     formData.append('image', image);
     formData.append('file', file);
     formData.append('libro', JSON.stringify(libro));
 
-    return this.http.patch(`${this.apiUrl}/${id}`, formData);
+    return this.http.patch(`${this.apiUrl}libro/${id}`, formData);
   }
 }

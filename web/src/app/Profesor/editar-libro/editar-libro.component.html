@@ -1,19 +1,65 @@
-<!-- tu-componente.component.html -->
-
-<div>
-  <h2>Subir Imagen</h2>
+<div class="container mt-5">
+  <h2>Editar libro</h2>
 
   <form (submit)="subirImagen()">
-    <div>
+    <div class="form-group">
+      <label for="titulo">Título:</label>
+      <input type="text" id="titulo" name="titulo" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.titulo" class="form-control" required>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="codigo">Código:</label>
+        <input type="text" id="codigo" name="codigo" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.codigo" class="form-control" required>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="editorial">Editorial:</label>
+        <input type="text" id="editorial" name="editorial" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.editorial" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="isbn">ISBN:</label>
+        <input type="text" id="isbn" name="isbn" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.isbn" class="form-control" required>
+      </div>
+
+      <div class="form-group col-md-6">
+        <label for="year">Año de publicación:</label>
+        <input type="number" id="year" name="year" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.year_of_publication" class="form-control" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="review">Reseña:</label>
+      <textarea id="review" name="review" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.review" class="form-control" rows="3" required></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="opciones">Carrera:</label>
+      <select id="opciones" [(ngModel)]="libro.carrera" [ngModelOptions]="{standalone: true}" class="form-control">
+        
+        @for (carrera of carreras; track carrera) {
+          <option [value]="carrera.id_carrera">{{carrera.nombre}}</option>
+
+        }
+      </select>
+    </div>
+
+
+
+
+    <div class="form-group">
       <label for="archivoInput">Selecciona un archivo:</label>
-      <input type="file" id="archivoInput" (change)="onArchivoChange($event)" />
+      <input type="file" id="archivoInput" (change)="onArchivoChange($event)" class="form-control-file">
     </div>
 
-    <div>
+    <div class="form-group">
       <label for="imagenInput">Selecciona una imagen:</label>
-      <input type="file" id="imagenInput" (change)="onImagenChange($event)" />
+      <input type="file" id="imagenInput" (change)="onImagenChange($event)" class="form-control-file">
     </div>
 
-    <button type="submit">Subir Archivos</button>
+    <button type="submit" class="btn btn-primary">Subir Archivos</button>
   </form>
 </div>

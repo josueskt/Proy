@@ -40,7 +40,7 @@ private router= inject( Router)
 
   onSubmit() {
     // Lógica a ejecutar cuando se envía el formulario
-    console.log(this.usuario);
+    
     this.user.editarusuario(this.usuario).subscribe(
     {
       next: (response:{message:string}) => {
