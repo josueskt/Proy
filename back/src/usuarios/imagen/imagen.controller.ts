@@ -3,14 +3,13 @@ import * as path from 'path';
 import { MessageDto } from 'src/common/message.dto';
 const fs = require('fs');
 import { Response } from 'express';
-import { RolesGuard } from 'src/roles/roles.guard';
+
 
 @Controller('imagen')
 export class ImagenController {
 
     @Get()
-   // @UseGuards(RolesGuard)
-   // @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
+  
     async getPdf(
       @Res() res: Response,
       @Query('filename') filename: string,

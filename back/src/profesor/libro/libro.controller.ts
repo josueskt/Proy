@@ -51,10 +51,10 @@ export class LibroController {
 
       return {
         message,
-        newFileName: /* Nombre del archivo generado en el servicio */ 'libro creado',
+        newFileName:  'libro creado',
       };
     } catch (error) {
-      // Manejo de errores si es necesario
+      
 
       return { message: 'Error al procesar la solicitud', newFileName: '' };
     }

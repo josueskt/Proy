@@ -65,7 +65,7 @@ export class UsuariosService {
   }
 
 
-  async editar_usuario(id: number, datos: any) {
+  async editar_usuario(id: number, datos: Usuario) {
     if (datos.cambio) {
       datos.activo = !datos.activo
 
