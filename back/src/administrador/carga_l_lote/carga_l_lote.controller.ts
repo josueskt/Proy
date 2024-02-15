@@ -1,12 +1,14 @@
 import { Controller, Post, Body, Put } from '@nestjs/common';
 import { CargaLLoteService } from './carga_l_lote.service';
+import { carga_lote } from './lote';
 
 @Controller('carga-l-lote')
 export class CargaLLoteController {
   constructor(private readonly fileService: CargaLLoteService) { }
 
   @Post()
-  async carga_por_lote(@Body() body: any) {
+  async carga_por_lote(@Body() body: carga_lote) {
+    console.log(body)
     const datos = body.datos;
     const id = body.id_user.id_user  
     
@@ -18,7 +20,7 @@ export class CargaLLoteController {
       
         if (dato.titulo) {
           
-        this.fileService.libros_bloque(dato, id)
+       this.fileService.libros_bloque(dato, id)
          
         }
       

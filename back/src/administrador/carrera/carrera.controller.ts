@@ -24,7 +24,8 @@ export class CarreraController {
     @Post()
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR'])
-    crear(@Body() bod: any) {
+    crear(@Body() bod: {"nombre":string}) {
+        
       return this.carrera.crear(bod)
     }
     @Delete(":id")

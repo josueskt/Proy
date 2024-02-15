@@ -4,4 +4,6 @@ email:string;
 password:string;
 nombre:string;
 fk_rol:number;
+activo:boolean;
+cambio:boolean;
 }

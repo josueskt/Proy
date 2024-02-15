@@ -4,6 +4,8 @@ import { SqlService } from 'src/sql/sql.service';
 import * as fs from 'fs';
 import * as path from 'path';
 import { PalabrasClaveService } from 'src/administrador/palabras-clave/palabras-clave.service';
+import { MessageDto } from 'src/common/message.dto';
+import { edit_libro } from './editar';
 
 
 @Injectable()
@@ -12,6 +14,11 @@ export class LibroService {
     constructor(private readonly sql: SqlService, private palabra:PalabrasClaveService) {
 
     }
+
+
+
+
+
 
     async traer(nombre: string): Promise<any> {
         //as
@@ -75,17 +82,17 @@ export class LibroService {
     }
 
 
-    async crear(libros, file: any): Promise<string> {
+    async crear(libros, file: Express.Multer.File[]): Promise<string> {
         const libro = JSON.parse(libros);
         
 
         if(!libro.archivo_url){
         try {
-            if (!file || !file.buffer) {
+            if (!file || !file[0].buffer) {
                 throw new HttpException('Archivo no válido', HttpStatus.BAD_REQUEST);
             }
             // Genera un nombre único para el archivo PDF
-            const uniqueFileName = `${Date.now()}-${file.originalname}`;
+            const uniqueFileName = `${Date.now()}-${file[0].originalname}`;
 
 
             // Construye la ruta completa del archivo en la carpeta pdfs
@@ -93,7 +100,7 @@ export class LibroService {
 
             // Crea el stream de escritura del archivo
             const writeStream = fs.createWriteStream(pdfPath);
-            writeStream.write(file.buffer);
+            writeStream.write(file[0].buffer);
 
             // Cierra el flujo después de escribir el contenido
             writeStream.end();
@@ -203,18 +210,116 @@ export class LibroService {
             return error
         }
     }
-    async editar(id: number, bod: {"titulo":string,"fecha_publ":string,"imagen":string,"nombre_archivo":string}) {
+        async editar(libro:edit_libro,files: { image: Express.Multer.File[], file?: Express.Multer.File[] }) {
+    //crear interfaz
+            try {
+                const baseFolderPath = process.env.Docs || '';
+                let uniqueImageName 
+                let uniqueFileName
+if(files.file){
 
-        try {
-            console.log(bod)
-          //  await this.sql.query('update libros.libro set nombre = $2 where  id_carrera = ($1)', [id, bod])
-            return "carrera actualusada  exitosamente "
+     uniqueFileName = this.generateUniqueFileName(files.file[0]);
 
-        } catch (error) {
-            return error
+    await this.saveFile(files.file[0], uniqueFileName, baseFolderPath);
+}
+if(files.image){
+     uniqueImageName = this.generateUniqueFileName(files.image[0]);
+    await this.saveFile(files.image[0], uniqueImageName, baseFolderPath);
+}
+               
+          
+                 
+if(uniqueImageName && uniqueFileName){
+                await this.sql.query( `
+                UPDATE libros.libro
+                SET
+                  review = $1,
+                  year_of_publication = $2,
+                  imagen = $3,
+                  nombre_archivo = $4,
+                  titulo = $5,
+                  isbn = $6,
+                  editorial = $7,
+                  codigo = $8,
+                  fk_carrera = $9
+                WHERE
+                  id_libro = $10;
+              `,[libro.review,libro.year_of_publication,uniqueImageName,uniqueFileName,libro.titulo,libro.isbn,libro.editorial,libro.codigo,libro.carrera,libro.id_libro])
+        }else if(!uniqueFileName && uniqueImageName)  {
+            await this.sql.query( `
+            UPDATE libros.libro
+            SET
+              review = $1,
+              year_of_publication = $2,
+              imagen = $3,
+              titulo = $4,
+              isbn = $5,
+              editorial = $6,
+              codigo = $7,
+              fk_carrera = $8
+            WHERE
+              id_libro = $9;
+          `,[libro.review,libro.year_of_publication,uniqueImageName,libro.titulo,libro.isbn,libro.editorial,libro.codigo,libro.carrera,libro.id_libro])
+        }else if(!uniqueImageName && uniqueFileName){
+            await this.sql.query( `
+            UPDATE libros.libro
+            SET
+              review = $1,
+              year_of_publication = $2,
+              
+              nombre_archivo = $3,
+              titulo = $4,
+              isbn = $5,
+              editorial = $6,
+              codigo = $7,
+              fk_carrera = $8
+            WHERE
+              id_libro = $9;
+          `,[libro.review,libro.year_of_publication,uniqueFileName,libro.titulo,libro.isbn,libro.editorial,libro.codigo,libro.carrera,libro.id_libro])
+        }else{
+            await this.sql.query( `
+            UPDATE libros.libro
+            SET
+              review = $1,
+              year_of_publication = $2,
+              titulo = $3,
+              isbn = $4,
+              editorial = $5,
+              codigo = $6,
+              fk_carrera = $7
+            WHERE
+              id_libro = $8;
+          `,[libro.review,libro.year_of_publication,libro.titulo,libro.isbn,libro.editorial,libro.codigo,libro.carrera,libro.id_libro])
+
         }
+                
 
+            } catch (error) {
+                return error
+            }
+
+           return  new MessageDto('libro editado exitosamente')
     }
+
+    private generateUniqueFileName(file: Express.Multer.File): string {
+        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+        return file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname);
+      }
+    
+      private async saveFile(file: Express.Multer.File, fileName: string, baseFolderPath: string): Promise<void> {
+        const filePath = path.join(baseFolderPath, fileName); // Ruta completa del archivo
+    
+        // Utiliza fs.createWriteStream para guardar el archivo
+        const writer = fs.createWriteStream(filePath);
+        writer.write(file.buffer);
+        writer.end();
+    
+        return new Promise((resolve, reject) => {
+          writer.on('finish', resolve);
+          writer.on('error', reject);
+        });
+      }
+
 
 
     getDriveFileId(link: string): string | null {

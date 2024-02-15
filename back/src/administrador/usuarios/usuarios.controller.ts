@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post, Put, SetMetadata, UseGuards
 import { UsuariosService } from './usuarios.service';
 import { RegisterUser } from 'src/dto/user.dto';
 import { RolesGuard } from 'src/roles/roles.guard';
+import { Usuario } from './usuario.interface';
 
 @Controller('usuarios_regis')
 export class UsuariosController {
@@ -19,7 +20,7 @@ export class UsuariosController {
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR'])
     @UsePipes(ValidationPipe)
-    register(@Body() usuarios: RegisterUser[]) {
+    register(@Body() usuarios) {
 
         return this.user.register(usuarios)
 
@@ -38,8 +39,9 @@ export class UsuariosController {
     }
 
     @Put(':id')
-    actualisar( @Param('id') id: number,@Body() datos:any){
+    actualisar( @Param('id') id: number,@Body() datos:Usuario){
        
+        
         return this.user.editar_usuario(id,datos)
         
     }

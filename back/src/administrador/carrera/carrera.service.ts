@@ -9,13 +9,13 @@ export class CarreraService {
 
     }
 
-    async traer(): Promise<any> {
+    async traer(){
         const reslut = await this.sql.query('select * from Libros.carrera')
         return reslut
 
     }
 
-    async by_id(id: number): Promise<any> {
+    async by_id(id: number){
         try {
             const reslut = await this.sql.query('select * from Libros.carrera where id_carrera = ($1)', [id])
             if(reslut.length === 0){
@@ -26,7 +26,7 @@ export class CarreraService {
             return error
         }
     }
-    async crear(mod: any) {
+    async crear(mod:  {"nombre":string}) {
 
         try {
              await this.sql.query('INSERT INTO libros.carrera (nombre) values ($1)', [mod.nombre])

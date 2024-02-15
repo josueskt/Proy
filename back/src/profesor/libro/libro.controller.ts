@@ -40,7 +40,7 @@ export class LibroController {
   @UsePipes(ValidationPipe)
   @UseInterceptors(FileInterceptor('file'))
   async crear(
-    @UploadedFile() file: any,
+    @UploadedFile() file: Express.Multer.File[],
     @Body('libro') libro: Libro,
   ): Promise<{ message: string; newFileName: string }> {
     try {
@@ -81,11 +81,10 @@ editar(
   @Param('id') id: number,
 ) {
   
-  const a =  JSON.parse(libro);
+  const li =  JSON.parse(libro);
 
-  console.log("imagen", files.image);
-  console.log("file", files.file);
-  console.log("libros", a.testeo);
+ return this.carrera.editar(li,files)
+  
   
  
 }

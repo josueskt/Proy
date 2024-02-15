@@ -6,6 +6,7 @@ import * as path from 'path';
 import { MessageDto } from 'src/common/message.dto';
 import { SqlService } from 'src/sql/sql.service';
 import { PalabrasClaveService } from '../palabras-clave/palabras-clave.service';
+import { dato } from './dato';
 
 @Injectable()
 export class CargaLLoteService {
@@ -15,7 +16,7 @@ export class CargaLLoteService {
   constructor(private readonly sql: SqlService, private palabra: PalabrasClaveService) {
   }
    directorioDestino = process.env.Docs;
-  async descargarArchivo(dato: any, id: string): Promise<void> {
+  async descargarArchivo(dato: dato, id: string): Promise<void> {
   
     var nombreOriginal
 
@@ -52,7 +53,7 @@ export class CargaLLoteService {
            
             
           })
-          .catch((error: any) => {
+          .catch((error) => {
             console.log('no pude descargarlo img ');
             console.error(error);
           });
@@ -64,7 +65,7 @@ export class CargaLLoteService {
               nombreOriginal = result
             
             })
-            .catch((error: any) => {
+            .catch((error) => {
               console.log('no pude descargarlo pdf ');
               console.error(error);
             });
@@ -148,7 +149,7 @@ return nombreUnico
 
   }
   
-  async Sin_Descarga(dato: any, id) {
+  async Sin_Descarga(dato: dato, id) {
 
     try {
       const googleDriveFileId = this.getDriveFileId(dato.archivo);
@@ -211,7 +212,7 @@ return nombreUnico
     }
   }
 
-  async libros_bloque(dato: any, id: string): Promise<void> {
+  async libros_bloque(dato: dato, id: string): Promise<void> {
     try {
 
       let id_autor = await this.sql.query('SELECT id_autor FROM libros.autor WHERE nombre = ($1)', [dato.autor])

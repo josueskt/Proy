@@ -17,8 +17,8 @@ export class DescargaController {
   async getPdf(
     @Res() res: Response,
     @Query('filename') filename: string,
-    @Query('id_user') id_user: any,
-    @Query('id_libro') id_libro: any,
+    @Query('id_user') id_user: string,
+    @Query('id_libro') id_libro: number,
   ): Promise<void> {
     try {
       const pdfFileName = filename || 'archivo.pdf';
