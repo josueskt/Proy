@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Put } from '@nestjs/common';
 import { CargaLLoteService } from './carga_l_lote.service';
 
 @Controller('carga-l-lote')
@@ -10,11 +10,29 @@ export class CargaLLoteController {
     const datos = body.datos;
     const id = body.id_user.id_user  
     
-    for (const dato of datos) {
-      if (dato.titulo) {        
+
+    let index = 0;
+    try{
+      do {
+        const dato = datos[index];
+      
+        if (dato.titulo) {
+          
         this.fileService.libros_bloque(dato, id)
-      }
+         
+        }
+      
+        index++;
+      } while (index < datos.length);
+      console.log("libros creados")
+ return {"mesage":"libros creados"}
+    }catch(error){
+      return error
     }
 
+
+   
+
   }
+
 }

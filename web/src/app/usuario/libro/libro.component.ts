@@ -24,6 +24,7 @@ export class LibroComponent implements OnInit {
   libro: any;
 
   ngOnInit() {
+    
     this.dataService.resultados$.subscribe((resultados) => {
       this.resultados = resultados;
       this.updateCurrentResults();

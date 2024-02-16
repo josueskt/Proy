@@ -26,14 +26,15 @@ export const routesProfesor: Routes = [
         path: 'crear_autor',
         component: CrearAutorComponent,
       },
-      {
-        path: 'libro/:id/editar',
-        component: EditarLibroComponent,
-      },
+    
       {
         path: 'formulario',
         component: FormularioLibroComponent,
       },
+      {
+        path:'editar/:id',
+        component: EditarLibroComponent
+      }
     ],
   },
 ];

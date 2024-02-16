@@ -1,8 +1,9 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { LibroService } from '../libro.service';
-import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute } from '@angular/router';
+import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+import { EditarLibroService } from './editar-libro.service';
+import { editar_libro } from './editar_libto';
 
 @Component({
   selector: 'app-editar-libro',standalone: true,
@@ -11,73 +12,43 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./editar-libro.component.css']
 })
 export class EditarLibroComponent implements OnInit {
-  libroForm: FormGroup;
-  libro: any;
-  guardadoExitoso = false;
-
-  constructor(
-
-    private formBuilder: FormBuilder
-  ) {
-    this.libroForm = this.formBuilder.group({});
+  libro_id: any;
+  
+  ngOnInit(): void {
+    this.libro_id = this.route.snapshot.paramMap.get('id');
+    
+    this.libro_editar.getCarreras().subscribe((e)=>{
+      this.carreras = e
+      console.log(this.libro_id)
+    })
   }
-  private route =inject(ActivatedRoute)
-    private router=inject( Router)
-    private libroService= inject(LibroService)
-    private toastrService: ToastrService = inject(ToastrService);
+  private id = 1; // El ID que deseas enviar
+  private archivo: File;
+  private imagen: File;
+  carreras
+  libro:editar_libro
 
+  constructor(private libro_editar: EditarLibroService) { }
 
-  ngOnInit() {
-    const libroId = Number(this.route.snapshot.params['id']);
-    this.libroService.getLibro(libroId).subscribe(
-      res => {
-        this.toastrService.success('libro editado exitosamente', 'Success', {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
+  private route = inject( ActivatedRoute)
+  onArchivoChange(event: any) {
+    this.archivo = event.target.files[0];
+  }
+
+  onImagenChange(event: any) {
+    this.imagen = event.target.files[0];
+  }
+
+  subirImagen() {
+    if (this.archivo && this.imagen) {
+      // Llama a tu servicio para enviar ambos archivos
+      this.libro_editar.editarImagen(this.id, this.archivo, this.imagen ,this.libro)
+        .subscribe((response) => {
+          console.log('Respuesta del servidor:', response);
         });
-        this.libro = res;
-        this.initializeForm();
-      },
-      error => {
-        this.toastrService.error('Error al obtener libro' , 'Fail', {
-          timeOut: 3000,  positionClass: 'toast-top-center',
-        });
-      }
-    );
-  }
-
-  initializeForm() {
-    this.libroForm = this.formBuilder.group({
-      titulo: [this.libro.titulo, Validators.required],
-      fechaPublicacion: [this.libro.fechaPublicacion, Validators.required],
-      paginas: [this.libro.paginas, Validators.required],
-      autor: [this.libro.autor, Validators.required],
-      materia: [this.libro.materia, Validators.required],
-      carreras: [this.libro.carreras, Validators.required],
-      descripcion: [this.libro.descripcion, Validators.required],
-      imagenUrl: [this.libro.imagenUrl, Validators.required]
-    });
-  }
-
-  guardarCambios() {
-    if (this.libroForm.valid) {
-      const updatedLibro = { ...this.libro, ...this.libroForm.value };
-      this.libroService.editarLibro(this.libro.id, updatedLibro).subscribe(
-        res => {
-          this.toastrService.success('Libro guardado con exito', 'Success', {
-            timeOut: 3000,
-            positionClass: 'toast-top-center',
-          });
-          this.guardadoExitoso = true;
-          this.router.navigate([`/profe/libros/${this.libro.id}`]); // Cambia la ruta según tu estructura de rutas
-        },
-        error => {
-          this.toastrService.error('Error al editar libro' , 'Fail', {
-            timeOut: 3000,  positionClass: 'toast-top-center',
-          });
-          // Aquí puedes manejar el error, por ejemplo, mostrar un mensaje al usuario
-        }
-      );
+    } else {
+      console.error('Selecciona ambos archivos antes de subir.');
     }
   }
+
 }

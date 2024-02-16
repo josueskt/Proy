@@ -141,7 +141,7 @@ export class LibroService {
 
         }else
         {
-            console.log(libro)
+           
 
             const archivo_url = this.getDriveFileId(libro.archivo_url);
             if(!archivo_url){
@@ -203,10 +203,11 @@ export class LibroService {
             return error
         }
     }
-    async editar(id: number, bod: string) {
+    async editar(id: number, bod: {"titulo":string,"fecha_publ":string,"imagen":string,"nombre_archivo":string}) {
 
         try {
-            await this.sql.query('update libros.libro set nombre = $2 where  id_carrera = ($1)', [id, bod])
+            console.log(bod)
+          //  await this.sql.query('update libros.libro set nombre = $2 where  id_carrera = ($1)', [id, bod])
             return "carrera actualusada  exitosamente "
 
         } catch (error) {

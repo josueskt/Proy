@@ -4,10 +4,12 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Put,
   SetMetadata,
   UploadedFile,
+  UploadedFiles,
   UseGuards,
   UseInterceptors,
   UsePipes,
@@ -16,7 +18,7 @@ import {
 import { LibroService } from './libro.service';
 import { RolesGuard } from 'src/roles/roles.guard';
 import { Libro } from './libro.interface';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express';
 
 @Controller('libro')
 export class LibroController {
@@ -64,11 +66,27 @@ export class LibroController {
   eliminar(@Param('id') id: string) {
     return this.carrera.eliminar(id);
   }
-  @Put(':id')
-  @UseGuards(RolesGuard)
-  @SetMetadata('roles', ['PROFESOR'])
-  editar(@Param('id') id: number, @Body() datos: any) {
-    const ap = datos.nombre;
-    return this.carrera.editar(id, ap);
-  }
+  
+ @Patch(':id')
+ 
+@UseInterceptors(FileFieldsInterceptor([
+  { name: 'image', maxCount: 1 },
+  { name: 'file', maxCount: 1 },
+]))
+editar(
+  @Body('libro') libro:string,
+
+  @UploadedFiles() files: { image: Express.Multer.File[], file?: Express.Multer.File[] },
+
+  @Param('id') id: number,
+) {
+  
+  const a =  JSON.parse(libro);
+
+  console.log("imagen", files.image);
+  console.log("file", files.file);
+  console.log("libros", a.testeo);
+  
+ 
+}
 }
