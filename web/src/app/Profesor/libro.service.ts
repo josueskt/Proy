@@ -36,7 +36,7 @@ export class LibroService {
       formData
     );
   }
-
+  
   eliminarLibro(dato: number) {
     const url = `${this.baseUrl}/${dato}`;
 
@@ -52,7 +52,7 @@ export class LibroService {
       }
     );
   }
-
+  
   editarLibro(id: number, libro: any): Observable<any> {
     const formData = this.createFormData(libro);
 
