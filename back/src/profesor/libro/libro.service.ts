@@ -189,6 +189,8 @@ export class LibroService {
             ]);
             this.palabra.Generar_palabras(libro.palabras, valor[0].id_libro)
 
+            return 'Libro creado exitosamente';
+
         }
         
 

@@ -22,19 +22,19 @@ import { FileFieldsInterceptor, FileInterceptor } from '@nestjs/platform-express
 
 @Controller('libro')
 export class LibroController {
-  constructor(public carrera: LibroService) {}
+  constructor(public libro: LibroService) {}
 
   @Get()
   @UseGuards(RolesGuard)
   @SetMetadata('roles', ['PROFESOR'])
   Traer_todos(@Body('nombre') datos) {
-    return this.carrera.traer(datos);
+    return this.libro.traer(datos);
   }
   @Get(':id')
   @UseGuards(RolesGuard)
   @SetMetadata('roles', ['PROFESOR', 'ADMINISTRADOR', 'ESTUDIANTE'])
   by_id(@Param('id') id: number) {
-    return this.carrera.by_id(id);
+    return this.libro.by_id(id);
   }
   @Post()
   @UsePipes(ValidationPipe)
@@ -47,7 +47,7 @@ export class LibroController {
       // Llama al servicio para crear el libro con el archivo PDF
       
 
-      const message = await this.carrera.crear(libro, file);
+      const message = await this.libro.crear(libro, file);
 
       return {
         message,
@@ -64,7 +64,7 @@ export class LibroController {
   @UseGuards(RolesGuard)
   @SetMetadata('roles', ['PROFESOR','ADMINISTRADOR'])
   eliminar(@Param('id') id: string) {
-    return this.carrera.eliminar(id);
+    return this.libro.eliminar(id);
   }
   
  @Patch(':id')
@@ -83,7 +83,7 @@ editar(
   
   const li =  JSON.parse(libro);
 
- return this.carrera.editar(li,files)
+ return this.libro.editar(li,files)
   
   
  

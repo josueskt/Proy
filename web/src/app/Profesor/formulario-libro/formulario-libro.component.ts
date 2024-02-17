@@ -283,7 +283,7 @@ export class FormularioLibroComponent implements OnInit {
             .crearLibro(nuevoLibro, this.archivoSeleccionado)
             .subscribe({
              next: (data) => {
-                this.toastrService.success(data.response.message, 'Success', {
+                this.toastrService.success(data.message, 'Success', {
                   timeOut: 3000,
                   positionClass: 'toast-top-center',
                 });
