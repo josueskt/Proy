@@ -3,6 +3,8 @@ back/node_modules/
 back/dist/
 back/*.env
 back/src/pdfs
+back/Dockerfile
+back/.dockerignore
 # Angular (web)
 web/node_modules
 web/node_modules/
@@ -11,7 +13,8 @@ web/e2e/
 web/.vscode/
 web/.angular/
 web/environments
-
+web/Dockerfile
+web/.dockerignore
 # Flutter (mobil)
 mobil/.dart_tool/
 mobil/build/

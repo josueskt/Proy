@@ -9,14 +9,13 @@ import { UsuariosController } from './administrador/usuarios/usuarios.controller
 import { EstadisticasController } from './administrador/estadisticas/estadisticas.controller';
 import { LibroController } from './profesor/libro/libro.controller';
 import { LoginController } from './login/login.controller';
-//import { RegistrarArcController } from './administrador/registrar_arc/registrar_arc.controller';
+
 import { BuscadorController } from './usuarios/buscador/buscador.controller';
 
 
 import { CarreraService } from './administrador/carrera/carrera.service';
 import { EstadisticasService } from './administrador/estadisticas/estadisticas.service';
 import { MateriaService } from './administrador/materia/materia.service';
-//import { RegistrarArcService } from './administrador/registrar_arc/registrar_arc.service';
 import { LibroService } from './profesor/libro/libro.service';
 import { LoginService } from './login/login.service';
 import { UsuariosService } from './administrador/usuarios/usuarios.service';
