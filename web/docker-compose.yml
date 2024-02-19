@@ -1,0 +1,14 @@
+services:
+  bibliotecapp:
+    container_name: bibliotec_container
+    build: .
+    image: bibliotec:latest
+    ports:
+      - 4200:80
+    expose:
+      - 4200
+    networks:
+      - internalnet
+networks:
+  internalnet:
+    driver: bridge

@@ -1,0 +1,4 @@
+FROM node:21.0.0
+WORKDIR /app
+
+ENTRYPOINT  yarn start:dev

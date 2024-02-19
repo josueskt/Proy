@@ -45,7 +45,7 @@ export class EditarLibroComponent implements OnInit {
  agarre() {
   for (const carrera of this.carreras) {
     
-    if (carrera.nombre.toLowerCase() === this.libro.carrera.toLowerCase()) {
+    if (carrera.nombre === this.libro.carrera) {
       this.libro.carrera = carrera.id_carrera;
     }
   }
