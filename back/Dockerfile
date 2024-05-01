@@ -17,3 +17,5 @@ RUN npm run build
 
 # Start the server using the production build
 CMD [ "node", "dist/main.js" ]
+
+    # docker build -t nest-test .

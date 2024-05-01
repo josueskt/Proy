@@ -215,7 +215,7 @@ export class LibroService {
         async editar(libro:edit_libro,files: { image: Express.Multer.File[], file?: Express.Multer.File[] }) {
     //crear interfaz
             try {
-                const baseFolderPath = process.env.Docs || '';
+                const baseFolderPath = process.env.Docs ;
                 let uniqueImageName 
                 let uniqueFileName
 if(files.file){
@@ -226,7 +226,11 @@ if(files.file){
 }
 if(files.image){
      uniqueImageName = this.generateUniqueFileName(files.image[0]);
+     
+     try{
     await this.saveFile(files.image[0], uniqueImageName, baseFolderPath);
+
+     }catch(e){console.log(e)}
 }
                
           
