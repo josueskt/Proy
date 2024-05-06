@@ -1,18 +1,4 @@
-# version: '3.8'
 
-# services:
-#   app:
-#     image: back_bibliotec:local
-#     container_name: back_container
-#     build: 
-#       context: .
-#       dockerfile: Dockerfile.dev
-#     ports:
-#     - 3000:3000
-#     volumes:
-#     - .:/app
-
-#     # docker build -t nest-test .
 
 
 services:

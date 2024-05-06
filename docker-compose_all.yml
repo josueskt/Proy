@@ -1,0 +1,62 @@
+version: '3.9'
+
+services:
+  bibliotecapp:
+    container_name: bibliotec_back_container
+    build: ./back
+    image: back_bibliotec:latest
+    ports:
+      - "3000:3000"
+    expose:
+      - "3000"
+    networks:
+      - internalnet
+
+    
+    
+    depends_on:
+      - db
+    environment:
+      - Docs=/docs
+      - User=root
+      - Host=db
+      - Database=bibliotec
+      - Pass=1234
+      - Port=5432
+      - Key_Key=Dy7oFm9z!L2k@1ePwQ8R4m3NvX6sG3tH2jU0iK5oP7mN4bF1wE9rQ8yH3aSñ
+      - origin=http://0.0.0.0:4200
+    
+  db:
+    image: postgres
+    
+    shm_size: 128mb
+    ports:
+      - "5433:5432"
+    environment:
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=bibliotec
+    networks:
+      - internalnet
+    
+
+  bibliotecapp_frontend:
+    container_name: bibliotec_container
+    build: ./web
+    image: bibliotec:latest
+    ports:
+      - "4200:80"
+    expose:
+      - "4200"
+    networks:
+      - internalnet
+    depends_on:
+      - bibliotecapp
+    
+    
+networks:
+  internalnet:
+    driver: bridge
+
+

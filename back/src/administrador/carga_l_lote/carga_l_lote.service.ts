@@ -54,7 +54,7 @@ export class CargaLLoteService {
             
           })
           .catch((error) => {
-            console.log('no pude descargarlo img ');
+           
             console.error(error);
           });
   
@@ -66,12 +66,11 @@ export class CargaLLoteService {
             
             })
             .catch((error) => {
-              console.log('no pude descargarlo pdf ');
               console.error(error);
             });
 
       }catch(error){
-        throw new NotFoundException(new MessageDto('Error al descargar o guardar el archivo'));
+         new NotFoundException(new MessageDto('Error al descargar o guardar el archivo'));
       }
 
 
@@ -233,10 +232,9 @@ return nombreUnico
       else if (nombre_tipo === 'PDF') {
         await this.descargarArchivo(dato, id);
       }
-      // Descargar el archivo
-      //
+     
     } catch (error) {
-      throw new NotFoundException(new MessageDto('Error en la función libros_bloque'));
+      console.error(new MessageDto(`error ${error}`));
     }
   }
 
