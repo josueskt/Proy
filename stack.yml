@@ -31,7 +31,11 @@ services:
     
     shm_size: 128mb
     ports:
-      - "5433:5432"
+      - target: 5432
+        published: 5433
+        protocol: tcp
+        mode: host
+
     environment:
       - DATABASE_HOST=127.0.0.1
       - POSTGRES_USER=postgres
@@ -47,6 +51,10 @@ services:
     image: bibliotec:latest
     ports:
       - "4200:80"
+      - target: 4200
+        published: 4200
+        protocol: tcp
+        mode: host
     expose:
       - "4200"
     networks:
@@ -72,5 +80,8 @@ services:
 networks:
   internalnet:
     driver: bridge
+    external: true 
 
 
+# scp Escritorio/proyecto_int/Proy/stack.yml root@161.97.140.245:/root/herramientas_docker/biblioteca_test/Proy
+# scp Escritorio/proyecto_int/Proy/makefile root@161.97.140.245:/root/herramientas_docker/biblioteca_test/Proy

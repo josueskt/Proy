@@ -1,6 +1,6 @@
 # Variables para ejecutar comandos
 DC = docker-compose
-DC_FILE = -f docker-compose_all.yml
+DC_FILE = -f stack.yml
 
 .PHONY: build up down clean logs
 
