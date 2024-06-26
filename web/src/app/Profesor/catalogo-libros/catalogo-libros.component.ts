@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { LibroService } from '../libro.service';
 import { AuthService } from '../../roles/auth.service';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { VistalibroService } from '../../usuario/vistalibro/vistalibro.service';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
@@ -20,50 +20,48 @@ export class CatalogoLibrosComponent implements OnInit {
   userInfo: any;
   nombre='';
   currentPage = 1;
-  itemsPerPage = 12;
-  totalPages: number;
+  totalPages: number = 1;
   private libroService = inject( LibroService )
   private auht =inject(AuthService)
   private libro_des =inject( VistalibroService)
   private toastrService: ToastrService = inject(ToastrService);
+  private route = inject(ActivatedRoute)
+  paginas= []
+
+  page = 1;
 libro: any;
 
   ngOnInit() {
+
+
     this.userInfo = this.auht.getUserInfo();
     this.nombre = this.userInfo.id_user
     this.traerLibros()
+
+
+    this.libroService.trear_paginacion(this.nombre).subscribe((e:any)=>{
+      console.log(e[0].count)
+      this.totalPages = Math.ceil(e[0].count / 18);
+
+    })
+   
         
   }
   
-  calculateTotalPages(): void {
-    this.totalPages = Math.ceil(this.libros.length / this.itemsPerPage);
-  }
 
-  setPage(page: number): void {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-    }
-  }
 
-  getPaginatedLibros(): any[] {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    return this.libros.slice(startIndex, endIndex);
-  }
 
   eror_carga_imagen(libro){
     if(!libro.imagen.includes("http://")){
 const baseUrl = environment.URL;
       libro.imagen = baseUrl+'imagen?filename='+libro.imagen
-      console.log(libro.imagen)
     }else( libro.imagen = './assets/images/imagennoencontrada.png')
   }
 
   traerLibros() {
-    this.libroService.getLibros(this.nombre).subscribe({
+    this.libroService.getLibros(this.nombre , this.page).subscribe({
       next: (libros) => {
         this.libros = libros;
-        this.calculateTotalPages();
       },
       error: (error) => {
         this.toastrService.error('Error al obtener libros:', 'Fail', {
@@ -110,6 +108,7 @@ const baseUrl = environment.URL;
       }
     });
   }
+ 
   visiblePages(): number[] {
     const pagesToShow = 5;
     const pages: number[] = [];
@@ -120,7 +119,7 @@ const baseUrl = environment.URL;
       }
     } else {
       const middle = Math.ceil(pagesToShow / 2);
-      let startPage = this.currentPage - middle + 1;
+      let startPage = this.page - middle + 1;
       let endPage = startPage + pagesToShow - 1;
   
       if (startPage <= 0) {
@@ -138,12 +137,28 @@ const baseUrl = environment.URL;
   
     return pages;
   }
-  
-  goToFirstPage(): void {
-    this.setPage(1);
+
+  next(){
+    this.page = this.page +1
+    this.traerLibros()
+    
   }
-  
-  goToLastPage(): void {
-    this.setPage(this.totalPages);
+  prev(){
+    this.page = this.page -1
+    this.traerLibros()
+
   }
+  une(page:number){
+
+    this.page = page
+    this.traerLibros()
+
+
+  }
+
+  
+
+ 
+  
+
 }

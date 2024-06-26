@@ -57,21 +57,9 @@ export class HomeComponent implements OnInit {
 
   buscarLibros() {
     console.log(this.selectedCarrera)
-    this.homeService.buscarLibros(this.searchText, this.selectedCarrera).subscribe({
-     next: (resultados) => {
-
-
-
-        this.dataService.setResultados(resultados);
-        this.router.navigate(['/user/libro'])
-      },
-     error: (error) => {
-        this.toastrService.error('Error al buscar libros:', 'Fail', {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-        });
-      }
-      }  );
+    this.router.navigate(['/user/libro'], { queryParams: { texto: this.searchText , carrera:this.selectedCarrera } });
+    
+    
 
 }
 }

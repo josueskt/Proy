@@ -17,8 +17,12 @@ export class LibroService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getLibros(datos: string): Observable<any> {
-    return this.http.post(`${this.baseUr}`, { nombre: datos });
+  getLibros(datos: string , page:number): Observable<any> {
+    return this.http.post(`${this.baseUr}?page=${page}`, { nombre: datos },);
+  }
+  trear_paginacion(datos){
+    return this.http.get(`${this.baseUr}?nombre=${datos}`);
+    
   }
 
   getLibro(id: number): Observable<any> {

@@ -1,9 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { DataService } from '../data.service';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { NgClass, UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
+import { HomeService } from '../home/home.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-libro',
@@ -14,22 +16,31 @@ import { environment } from '../../../../environments/environment';
 })
 export class LibroComponent implements OnInit {
   resultados: any[] = [];
-  currentResults: any[] = [];
-  currentPage = 1;
+ 
   itemsPerPage = 12;
-  totalPages = 0;
+  totalPages =0;
+  pagina = 1;
 
   @ViewChild('contenedorLibros') contenedorLibros!: ElementRef;
   private dataService = inject(DataService);
-  libro: any;
+  private homeService = inject(HomeService)
+  private toastrService: ToastrService = inject(ToastrService);
+  private route = inject(ActivatedRoute)
 
-  ngOnInit() {
+  libro: any;
+  texto = ''
+  carrera = ''
+
+  async ngOnInit() {
+
+
+     this.texto = this.route.snapshot.queryParamMap.get('texto');
+     this.carrera = this.route.snapshot.queryParamMap.get('carrera');
+
+    await this.resultados_libros(this.pagina)
     
-    this.dataService.resultados$.subscribe((resultados) => {
-      this.resultados = resultados;
-      this.updateCurrentResults();
-    });
-    this.totalPages = Math.ceil(this.resultados.length / this.itemsPerPage);
+    
+   
   }
 
   eror_carga_imagen(libro) {
@@ -45,40 +56,27 @@ export class LibroComponent implements OnInit {
     throw new Error('Method not implemented.');
   }
 
-  updateCurrentResults() {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
-    this.currentResults = this.resultados.slice(startIndex, endIndex);
-  }
+
 
   nextPage() {
-    if ((this.currentPage * this.itemsPerPage) < this.resultados.length) {
-      this.currentPage++;
-      this.updateCurrentResults();
-    }
+    this.pagina ++
+    this.resultados_libros(this.pagina)
+  
   }
 
   previousPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.updateCurrentResults();
-    }
+    this.pagina --
+    this.resultados_libros(this.pagina  )
+  
   }
 
-  getPages(): number[] {
-    const pages: number[] = [];
-    for (let i = 1; i <= this.totalPages; i++) {
-      pages.push(i);
-    }
-    return pages;
-  }
+ 
 
   goToPage(page: number) {
-    if (page >= 1 && page <= this.totalPages) {
-      this.currentPage = page;
-      this.updateCurrentResults();
-      // Puedes agregar aquí cualquier otra lógica que necesites al cambiar de página
-    }
+    this.pagina = page
+   this.resultados_libros(page)
+
+
   }
   visiblePages(): number[] {
     const pagesToShow = 5;
@@ -90,7 +88,7 @@ export class LibroComponent implements OnInit {
       }
     } else {
       const middle = Math.ceil(pagesToShow / 2);
-      let startPage = this.currentPage - middle + 1;
+      let startPage = this.pagina - middle + 1;
       let endPage = startPage + pagesToShow - 1;
   
       if (startPage <= 0) {
@@ -108,11 +106,36 @@ export class LibroComponent implements OnInit {
   
     return pages;
   }
-  goToFirstPage(): void {
-    this.goToPage(1);
-  }
+ 
+
+
+resultados_libros(pagina:number){
+  this.homeService.buscarLibros(this.texto, this.carrera , pagina).subscribe({
+    next: (resultados) => {
+
+
+
+       this.dataService.setResultados(resultados);
+
+
+       this.dataService.resultados$.subscribe((resultados) => {
+        this.resultados = resultados;
+        console.log(resultados)
+      });
+      this.homeService.index(this.texto,this.carrera).subscribe((e)=>{
+
+
+        console.log(e)
+        this.totalPages = Math.ceil(e[0].count / this.itemsPerPage);
+      })
+     },
+    error: (error) => {
+       this.toastrService.error('Error al buscar libros:', 'Fail', {
+         timeOut: 3000,
+         positionClass: 'toast-top-center',
+       });}
+
+      })
+    }
   
-  goToLastPage(): void {
-    this.goToPage(this.totalPages);
-  }
 }

@@ -18,14 +18,19 @@ export class HomeService {
     return this.http.get<any[]>(`${this.apiUrl}carrera`);
   }
 
-  buscarLibros(cadena: string,carrera:string): Observable<any[]> {
+  index(cadena: string,carrera:string):Observable<any[]>{
+    this.url = `${this.apiUrl}buscador/index?cadena=${cadena}`;
+    return this.http.get<any[]>(this.url);
+
+  }
+  buscarLibros(cadena: string,carrera:string , pagina:number): Observable<any[]> {
     cadena =  cadena.toLowerCase()
   if(carrera ==='Carrera'){
 
-     this.url = `${this.apiUrl}buscador?cadena=${cadena} `;
+     this.url = `${this.apiUrl}buscador?cadena=${cadena}&page=${pagina} `;
   }
   else{
-    this.url = `${this.apiUrl}buscador?cadena=${cadena}&carrera=${carrera}`;
+    this.url = `${this.apiUrl}buscador?cadena=${cadena}&carrera=${carrera}&page=${pagina}`;
 
   }
 

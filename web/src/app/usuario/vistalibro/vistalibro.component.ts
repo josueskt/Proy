@@ -100,14 +100,17 @@ this.vistalibroService.treer_etiqueta(id).subscribe(
      } );
   }
   buscar_etiqueta(nombre:string){
+    this.router.navigate(['/user/libro'], { queryParams: { texto: nombre ,carrera:'' } });
   
-    this.homeService.buscarLibros(nombre,'').subscribe({
+    this.homeService.buscarLibros(nombre,'',1).subscribe({  
       next: (resultados) => {
  
  
  
          this.dataService.setResultados(resultados);
          this.router.navigate(['/user/libro'])
+
+         
        },
       error: () => {
          this.toastrService.error('Error al buscar libros:', 'Fail', {
