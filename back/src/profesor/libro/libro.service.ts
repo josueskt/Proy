@@ -18,10 +18,16 @@ export class LibroService {
 
 
 
+  async pagination(nombre:string){
 
+  return await this.sql.query('SELECT COUNT(*) FROM libros.libro where fk_creador = $1;',[nombre])
+}
 
-    async traer(nombre: string): Promise<any> {
-        //as
+    async traer(nombre: string , pagina:number): Promise<any> {
+      const pageNumber = pagina; 
+      const pageSize = 18; 
+      const offset = (pageNumber - 1) * pageSize;
+        
         const reslut = await this.sql.query(
             `SELECT
             l.id_libro,
@@ -40,10 +46,13 @@ export class LibroService {
             LEFT JOIN tramites.descargas as p ON p.fk_libro = l.id_libro
         WHERE
             l.fk_creador = $1
+      
         GROUP BY
-            l.id_libro, l.titulo, l.year_of_publication, l.review, l.imagen, a.nombre, c.nombre, l.nombre_archivo;
+            l.id_libro, l.titulo, l.year_of_publication, l.review, l.imagen, a.nombre, c.nombre, l.nombre_archivo   
+        LIMIT 
+            $2 OFFSET $3  ;
         `
-            , [nombre])
+            , [nombre,pageSize, offset])
         return reslut
 
 

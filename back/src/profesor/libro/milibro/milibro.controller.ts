@@ -1,4 +1,4 @@
-import { Body, Controller, Post, SetMetadata, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, SetMetadata, UseGuards } from '@nestjs/common';
 import { RolesGuard } from 'src/roles/roles.guard';
 import { LibroService } from '../libro.service';
 
@@ -9,8 +9,16 @@ export class MilibroController {
     @Post()
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['PROFESOR','ADMINISTRADOR'])
-    Traer_todos(@Body('nombre') datos) { 
+    Traer_todos(@Body('nombre') datos ,@Query('page') pagina: number) { 
 
-        return this.libro.traer(datos)
+        return this.libro.traer(datos,pagina)
     }
+
+    @Get()
+    @UseGuards(RolesGuard)
+    @SetMetadata('roles', ['PROFESOR','ADMINISTRADOR'])
+paginacion(@Query('nombre') datos ){
+    return this.libro.pagination(datos)
+
+}
 }

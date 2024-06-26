@@ -5,8 +5,14 @@ import { SqlService } from 'src/sql/sql.service';
 @Injectable()
 export class BuscadorService {
   constructor(private sql: SqlService) { }
-  async buscar_libros(cadena: string, carrera: string) {
-    const params = [`%${cadena}%`];
+  async buscar_libros(cadena: string, carrera: string,page:number) {
+
+    const pageNumber = page; 
+    const pageSize = 12; 
+    const offset = (pageNumber - 1) * pageSize;
+
+
+    const params = [`%${cadena}%`,pageSize, offset];
     let restul
     let query
     try {
@@ -16,7 +22,7 @@ export class BuscadorService {
         LEFT JOIN libros.carrera as c ON l.fk_carrera = c.id_carrera
         LEFT JOIN libros.autor as a ON l.fk_autor = a.id_autor
         LEFT JOIN libros.tipo as t on l.fk_tipo = t.id_tipo
-        WHERE l.titulo LIKE $1
+        WHERE l.titulo LIKE $1 LIMIT $2 OFFSET $3
       `;
       restul = await this.sql.query(query, params);
       //busca por nombre del autor 
@@ -26,7 +32,7 @@ export class BuscadorService {
         FROM libros.libro as l
         LEFT JOIN libros.carrera as c ON l.fk_carrera = c.id_carrera
         LEFT JOIN libros.autor as a ON l.fk_autor = a.id_autor
-        WHERE a.nombre LIKE $1
+        WHERE a.nombre LIKE $1 LIMIT $2 OFFSET $3
       `;
         restul = await this.sql.query(query, params);
 
@@ -38,7 +44,7 @@ export class BuscadorService {
       FROM libros.libro as l
         LEFT JOIN libros.carrera as c ON l.fk_carrera = c.id_carrera
         LEFT JOIN libros.autor as a ON l.fk_autor = a.id_autor
-        WHERE l.isbn LIKE $1
+        WHERE l.isbn LIKE $1 LIMIT $2 OFFSET $3
       `;
         restul = await this.sql.query(query, params);
       }
@@ -50,7 +56,73 @@ export class BuscadorService {
         LEFT JOIN libros.autor as a ON l.fk_autor = a.id_autor
         LEFT JOIN libros.palabras_libro as pl ON pl.fk_libro = l.id_libro
         LEFT JOIN libros.palabras_clave as pc ON pl.fk_palabra = pc.id_palabra
-        WHERE pc.nombre LIKE $1
+        WHERE pc.nombre LIKE $1 LIMIT $2 OFFSET $3
+      `;
+        restul = await this.sql.query(query, params);
+      }
+
+      if (carrera) {
+        query += ' AND c.id_carrera = $2';
+        params.push(carrera);
+        restul = await this.sql.query(query, params);
+
+      }
+      return restul
+    } catch (error) {
+      return new MessageDto(`Error al buscar los libros, error: ${error}`);
+    }
+  }
+
+  async index(cadena: string, carrera: string) {
+
+    
+
+
+    const params = [`%${cadena}%`];
+    let restul
+    let query
+    try {
+      query = `
+      SELECT COUNT(*)
+      FROM libros.libro as l
+        LEFT JOIN libros.carrera as c ON l.fk_carrera = c.id_carrera
+        LEFT JOIN libros.autor as a ON l.fk_autor = a.id_autor
+        LEFT JOIN libros.tipo as t on l.fk_tipo = t.id_tipo
+        WHERE l.titulo  LIKE $1 
+      `;
+      restul = await this.sql.query(query, params);
+      //busca por nombre del autor 
+      if (!restul.length) {
+        query = `
+        SELECT COUNT(*)
+        FROM libros.libro as l
+        LEFT JOIN libros.carrera as c ON l.fk_carrera = c.id_carrera
+        LEFT JOIN libros.autor as a ON l.fk_autor = a.id_autor
+        WHERE a.nombre LIKE $1 
+      `;
+        restul = await this.sql.query(query, params);
+
+      }
+      // busca por el nombre del archivo este es un test 
+      if (!restul.length) {
+        query = `
+        SELECT COUNT(*)
+      FROM libros.libro as l
+        LEFT JOIN libros.carrera as c ON l.fk_carrera = c.id_carrera
+        LEFT JOIN libros.autor as a ON l.fk_autor = a.id_autor
+        WHERE l.isbn LIKE $1 
+      `;
+        restul = await this.sql.query(query, params);
+      }
+      if (!restul.length) {
+        query = `
+        SELECT COUNT(*)
+      FROM libros.libro as l
+        LEFT JOIN libros.carrera as c ON l.fk_carrera = c.id_carrera
+        LEFT JOIN libros.autor as a ON l.fk_autor = a.id_autor
+        LEFT JOIN libros.palabras_libro as pl ON pl.fk_libro = l.id_libro
+        LEFT JOIN libros.palabras_clave as pc ON pl.fk_palabra = pc.id_palabra
+        WHERE pc.nombre LIKE $1 
       `;
         restul = await this.sql.query(query, params);
       }

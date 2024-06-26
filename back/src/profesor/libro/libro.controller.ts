@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Put,
+  Query,
   SetMetadata,
   UploadedFile,
   UploadedFiles,
@@ -27,8 +28,8 @@ export class LibroController {
   @Get()
   @UseGuards(RolesGuard)
   @SetMetadata('roles', ['PROFESOR'])
-  Traer_todos(@Body('nombre') datos) {
-    return this.libro.traer(datos);
+  Traer_todos(@Body('nombre') datos, @Query('page') pagina: number) {
+    return this.libro.traer(datos,pagina);
   }
   @Get(':id')
   @UseGuards(RolesGuard)

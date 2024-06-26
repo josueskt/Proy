@@ -7,7 +7,12 @@ constructor(private buscar:BuscadorService){}
     @Get()
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
-    buscador_libro(@Query('cadena') cadena:string,@Query('carrera') carrera:string){
-        return this.buscar.buscar_libros(cadena,carrera)
+    buscador_libro(@Query('cadena') cadena:string,@Query('carrera') carrera:string,@Query('page') page:number){
+        return this.buscar.buscar_libros(cadena,carrera,page)
+    }
+
+    @Get('index')
+    index_resultado(@Query('cadena') cadena:string,@Query('carrera') carrera:string){
+ return this.buscar.index(cadena,carrera)
     }
 }
