@@ -1,22 +1,27 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VistalibroService } from './vistalibro.service';
-import { UpperCasePipe } from '@angular/common';
+import { NgClass, UpperCasePipe } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { HomeService } from '../home/home.service';
 import { DataService } from '../data.service';
 import { environment } from '../../../../environments/environment';
+import { FormsModule } from '@angular/forms';
+import { BuscadorComponent } from '../../componentes/buscador/buscador.component';
 
 
 @Component({
   selector: 'app-vistalibro',
   standalone: true,
-  imports: [UpperCasePipe],
+  imports: [UpperCasePipe,FormsModule,BuscadorComponent],
   templateUrl: './vistalibro.component.html',
   styleUrls: ['./vistalibro.component.css'],
 })
 export class VistalibroComponent {
+buscar() {
+throw new Error('Method not implemented.');
+}
   id = '';
   etiquetas:any;
   libro: any;
@@ -32,6 +37,7 @@ export class VistalibroComponent {
 
   private vistalibroService = inject(VistalibroService);
   private toastrService: ToastrService = inject(ToastrService);
+searchText: any;
 
   ngOnInit() {
     this.route.params.subscribe((params) => {

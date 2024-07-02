@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, SetMetadata, UseGuards } from '@nestjs/common';
 import { RolesGuard } from 'src/roles/roles.guard';
 import { LibroTipoService } from './libro_tipo.service';
+import { libro_tipo } from './libro_tipo.interface';
 
 @Controller('libro-tipo')
 export class LibroTipoController {
@@ -14,7 +15,7 @@ export class LibroTipoController {
     @Post()
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR'])
-    crear(@Body() bod:{"datos":string}) {
+    crear(@Body() bod:libro_tipo) {
         
        return this.Libro.crear(bod.datos)
     };

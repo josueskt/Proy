@@ -232,6 +232,9 @@ return nombreUnico
       else if (nombre_tipo === 'PDF') {
         await this.descargarArchivo(dato, id);
       }
+      else if(nombre_tipo ==='FISICO'){
+        
+      }
      
     } catch (error) {
       console.error(new MessageDto(`error ${error}`));

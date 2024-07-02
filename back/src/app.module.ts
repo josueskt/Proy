@@ -40,12 +40,21 @@ import { EtiquetasController } from './usuarios/etiquetas/etiquetas.controller';
 import { EtiquetasService } from './usuarios/etiquetas/etiquetas.service';
 import { ImagenController } from './usuarios/imagen/imagen.controller';
 import { ImagenService } from './usuarios/imagen/imagen.service';
+import { InventarioController } from './administrador/fisico/inventario/inventario.controller';
+import { LibrosFisicosController } from './usuarios/fisico/libros-fisicos/libros-fisicos.controller';
+import { UsuarioPrestamosController } from './usuarios/fisico/prestamos/prestamos.controller';
+import { MisprestamosController } from './usuarios/fisico/misprestamos/misprestamos.controller';
+import { EstantesController } from './biblioteca/estantes/estantes.controller';
+import { SecionesController } from './biblioteca/seciones/seciones.controller';
+import { DevolucionesBibliotecaController } from './biblioteca/devoluciones-biblioteca/devoluciones-biblioteca.controller';
+import { PrestamosController } from './biblioteca/prestamos/prestamos.controller';
+import { AlertasController } from './biblioteca/alertas/alertas.controller';
 
 
 
 @Module({
   imports: [],
-  controllers: [AppController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController,  BuscadorController, DescargaController, AutorController, CambioContraController, MilibroController, CargaLLoteController, LibroTipoController, EtiquetasController, ImagenController ],
+  controllers: [AppController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController, UsuarioPrestamosController, BuscadorController, DescargaController, AutorController, CambioContraController, MilibroController, CargaLLoteController, LibroTipoController, EtiquetasController, ImagenController, InventarioController,  LibrosFisicosController, PrestamosController, MisprestamosController, EstantesController, SecionesController, DevolucionesBibliotecaController, AlertasController ],
   providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, LibroService, LoginService, UsuariosService,  {
     provide: APP_PIPE,
     

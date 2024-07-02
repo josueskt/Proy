@@ -40,7 +40,7 @@ export class LoginService {
               nombre_rol: user.nombre_rol,
             },
             this.jwtSecretKey,
-            { expiresIn: '3000h' }, // Configura la expiración del token
+            { expiresIn: '1h' }, 
           );
 
           this.sql.query(

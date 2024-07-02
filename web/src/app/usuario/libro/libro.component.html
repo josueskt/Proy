@@ -1,4 +1,12 @@
-
+<div class="mt-4 text-center ps-5 pe-5">
+  <div class="input-group ">
+    <input type="text" class="form-control" placeholder="Buscador" [(ngModel)]="searchText">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button" (click)="buscar()">Buscar</button>
+    </div>
+  </div>
+  
+</div>
 
 <section class="cabecera " style="display: grid; place-items: center;">
   @if (!resultados.length) {
@@ -13,9 +21,8 @@
   
   }
 </section>
-<div class="mt-4 text-center">
-  <span class="page-info">Página {{ pagina }} de {{ totalPages }}</span>
-</div>
+
+
 @if (resultados.length) {
   <div class="pagination-buttons mt-4 text-center container d-flex flex-wrap justify-content-center">
     <div class="d-flex flex-row">
@@ -85,11 +92,11 @@
   </svg>
 </button>
 @for (page of visiblePages(); track libro){
-<ng-container>
-  <button (click)="goToPage(page)" class="btn btn-outline-primary mx-1" [class.active]="totalPages === page">
-    {{ pagina }}
-  </button>
-</ng-container>
+  <ng-container>
+    <button (click)="goToPage(page)" class="btn btn-outline-primary mx-1" [class.active]="pagina === page">
+      {{ page }}
+    </button>
+  </ng-container>
 }
 
 <button (click)="nextPage()" [disabled]="pagina === totalPages" class="btn btn-primary ml-2">

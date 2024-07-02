@@ -1,16 +1,17 @@
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { DataService } from '../data.service';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { NgClass, UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { HomeService } from '../home/home.service';
 import { ToastrService } from 'ngx-toastr';
+import { BuscadorComponent } from '../../componentes/buscador/buscador.component';
 
 @Component({
   selector: 'app-libro',
   standalone: true,
-  imports: [RouterLink, UpperCasePipe, FormsModule, NgClass],
+  imports: [RouterLink, UpperCasePipe, FormsModule, NgClass,BuscadorComponent],
   templateUrl: './libro.component.html',
   styleUrls: ['./libro.component.css'],
 })
@@ -26,10 +27,12 @@ export class LibroComponent implements OnInit {
   private homeService = inject(HomeService)
   private toastrService: ToastrService = inject(ToastrService);
   private route = inject(ActivatedRoute)
+  private router=inject(  Router)
 
   libro: any;
   texto = ''
   carrera = ''
+searchText: any;
 
   async ngOnInit() {
 
@@ -37,7 +40,7 @@ export class LibroComponent implements OnInit {
      this.texto = this.route.snapshot.queryParamMap.get('texto');
      this.carrera = this.route.snapshot.queryParamMap.get('carrera');
 
-    await this.resultados_libros(this.pagina)
+    await this.resultados_libros(this.pagina,this.texto)
     
     
    
@@ -56,17 +59,19 @@ export class LibroComponent implements OnInit {
     throw new Error('Method not implemented.');
   }
 
-
+buscar(){
+  this.resultados_libros(this.pagina,this.searchText)
+}
 
   nextPage() {
     this.pagina ++
-    this.resultados_libros(this.pagina)
+    this.resultados_libros(this.pagina,this.texto)
   
   }
 
   previousPage() {
     this.pagina --
-    this.resultados_libros(this.pagina  )
+    this.resultados_libros(this.pagina ,this.texto )
   
   }
 
@@ -74,7 +79,7 @@ export class LibroComponent implements OnInit {
 
   goToPage(page: number) {
     this.pagina = page
-   this.resultados_libros(page)
+   this.resultados_libros(page,this.texto)
 
 
   }
@@ -109,8 +114,8 @@ export class LibroComponent implements OnInit {
  
 
 
-resultados_libros(pagina:number){
-  this.homeService.buscarLibros(this.texto, this.carrera , pagina).subscribe({
+resultados_libros(pagina:number,buscado){
+  this.homeService.buscarLibros(buscado, this.carrera , pagina).subscribe({
     next: (resultados) => {
 
 

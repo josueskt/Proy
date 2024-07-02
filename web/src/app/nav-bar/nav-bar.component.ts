@@ -20,12 +20,22 @@ export class NavBarComponent {
 
   private authService = inject( AuthService)
 
-  ngOnInit() {
+  async ngOnInit() {
     // Obtener la información del usuario al inicializar el componente
-    this.userInfo = this.authService.getUserInfo();
+    this.userInfo =  this.authService.getUserInfo();
     this.nombre = this.userInfo.nombre
     this.rol = this.userInfo.nombre_rol
     this.correo  = this.userInfo.email
+    await this.authService.frosbine().subscribe({
+      next(value) {
+        
+       
+      },error(err) {
+    localStorage.removeItem('token');
+          
+      },
+    })
+   
 
   }
   login_out(){

@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, SetMetadata, UseGuards } from '@nestjs/common';
 import { CarreraService } from './carrera.service';
 import { RolesGuard } from 'src/roles/roles.guard';
+import { carrera } from './carrera.interface';
 
 @Controller('carrera')
 export class CarreraController {
@@ -24,7 +25,7 @@ export class CarreraController {
     @Post()
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR'])
-    crear(@Body() bod: {"nombre":string}) {
+    crear(@Body() bod: carrera) {
         
       return this.carrera.crear(bod)
     }

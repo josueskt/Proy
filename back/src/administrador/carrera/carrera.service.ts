@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { MessageDto } from 'src/common/message.dto';
 import { SqlService } from 'src/sql/sql.service';
+import { carrera } from './carrera.interface';
 
 @Injectable()
 export class CarreraService {
@@ -26,7 +27,7 @@ export class CarreraService {
             return error
         }
     }
-    async crear(mod:  {"nombre":string}) {
+    async crear(mod: carrera) {
 
         try {
              await this.sql.query('INSERT INTO libros.carrera (nombre) values ($1)', [mod.nombre])

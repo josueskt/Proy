@@ -32,7 +32,6 @@ export class HomeComponent implements OnInit {
     private authService=inject( AuthService)
     private homeService=inject(  HomeService)
     private router=inject(  Router)
-    private dataService=inject(  DataService)
     private toastrService: ToastrService = inject(ToastrService);
 
 
