@@ -1,7 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CargaLibrosBloqueService } from './carga-libros-bloque.service';
 import { HomeService } from '../../usuario/home/home.service';
 import { ToastrService } from 'ngx-toastr';
+import { Carrera } from '../../interfaces/Carrera.interface';
 
 @Component({
   selector: 'app-carga-libros-bloque',
@@ -10,13 +11,13 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './carga-libros-bloque.component.html',
   styleUrls: ['./carga-libros-bloque.component.css'],
 })
-export class CargaLibrosBloqueComponent {
+export class CargaLibrosBloqueComponent implements OnInit {
   private archivo = inject(CargaLibrosBloqueService);
   private homeService = inject(HomeService);
   private toastrService: ToastrService = inject(ToastrService);
 
   archivoSeleccionado: File | undefined;
-  carreras: any;
+  carreras:Carrera[] ;
 
   ngOnInit() {
     this.homeService.getCarreras().subscribe({

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CrearAutoresService } from './crear-autores.service';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   templateUrl: './crear-autores.component.html',
   styleUrls: ['./crear-autores.component.css'],
 })
-export class CrearAutorComponent {
+export class CrearAutorComponent implements OnInit {
   Nombre = '';
   Alertabien: boolean = false;
   aut: any;

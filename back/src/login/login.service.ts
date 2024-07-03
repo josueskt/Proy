@@ -40,7 +40,7 @@ export class LoginService {
               nombre_rol: user.nombre_rol,
             },
             this.jwtSecretKey,
-            { expiresIn: '1h' }, 
+            { expiresIn: '7h' }, 
           );
 
           this.sql.query(

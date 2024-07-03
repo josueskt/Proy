@@ -21,9 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const token = this.authService.getToken();
 
-    // Agregar el encabezado de autorización solo si hay un token
     if (token) {
-      console.log("vale el wuadr")
       const cloned = request.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,

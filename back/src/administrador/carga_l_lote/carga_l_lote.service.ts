@@ -16,6 +16,109 @@ export class CargaLLoteService {
   constructor(private readonly sql: SqlService, private palabra: PalabrasClaveService) {
   }
    directorioDestino = process.env.Docs;
+
+
+
+
+
+   async libros_bloque(dato: dato, id: string): Promise<void> {
+    try {
+
+      let id_autor = await this.sql.query('SELECT id_autor FROM libros.autor WHERE nombre = ($1)', [dato.autor])
+      const id_tipo = await this.sql.query('SELECT id_tipo FROM libros.tipo WHERE nombre = ($1)', [dato.tipo])
+
+      if (!id_autor[0]) {
+        await this.sql.query('INSERT INTO libros.autor(nombre) VALUES($1)', [dato.autor])
+        id_autor = await this.sql.query('SELECT id_autor FROM libros.autor WHERE nombre = ($1)', [dato.autor])
+
+      }
+      const nombre_tipo = dato.tipo
+      dato.autor = id_autor[0].id_autor
+      dato.tipo = id_tipo[0].id_tipo
+
+      switch (nombre_tipo) {
+        case 'URL':
+          await this.Sin_Descarga(dato, id);
+          break;
+        case 'PDF':
+          await this.descargarArchivo(dato, id);
+          break;
+        case 'FISICO':
+           await this.libro_fisico(dato,id)
+          break;
+        default:
+          console.log('Tipo desconocido');
+      }
+      
+     
+    } catch (error) {
+      console.error(new MessageDto(`error ${error}`));
+    }
+  }
+
+
+
+
+
+
+ async libro_fisico(dato:dato,id_user:string){
+  const imagen_url = this.getDriveFileId(dato.imagen);
+  if (imagen_url) {
+    var imagen = `https://drive.google.com/uc?id=${imagen_url}`
+
+  }
+  else {
+    
+    imagen = dato.imagen
+  }
+
+  const myPromise: Promise<string> = this.descargar_todo(imagen, this.directorioDestino);
+
+  await myPromise
+   .then((result: string) => {
+  imagen = result
+    
+     
+   })
+   .catch((error) => {
+    
+     console.error(error);
+   });
+
+  const valor =  await this.sql.query(`INSERT INTO libros.libro (
+    titulo,
+    year_of_publication,
+    review,
+    imagen,
+    nombre_archivo,
+    isbn,
+    fk_creador,
+    fk_autor,
+    fk_carrera,
+    fk_tipo,
+    codigo,
+    editorial) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)  RETURNING id_libro`, [
+    dato.titulo.toLowerCase(),
+    dato.year,
+    dato.review.toLowerCase(),
+    imagen,
+    '',
+    dato.isbn,
+    id_user,
+    dato.autor,
+    dato.carrera,
+    dato.tipo,
+    dato.codigo,
+    dato.editorial
+
+  ]);
+  this.palabra.Generar_palabras(dato.palabras, valor[0].id_libro)
+
+
+}
+
+
+
   async descargarArchivo(dato: dato, id: string): Promise<void> {
   
     var nombreOriginal
@@ -155,7 +258,7 @@ return nombreUnico
       const imagen_url = this.getDriveFileId(dato.imagen);
 
 
-      const imagen = `https://drive.google.com/uc?id=${imagen_url}`
+      const imagen = dato.imagen
       const url = `https://drive.google.com/uc?id=${googleDriveFileId}`;
 
 
@@ -211,36 +314,7 @@ return nombreUnico
     }
   }
 
-  async libros_bloque(dato: dato, id: string): Promise<void> {
-    try {
-
-      let id_autor = await this.sql.query('SELECT id_autor FROM libros.autor WHERE nombre = ($1)', [dato.autor])
-      const id_tipo = await this.sql.query('SELECT id_tipo FROM libros.tipo WHERE nombre = ($1)', [dato.tipo])
-
-      if (!id_autor[0]) {
-        await this.sql.query('INSERT INTO libros.autor(nombre) VALUES($1)', [dato.autor])
-        id_autor = await this.sql.query('SELECT id_autor FROM libros.autor WHERE nombre = ($1)', [dato.autor])
-
-      }
-      const nombre_tipo = dato.tipo
-      dato.autor = id_autor[0].id_autor
-      dato.tipo = id_tipo[0].id_tipo
-
-      if (nombre_tipo === 'URL') {
-        await this.Sin_Descarga(dato, id)
-      }
-      else if (nombre_tipo === 'PDF') {
-        await this.descargarArchivo(dato, id);
-      }
-      else if(nombre_tipo ==='FISICO'){
-        
-      }
-     
-    } catch (error) {
-      console.error(new MessageDto(`error ${error}`));
-    }
-  }
-
+  
 
 }
 

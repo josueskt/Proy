@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '../roles/auth.guard';
-import { CargaLibrosBloqueComponent } from './carga-libros-bloque/carga-libros-bloque.component';
-import { CarreraComponent } from './carrera/carrera.component';
-import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
-import { EstadisticasComponent } from './estadisticas/estadisticas.component';
-import { AdministradorComponent } from './administrador.component';
-import { LibroTipoComponent } from './libro-tipo/libro-tipo.component';
-import { EditarUsuarioComponent } from './editar-usuario/editar-usuario.component';
+import { CargaLibrosBloqueComponent } from '../Administrador/carga-libros-bloque/carga-libros-bloque.component';
+import { CarreraComponent } from '../Administrador/carrera/carrera.component';
+import { CrearUsuariosComponent } from '../Administrador/crear-usuarios/crear-usuarios.component';
+import { EstadisticasComponent } from '../Administrador/estadisticas/estadisticas.component';
+import { AdministradorComponent } from '../Administrador/administrador.component';
+import { LibroTipoComponent } from '../Administrador/libro-tipo/libro-tipo.component';
+import { EditarUsuarioComponent } from '../Administrador/editar-usuario/editar-usuario.component';
 
 
 export const routesAdmin: Routes = [
@@ -33,6 +33,8 @@ export const routesAdmin: Routes = [
       {
         path: 'subir_l_bloque',
         component: CargaLibrosBloqueComponent,
+        canActivate: [AuthGuard],
+        data: { roles: ['ADMINISTRADOR','BIBLIOTECA']}
       },
       {
         path: 'tipo-libro',

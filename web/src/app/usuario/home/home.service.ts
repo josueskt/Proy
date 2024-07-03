@@ -1,7 +1,10 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { Carrera } from '../../interfaces/Carrera.interface';
+import { Libro } from '../../interfaces/libro.interface';
+import { Index } from '../../interfaces/index.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -9,21 +12,21 @@ import { environment } from '../../../../environments/environment';
 export class HomeService {
 
  private apiUrl = environment.URL;  // Reemplaza esto con la URL correcta de tu backend
-  router: any;
-  url :any
+  
+  url :string
   constructor(private http: HttpClient) {}
 
   // Método para obtener carreras
   getCarreras() {
-    return this.http.get<any[]>(`${this.apiUrl}carrera`);
+    return this.http.get<Carrera[]>(`${this.apiUrl}carrera`);
   }
 
-  index(cadena: string,carrera:string):Observable<any[]>{
+  index(cadena: string):Observable<Index[]>{
     this.url = `${this.apiUrl}buscador/index?cadena=${cadena}`;
-    return this.http.get<any[]>(this.url);
+    return this.http.get<Index[]>(this.url);
 
   }
-  buscarLibros(cadena: string,carrera:string , pagina:number): Observable<any[]> {
+  buscarLibros(cadena: string,carrera:string , pagina:number): Observable<Libro[]> {
     cadena =  cadena.toLowerCase()
   if(carrera ==='Carrera'){
 
@@ -34,6 +37,6 @@ export class HomeService {
 
   }
 
-    return this.http.get<any[]>(this.url);
+    return this.http.get<Libro[]>(this.url);
   }
 }

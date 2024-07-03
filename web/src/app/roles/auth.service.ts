@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
+import { Usuario } from '../interfaces/usuario.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  getUserInfo(): any | null {
+  getUserInfo(): Usuario | null {
     const token = this.getToken();
     if (token) {
       // Decodificar el token para obtener la información del usuario

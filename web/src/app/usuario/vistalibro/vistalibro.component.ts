@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VistalibroService } from './vistalibro.service';
-import { NgClass, UpperCasePipe } from '@angular/common';
+import {  UpperCasePipe } from '@angular/common';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { HomeService } from '../home/home.service';
@@ -9,6 +9,8 @@ import { DataService } from '../data.service';
 import { environment } from '../../../../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { BuscadorComponent } from '../../componentes/buscador/buscador.component';
+import { Etiqueta } from '../../interfaces/Etiqueta.interface';
+import { Libro } from '../../interfaces/libro.interface';
 
 
 @Component({
@@ -18,16 +20,16 @@ import { BuscadorComponent } from '../../componentes/buscador/buscador.component
   templateUrl: './vistalibro.component.html',
   styleUrls: ['./vistalibro.component.css'],
 })
-export class VistalibroComponent {
-buscar() {
-throw new Error('Method not implemented.');
+export class VistalibroComponent  implements OnInit {
+constructor(){
+
 }
   id = '';
-  etiquetas:any;
-  libro: any;
-  imagen:any
-  result: any;
-  urlSegura: any;
+  imagen:string
+  etiquetas:Etiqueta[];
+  libro: Libro;
+ 
+  urlSegura: SafeResourceUrl;
   pdfUrl: SafeResourceUrl | null = null;
   private sanitizer = inject(DomSanitizer);
   private route = inject(ActivatedRoute);
@@ -37,7 +39,7 @@ throw new Error('Method not implemented.');
 
   private vistalibroService = inject(VistalibroService);
   private toastrService: ToastrService = inject(ToastrService);
-searchText: any;
+searchText: string;
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -51,7 +53,6 @@ searchText: any;
 
   
   eror_carga_imagen(){
-    console.log(this.imagen)
    if(!this.imagen.includes("http://")){
 const baseUrl = environment.URL;
       this.imagen = baseUrl+'imagen?filename='+this.imagen
@@ -64,7 +65,6 @@ const baseUrl = environment.URL;
 
   cargarPDF() {
     const url = this.libro.nombre_archivo;
-    console.log(this.libro)
     this.urlSegura = this.sanitizeUrl(url);
     // Ahora puedes usar urlSegura en tu plantilla
   }
@@ -87,11 +87,11 @@ this.vistalibroService.treer_etiqueta(id).subscribe(
     this.vistalibroService.traerTodas(id).subscribe({
      next: (data) => {
        
-        this.result = data;
+        
           
 
     
-        this.libro = this.result[0];
+        this.libro = data[0];
         this.imagen = this.libro.imagen
         if(this.libro.tipo ==='PDF'){
         this.mostrar(this.libro.nombre_archivo, this.libro.id_libro)}

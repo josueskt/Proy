@@ -13,7 +13,7 @@ export class DescargaController {
 
   @Get()
   @UseGuards(RolesGuard)
-  @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
+  @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE','BIBLIOTECA'])
   async getPdf(
     @Res() res: Response,
     @Query('filename') filename: string,

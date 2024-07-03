@@ -6,7 +6,7 @@ export class BuscadorController {
 constructor(private buscar:BuscadorService){}
     @Get()
     @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
+    @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE','BIBLIOTECA'])
     buscador_libro(@Query('cadena') cadena:string,@Query('carrera') carrera:string,@Query('page') page:number){
         return this.buscar.buscar_libros(cadena,carrera,page)
     }

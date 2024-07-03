@@ -1,11 +1,12 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '../roles/auth.guard';
 import { LibroComponent } from '../usuario/libro/libro.component';
-import { CatalogoLibrosComponent } from './catalogo-libros/catalogo-libros.component';
-import { CrearAutorComponent } from './crear-autores/crear-autores.component';
-import { EditarLibroComponent } from './editar-libro/editar-libro.component';
-import { FormularioLibroComponent } from './formulario-libro/formulario-libro.component';
-import { ProfesorComponent } from './profesor.component';
+import { CatalogoLibrosComponent } from '../Profesor/catalogo-libros/catalogo-libros.component';
+import { CrearAutorComponent } from '../Profesor/crear-autores/crear-autores.component';
+import { EditarLibroComponent } from '../Profesor/editar-libro/editar-libro.component';
+import { FormularioLibroComponent } from '../Profesor/formulario-libro/formulario-libro.component';
+import { ProfesorComponent } from '../Profesor/profesor.component';
+
 
 export const routesProfesor: Routes = [
   {

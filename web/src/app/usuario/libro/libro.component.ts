@@ -1,12 +1,13 @@
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { DataService } from '../data.service';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { ActivatedRoute,RouterLink } from '@angular/router';
 import { NgClass, UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
 import { HomeService } from '../home/home.service';
 import { ToastrService } from 'ngx-toastr';
 import { BuscadorComponent } from '../../componentes/buscador/buscador.component';
+import { Libro } from '../../interfaces/libro.interface';
 
 @Component({
   selector: 'app-libro',
@@ -16,7 +17,7 @@ import { BuscadorComponent } from '../../componentes/buscador/buscador.component
   styleUrls: ['./libro.component.css'],
 })
 export class LibroComponent implements OnInit {
-  resultados: any[] = [];
+  resultados:Libro [] = [];
  
   itemsPerPage = 12;
   totalPages =0;
@@ -27,12 +28,10 @@ export class LibroComponent implements OnInit {
   private homeService = inject(HomeService)
   private toastrService: ToastrService = inject(ToastrService);
   private route = inject(ActivatedRoute)
-  private router=inject(  Router)
 
-  libro: any;
   texto = ''
   carrera = ''
-searchText: any;
+searchText: string;
 
   async ngOnInit() {
 
@@ -55,9 +54,7 @@ searchText: any;
     }
   }
 
-  sanitizeUrl(arg0: string): any {
-    throw new Error('Method not implemented.');
-  }
+
 
 buscar(){
   this.resultados_libros(this.pagina,this.searchText)
@@ -127,7 +124,7 @@ resultados_libros(pagina:number,buscado){
         this.resultados = resultados;
         console.log(resultados)
       });
-      this.homeService.index(this.texto,this.carrera).subscribe((e)=>{
+      this.homeService.index(this.texto).subscribe((e)=>{
 
 
         console.log(e)
@@ -135,7 +132,7 @@ resultados_libros(pagina:number,buscado){
       })
      },
     error: (error) => {
-       this.toastrService.error('Error al buscar libros:', 'Fail', {
+       this.toastrService.error('Error al buscar libros:'+error, 'Fail', {
          timeOut: 3000,
          positionClass: 'toast-top-center',
        });}

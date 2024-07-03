@@ -1,8 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 
 
 import { AuthService } from '../roles/auth.service';
 import { RouterLink } from '@angular/router';
+import { Usuario } from '../interfaces/usuario.interface';
 
 
 @Component({
@@ -12,8 +13,8 @@ import { RouterLink } from '@angular/router';
   templateUrl: './nav-bar.component.html',
   styleUrls: ['./nav-bar.component.css']
 })
-export class NavBarComponent {
-  userInfo: any;
+export class NavBarComponent implements OnInit {
+  userInfo: Usuario;
   nombre =""
   rol= ""
   correo = ""
@@ -26,15 +27,7 @@ export class NavBarComponent {
     this.nombre = this.userInfo.nombre
     this.rol = this.userInfo.nombre_rol
     this.correo  = this.userInfo.email
-    await this.authService.frosbine().subscribe({
-      next(value) {
-        
-       
-      },error(err) {
-    localStorage.removeItem('token');
-          
-      },
-    })
+   
    
 
   }

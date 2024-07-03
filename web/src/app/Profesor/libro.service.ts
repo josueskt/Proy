@@ -1,35 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
+import { Libro } from '../interfaces/libro.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LibroService {
-  getLibrosPaginados(nombre: string, currentPage: number, itemsPerPage: number) {
-    throw new Error('Method not implemented.');
-  }
+ 
   base = environment.URL;
   private baseUrl = `${this.base}libro`;
   private baseUr = `${this.base}milibro`;
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getLibros(datos: string , page:number): Observable<any> {
-    return this.http.post(`${this.baseUr}?page=${page}`, { nombre: datos },);
+  getLibros(datos: string , page:number): Observable<Libro[]> {
+    return this.http.post<Libro[]>(`${this.baseUr}?page=${page}`, { nombre: datos },);
   }
   trear_paginacion(datos){
     return this.http.get(`${this.baseUr}?nombre=${datos}`);
     
   }
 
-  getLibro(id: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/${id}`);
+  getLibro(id: number): Observable<Libro> {
+    return this.http.get<Libro>(`${this.baseUrl}/${id}`);
   }
 
-  crearLibro(libro: any, file: File): Observable<any> {
+  crearLibro(libro: Libro, file: File): Observable<{ message: string; newFileName: string }> {
     const formData: FormData = new FormData();
     formData.append('libro', JSON.stringify(libro));
     if (file) {

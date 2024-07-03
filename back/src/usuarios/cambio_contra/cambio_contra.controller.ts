@@ -8,7 +8,7 @@ export class CambioContraController {
     constructor(private cambio:CambioContraService){}
     @Post()
     @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE'])
+    @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE','BIBLIOTECA'])
     cambio_contra(@Body()datos :cambio_contra){
         
    return this.cambio.Contra(datos.id,datos.contra)  

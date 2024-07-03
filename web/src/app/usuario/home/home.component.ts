@@ -1,11 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject ,AfterViewInit} from '@angular/core';
 import {  Router } from '@angular/router';
 import { HomeService } from './home.service';
 
-import { DataService } from '../data.service';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../roles/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { Carrera } from '../../interfaces/Carrera.interface';
+import { Usuario } from '../../interfaces/usuario.interface';
 
 @Component({
   selector: 'app-home',
@@ -14,18 +15,17 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit ,AfterViewInit {
 
-  showBuscador = false; // Inicialmente oculto
+  showBuscador = false; 
   ngAfterViewInit() {
-    // Simulación de un retraso (puedes ajustar esto según tus necesidades)
     setTimeout(() => {
-      this.showBuscador = true; // Mostrar el buscador después de un cierto tiempo
-    }, 10); // 1000 milisegundos = 1 segundo
+      this.showBuscador = true; 
+    }, 10); 
   }
 
-  userInfo: any;
-  carreras: any[] = [];
+  userInfo:Usuario
+  carreras: Carrera[] = [];
   searchText='';
   selectedCarrera = "Carrera";
 
@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
         this.carreras = carreras;
 
       },
-     error: (error) => {
+     error: () => {
         this.toastrService.error('Error al obtener las carreras:', 'Fail', {
           timeOut: 3000,
           positionClass: 'toast-top-center',

@@ -49,6 +49,12 @@ import { SecionesController } from './biblioteca/seciones/seciones.controller';
 import { DevolucionesBibliotecaController } from './biblioteca/devoluciones-biblioteca/devoluciones-biblioteca.controller';
 import { PrestamosController } from './biblioteca/prestamos/prestamos.controller';
 import { AlertasController } from './biblioteca/alertas/alertas.controller';
+import { EstantesService } from './admin/estantes/estantes.service';
+import { EstantesService } from './biblioteca/estantes/estantes.service';
+import { SecionesService } from './biblioteca/seciones/seciones.service';
+import { PrestamosService } from './biblioteca/prestamos/prestamos.service';
+import { DevolucionesBibliotecaService } from './biblioteca/devoluciones-biblioteca/devoluciones-biblioteca.service';
+import { AlertasService } from './biblioteca/alertas/alertas.service';
 
 
 
@@ -59,7 +65,7 @@ import { AlertasController } from './biblioteca/alertas/alertas.controller';
     provide: APP_PIPE,
     
     useClass: ValidationPipe, 
-  }, BuscadorService, AutorService, CambioContraService, DescargaService, CargaLLoteService, LibroTipoService,  PalabrasClaveService, EtiquetasService, ImagenService],
+  }, BuscadorService, AutorService, CambioContraService, DescargaService, CargaLLoteService, LibroTipoService,  PalabrasClaveService, EtiquetasService, ImagenService, EstantesService, SecionesService, PrestamosService, DevolucionesBibliotecaService, AlertasService],
 })
 export class AppModule {
  

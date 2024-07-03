@@ -4,6 +4,7 @@ import { AuthService } from '../roles/auth.service';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { Cambio_contra } from '../interfaces/cambio_contra.interface';
 
 @Component({
   selector: 'app-cambio-contra',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./cambio-contra.component.css']
 })
 export class CambioContraComponent {
- datos: { id: string, contra: string, repeatContra: string } = { id: '', contra: '', repeatContra: '' };
+ datos: Cambio_contra= { id: '', contra: '', repeatContra: '' };
  showPassword: boolean = false;
  showPassword2: boolean = false;
 
@@ -40,7 +41,7 @@ export class CambioContraComponent {
       // Validar la contraseña
       if (this.validarContrasena(this.datos.contra)) {
         this.cambio_pas.password(this.datos).subscribe({
-         next: (data) => {
+         next: () => {
             this.toastrService.success('Contraseña Actualizada', 'OK', {
               timeOut: 3000, positionClass: 'toast-top-center'
             });

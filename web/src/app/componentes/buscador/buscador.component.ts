@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {  Router } from '@angular/router';
 
 @Component({
   selector: 'app-buscador',
@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrl: './buscador.component.css'
 })
 export class BuscadorComponent {
-  searchText: string = ''; // Inicializa searchText como una cadena vacía
+  searchText: string = ''; 
   private router = inject(Router);
 
   buscar() {

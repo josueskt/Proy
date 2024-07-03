@@ -3,6 +3,8 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../roles/auth.service';
 import { environment } from '../../../../environments/environment';
+import { Libro } from '../../interfaces/libro.interface';
+import { Etiqueta } from '../../interfaces/Etiqueta.interface';
 
 
 @Injectable({
@@ -19,13 +21,13 @@ export class VistalibroService {
   user = this.u.id_user
 
 
-  traerTodas(id: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}libro/${id}`);
+  traerTodas(id: string): Observable<Libro[]> {
+    return this.http.get<Libro[]>(`${this.baseUrl}libro/${id}`);
   }
 
-  treer_etiqueta(id:string){
+  treer_etiqueta(id:string):Observable<Etiqueta[]>{
 
-    return this.http.get(`${this.baseUrl}etiquetas/${id}`);
+    return this.http.get<Etiqueta[]>(`${this.baseUrl}etiquetas/${id}`);
 
   }
 

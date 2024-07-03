@@ -8,7 +8,6 @@ export class CargaLLoteController {
 
   @Post()
   async carga_por_lote(@Body() body: carga_lote) {
-    console.log(body)
     const datos = body.datos;
     const id = body.id_user.id_user  
     
@@ -26,7 +25,6 @@ export class CargaLLoteController {
       
         index++;
       } while (index < datos.length);
-      console.log("libros creados")
  return {"mesage":"libros creados"}
     }catch(error){
       return error

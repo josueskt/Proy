@@ -17,11 +17,20 @@ export class AuthGuard implements CanActivate {
   ): boolean {
     const token = this.authService.getToken();
 
+     if(token){
+     
+      this.authService.frosbine().subscribe({ error() {
+    localStorage.removeItem('token');
+        window.location.reload()
+       
+      },})
+    }
     if (!token) {
       // No está autenticado, redirigir al login
       this.router.navigate(['/login']);
       return false;
     }
+   
 
     const userRole = this.authService.getUserRole();
 
