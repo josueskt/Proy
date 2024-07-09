@@ -73,8 +73,8 @@ export class LibroService {
             l.isbn,
             l.editorial,
             l.codigo,
-            e.nombre as estante
-            s.nombre as seccion
+            e.nombre as estante,
+            s.nombre as seccion,
             a.nombre as autor,
             p.nombre as profesor,
             c.nombre as carrera,
@@ -83,6 +83,8 @@ export class LibroService {
             right join libros.autor as a on l.fk_autor = a.id_autor
             right join libros.carrera as c on l.fk_carrera = c.id_carrera  
             LEFT JOIN libros.tipo as t on l.fk_tipo = t.id_tipo 
+            LEFT JOIN libros.seccion as s ON l.fk_seccion = s.id_seccion
+            LEFT JOIN libros.estante as e ON s.fk_estante = e.id_estante
             where id_libro = ($1)`, [id])
             if (reslut.length === 0) {
                 return "no existe el id de esta carrera "

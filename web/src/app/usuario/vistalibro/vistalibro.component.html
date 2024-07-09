@@ -94,14 +94,15 @@
               </div>
             </div>
             <p><strong>Descripción:</strong> {{libro.review}}</p>
+            @if(libro.tipo ==='FISICO'){
+              <p>Ubicacion:</p>
+              <p><strong>Estante:{{libro.estante}}</strong></p>
+              <p><strong>Seccion:{{libro.seccion}}</strong></p>
+             
+              <p><strong>Codigo:{{libro.codigo}}</strong></p>
+            }
           </div>
-          @if(libro.tipo ==='FISICO'){
-            <p>Ubicacion:</p>
-            <p><strong>Estante</strong></p>
-            <p><strong>Seccion</strong></p>
-           
-            <p><strong>Codigo</strong></p>
-          }
+         
         </div>
       </div>
       
@@ -140,7 +141,7 @@
     sandbox="allow-same-origin allow-scripts allow-forms" />
 
 
-  }@else {
+  }@else if(libro.tipo ==='URL') {
   <div>
     <embed oncontextmenu="return false;" [src]="urlSegura" width="100%" (error)="error_carga_pdf()" height="1200px"
       type="application/pdf" sandbox="allow-same-origin allow-scripts allow-forms">

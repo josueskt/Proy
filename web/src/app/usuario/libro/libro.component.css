@@ -6,6 +6,20 @@
   overflow-x: hidden;
 }
 
+.card-img-container {
+  max-width: 350px; /* Ajusta este valor según tus necesidades */
+  max-height: 460px; /* Ajusta este valor según tus necesidades */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-img-container img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
 
 
 .gallery-container {
@@ -15,20 +29,10 @@
   padding: 20px;
   grid-gap: 15px;
 }
-.titulo{
-  border-radius: 15px;
-  color: black;
-  background-color: white;
-  font-family: 'Syne Tactile', sans-serif;
-}
 
 
-.gallery__img {
-  width: 100%;
-  height: 400px; /* Ajusta la altura según el contenido */
-  object-fit: cover;
-  border-radius: 15px;
-}
+
+
 
 .gallery__item {
   position: relative;

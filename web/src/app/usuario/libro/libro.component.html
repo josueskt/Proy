@@ -64,13 +64,33 @@
 <div class="gallery-container" #contenedorLibros>
   <!-- Utiliza un bucle para mostrar solo los resultados de la página actual -->
   @for (libro of resultados; track libro) {
-    <div class="card mb-3">
-      <h6 class="card-title d-flex justify-content-center align-items-center">{{ libro.titulo | uppercase }}</h6>
-      <img class="card-img-top" [src]="libro.imagen" (error)="eror_carga_imagen(libro)" alt="Portada del libro">
-      <div class="card-body d-flex justify-content-center align-items-center">
-        <a [routerLink]="['/user/libro', libro.id_libro]" class="btn btn-warning">Ver libro</a>
+    @if (libro.tipo ==='FISICO') {
+      <div class="card mb-3">
+        <h6 class="card-title d-flex justify-content-center align-items-center">{{ libro.titulo | uppercase }}</h6>
+        <div class="card-img-container">
+          <img class="card-img-top img-fluid" [src]="libro.imagen" (error)="eror_carga_imagen(libro)" alt="Portada del libro">
       </div>
+        <div class="title bg-danger">En la biblioteca</div>
+        <div class="card-body d-flex justify-content-center align-items-center">
+          <a [routerLink]="['/user/libro', libro.id_libro]" class="btn btn-warning">Ver libro</a>
+        </div>
+      </div>
+    }@else {
+      <div class="card mb-3">
+        <h6 class="card-title d-flex justify-content-center align-items-center text-truncate" style="max-width: 200px;">
+            {{ libro.titulo | uppercase }}
+        </h6>
+        <div class="card-img-container">
+            <img class="card-img-top img-fluid" [src]="libro.imagen" (error)="eror_carga_imagen(libro)" alt="Portada del libro">
+        </div>
+        <div class="card-body d-flex justify-content-center align-items-center">
+            <a [routerLink]="['/user/libro', libro.id_libro]" class="btn btn-warning">Ver libro</a>
+        </div>
     </div>
+    
+    }
+    
+
   }
 
 </div>

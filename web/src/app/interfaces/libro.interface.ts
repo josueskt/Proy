@@ -11,4 +11,7 @@ export interface Libro {
     year_of_publication:string
     profesor:string
     review:string
+    estante:string
+    seccion:string
+    codigo:string
 }
