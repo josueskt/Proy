@@ -49,12 +49,18 @@
        
       </div>
       }@else if (libro.tipo==='URL') {
+        <div class="d-flex justify-content-center">
       <a href='{{libro.nombre_archivo}}' target="_blank" class="btn btn-primary">
         <button class="btn btn-warning btn-lg">Ir al link del pdf</button>
       </a>
+        </div>
       }@else if (libro.tipo ==='FISICO') {
 
-        <button>reserver</button>
+        <div class="d-flex justify-content-center">
+        <a href='{{libro.nombre_archivo}}' target="_blank" class="">
+          <button class="btn btn-warning btn-lg">reservar</button>
+        </a>
+        </div>
       }
     
     </div>
@@ -89,6 +95,13 @@
             </div>
             <p><strong>Descripción:</strong> {{libro.review}}</p>
           </div>
+          @if(libro.tipo ==='FISICO'){
+            <p>Ubicacion:</p>
+            <p><strong>Estante</strong></p>
+            <p><strong>Seccion</strong></p>
+           
+            <p><strong>Codigo</strong></p>
+          }
         </div>
       </div>
       

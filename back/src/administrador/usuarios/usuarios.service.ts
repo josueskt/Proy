@@ -73,7 +73,7 @@ export class UsuariosService {
       return new MessageDto('Estado actualizado');
     } else {
 
-
+      
 
       await this.sql.query('UPDATE inst.usuario SET nombre = $1 , email  = $2 , fk_rol = $3 WHERE id_user = $4', [datos.nombre, datos.email, datos.fk_rol, id]);
 

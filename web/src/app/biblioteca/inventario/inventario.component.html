@@ -1,1 +1,47 @@
-<p>inventario works!</p>
+<div class="container mt-5">
+    <h1 class="text-xl font-bold mb-4">Cargar libros desde Excel</h1>
+    <div class="mb-3">
+        <input type="file" class="form-control" (change)="handleFileInput($event)" />
+    </div>
+    <button class="btn btn-primary mt-3" (click)="procesarArchivo()" [disabled]="!archivoSeleccionado">Procesar Archivo</button>
+</div>
+
+<div class="container mt-5">
+    <div class="mb-3">
+        <input [(ngModel)]="buscar_l" (keyup)="buscar()" type="text" placeholder="Buscar libro" class="form-control" />
+    </div>
+    <p class="mb-2">Lista de libros</p>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Código</th>
+                <th>Eliminar</th>
+                <th>Editar</th>
+                <th>Historial</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (item of libros; track $index) {
+                <tr>
+                    <td>{{item.titulo}}</td>
+                    <td>{{item.codigo}}</td>
+                    <td>
+                        <button class="btn btn-danger" (click)="eliminar(item.id_libro)">Eliminar</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-info">Editar</button>
+                    </td>
+                    <td>
+                        <a href='admin/historial/{{item.id_libro}}' class="text-primary">Ver historial de préstamo</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="d-flex justify-content-between mt-4">
+        <button class="btn btn-secondary" (click)="atras()">Atrás</button>
+        <button class="btn btn-secondary" (click)="siguiente()">Siguiente</button>
+    </div>
+</div>

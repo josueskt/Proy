@@ -1,12 +1,94 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { SeccioneSericeService } from '../seccione-serice.service';
 
 @Component({
   selector: 'app-editar-seccion',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule,FormsModule],
   templateUrl: './editar-seccion.component.html',
   styleUrl: './editar-seccion.component.css'
 })
 export class EditarSeccionComponent {
+  private route = inject(ActivatedRoute)
+  private fb = inject(FormBuilder)
+  buscador = ''
+
+  libros_sin_asignar:{id_libro:string,codigo:string}[] = []
+  libros_asignados:{id_libro:string,codigo:string}[] = []
+  seccion!:FormGroup
+
+
+  libros_agregados:string[] = []  
+  libros_eliminados:string[] = []
+estados: { [key: string]: string } = {};
+
+
+private seccion_s = inject(SeccioneSericeService)
+id!:string
+  ngOnInit(): void {
+    this.seccion =  this.fb.group({nombre:[''],fk_estante:[this.id]})
+
+    this.route.params.subscribe(params => {
+      this.id = params['id'];
+      
+    });
+    this.trear_Libros_sin_asignar(this.buscador)
+    this.traer_libros_asignados(this.id)
+  }
+
+traer_libros_asignados(id_seccion:string){
+
+    this.seccion_s.traer_libros_asignados(this.id).subscribe((e:any)=>{
+this.libros_asignados = e
+
+    })
+  }
+trear_Libros_sin_asignar(buscador:string){
+ 
+  this.seccion_s.traer_libros_no_a(buscador).subscribe((e:any)=>{
+    this.libros_sin_asignar = e
+    console.log(e)
+  })
+}
+
+cambiarEstado_libros_agregados(id: string) {
+  if (this.estados[id] === '-') {
+    this.estados[id] = '+';
+    let index = this.libros_agregados.indexOf(id);
+
+     this.libros_agregados.splice(index, 1);
+     console.log(this.libros_agregados)
+
+  } else {
+    this.estados[id] = '-';
+    this.libros_agregados.push(id)
+    console.log(this.libros_agregados)
+  }
+}
+cambiarEstado_libros_elimanados(id: string) {
+  if (this.estados[id] === '-') {
+    this.estados[id] = '+';
+    let index = this.libros_eliminados.indexOf(id);
+
+     this.libros_eliminados.splice(index, 1);
+     console.log(this.libros_eliminados)
+
+  } else {
+    this.estados[id] = '-';
+    this.libros_eliminados.push(id)
+    console.log(this.libros_eliminados)
+    
+  }
+  
+}
+
+
+
+editar_secion(){
+  this.seccion_s.editar(this.id,this.libros_agregados,this.libros_eliminados,this.seccion.value).subscribe((e:any)=>{alert(e.message[0]); window.location.reload()})
+
+}
 
 }

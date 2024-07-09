@@ -2,3 +2,11 @@ crea cion de un usuario
 INSERT INTO inst.usuario(id_user,email,password,nombre,fk_rol,activo)VALUES('1234','admin@hot.com','$2b$10$Y8UaBFeT2SZZS491FaTfsOMp59W2lqrHvijQ7fdW1dvvpcWyyPYBi','admin',1,true) 
 creacion de un rol 
 INSERT INTO inst.rol(nombre_rol)VALUES('ADMINISTRADOR'),('PROFESOR'),('ESTUDIANTE'),('BIBLIOTECA')
+
+
+
+treas faltaltantes 
+configuracion de libro id :admin/libro 
+
+modificacion de rol a visitante , biblitoeca registra  visitante 
+modificacion de tabla libto cantidad 

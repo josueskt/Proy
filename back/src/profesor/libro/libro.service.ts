@@ -59,6 +59,8 @@ export class LibroService {
     }
 
     async by_id(id: number): Promise<any> {
+
+      //consultar  tablas de seccion y estante , ponerlas  en el join y llevarlas para ver quie c  hace 
         try {
             const reslut = await this.sql.query(`
             select
@@ -71,6 +73,8 @@ export class LibroService {
             l.isbn,
             l.editorial,
             l.codigo,
+            e.nombre as estante
+            s.nombre as seccion
             a.nombre as autor,
             p.nombre as profesor,
             c.nombre as carrera,

@@ -9,6 +9,7 @@ import { EditarSeccionComponent } from "../biblioteca/seccion/editar-seccion/edi
 import { PrestamosComponent } from "../biblioteca/prestamos/prestamos.component";
 import { DevolucionesComponent } from "../biblioteca/devoluciones/devoluciones.component";
 import { InventarioComponent } from "../biblioteca/inventario/inventario.component";
+import { SeccionesComponent } from "../biblioteca/secciones/secciones.component";
 
 export const routesBilbioteca: Routes = [
 
@@ -32,8 +33,12 @@ component :BibliotecaComponent,
                 path: 'estantes/editar/:id',
                 component: EditarEstanteComponent
             }, {
-                path: 'secciones',
-                component: SeccionComponent
+                path: 'seccion/:id',
+                component: EditarSeccionComponent
+            },
+             {
+                path: 'secciones/:id',
+                component: SeccionesComponent
             },
             {
                 path: 'secciones/editar/:id',

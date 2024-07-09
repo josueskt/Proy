@@ -1,1 +1,78 @@
-<p>editar-seccion works!</p>
+<div class="grid grid-cols-3 gap-4">
+    <div class="bg-blue-50 p-4">
+        <h1 class="text-xl font-bold mb-4">Libros asignados a la sección</h1>
+        <table class="w-full">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2">Código</th>
+                    <th class="px-4 py-2">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of libros_asignados; track $index) {
+                    <tr>
+                        <td class="px-4 py-2">{{ item.codigo }}</td>
+                        <td class="px-4 py-2">
+                            @if (estados[item.id_libro] === '+'){
+                                <button class="bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-2 rounded" (click)="cambiarEstado_libros_elimanados(item.id_libro)">
+                                    <span class="inline-block w-6 h-6 text-center">{{ estados[item.id_libro] || '+' }}</span>
+                                </button>
+                            }@else if (estados[item.id_libro] === '-'){
+                                <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded" (click)="cambiarEstado_libros_elimanados(item.id_libro)">
+                                    <span class="inline-block w-6 h-6 text-center">{{ estados[item.id_libro] || '+' }}</span>
+                                </button>
+                            }@else{
+                                <button class="bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-2 rounded" (click)="cambiarEstado_libros_elimanados(item.id_libro)">
+                                    <span class="inline-block w-6 h-6 text-center">{{ estados[item.id_libro] || '+' }}</span>
+                                </button>
+                }
+                        </td>
+                    </tr>
+                } 
+            </tbody>
+        </table>
+    </div>
+
+    <div class="bg-gray-200 p-4">
+        <h1 class="text-xl font-bold mb-4">Libros sin asignar</h1>
+        <p class="mb-2">Buscar libro</p>
+        <input type="text" class="mb-4 p-2 border border-gray-300 rounded" (keyup)="trear_Libros_sin_asignar(buscador)" [(ngModel)]="buscador" placeholder="Buscar libro">
+
+        <table class="w-full">
+            <thead>
+                <tr>
+                    <th class="px-4 py-2">Código</th>
+                    <th class="px-4 py-2">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (item of libros_sin_asignar; track $index) {
+                    <tr>
+                        <td class="px-4 py-2">{{ item.codigo }}</td>
+                        <td class="px-4 py-2">
+                            @if (estados[item.id_libro] === '+'){
+                                <button class="bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-2 rounded" (click)="cambiarEstado_libros_agregados(item.id_libro)">
+                                    <span class="inline-block w-6 h-6 text-center">{{ estados[item.id_libro] || '+' }}</span>
+                                </button>
+                            }@else if (estados[item.id_libro] === '-'){
+                                <button class="bg-red-500 hover:bg-red-600 text-white font-semibold py-1 px-2 rounded" (click)="cambiarEstado_libros_agregados(item.id_libro)">
+                                    <span class="inline-block w-6 h-6 text-center">{{ estados[item.id_libro] || '+' }}</span>
+                                </button>
+                            }@else{
+                                <button class="bg-green-500 hover:bg-green-600 text-white font-semibold py-1 px-2 rounded" (click)="cambiarEstado_libros_agregados(item.id_libro)">
+                                    <span class="inline-block w-6 h-6 text-center">{{ estados[item.id_libro] || '+' }}</span>
+                                </button>
+                            }
+                        </td>
+                    </tr>
+                } 
+            </tbody>
+        </table>
+    </div>
+
+    <form [formGroup]="seccion" (ngSubmit)="editar_secion()" class="bg-blue-50 p-4">
+        <label for="nombre" class="block mb-2 text-xl font-bold">Nombre de la sección</label>
+        <input formControlName="nombre" autocomplete="off" type="text" id="nombre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-4" placeholder="Cambiar nombre a sección">
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Actualizar</button>
+    </form>
+</div>
