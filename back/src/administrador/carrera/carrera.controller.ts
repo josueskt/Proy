@@ -42,8 +42,8 @@ export class CarreraController {
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR'])
     editar(@Param("id") id :number , @Body( ) datos:any) {
-       
-        return this.carrera.editar(id , datos)
+       console.log(datos)
+       return this.carrera.editar(id , datos)
 
     }
 

@@ -14,4 +14,5 @@ export interface Libro {
     estante:string
     seccion:string
     codigo:string
+    cantidad:number
 }

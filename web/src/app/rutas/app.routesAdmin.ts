@@ -8,6 +8,7 @@ import { AdministradorComponent } from '../Administrador/administrador.component
 import { LibroTipoComponent } from '../Administrador/libro-tipo/libro-tipo.component';
 import { EditarUsuarioComponent } from '../Administrador/editar-usuario/editar-usuario.component';
 import { CrearUsuarioComponent } from '../Administrador/crear-usuario/crear-usuario.component';
+import { EditarCarreaComponent } from '../Administrador/carrera/editar-carrea/editar-carrea.component';
 
 
 export const routesAdmin: Routes = [
@@ -33,6 +34,10 @@ export const routesAdmin: Routes = [
       {
         path: 'carrera',
         component: CarreraComponent,
+      },
+      {
+        path: 'carrera/:id',
+        component: EditarCarreaComponent,
       },
 
       {

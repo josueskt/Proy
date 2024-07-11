@@ -35,7 +35,7 @@ export class CarreraService {
     });
   }
 
-  editarCarrera(id: number, nuevosDatos: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${id}`, nuevosDatos);
+  editarCarrera(id: string, Datos: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${id}`, Datos);
   }
 }
