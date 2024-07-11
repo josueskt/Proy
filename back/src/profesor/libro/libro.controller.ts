@@ -33,7 +33,7 @@ export class LibroController {
   }
   @Get(':id')
   @UseGuards(RolesGuard)
-  @SetMetadata('roles', ['PROFESOR', 'ADMINISTRADOR', 'ESTUDIANTE'])
+  @SetMetadata('roles', ['PROFESOR', 'ADMINISTRADOR', 'ESTUDIANTE','BIBLIOTECA'])
   by_id(@Param('id') id: number) {
     return this.libro.by_id(id);
   }

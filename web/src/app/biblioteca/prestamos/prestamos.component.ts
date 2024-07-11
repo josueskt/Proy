@@ -18,7 +18,7 @@ export class PrestamosComponent {
   buscador:string=''
   libros:Libro[] =[] 
 
-  cliente:{cedula:string,nombres:string}={cedula:'',nombres:''}
+  cliente:{id_user:string,nombre:string}={id_user:'',nombre:''}
   cliente_valido:boolean = true
   fk_libro_a_prestar = '' 
   cedula = ''

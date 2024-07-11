@@ -44,7 +44,7 @@ export class PrestamosService {
                
        await this.sql.query('UPDATE libros.libro SET cantidad =$1 WHERE id_libro = $2',[valor,prestamo.fk_libro])
        
-       await this.sql.query('INSERT INTO tramites.prestamo_libro(fecha_prestamo,fk_usuario,fk_libro,fk_estado)VALUES (CURRENT_TIMESTAMP,$1,$2,$3)',[prestamo.fk_cliente,prestamo.fk_libro,1])
+       await this.sql.query('INSERT INTO tramites.prestamo_libro(fecha_reserva,fk_usuario,fk_libro,fk_estado)VALUES (CURRENT_TIMESTAMP,$1,$2,$3)',[prestamo.fk_cliente,prestamo.fk_libro,1])
        
        
            return new MessageDto("prestamo exitoso")

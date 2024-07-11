@@ -55,12 +55,19 @@
       </a>
         </div>
       }@else if (libro.tipo ==='FISICO') {
-
-        <div class="d-flex justify-content-center">
-        <a href='{{libro.nombre_archivo}}' target="_blank" class="">
-          <button class="btn btn-warning btn-lg">reservar</button>
-        </a>
-        </div>
+        @if (libro.cantidad > 0) {
+          <div class="d-flex justify-content-center">
+            <a href='{{libro.nombre_archivo}}' target="_blank" class="">
+              <button class="btn btn-warning btn-lg">reservar</button>
+            </a>
+            </div>
+        }
+        @else {
+          <div class="d-flex justify-content-center">
+            <p class="bg-danger">libro prestado o  no dispinible </p>
+            </div>
+        }
+       
       }
     
     </div>

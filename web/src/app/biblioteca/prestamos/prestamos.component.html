@@ -10,7 +10,7 @@
         @if(item.cantidad >= 1){
             <button (click)="openModal(item.id_libro)" class="bg-blue-500 text-white px-4 py-2 rounded">Prestar</button>
         }@else{
-            <p class="bg-red-500 text-white px-4 py-2 rounded">Libro no disponible</p>
+            <p class="bg-danger text-white px-4 py-2 rounded">Libro no disponible</p>
         }
     </div>
     
@@ -56,8 +56,8 @@
 
 <div>
     cliente: 
-     cedula :  {{cliente.cedula}}
-    nombre :  {{cliente.nombres}}
+     cedula :  {{cliente.id_user}}
+    nombre :  {{cliente.nombre}}
 </div>
 
 

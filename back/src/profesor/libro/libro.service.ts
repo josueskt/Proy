@@ -71,6 +71,7 @@ export class LibroService {
             l.nombre_archivo ,
             l.titulo,
             l.isbn,
+            l.cantidad,
             l.editorial,
             l.codigo,
             e.nombre as estante,

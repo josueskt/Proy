@@ -9,7 +9,7 @@ export class PrestamoService {
 
   base = environment.URL;
   private baseUrl =  `${this.base}prestamos`;
-  private baseUrl2 =  `${this.base}usuario`;
+  private baseUrl2 =  `${this.base}prestamos/usuario`;
 
   constructor(private http: HttpClient) {}
 
