@@ -1,7 +1,6 @@
 import { Module, ValidationPipe } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-
 import { SqlService } from './sql/sql.service';
 import { CarreraController } from './administrador/carrera/carrera.controller';
 import { MateriaController } from './administrador/materia/materia.controller';
@@ -9,10 +8,7 @@ import { UsuariosController } from './administrador/usuarios/usuarios.controller
 import { EstadisticasController } from './administrador/estadisticas/estadisticas.controller';
 import { LibroController } from './profesor/libro/libro.controller';
 import { LoginController } from './login/login.controller';
-
 import { BuscadorController } from './usuarios/buscador/buscador.controller';
-
-
 import { CarreraService } from './administrador/carrera/carrera.service';
 import { EstadisticasService } from './administrador/estadisticas/estadisticas.service';
 import { MateriaService } from './administrador/materia/materia.service';
@@ -22,10 +18,8 @@ import { UsuariosService } from './administrador/usuarios/usuarios.service';
 import { APP_PIPE } from '@nestjs/core';
 import { BuscadorService } from './usuarios/buscador/buscador.service';
 import { DescargaController } from './usuarios/descarga/descarga.controller';
-
 import { AutorController } from './profesor/autor/autor.controller';
 import { AutorService } from './profesor/autor/autor.service';
-
 import { CambioContraController } from './usuarios/cambio_contra/cambio_contra.controller';
 import { CambioContraService } from './usuarios/cambio_contra/cambio_contra.service';
 import { MilibroController } from './profesor/libro/milibro/milibro.controller';
@@ -34,7 +28,6 @@ import { CargaLLoteController } from './administrador/carga_l_lote/carga_l_lote.
 import { CargaLLoteService } from './administrador/carga_l_lote/carga_l_lote.service';
 import { LibroTipoController } from './administrador/libro_tipo/libro_tipo.controller';
 import { LibroTipoService } from './administrador/libro_tipo/libro_tipo.service';
-
 import { PalabrasClaveService } from './administrador/palabras-clave/palabras-clave.service';
 import { EtiquetasController } from './usuarios/etiquetas/etiquetas.controller';
 import { EtiquetasService } from './usuarios/etiquetas/etiquetas.service';
@@ -44,12 +37,10 @@ import { LibrosFisicosController } from './usuarios/fisico/libros-fisicos/libros
 import { UsuarioPrestamosController } from './usuarios/fisico/prestamos/prestamos.controller';
 import { MisprestamosController } from './usuarios/fisico/misprestamos/misprestamos.controller';
 import { EstantesController } from './biblioteca/estantes/estantes.controller';
-import { SecionesController } from './biblioteca/seciones/seciones.controller';
 import { DevolucionesBibliotecaController } from './biblioteca/devoluciones-biblioteca/devoluciones-biblioteca.controller';
 import { PrestamosController } from './biblioteca/prestamos/prestamos.controller';
 import { AlertasController } from './biblioteca/alertas/alertas.controller';
 import { EstantesService } from './biblioteca/estantes/estantes.service';
-import { SecionesService } from './biblioteca/seciones/seciones.service';
 import { PrestamosService } from './biblioteca/prestamos/prestamos.service';
 import { DevolucionesBibliotecaService } from './biblioteca/devoluciones-biblioteca/devoluciones-biblioteca.service';
 import { AlertasService } from './biblioteca/alertas/alertas.service';
@@ -57,6 +48,8 @@ import { RegistroUsuarioController } from './administrador/registro-usuario/regi
 import { RegistroUsuarioService } from './administrador/registro-usuario/registro-usuario.service';
 import { InventarioController } from './biblioteca/inventario/inventario.controller';
 import { InventarioService } from './biblioteca/inventario/inventario.service';
+import { SecionesService } from './biblioteca/seciones/seciones.service';
+import { SecionesController } from './biblioteca/seciones/seciones.controller';
 
 
 
