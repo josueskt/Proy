@@ -27,4 +27,13 @@ constructor(private prestamoS:PrestamosService){}
 
 
   }
+  @Get(':id')
+  @UseGuards(RolesGuard)
+  @SetMetadata('roles', ['BIBLIOTECA'])
+ 
+  traer_historial_prestamo(@Param('id') id: string) {
+
+    return this.prestamoS.historial_prestamo(id)
+
+  }
 }

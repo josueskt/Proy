@@ -59,6 +59,13 @@ export class PrestamosService {
        
        
        }
+
+
+       async historial_prestamo(id:string){
+
+        return  await this.sql.query('SELECT b.titulo, p.fecha_reserva,p.observaciones,c.id_user ,c.nombre , c.email FROM libros.libro as b LEFT JOIN tramites.prestamo_libro as p ON b.id_libro =p.fk_libro LEFT JOIN inst.usuario as c ON  p.fk_usuario = c.id_user where b.id_libro =$1',[id] )
+        
+        }
        
 
 }

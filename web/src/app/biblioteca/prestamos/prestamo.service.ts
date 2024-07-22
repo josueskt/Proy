@@ -29,4 +29,7 @@ buscador_libros_disponibles(buscador:string){
 return this.http.get(`${this.baseUrl}/libros?libro=${buscador}`)
 
 }
+historial(id:string){
+  return this.http.get(`${this.baseUrl}/${id}`)
+}
 }

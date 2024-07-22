@@ -1,28 +1,41 @@
-<div class="p-5"></div>
-<form [formGroup]="estante" (ngSubmit)="crear()" class="mb-8">
-    <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Nombre del estante</label>
-    <input formControlName="nombre" autocomplete="off" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nombre del estante" />
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2" type="submit">Crear</button>
-</form>
-
-<div>
-    <table class="w-full border-collapse border border-gray-300">
-        <thead>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form [formGroup]="estante" (ngSubmit)="crear()" class="card p-4 shadow-sm rounded">
+          <div class="mb-3">
+            <label for="first_name" class="form-label">Nombre del estante</label>
+            <input formControlName="nombre" autocomplete="off" type="text" id="first_name" class="form-control" placeholder="Nombre del estante" />
+          </div>
+          <button class="btn btn-primary w-100 mt-3" type="submit">Crear</button>
+        </form>
+      </div>
+    </div>
+  
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-10">
+        <table class="table table-bordered table-hover text-center">
+          <thead class="table-light">
             <tr>
-                <th class="px-4 py-2 bg-gray-200 text-left">Nombre del estante</th>
-                <th class="px-4 py-2 bg-gray-200 text-left">Eliminar</th>
-                <th class="px-4 py-2 bg-gray-200 text-left">Ver secciones</th>
+              <th>Nombre del estante</th>
+              <th>Eliminar</th>
+              <th>Ver secciones</th>
             </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
             @for (item of lista_estante; track $index) {
-                <tr class="{{ $index % 2 === 0 ? 'bg-gray-100' : 'bg-white' }}">
-                    <td class="px-4 py-2">{{ item.nombre }}</td>
-                    <td class="px-4 py-2"><button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="eliminar_estante(item.id_estante)">Eliminar</button></td>
-                    <td class="px-4 py-2"><a href='biblioteca/secciones/{{item.id_estante}}' class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Ver secciones del estante</a></td>
-                </tr>
+              <tr class="{{ $index % 2 === 0 ? 'table-secondary' : '' }}">
+                <td>{{ item.nombre }}</td>
+                <td>
+                  <button class="btn btn-danger" (click)="eliminar_estante(item.id_estante)">Eliminar</button>
+                </td>
+                <td>
+                  <a href='biblioteca/secciones/{{item.id_estante}}' class="btn btn-warning">Ver secciones del estante</a>
+                </td>
+              </tr>
             }
-        </tbody>
-    </table>
-
-</div>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

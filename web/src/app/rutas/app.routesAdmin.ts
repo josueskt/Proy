@@ -9,6 +9,7 @@ import { LibroTipoComponent } from '../Administrador/libro-tipo/libro-tipo.compo
 import { EditarUsuarioComponent } from '../Administrador/editar-usuario/editar-usuario.component';
 import { CrearUsuarioComponent } from '../Administrador/crear-usuario/crear-usuario.component';
 import { EditarCarreaComponent } from '../Administrador/carrera/editar-carrea/editar-carrea.component';
+import { ReporteLibrosComponent } from '../Administrador/reporte-libros/reporte-libros.component';
 
 
 export const routesAdmin: Routes = [
@@ -52,7 +53,11 @@ export const routesAdmin: Routes = [
       },{
         path:'editar_usuario/:id',
         component:EditarUsuarioComponent,canActivate:[AuthGuard]
-      }
+      },
+      {
+        path: 'reportes',
+        component: ReporteLibrosComponent,
+      },
     ]
   }
 ];

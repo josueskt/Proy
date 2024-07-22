@@ -1,29 +1,41 @@
-
-<div class="p-5"></div>
-<form [formGroup]="seccion" (ngSubmit)="crear()" class="mb-8">
-    <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Nombre de la sección</label>
-    <input formControlName="nombre" autocomplete="off" type="text" id="nombre" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Nombre de la sección" />
-    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2" type="submit">Crear</button>
-</form>
-
-
-<table class="w-full border-collapse border border-gray-300 mb-8">
-    <thead>
-        <tr class="bg-gray-200">
-            <th class="px-4 py-2">Nombre</th>
-            <th class="px-4 py-2">Editar</th>
-            <th class="px-4 py-2">Eliminar</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (item of secciones; track $index) {
-            <tr class="{{ $index % 2 === 0 ? 'bg-gray-100' : 'bg-white' }}">
-                <td class="px-4 py-2">{{ item.nombre }}</td>
-                <td class="px-4 py-2  "><a href='biblioteca/seccion/{{ item.id_seccion }}' class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Editar</a></td>
-                <td class="px-4 py-2"><button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" (click)="elimiar(item.id_seccion)">Eliminar</button></td>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form [formGroup]="seccion" (ngSubmit)="crear()" class="card p-4 shadow-sm rounded mb-4">
+          <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre de la sección</label>
+            <input formControlName="nombre" autocomplete="off" type="text" id="nombre" class="form-control" placeholder="Nombre de la sección" />
+          </div>
+          <button class="btn btn-primary w-100 mt-3" type="submit">Crear</button>
+        </form>
+      </div>
+    </div>
+  
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <table class="table table-bordered table-hover text-center mb-4">
+          <thead class="table-light">
+            <tr>
+              <th>Nombre</th>
+              <th>Editar</th>
+              <th>Eliminar</th>
             </tr>
-        }
-    </tbody>
-</table>
-
-
+          </thead>
+          <tbody>
+            @for (item of secciones; track $index) {
+              <tr class="{{ $index % 2 === 0 ? 'table-secondary' : '' }}">
+                <td>{{ item.nombre }}</td>
+                <td>
+                  <a href='biblioteca/seccion/{{ item.id_seccion }}' class="btn btn-warning">Editar</a>
+                </td>
+                <td>
+                  <button class="btn btn-danger" (click)="elimiar(item.id_seccion)">Eliminar</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  

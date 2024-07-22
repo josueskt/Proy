@@ -1,122 +1,131 @@
-
 <div class="container mt-3">
-  
-  <form [formGroup]="miFormulario" (ngSubmit)="crearLibro()" class="row">
-      
-      <!-- Titulo y Codigo -->
-      <div >
-        <div class="fondo-plomo-transparente">
-          <h2 class="mb-4">Formulario de Creación de Libros</h2>
-      
-          <form [formGroup]="miFormulario" (ngSubmit)="crearLibro()" class="row">
-            <!-- Titulo -->
-            <div class="col-md-6 form-group">
-              <label for="titulo">Título:</label>
-              <input type="text" id="titulo" formControlName="titulo" class="form-control" placeholder="Ingrese el título" />
-              @if (validator_titulo) {
-              <div class="text-danger mt-2">{{validator_titulo}}</div>
-              }
+
+    <form [formGroup]="miFormulario" (ngSubmit)="crearLibro()" class="row">
+
+        <!-- Titulo y Codigo -->
+        <div>
+            <div class="fondo-plomo-transparente">
+                <h2 class="mb-4">Formulario de Creación de Libros</h2>
+
+                <form [formGroup]="miFormulario" (ngSubmit)="crearLibro()" class="row">
+                    <!-- Titulo -->
+                    <div class="col-md-6 form-group">
+                        <label for="titulo">Título:</label>
+                        <input type="text" id="titulo" formControlName="titulo" class="form-control"
+                            placeholder="Ingrese el título" />
+                        @if (validator_titulo) {
+                        <div class="text-danger mt-2">{{validator_titulo}}</div>
+                        }
+                    </div>
+
+                    <!-- Editorial e Imagen -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="editorial">Editorial:</label>
+                            <input type="text" id="editorial" formControlName="editorial" class="form-control"
+                                placeholder="Ingrese el nombre de la editorial" />
+                            @if (validator_editorial) {
+                            <div class="text-danger mt-2">{{validator_editorial}}</div>
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="imagen">Imagen URL:</label>
+                        <input type="text" id="imagen" formControlName="imagen" class="form-control"
+                            placeholder="Ingrese la URL de la imagen" />
+                        @if (validator_imagen) {
+                        <div class="text-danger mt-2">{{validator_imagen}}</div>
+                        }
+                    </div>
+
+
+                    <!-- ISBN y Autor -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="isbn">ISBN:</label>
+                            <input type="text" id="isbn" formControlName="isbn" class="form-control"
+                                placeholder="Ingrese el ISBN" />
+                            @if (validator_isbn) {
+                            <div class="text-danger mt-2">{{validator_isbn}}</div>
+                            }
+                        </div>
+                        <div class="form-group">
+                            <label for="fk_autor">Autor:</label>
+                            <select class="form-select" id="fk_autor" formControlName="fk_autor">
+                                @for (autor of autors; track autor) {
+                                <option [value]="autor.id_autor">{{ autor.nombre }}</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Carrera y Tipo de Libro -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="fk_carrera">Carrera:</label>
+                            <select class="form-select" id="fk_carrera" formControlName="fk_carrera">
+                                @for (carrera of carrer; track carrera) {
+                                <option [value]="carrera.id_carrera">{{ carrera.nombre }}</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo">Tipo de Libro:</label>
+                            <select class="form-select" id="tipo" formControlName="tipo" (change)="cambio($event)">
+                                @for (tipo of tipos; track tipo) {
+                                <option [value]="tipo.id_tipo">{{ tipo.nombre }}</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Opciones adicionales -->
+                    <div class="col-md-6">
+                        <!-- Seleccionar Archivo -->
+                        @if(tipo_selected ==='PDF'){
+                        <div class="col-md-12 form-group text-center">
+                            <input type="file" id="archivo" (change)="onFileSelected($event)"
+                                class="form-control-file" />
+                        </div>
+                        }@else if(tipo_selected ==='URL'){
+                        <div class="col-md-12 form-group">
+                            <label for="archivo_url">ULR del archivo:</label>
+                            <input type="text" id="archivo_url" formControlName="archivo_url" class="form-control"
+                                placeholder="Ingrese la url donde se encuentra el libro" />
+                        </div>
+                        }
+                        @else {
+                        <div></div>
+                        }
+                        <!-- Aquí puedes agregar el código para el cambio entre archivo y URL -->
+                    </div>
+
+                    <!-- Palabras clave -->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="palabras">Palabras clave:</label>
+                            <input type="text" id="palabras" formControlName="palabras" class="form-control"
+                                placeholder="Palabra, palabra, palabra..." />
+                        </div>
+                    </div>
+
+                    <!-- Descripción -->
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="descripcion">Reseña o sinapsis:</label>
+                            <textarea id="descripcion" formControlName="descripcion" class="form-control"
+                                placeholder="Ingrese una reseña"></textarea>
+                            @if (validator_descripcion) {
+                            <div class="text-danger mt-2">{{validator_descripcion}}</div>
+                            }
+                        </div>
+                    </div>
+
+                    <!-- Botón de Enviar -->
+                    <div class="col-md-12 form-group text-center">
+                        <!-- Agrega la clase "text-center" -->
+                        <button type="submit" class="btn btn-primary">Crear Libro</button>
+                    </div>
+                </form>
             </div>
-
-      <!-- Editorial e Imagen -->
-      <div class="col-md-6">
-          <div class="form-group">
-              <label for="editorial">Editorial:</label>
-              <input type="text" id="editorial" formControlName="editorial" class="form-control" placeholder="Ingrese el nombre de la editorial" />
-              @if (validator_editorial) {
-                  <div class="text-danger mt-2">{{validator_editorial}}</div>
-              }
-          </div>
         </div>
-          <div class="form-group">
-              <label for="imagen">Imagen URL:</label>
-              <input type="text" id="imagen" formControlName="imagen" class="form-control" placeholder="Ingrese la URL de la imagen" />
-              @if (validator_imagen) {
-                  <div class="text-danger mt-2">{{validator_imagen}}</div>
-              }
-          </div>
-      
-
-      <!-- ISBN y Autor -->
-      <div class="col-md-6">
-          <div class="form-group">
-              <label for="isbn">ISBN:</label>
-              <input type="text" id="isbn" formControlName="isbn" class="form-control" placeholder="Ingrese el ISBN" />
-              @if (validator_isbn) {
-                  <div class="text-danger mt-2">{{validator_isbn}}</div>
-              }
-          </div>
-          <div class="form-group">
-              <label for="fk_autor">Autor:</label>
-              <select class="form-select" id="fk_autor" formControlName="fk_autor">
-                  @for (autor of autors; track autor) {
-                      <option [value]="autor.id_autor">{{ autor.nombre }}</option>
-                  }
-              </select>
-          </div>
-      </div>
-
-      <!-- Carrera y Tipo de Libro -->
-      <div class="col-md-6">
-          <div class="form-group">
-              <label for="fk_carrera">Carrera:</label>
-              <select class="form-select" id="fk_carrera" formControlName="fk_carrera">
-                  @for (carrera of carrer; track carrera) {
-                      <option [value]="carrera.id_carrera">{{ carrera.nombre }}</option>
-                  }
-              </select>
-          </div>
-          <div class="form-group">
-              <label for="tipo">Tipo de Libro:</label>
-              <select class="form-select" id="tipo" formControlName="tipo" (change)="cambio($event)">
-                  @for (tipo of tipos; track tipo) {
-                      <option [value]="tipo.id_tipo">{{ tipo.nombre }}</option>
-                  }
-              </select>
-          </div>
-      </div>
-
-      <!-- Opciones adicionales -->
-      <div class="col-md-6">
-        <!-- Seleccionar Archivo -->
-    @if(tipo_selected ==='PDF'){
-        <div class="col-md-12 form-group text-center">
-          <input type="file" id="archivo" (change)="onFileSelected($event)" class="form-control-file" />
-        </div>
-        }@else{
-        <div class="col-md-12 form-group">
-          <label for="archivo_url">ULR del archivo:</label>
-          <input type="text" id="archivo_url" formControlName="archivo_url" class="form-control"
-            placeholder="Ingrese la url donde se encuentra el libro" />
-        </div>
-        }
-          <!-- Aquí puedes agregar el código para el cambio entre archivo y URL -->
-      </div>
-
-      <!-- Palabras clave -->
-      <div class="col-md-12">
-          <div class="form-group">
-              <label for="palabras">Palabras clave:</label>
-              <input type="text" id="palabras" formControlName="palabras" class="form-control" placeholder="Palabra, palabra, palabra..." />
-          </div>
-      </div>
-
-      <!-- Descripción -->
-      <div class="col-md-12">
-          <div class="form-group">
-              <label for="descripcion">Reseña o sinapsis:</label>
-              <textarea id="descripcion" formControlName="descripcion" class="form-control" placeholder="Ingrese una reseña"></textarea>
-              @if (validator_descripcion) {
-                  <div class="text-danger mt-2">{{validator_descripcion}}</div>
-              }
-          </div>
-      </div>
-
-      <!-- Botón de Enviar -->
-      <div class="col-md-12 form-group text-center">
-        <!-- Agrega la clase "text-center" -->
-        <button type="submit" class="btn btn-primary">Crear Libro</button>
-      </div>
-    </form>
-  </div>
-</div>

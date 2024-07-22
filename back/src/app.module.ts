@@ -50,17 +50,19 @@ import { InventarioController } from './biblioteca/inventario/inventario.control
 import { InventarioService } from './biblioteca/inventario/inventario.service';
 import { SecionesService } from './biblioteca/seciones/seciones.service';
 import { SecionesController } from './biblioteca/seciones/seciones.controller';
+import { ReporteLibroController } from './administrador/reporte_libro/reporte_libro.controller';
+import { ReporteLibroService } from './administrador/reporte_libro/reporte_libro.service';
 
 
 
 @Module({
   imports: [],
-  controllers: [AppController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController, UsuarioPrestamosController, BuscadorController, DescargaController, AutorController, CambioContraController, MilibroController, CargaLLoteController, LibroTipoController, EtiquetasController, ImagenController, InventarioController,  LibrosFisicosController, PrestamosController, MisprestamosController, EstantesController, SecionesController, DevolucionesBibliotecaController, AlertasController, RegistroUsuarioController ],
+  controllers: [AppController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController, UsuarioPrestamosController, BuscadorController, DescargaController, AutorController, CambioContraController, MilibroController, CargaLLoteController, LibroTipoController, EtiquetasController, ImagenController, InventarioController,  LibrosFisicosController, PrestamosController, MisprestamosController, EstantesController, SecionesController, DevolucionesBibliotecaController, AlertasController, RegistroUsuarioController, ReporteLibroController ],
   providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, LibroService, LoginService, UsuariosService,  {
     provide: APP_PIPE,
     
     useClass: ValidationPipe, 
-  }, BuscadorService, AutorService, CambioContraService, DescargaService, CargaLLoteService, LibroTipoService,  PalabrasClaveService, EtiquetasService, ImagenService, EstantesService, SecionesService, PrestamosService, DevolucionesBibliotecaService, AlertasService, RegistroUsuarioService, InventarioService],
+  }, BuscadorService, AutorService, CambioContraService, DescargaService, CargaLLoteService, LibroTipoService,  PalabrasClaveService, EtiquetasService, ImagenService, EstantesService, SecionesService, PrestamosService, DevolucionesBibliotecaService, AlertasService, RegistroUsuarioService, InventarioService, ReporteLibroService],
 })
 export class AppModule {
  

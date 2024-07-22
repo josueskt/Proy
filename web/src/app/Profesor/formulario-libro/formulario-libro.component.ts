@@ -88,6 +88,9 @@ export class FormularioLibroComponent implements OnInit {
         } else if (ti.nombre === 'URL') {
           this.tipo_selected = 'URL';
         }
+         else if (ti.nombre === 'FISICO') {
+          this.tipo_selected = 'FISICO';
+        }
       }
     }
   }
@@ -249,6 +252,27 @@ export class FormularioLibroComponent implements OnInit {
     // Verifica si se ha seleccionado un archivo
     for (let ti of this.tipos) {
       if (ti.id_tipo == nuevoLibro.tipo) {
+        if(ti.nombre ==='FISICO'){
+
+          this.libroService
+          .crearLibro(nuevoLibro, this.archivoSeleccionado)
+          .subscribe({next:
+            () => {
+              this.toastrService.success('Libro creado exitosamente', 'Success', {
+                timeOut: 3000,
+                positionClass: 'toast-top-center',
+              });
+              this.router.navigate(['/profe']);
+            },
+            error:(error) => {
+              this.toastrService.error(error.error.message, 'Fail', {
+                timeOut: 3000,
+                positionClass: 'toast-top-center',
+              });
+            }
+           } );
+
+        }else
         if (this.archivoSeleccionado && ti.nombre === 'PDF') {
           // Llama al servicio para crear el libro
           this.libroService
@@ -268,7 +292,8 @@ export class FormularioLibroComponent implements OnInit {
                 });
               }
              } );
-        } else if (ti.nombre === 'URL' && !this.archivoSeleccionado) {
+        }
+         else if (ti.nombre === 'URL' && !this.archivoSeleccionado) {
           if (!nuevoLibro.archivo_url) {
             this.validator_archivo_ur = 'ulr del archivo requerido'
             this.toastrService.error('Url requerida', 'Fail', {
@@ -296,7 +321,8 @@ export class FormularioLibroComponent implements OnInit {
                  } );
               }
         });
-        } else if (!this.archivoSeleccionado) {
+      }
+         else if (!this.archivoSeleccionado ) {
           this.toastrService.error('Por Favor selecciona un archivo', 'Fail', {
             timeOut: 3000,
             positionClass: 'toast-top-center',

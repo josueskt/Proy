@@ -1,0 +1,17 @@
+@if(historial.length && historial[0].id_user != null)
+{
+
+    @for (item of historial; track $index) {
+        
+        <div class="my-4 bg-white rounded-lg shadow-sm border border-secondary p-4">
+            <h2 class="text-xl font-weight-bold text-dark">{{item.titulo}}</h2>
+            <div class="mt-2">
+                <p class="text-muted small">Fecha de préstamo: {{item.fecha_prestamo}}</p>
+                <p class="text-muted small">Nombre: {{item.nombre}}</p>
+                <p class="text-muted small">Cédula: {{item.id_user}}</p>
+                <p class="text-muted small">Observación: {{item.observaciones}}</p>
+            </div>
+        </div>
+        
+    }
+}

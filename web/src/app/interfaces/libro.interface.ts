@@ -15,4 +15,5 @@ export interface Libro {
     seccion:string
     codigo:string
     cantidad:number
+    carrera:string
 }

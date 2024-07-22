@@ -1,0 +1,26 @@
+
+<div class="card p-5 rounded-3 shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title mb-4">Generar Reporte</h5>
+      <div class="mb-3">
+        <label for="carrera" class="form-label">Carrera</label>
+        <select class="form-select form-select-lg" [(ngModel)]="carrera" name="selectedCarrera">
+          <option selected disabled>Carrera</option>
+          @for (carre of carreras; track carre) {
+            <option [value]="carre.id_carrera">{{ carre.nombre }}</option>
+          }
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="tipo" class="form-label">Tipo</label>
+        <select class="form-select form-select-lg" [(ngModel)]="tipo" name="selectedTipo">
+          <option selected disabled>Tipo</option>
+          @for (tipe of tipos; track tipe) {
+            <option [value]="tipe.id_tipo">{{ tipe.nombre }}</option>
+          }
+        </select>
+      </div>
+      <button class="btn btn-primary mt-3" (click)="generar()">Generar Reporte</button>
+    </div>
+  </div>
+  

@@ -4,12 +4,12 @@ import { CargaLibrosBloqueComponent } from "../Administrador/carga-libros-bloque
 import { BibliotecaComponent } from "../biblioteca/biblioteca.component";
 import { EstantesComponent } from "../biblioteca/estantes/estantes.component";
 import { EditarEstanteComponent } from "../biblioteca/estantes/editar-estante/editar-estante.component";
-import { SeccionComponent } from "../biblioteca/seccion/seccion.component";
 import { EditarSeccionComponent } from "../biblioteca/seccion/editar-seccion/editar-seccion.component";
 import { PrestamosComponent } from "../biblioteca/prestamos/prestamos.component";
 import { DevolucionesComponent } from "../biblioteca/devoluciones/devoluciones.component";
 import { InventarioComponent } from "../biblioteca/inventario/inventario.component";
 import { SeccionesComponent } from "../biblioteca/secciones/secciones.component";
+import { HitorialPrestamosComponent } from "../biblioteca/prestamos/hitorial-prestamos/hitorial-prestamos.component";
 
 export const routesBilbioteca: Routes = [
 
@@ -59,6 +59,10 @@ component :BibliotecaComponent,
             {
                 path: 'inventario',
                 component: InventarioComponent,
+            },
+            {
+                path: 'historial/:id',
+                component: HitorialPrestamosComponent,
             },
 
         ]
