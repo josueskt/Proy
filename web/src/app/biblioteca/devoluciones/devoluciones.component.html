@@ -1,10 +1,9 @@
 <div class="p-5"></div>
-<div>
-    <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First name</label>
-    <input (keypress)="buscar_prestamo($event)" type="text" id="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="buscar" />
+<div class="">
+    <input (keypress)="buscar_prestamo($event)" type="text" id="first_name" class="form-control" placeholder="buscar por codigo de libro" />
 </div>
 
-<table class="text-center">
+<table class="text-center text-dark">
     @if (libros.length) {
         <thead>
             <th class="px-4 py-2">
@@ -27,7 +26,7 @@
     
     <tbody>
         @for (item of libros; track $index) {
-        <tr class="rounded-sm border-amber-600 bg-gray-700 text-white">
+        <tr class="">
             <td class="px-4 py-2">
                 {{item.codigo}}
             </td>
@@ -67,24 +66,25 @@
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <!-- Modal header -->
             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                <button type="button" (click)="closeModal()" class="btn btn-danger" data-modal-hide="default-modal">
+                    
+                    <svg height="16" width="14" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
+
+                    <span class="sr-only">Close modal</span>
+                </button>
                 <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                     Devolicion de prestamo
                 </h3>
-                <button type="button" (click)="closeModal()" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="default-modal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
+               
             </div>
             <!-- Modal body -->
             <div class="p-4 md:p-5 space-y-4">
-              <input type="text" [(ngModel)]="devolucion.observacion">   
+              <input type="text" class="form-control" [(ngModel)]="devolucion.observacion" placeholder="observaciones">   
 
             </div>
             <!-- Modal footer -->
-            <div class="flex items-center p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                <button (click)="devolver()" data-modal-hide="default-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">devolver</button>
+            <div class="">
+                <button (click)="devolver()" data-modal-hide="default-modal" type="button" class="btn btn-success">devolver</button>
             </div>
         </div>
     </div>

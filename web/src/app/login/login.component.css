@@ -2,7 +2,9 @@
   display: grid;
   place-items: center;
 
-  background-image: url('https://i.pinimg.com/originals/1f/6a/bf/1f6abf1e3bcae48eed810c398b712ad4.jpg');
+  
+  /* background-image: url('https://i.pinimg.com/originals/1f/6a/bf/1f6abf1e3bcae48eed810c398b712ad4.jpg'); */
+  background-image: url('../../assets/images/IMG_20240723_095435\ \(1\).jpg');
   background-size: cover;
   background-repeat: no-repeat;
   font-family: 'Arial', sans-serif;
@@ -18,31 +20,11 @@
 
 
 
-.titulo {
-  color: aliceblue;
-  margin-bottom: 2vh;
-  font-size: 6vw;
-  font-family: Syne Tactile;
-}
 
-.titulo2 {
-  color: hsl(272, 82%, 58%);;
-  margin-bottom: 5vh;
-  font-size: 3vw;
-  font-family: Syne Tactile;
-}
 
- .text{
-  color: aliceblue;
- }
 
-.card {
-  width: 40vw;
-  min-height: 26vh;
-  background-color: rgba(68, 73, 108, 0.59);
-  border: solid 3px;
-  border-radius: 1rem;
-}
+
+
 
 .text-center {
   color: rgb(255, 255, 255);

@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Libro } from '../../interfaces/libro.interface';
 import { PrestamoService } from './prestamo.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-prestamos',
@@ -14,6 +15,7 @@ export class PrestamosComponent {
 
   private prestamo_S = inject(PrestamoService)
   private fb = inject(FormBuilder)
+  private toastrService = inject(ToastrService)
   nuevo_cliente!:FormGroup
   buscador:string=''
   libros:Libro[] =[] 
@@ -26,16 +28,15 @@ export class PrestamosComponent {
 
   ngOnInit(): void {
     this.nuevo_cliente =  this.nuevo_cliente = this.fb.group({
-      nombres: ['', Validators.required],
+      nombre: ['', Validators.required],
       cedula: ['', Validators.required],
       email: ['', Validators.required],
-      direcion: [''],
-      calle_principal: [''],
-      calle_secundaria: [''],
-      telefono: ['', [Validators.required, Validators.pattern("^[0-9]*$")]] // Validador de patrón para aceptar solo números
+      fk_rol:[4],
+      password:['',Validators.required]
+      // Validador de patrón para aceptar solo números
     });
   }
-
+ 
   crear_cliente(){
    
     this.prestamo_S.crear_cliente(this.nuevo_cliente.value).subscribe({
@@ -44,12 +45,19 @@ export class PrestamosComponent {
        
       this.cedula =  this.nuevo_cliente.value.cedula
         this.validar_Cliente()
-        alert(e.message[0])
+        this.toastrService.success(e.message[0], 'Success', {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+        });
 
         
       },
       error:(e:any)=>{
-        alert(e.message[0])
+       
+        this.toastrService.error(e.message[0], 'Success', {
+          timeOut: 3000,
+          positionClass: 'toast-top-center',
+        });
       },
     })
   }
@@ -113,10 +121,22 @@ prestar(){
 this.prestamo_S.prestamo({fk_libro:this.fk_libro_a_prestar,
 fk_cliente:this.cedula,}).subscribe({
   next:(e:any)=>{
-    alert(e.message[0])
-    window.location.reload()
+    
+    this.toastrService.success(e.message[0], 'Success', {
+      timeOut: 3000,
+      positionClass: 'toast-top-center',
+    });
+    
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
+    
   },error:(e)=>{
-    alert(e.message[0])
+    this.toastrService.error(e.message[0], 'Success', {
+      timeOut: 3000,
+      positionClass: 'toast-top-center',
+    });
+  
     
   }
 })

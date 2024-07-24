@@ -4,6 +4,7 @@ export interface Historial {
     directiones:string,
     nombre:string,
     titulo:string,
-    fecha_prestamo:string,
+    fecha_reserva:string,
+    fecha_real_devolucion:string
    
 }

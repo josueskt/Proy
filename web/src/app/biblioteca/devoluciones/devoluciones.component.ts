@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DevolucionesService } from './devoluciones.service';
 import { libro_devolicion } from '../../interfaces/libro_devolucion.interface';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-devoluciones',
@@ -17,7 +18,7 @@ export class DevolucionesComponent {
   
   devolucion:{observacion:string,id_prestamo:string ,fk_libro:string} = {observacion:'',id_prestamo:'', fk_libro:''}
 private devolucion_s = inject(DevolucionesService)
-
+private toastrService = inject(ToastrService)
 closeModal(){
 
   this.showModal = false
@@ -33,12 +34,24 @@ devolver(){
 
   this.devolucion_s.devolver_prestamo(this.devolucion).subscribe({
     next:(r:any)=>{
-      alert(r.message[0])
-      window.location.reload()
+      this.toastrService.success(r.message[0], 'Success', {
+        timeOut: 3000,
+        positionClass: 'toast-top-center',
+      });
+      
+      // Espera 3 segundos (3000 milisegundos) antes de recargar la página
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+      
     },
     error:(e)=>{
       console.log(e)
-      alert(e.message[0])
+    
+      this.toastrService.success(e.message[0], 'Success', {
+        timeOut: 1000,
+        positionClass: 'toast-top-center',
+      });
 
     }
   })

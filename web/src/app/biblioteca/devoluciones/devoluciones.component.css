@@ -1,0 +1,9 @@
+#default-modal{
+    display: flex;
+    position: absolute;
+    left: 50%;
+   border-radius: 10%;
+    transform: translate(-50%, 50%);
+   
+    
+}
