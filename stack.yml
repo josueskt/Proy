@@ -32,8 +32,8 @@ services:
       - db
     environment:
       - Docs=/docs
-      - User=root
-      - Host=db
+      - User=posgres
+      - Host=10.200.2.107
       - Database=bibliotec
       - Pass=1234
       - Port=5432
