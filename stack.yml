@@ -1,6 +1,26 @@
 version: '3.9'
 
 services:
+
+ bibliotecapp_frontend:
+    container_name: bibliotec_container
+    build: ./web
+    image: bibliotec:latest
+    ports:
+      - "4201:4200"
+      - target: 4201
+        published: 4201
+        protocol: tcp
+        mode: host
+    expose:
+      - "4201"
+    networks:
+      - internalnet
+    depends_on:
+      - bibliotecapp
+
+
+
   bibliotecapp:
     container_name: bibliotec_back_container
     build: ./back
@@ -45,22 +65,7 @@ services:
       - internalnet
     
 
-  bibliotecapp_frontend:
-    container_name: bibliotec_container
-    build: ./web
-    image: bibliotec:latest
-    ports:
-      - "4201:4200"
-      - target: 4201
-        published: 4201
-        protocol: tcp
-        mode: host
-    expose:
-      - "4201"
-    networks:
-      - internalnet
-    depends_on:
-      - bibliotecapp
+ 
    
     
 networks:
