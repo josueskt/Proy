@@ -36,7 +36,7 @@ services:
       - Host=10.200.2.107
       - Database=bibliotec
       - Pass=1234
-      - Port=5432
+      - Port=5433
       - Key_Key=Dy7oFm9z!L2k@1ePwQ8R4m3NvX6sG3tH2jU0iK5oP7mN4bF1wE9rQ8yH3aSñ
       - origin=http://10.200.2.107:4201
     volumes:
