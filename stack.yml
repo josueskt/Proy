@@ -32,7 +32,7 @@ services:
       - db
     environment:
       - Docs=/docs
-      - User=posgres
+      - User=postgres
       - Host=10.200.2.107
       - Database=bibliotec
       - Pass=1234
