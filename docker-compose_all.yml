@@ -46,27 +46,14 @@ services:
     build: ./web
     image: bibliotec:latest
     ports:
-      - "4200:80"
+      - "4201:4200"
     expose:
-      - "4200"
+      - "4201"
     networks:
       - internalnet
     depends_on:
       - bibliotecapp
-    deploy:
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.bibliotecapp_frontend.entrypoints=http"
-        - "traefik.http.routers.bibliotecapp_frontend.rule=Host(`biblioteca.byronrm.com`)"
-        - "traefik.http.middlewares.bibliotecapp_frontend-https-redirect.redirectscheme.scheme=https"
-        - "traefik.http.routers.bibliotecapp_frontend.middlewares=portainer-https-redirect"
-        - "traefik.http.routers.bibliotecapp_frontend-secure.entrypoints=https"
-        - "traefik.http.routers.bibliotecapp_frontend-secure.rule=Host(`biblioteca.byronrm.com`)"
-        - "traefik.http.routers.bibliotecapp_frontend-secure.tls=true"
-        - "traefik.http.routers.bibliotecapp_frontend-secure.tls.certresolver=http"
-        - "traefik.http.routers.bibliotecapp_frontend-secure.service=bibliotecapp_frontend"
-        - "traefik.http.services.bibliotecapp_frontend.loadbalancer.server.port=8080"
-        - "traefik.docker.network=traefik-public"
+
 
     
 networks:

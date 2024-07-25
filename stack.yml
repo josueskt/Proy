@@ -24,7 +24,7 @@ services:
       - Pass=1234
       - Port=5432
       - Key_Key=Dy7oFm9z!L2k@1ePwQ8R4m3NvX6sG3tH2jU0iK5oP7mN4bF1wE9rQ8yH3aSñ
-      - origin=http://0.0.0.0:4200
+      - origin=*
     
   db:
     image: postgres
@@ -50,38 +50,21 @@ services:
     build: ./web
     image: bibliotec:latest
     ports:
-      - "4200:80"
-      - target: 4200
-        published: 4200
+      - "4201:4200"
+      - target: 4201
+        published: 4201
         protocol: tcp
         mode: host
     expose:
-      - "4200"
+      - "4201"
     networks:
       - internalnet
     depends_on:
       - bibliotecapp
-    deploy:
-      labels:
-        - "traefik.enable=true"
-        - "traefik.http.routers.bibliotecapp_frontend.entrypoints=http"
-        - "traefik.http.routers.bibliotecapp_frontend.rule=Host(`biblioteca.byronrm.com`)"
-        - "traefik.http.middlewares.bibliotecapp_frontend-https-redirect.redirectscheme.scheme=https"
-        - "traefik.http.routers.bibliotecapp_frontend.middlewares=portainer-https-redirect"
-        - "traefik.http.routers.bibliotecapp_frontend-secure.entrypoints=https"
-        - "traefik.http.routers.bibliotecapp_frontend-secure.rule=Host(`biblioteca.byronrm.com`)"
-        - "traefik.http.routers.bibliotecapp_frontend-secure.tls=true"
-        - "traefik.http.routers.bibliotecapp_frontend-secure.tls.certresolver=http"
-        - "traefik.http.routers.bibliotecapp_frontend-secure.service=bibliotecapp_frontend"
-        - "traefik.http.services.bibliotecapp_frontend.loadbalancer.server.port=8080"
-        - "traefik.docker.network=traefik-public"
-
+   
     
 networks:
   internalnet:
     driver: bridge
     external: true 
 
-
-# scp Escritorio/proyecto_int/Proy/stack.yml root@161.97.140.245:/root/herramientas_docker/biblioteca_test/Proy
-# scp Escritorio/proyecto_int/Proy/makefile root@161.97.140.245:/root/herramientas_docker/biblioteca_test/Proy
