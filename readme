@@ -1,9 +1,10 @@
 crea cion de un usuario 
 INSERT INTO inst.usuario(id_user,email,password,nombre,fk_rol,activo)VALUES('1234','admin@hot.com','$2b$10$Y8UaBFeT2SZZS491FaTfsOMp59W2lqrHvijQ7fdW1dvvpcWyyPYBi','admin',1,true) 
 creacion de un rol 
-INSERT INTO inst.rol(nombre_rol)VALUES('ADMINISTRADOR'),('PROFESOR'),('ESTUDIANTE'),('BIBLIOTECA')
-
-
+INSERT INTO inst.rol(nombre_rol)VALUES('ADMINISTRADOR'),('PROFESOR'),('ESTUDIANTE'),('BIBLIOTECA'),('VISITANTE')
+INSERT INTO libros.tipo(nombre)VALUES('URL'),('PDF'),('FISICO')
+INSERT INTO biblioteca.jornada(nombre)VALUES('MATUTINA'),('VESPERTINA'),('NOCTURNA')
+INSERT INTO biblioteca.nivel(nombre)VALUES('PRIMERO'),('SEGUNDO'),('TERCERO'),('CUARTO'),('QUINTO'),('EGRESADO')
 
 treas faltaltantes 
 configuracion de libro id :admin/libro 

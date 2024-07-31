@@ -11,7 +11,7 @@ export class RegistroUsuarioController {
     }
     @Post()
     registrar(@Body('user') usuario: Usuario) {
-        console.log(usuario)
+       console.log(usuario)
         return this.regis_S.register(usuario)
     }
 }

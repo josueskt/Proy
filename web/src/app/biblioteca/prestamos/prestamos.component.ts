@@ -31,9 +31,9 @@ export class PrestamosComponent {
       nombre: ['', Validators.required],
       cedula: ['', Validators.required],
       email: ['', Validators.required],
-      fk_rol:[4],
-      password:['',Validators.required]
-      // Validador de patrón para aceptar solo números
+      fk_rol:[5],
+      password:['']
+      
     });
   }
  

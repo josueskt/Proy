@@ -6,4 +6,5 @@ nombre:string;
 fk_rol:number;
 activo:boolean;
 cambio:boolean;
+carrera:string
 }

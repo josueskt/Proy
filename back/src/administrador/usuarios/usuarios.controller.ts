@@ -22,7 +22,7 @@ export class UsuariosController {
     @UsePipes(ValidationPipe)
     register(@Body() usuarios) {
 
-        return this.user.register(usuarios)
+      return this.user.register(usuarios)
 
     }
     

@@ -30,15 +30,22 @@ export class UsuariosService {
         if (!existe.length) {
           const salt = await bcrypt.genSalt(asaltos);
           const hashedPassword = await bcrypt.hash(user.password, salt);
+         let carrera =  await this.sql.query('SELECT id_carrera FROM libros.carrera WHERE nombre = $1',[user.carrera])
+         if(!carrera[0]){
+          carrera = await this.sql.query('INSERT INTO libros.carrera(nombre) VALUES($1) RETURNING id_carrera',[user.carrera])
+          console.log(carrera[0].id_carrera)
+         }
+         console.log(carrera[0].id_carrera)
           this.sql.query(
-            'INSERT INTO inst.usuario(id_user,email,password,nombre,fk_rol,activo) values($1,$2,$3,$4,$5,$6)',
+            'INSERT INTO inst.usuario(id_user,email,password,nombre,fk_rol,activo,fk_carrera) values($1,$2,$3,$4,$5,$6,$7)',
             [
               user.id_user,
               user.email,
               hashedPassword,
               user.nombre,
               user.fk_rol,
-              true
+              true,
+              carrera[0].id_carrera
             ],
           );
           new MessageDto('Usuario creado');

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { CrearUsuarioserviceService } from '../../Administrador/crear-usuario/crear-usuarioservice.service';
+import { Usuario } from '../../interfaces/usuario.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,9 @@ return this.http.post(`${this.baseUrl}`,{prestamo})
 verificar_cliente(id:string){
 return this.http.get(`${this.baseUrl2}/${id}`)
 }
-crear_cliente(cliente:{}){
-
+crear_cliente(cliente:Usuario){
+cliente.password = cliente.cedula
+console.log(cliente)
 return this.registart_V_S.crearUsuario(cliente)
 
 }

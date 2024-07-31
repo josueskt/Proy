@@ -3,4 +3,6 @@ export interface Usuario {
     nombre_rol:string
     nombre:string
     email:string
+    password:string
+    cedula:string
 }

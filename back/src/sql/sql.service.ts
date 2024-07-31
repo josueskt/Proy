@@ -7,11 +7,11 @@ export class SqlService {
   private readonly pool: Pool;
 
 
-  user=  process.env.User
-  host= process.env.Host
-  database= process.env.Database
-  password=process.env.Pass
-  port= process.env.Port
+ private user=  process.env.User
+ private host= process.env.Host
+ private database= process.env.Database
+ private password=process.env.Pass
+ private port= process.env.Port
 
   constructor() {
     

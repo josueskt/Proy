@@ -16,7 +16,7 @@ private register = inject(CrearUsuarioserviceService)
   usuario: {email: string, fk_rol: number, nombre: string, password: string, cedula: string};
 
   ngOnInit(): void {
-    this.usuario = { email: "", fk_rol: 3, nombre: "", password: "", cedula: "" };
+    this.usuario = { email: "", fk_rol: 4, nombre: "", password: "", cedula: "" };
   }
 
   onSubmit() {

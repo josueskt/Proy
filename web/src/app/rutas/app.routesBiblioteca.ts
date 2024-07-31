@@ -10,6 +10,7 @@ import { DevolucionesComponent } from "../biblioteca/devoluciones/devoluciones.c
 import { InventarioComponent } from "../biblioteca/inventario/inventario.component";
 import { SeccionesComponent } from "../biblioteca/secciones/secciones.component";
 import { HitorialPrestamosComponent } from "../biblioteca/prestamos/hitorial-prestamos/hitorial-prestamos.component";
+import { IngresoComponent } from "../biblioteca/ingreso/ingreso.component";
 
 export const routesBilbioteca: Routes = [
 
@@ -65,6 +66,10 @@ component :BibliotecaComponent,
                 component: HitorialPrestamosComponent,
             },
 
+            {
+                path: 'ingreso',
+                component:IngresoComponent,
+            },
         ]
     },
 

@@ -87,13 +87,15 @@ export class CrearUsuariosComponent {
       const password = row[2];
       const nombre = row[4];
       const fk_rol = this.selectedCarrera;
+      const carrera = row[5]
 
       return {
         id_user,
         email,
         password,
         nombre,
-        fk_rol
+        fk_rol,
+        carrera
       };
     });
     const uniqueData = this.removeDuplicates(formattedData, 'id_user');
