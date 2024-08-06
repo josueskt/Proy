@@ -37,10 +37,8 @@ export class ReportelibroService {
     const data = libros.map(libro => ({
         ID: libro.id_libro,
         Titulo: libro.titulo,
-        Nombre_Archivo: libro.nombre_archivo,
         Año_Publicacion: libro.year_of_publication,
-        Reseña: libro.review,
-        Imagen: libro.imagen,
+       codigo:libro.codigo,
         Carrera: libro.carrera,
         Autor: libro.autor,
         Tipo: libro.tipo

@@ -1,0 +1,11 @@
+.ingreso{
+    padding: 10px;
+    padding-top: 80px;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+}
+.registros{
+    height: 35rem;
+    width: 30rem;
+    overflow-y: auto;
+}

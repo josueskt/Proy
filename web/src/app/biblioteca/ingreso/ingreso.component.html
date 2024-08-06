@@ -1,55 +1,94 @@
-<div class="container mt-5">
-    <div class="form-group">
-        <label for="cedulaInput">Cédula</label>
-        <input type="text" class="form-control" id="cedulaInput" name="cedula">
-    </div>
 
-    <h3>Actividades</h3>
+<div class="ingreso">
+    <div class="container ">
+<h4>registrar Entrada</h4>
 
-    <div class="form-group">
-        <label for="paraleloSelector">Paralelo</label>
-        <select class="form-control" id="paraleloSelector" name="paralelo" [(ngModel)]="paralelo">
-            <option value="">Seleccione un paralelo</option>
-            <!-- Añade aquí las opciones de paralelos -->
-            <option value="paralelo1">Paralelo 1</option>
-            <option value="paralelo2">Paralelo 2</option>
-            <option value="paralelo3">Paralelo 3</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="nivelSelector">Nivel</label>
-        <select class="form-control" id="nivelSelector" name="nivel" [(ngModel)]="nivel">
-            <option value="">Seleccione un nivel</option>
-            <!-- Añade aquí las opciones de niveles -->
-            <option value="nivel1">Nivel 1</option>
-            <option value="nivel2">Nivel 2</option>
-            <option value="nivel3">Nivel 3</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="jornadaSelector">Jornada</label>
-        <select class="form-control" id="jornadaSelector" name="jornada" [(ngModel)]="jornada"  >
-            <option value="">Seleccione una jornada</option>
-            <!-- Añade aquí las opciones de jornadas -->
-            <option value="mañana">Mañana</option>
-            <option value="tarde">Tarde</option>
-            <option value="noche">Noche</option>
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label for="actividadesSelector">Actividades</label>
-        <select class="form-control" id="actividadesSelector" name="actividades">
-            <option value="">Seleccione una actividad</option>
-            <!-- Añade aquí las opciones de actividades -->
-            <option value="actividad1">Actividad 1</option>
-            <option value="actividad2">Actividad 2</option>
-            <option value="actividad3">Actividad 3</option>
-        </select>
+        <div class="form-group">
+            <label for="cedulaInput">Cédula</label>
+            <input type="text" class="form-control" id="cedulaInput" name="cedula" [(ngModel)]="cedula">
+            <button class="btn btn-success"   (keydown.enter)="verificar()" (click)="verificar()">verificar</button>
+        </div>
+    
+    @if(usuario){
+        <div>
+            <h4>usuario</h4>
+            nombre:{{usuario.nombre}}
+            cedula:{{usuario.id_user}}
+            carrera:{{usuario.carrera}}
+        </div>
+    
+        <h3>Actividades</h3>
+    
+        <div class="form-group">
+            <label for="paraleloSelector">Paralelo</label>
+            <select class="form-control" id="paraleloSelector" name="paralelo" [(ngModel)]="paralelo">
+                @for (item of paralelos; track $index) {
+                    <option value="{{item.id_paralelo}}">{{item.nombre}}</option>
+    
+                }
+               
+            </select>
+        </div>
+    
+        <div class="form-group">
+            <label for="nivelSelector">Nivel</label>
+            <select class="form-control" id="nivelSelector" name="nivel" [(ngModel)]="nivel">
+                @for (item of niveles; track $index) {
+                    <option value="{{item.id_nivel}}">{{item.nombre}}</option>
+    
+                }
+            </select>
+        </div>
+    
+        <div class="form-group">
+            <label for="jornadaSelector">Jornada</label>
+            <select class="form-control" id="jornadaSelector" name="jornada" [(ngModel)]="jornada"  >
+                @for (item of jornadas; track $index) {
+                    <option value="{{item.id_jornada}}">{{item.nombre}}</option>
+    
+                }
+            </select>
+        </div>
+    
+        <div class="form-group">
+            <label for="actividadesSelector">Actividades</label>
+            <select class="form-control" id="actividadesSelector" [(ngModel)]="actividad" name="actividades">
+                @for (item of actividades ; track $index) {
+                    <option value="{{item.id_actividad}}">{{item.nombre}}</option>
+    
+                }
+            
+            </select>
+        </div>
+        <div>
+            <button class="btn btn-success" (click)="registrar()">registrar ingreso</button>
+        </div>
+    }
     </div>
     <div>
-        <button (click)="registrar()">registrar ingreso</button>
+<h4>registrar salida</h4>
+<div class="registros">
+    @for (item of por_salir; track $index) {
+
+        <div class="card m-1" style="width: 28rem;">
+            <div class="card-header">
+              Usuario
+            </div>
+            <div class="card-body d-flex justify-content-between align-items-center">
+              <div>
+                <h5 class="card-title">{{item.fk_usuario}}</h5>
+                <p class="card-text">{{ item.hora_entrada | date:'yyyy-MM-dd HH:mm' }}</p>
+
+              </div>
+              <button class="btn btn-danger" (click)="salida(item.id_ingreso)"> registrar salida</button>
+            </div>
+            <div class="card-footer text-muted">
+            </div>
+          </div>
+          
+          
+    }
+</div>
+
     </div>
 </div>

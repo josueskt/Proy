@@ -5,4 +5,5 @@ export interface Usuario {
     email:string
     password:string
     cedula:string
+    carrera:string
 }

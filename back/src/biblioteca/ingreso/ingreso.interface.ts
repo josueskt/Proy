@@ -3,4 +3,5 @@ export interface Ingreso{
     actividad:string
     jornada:string
     paralelo:string
+    nivel:string
 }

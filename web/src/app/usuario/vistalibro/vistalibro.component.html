@@ -1,5 +1,24 @@
 <app-buscador></app-buscador>
+@if(etiquetas[0]){
+  @if (etiquetas[0].nombre) {
+    
+    <div class="d-flex justify-content-center">
+      <div class="row">
+        <div class="col" >
+          <div class="etiquetas-container">
+            @for(etiqueta of etiquetas ; track etiqueta.id_palabra) {
+              <button class="etiqueta" (click)="buscar_etiqueta(etiqueta.nombre)">
+                <p class="etiqueta_texto text-white">{{ etiqueta.nombre }}</p>
+              </button>
+              
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  }
 
+}
 
 <div class="container">
   <h1 class="text-back bg-white rounded">{{libro.titulo | uppercase}}</h1>
@@ -90,29 +109,7 @@
     </div>
     
   </div>
-  @if(etiquetas[0]){
-    @if (etiquetas[0].nombre) {
-      <div class="text-center">
-        <br>
-        <h2 class="text-black">ETIQUETAS:</h2>
-      </div>
-      <div class="d-flex justify-content-center">
-        <div class="row">
-          <div class="col" style="margin: 0; padding: 0;">
-            <div class="etiquetas-container">
-              @for(etiqueta of etiquetas ; track etiqueta.id_palabra) {
-                <button class="etiqueta" (click)="buscar_etiqueta(etiqueta.nombre)">
-                  <p class="etiqueta_texto text-white">{{ etiqueta.nombre }}</p>
-                </button>
-                
-              }
-            </div>
-          </div>
-        </div>
-      </div>
-    }
-
-  }
+ 
  
  
 <hr>

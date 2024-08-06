@@ -1,4 +1,4 @@
-import { Controller, Get, Post, SetMetadata, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, SetMetadata, UseGuards } from '@nestjs/common';
 import { Ingreso } from './ingreso.interface';
 import { IngresoService } from './ingreso.service';
 import { RolesGuard } from 'src/roles/roles.guard';
@@ -10,14 +10,12 @@ export class IngresoController {
     constructor(private ingreso_S: IngresoService) { }
 
     @Post()
-    registrar_ingreso(ingreso: Ingreso) {
-        return this.ingreso_S.registro(ingreso)
+    registrar_ingreso(@Body() ingreso: Ingreso) {
+       return this.ingreso_S.registro(ingreso)
 
     }
 
-    registrar_salida(cedula: number) {
-
-    }
+    
 
     @Get('/paralelo')
     traer_paralelo() {

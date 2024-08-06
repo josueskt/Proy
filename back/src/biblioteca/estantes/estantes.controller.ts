@@ -1,8 +1,11 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, SetMetadata, UseGuards } from '@nestjs/common';
 import { EstantesService } from './estantes.service';
 import { estante } from './estante.interface';
+import { RolesGuard } from 'src/roles/roles.guard';
 
 @Controller('estantes')
+@UseGuards(RolesGuard)
+@SetMetadata('roles', ['BIBLIOTECA'])
 export class EstantesController {
     constructor(private estante_S: EstantesService) { }
     @Get()

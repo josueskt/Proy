@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild, inject } from '@angular/core';
 import { DataService } from '../data.service';
-import { ActivatedRoute,RouterLink } from '@angular/router';
+import { ActivatedRoute,Router,RouterLink } from '@angular/router';
 import { NgClass, UpperCasePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../../../../environments/environment';
@@ -28,6 +28,7 @@ export class LibroComponent implements OnInit {
   private homeService = inject(HomeService)
   private toastrService: ToastrService = inject(ToastrService);
   private route = inject(ActivatedRoute)
+  private router=inject(  Router)
 
   texto = ''
   carrera = ''
@@ -55,7 +56,10 @@ searchText: string;
   }
 
 
-
+hola(id){
+  this.router.navigate(['/user/libro',id]);
+  
+}
 buscar(){
   this.resultados_libros(this.pagina,this.searchText)
 }

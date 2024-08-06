@@ -8,7 +8,7 @@ export class PrestamosService {
     constructor(private sql:SqlService){} 
 
     async usuarios(id:string){
- return await this.sql.query('SELECT * from inst.usuario Where id_user=$1',[id])
+ return await this.sql.query('SELECT email,fk_carrera,id_user,nombre from inst.usuario Where id_user=$1',[id])
     
 }
 

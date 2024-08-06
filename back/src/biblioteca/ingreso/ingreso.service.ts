@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { Ingreso } from './ingreso.interface';
 import { SqlService } from 'src/sql/sql.service';
+import { MessageDto } from 'src/common/message.dto';
 
 @Injectable()
 export class IngresoService {
 constructor(private sql:SqlService){}
     registro(ingreso:Ingreso){
 
-this.sql.query('INSERT INTO tramites.ingreso(hora_entrada,fk_usuario,fk_actividad,fk_jornada,fk_paralelo)VALUES(CURRENT_TIMESTAMP,$1,$2,$3,$4,)',[])
-
+this.sql.query('INSERT INTO tramites.ingreso(hora_entrada,fk_usuario,fk_actividad,fk_jornada,fk_paralelo,fk_nivel)VALUES(CURRENT_TIMESTAMP,$1,$2,$3,$4,$5)',[ingreso.id_usuario,ingreso.actividad,ingreso.jornada,ingreso.paralelo,ingreso.nivel])
+return new MessageDto("listo")
     }
 
 
@@ -27,7 +28,7 @@ this.sql.query('INSERT INTO tramites.ingreso(hora_entrada,fk_usuario,fk_activida
     }
    
     traer_actividad(){
-      return  this.sql.query('SELECT * FROM biblioteca.actividad')
+      return  this.sql.query('SELECT * FROM biblioteca.actividades')
 
     }
 

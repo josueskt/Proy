@@ -27,26 +27,25 @@
   }
 }
 
-.etiquetas-container {
-  display: flex;
-  flex-wrap: wrap;
-}
+
 
 .etiqueta {
   display: inline-flex;
   align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  
+  border-radius: 6px;
   background-color: #17304A;
-  padding: 6px 12px;
-  margin-right: 8px;
-  margin-bottom: 8px;
+  padding:  2px;
+  margin: 5px;
+  
   font-size: 14px;
-  color: #333;
+  
 }
 .etiqueta:hover{
   cursor: pointer;
-  background-color: #070b10;
+  background-color: rgb(239, 178, 63);
+  border-color: black;
+  
 }
 
 .etiqueta p {
