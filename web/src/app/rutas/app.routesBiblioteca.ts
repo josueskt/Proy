@@ -11,6 +11,7 @@ import { InventarioComponent } from "../biblioteca/inventario/inventario.compone
 import { SeccionesComponent } from "../biblioteca/secciones/secciones.component";
 import { HitorialPrestamosComponent } from "../biblioteca/prestamos/hitorial-prestamos/hitorial-prestamos.component";
 import { IngresoComponent } from "../biblioteca/ingreso/ingreso.component";
+import { InformeingresoComponent } from "../biblioteca/ingreso/informeingreso/informeingreso.component";
 
 export const routesBilbioteca: Routes = [
 
@@ -69,6 +70,10 @@ component :BibliotecaComponent,
             {
                 path: 'ingreso',
                 component:IngresoComponent,
+            },
+            {
+                path: 'ingreso/registro',
+                component:InformeingresoComponent,
             },
         ]
     },

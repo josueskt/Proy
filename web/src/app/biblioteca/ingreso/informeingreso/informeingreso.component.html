@@ -1,0 +1,40 @@
+<div class="card p-5 rounded-3 shadow-sm">
+    <div class="card-body">
+      <h5> generar  reporte de ingresos biblioteca fisica </h5>
+      <button class="btn btn-primary mt-3" (click)="generar()" >Generar Reporte</button>
+      <button (click)="generar_pdf()">Generar PDF</button>
+
+    </div>
+  </div>
+  <div id="contentToConvert">
+
+  @for (item of informe; track $index) {
+
+    <div class="card mb-3 rounded" style="border-radius: 15px;">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-6 bg-warning">
+              <p class="card-text"><strong>ID Ingreso:</strong> {{ item.id_ingreso }}</p>
+            </div>
+            <div class="col-6">
+              <p class="card-text"><strong>Hora Entrada:</strong> {{ item.hora_entrada | date:'shortTime' }}</p>
+            </div>
+            <div class="col-6">
+              <p class="card-text"><strong>Hora Salida:</strong> {{ item.hora_salida | date:'shortTime' }}</p>
+            </div>
+            <div class="col-6">
+              <p class="card-text"><strong>ID Actividad:</strong> {{ item.fk_actividad }}</p>
+            </div>
+            <div class="col-6">
+              <p class="card-text"><strong>Actividad:</strong> {{ item.actividad_s }}</p>
+            </div>
+            <div class="col-6">
+              <p class="card-text"><strong>ID Usuario:</strong> {{ item.fk_usuario }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+  }
+</div>

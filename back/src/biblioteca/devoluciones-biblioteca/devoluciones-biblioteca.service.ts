@@ -8,7 +8,6 @@ export class DevolucionesBibliotecaService {
     constructor(private sql: SqlService) { }
 
     async entrega(prestamo: Prestamo) {
-        console.log(prestamo)
         try {
 
             const res = await this.sql.query('select cantidad from libros.libro where id_libro = $1', [prestamo.fk_libro])

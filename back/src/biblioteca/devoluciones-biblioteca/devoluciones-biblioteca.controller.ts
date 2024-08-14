@@ -2,7 +2,8 @@ import { Body, Controller, Get, Post, Query, SetMetadata, UseGuards } from '@nes
 import { DevolucionesBibliotecaService } from './devoluciones-biblioteca.service';
 import { Prestamo } from '../prestamos/prestamo.interface';
 import { RolesGuard } from 'src/roles/roles.guard';
-
+@UseGuards(RolesGuard)
+@SetMetadata('roles', ['BIBLIOTECA'])
 @Controller('devoluciones-biblioteca')
 export class DevolucionesBibliotecaController {
 
@@ -10,8 +11,6 @@ export class DevolucionesBibliotecaController {
 
 
     @Get()
-    @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['BIBLIOTECA'])
     traer_prestamo_realizados(@Query('codigo') codigo: string) {
       return this.devolicion_S.traer_devolucion_disponibles(codigo)
     }
