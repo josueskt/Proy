@@ -24,7 +24,7 @@ private register = inject(CrearUsuarioserviceService)
     
 
 
-    if (this.isValidEmail(this.usuario.email) && this.isValidPassword(this.usuario.password) && this.usuario.nombre !== "" && this.usuario.cedula !== "") {
+    if (this.isValidEmail(this.usuario.email) && this.usuario.password && this.usuario.nombre !== "" && this.usuario.cedula !== "") {
       this.toastrService.success('Usuario Creado', 'OK', {
         timeOut: 3000,
         positionClass: 'toast-top-center',
