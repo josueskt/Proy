@@ -87,7 +87,7 @@ export class CrearUsuariosComponent {
       const password = row[2];
       const nombre = row[4];
       const fk_rol = this.selectedCarrera;
-      const carrera = row[5]
+      const carrera = row[16]
 
       return {
         id_user,
