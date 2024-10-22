@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CarreraService } from './carrera.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-carrera',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule ,RouterLink],
   templateUrl: './carrera.component.html',
   styleUrls: ['./carrera.component.css'],
 })

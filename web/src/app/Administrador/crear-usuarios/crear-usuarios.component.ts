@@ -4,13 +4,13 @@ import { CrearUsuariosService } from './crear-usuarios.service';
 import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crear-usuarios',
   standalone: true,
-  imports: [FormsModule,NgxPaginationModule],
+  imports: [FormsModule,NgxPaginationModule,RouterModule],
   templateUrl: './crear-usuarios.component.html',
   styleUrls: ['./crear-usuarios.component.css']
 })

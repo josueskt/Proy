@@ -6,6 +6,7 @@ INSERT INTO libros.tipo(nombre)VALUES('URL'),('PDF'),('FISICO')
 INSERT INTO biblioteca.jornada(nombre)VALUES('MATUTINA'),('VESPERTINA'),('NOCTURNA')
 INSERT INTO biblioteca.nivel(nombre)VALUES('PRIMERO'),('SEGUNDO'),('TERCERO'),('CUARTO'),('QUINTO'),('EGRESADO')
 INSERT INTO tramites.estados (nombre) VALUES ('activo'),('pendiente'),('finalizado');
+INSERT INTO tramites.estados (nombre) VALUES ('A'),('B'),('C'),('D'),('E'),('F'),('G');
 
 treas faltaltantes 
 configuracion de libro id :admin/libro 

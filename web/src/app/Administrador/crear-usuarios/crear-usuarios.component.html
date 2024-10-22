@@ -74,7 +74,7 @@
             </button>
           </td>
           <td>
-            <a href='../admin/editar_usuario/{{carrera.id_user}}'><button class="btn btn-info">editar</button></a>
+            <a [routerLink]="['/admin/editar_usuario/'+carrera.id_user]"  ><button class="btn btn-info">editar</button></a>
           </td>
         </tr>
         }

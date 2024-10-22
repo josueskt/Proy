@@ -1,5 +1,5 @@
 import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { provideRouter , withHashLocation } from '@angular/router';
 
 import {
   HTTP_INTERCEPTORS,
@@ -19,11 +19,11 @@ import { routesBilbioteca } from './rutas/app.routesBiblioteca';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
-    provideRouter(routesBilbioteca),
-    provideRouter(routesAdmin),
-    provideRouter(routesProfesor),
-    provideRouter(routesUser),
+    provideRouter(routes,withHashLocation()),
+    provideRouter(routesBilbioteca,withHashLocation()),
+    provideRouter(routesAdmin,withHashLocation()),
+    provideRouter(routesProfesor,withHashLocation()),
+    provideRouter(routesUser,withHashLocation()),
     provideHttpClient(withInterceptors([loggerInter])),
     AuthGuard,
     {

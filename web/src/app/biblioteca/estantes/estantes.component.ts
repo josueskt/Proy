@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { EstantesServiceService } from './estantes-service.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-estantes',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,RouterLink],
   templateUrl: './estantes.component.html',
   styleUrl: './estantes.component.css'
 })
