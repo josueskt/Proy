@@ -66,11 +66,12 @@ export class CargaLibrosBloqueService {
       const tipo = row[12];
       const year = row[2];
       const palabras = row[6]
+      const cantidad = row[13]
 
 
 
       return {
-        titulo, autor, review, carrera, imagen, archivo,isbn,codigo,editorial,tipo,year,palabras
+        titulo, autor, review, carrera, imagen, archivo,isbn,codigo,editorial,tipo,year,palabras,cantidad
       };
     });
 

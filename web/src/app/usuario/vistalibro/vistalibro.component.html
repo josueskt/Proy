@@ -1,4 +1,4 @@
-<app-buscador></app-buscador>
+<app-buscador class="d-flex justify-content-center"></app-buscador>
 @if(etiquetas[0]){
   @if (etiquetas[0].nombre) {
     
@@ -20,17 +20,17 @@
 
 }
 
-<div class="container">
+<div class="container text-center">
   <h1 class="text-back bg-white rounded">{{libro.titulo | uppercase}}</h1>
 <br>
 
   <div class="row">
 
-    <div class="col-md-5">
+    <div class="col-md-4">
       <!-- imagen -->
       <div class="d-flex justify-content-center">
         @defer{
-          <img [src]="imagen" alt="imagen no encontrada" (error)="eror_carga_imagen()" class="img-fluid img-thumbnail imagen-responsive">
+          <img [src]="imagen" alt="imagen no encontrada" (error)="eror_carga_imagen()" class="img-fluid  imagen-responsive">
 
         }@loading {
        <div class="img-fluid img-thumbnail imagen-responsive">cargando.....</div>
@@ -71,7 +71,7 @@
       <div class="description-container">
 
         
-        <div class="card">
+        <div class="border rounded border-black">
           <div class="card-header bg-dark text-white">
             <h3>Información del libro</h3>
           </div>
@@ -94,13 +94,16 @@
               </div>
             </div>
             <p><strong>Descripción:</strong> {{libro.review}}</p>
-            @if(libro.tipo ==='FISICO'){
-              <p>Ubicacion:</p>
-              <p><strong>Estante:{{libro.estante}}</strong></p>
-              <p><strong>Seccion:{{libro.seccion}}</strong></p>
-             
-              <p><strong>Codigo:{{libro.codigo}}</strong></p>
-            }
+            <div class="text-left p-2">
+              @if(libro.tipo ==='FISICO'){
+                <p class="">Ubicacion:</p>
+                <p><strong>Estante:{{libro.estante}}</strong></p>
+                <p><strong>Seccion:{{libro.seccion}}</strong></p>
+               
+                <p><strong>Codigo:{{libro.codigo}}</strong></p>
+              }
+            </div>
+           
           </div>
          
         </div>

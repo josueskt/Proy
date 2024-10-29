@@ -26,7 +26,7 @@
               <tr class="{{ $index % 2 === 0 ? 'table-secondary' : '' }}">
                 <td>{{ item.nombre }}</td>
                 <td>
-                  <a href='biblioteca/seccion/{{ item.id_seccion }}' class="btn btn-warning">Editar</a>
+                  <a  [routerLink]="['../../seccion/'+item.id_seccion]"   class="btn btn-warning">Editar</a>
                 </td>
                 <td>
                   <button class="btn btn-danger" (click)="elimiar(item.id_seccion)">Eliminar</button>

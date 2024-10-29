@@ -29,7 +29,7 @@
                   <button class="btn btn-danger" (click)="eliminar_estante(item.id_estante)">Eliminar</button>
                 </td>
                 <td>
-                  <a [routerLink]="['biblioteca/secciones/'+item.id_estante]" class="btn btn-warning">Ver secciones del estante</a>
+                  <a [routerLink]="['../secciones/'+item.id_estante]" class="btn btn-warning">Ver secciones del estante</a>
                 </td>
               </tr>
             }

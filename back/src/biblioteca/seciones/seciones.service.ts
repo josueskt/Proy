@@ -36,7 +36,7 @@ seccion.nombre
 seccion.id_seccion
 if(seccion.nombre){
 
-    this.sql.query('UPDATE libros.seccion SET nombre =$1 WHERE id_seccion = $3',[seccion.nombre,seccion.id_seccion])
+    this.sql.query('UPDATE libros.seccion SET nombre =$1 WHERE id_seccion = $2',[seccion.nombre,seccion.id_seccion])
 }
 if(seccion.eliminados){
   await  this.elm_l(seccion.eliminados)

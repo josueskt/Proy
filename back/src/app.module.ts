@@ -1,6 +1,5 @@
 import { Module, ValidationPipe } from '@nestjs/common';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { SqlService } from './sql/sql.service';
 import { CarreraController } from './administrador/carrera/carrera.controller';
 import { MateriaController } from './administrador/materia/materia.controller';
@@ -62,7 +61,7 @@ import { SalidaService } from './biblioteca/salida/salida.service';
 @Module({
   imports: [],
   controllers: [AppController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController, UsuarioPrestamosController, BuscadorController, DescargaController, AutorController, CambioContraController, MilibroController, CargaLLoteController, LibroTipoController, EtiquetasController, ImagenController, InventarioController,  LibrosFisicosController, PrestamosController, MisprestamosController, EstantesController, SecionesController, DevolucionesBibliotecaController, AlertasController, RegistroUsuarioController, ReporteLibroController, IngresoController, SalidaController ],
-  providers: [AppService, SqlService, CarreraService, EstadisticasService, MateriaService, LibroService, LoginService, UsuariosService,  {
+  providers: [ SqlService, CarreraService, EstadisticasService, MateriaService, LibroService, LoginService, UsuariosService,  {
     provide: APP_PIPE,
     
     useClass: ValidationPipe, 

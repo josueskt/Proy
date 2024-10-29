@@ -11,4 +11,5 @@ export interface dato{
     tipo: string;
     year: number;
     palabras: string;
+    cantidad?:string
 }

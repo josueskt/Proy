@@ -85,8 +85,8 @@ export class CargaLLoteService {
      console.error(error);
    });
 
-  const valor =  await this.sql.query(`INSERT INTO libros.libro ( titulo, year_of_publication, review, imagen, nombre_archivo, isbn,fk_creador,fk_autor,fk_carrera,fk_tipo,codigo, editorial) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)  RETURNING id_libro`, [
-    dato.titulo.toLowerCase(),dato.year, dato.review.toLowerCase(),imagen,'',dato.isbn, id_user, dato.autor, dato.carrera, dato.tipo, dato.codigo, dato.editorial
+  const valor =  await this.sql.query(`INSERT INTO libros.libro ( titulo, year_of_publication, review, imagen, nombre_archivo, isbn,fk_creador,fk_autor,fk_carrera,fk_tipo,codigo, editorial,cantidad) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13)  RETURNING id_libro`, [
+    dato.titulo.toLowerCase(),dato.year, dato.review.toLowerCase(),imagen,'',dato.isbn, id_user, dato.autor, dato.carrera, dato.tipo, dato.codigo, dato.editorial,dato.cantidad
 
   ]);
   this.palabra.Generar_palabras(dato.palabras, valor[0].id_libro)

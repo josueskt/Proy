@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { LibroService } from '../libro.service';
 import { AuthService } from '../../roles/auth.service';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
 import { VistalibroService } from '../../usuario/vistalibro/vistalibro.service';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-catalogo-libros',
   standalone: true,
-  imports: [RouterModule ,CommonModule],
+  imports: [RouterModule ,CommonModule, RouterLink],
   templateUrl: './catalogo-libros.component.html',
   styleUrls: ['./catalogo-libros.component.css']
 })
@@ -103,6 +103,7 @@ const baseUrl = environment.URL;
         this.libroService.eliminarLibro(libro_id);
         Swal.fire('OK', 'Libro eliminado', 'success');
         this.traerLibros();
+        window.location.reload()
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         Swal.fire('Cancelado', 'Se conserva el libro', 'error');
       }

@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { SeccionesSericeService } from './secciones-serice.service';
 import { secciones } from '../../interfaces/secciones.interface';
 
 @Component({
   selector: 'app-secciones',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule,RouterLink],
   templateUrl: './secciones.component.html',
   styleUrl: './secciones.component.css'
 })
