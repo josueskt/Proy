@@ -98,29 +98,21 @@ export class LibroService {
     }
 
 
-    async crear(libros, file: Express.Multer.File[]): Promise<string> {
+    async crear(libros, file: Express.Multer.File): Promise<string> {
         const libro = JSON.parse(libros);
         
-
         if(!libro.archivo_url){
         try {
-            if (!file || !file[0].buffer) {
-                throw new HttpException('Archivo no válido', HttpStatus.BAD_REQUEST);
+           
+            let uniqueFileName
+            if(file){
+                 uniqueFileName = this.generateUniqueFileName(file);
+            
+                await this.saveFile(file, uniqueFileName, process.env.Docs);
             }
-            // Genera un nombre único para el archivo PDF
-            const uniqueFileName = `${Date.now()}-${file[0].originalname}`;
 
-
-            // Construye la ruta completa del archivo en la carpeta pdfs
-            const pdfPath = path.join( process.env.Docs, uniqueFileName);
-
-            // Crea el stream de escritura del archivo
-            const writeStream = fs.createWriteStream(pdfPath);
-            writeStream.write(file[0].buffer);
-
-            // Cierra el flujo después de escribir el contenido
-            writeStream.end();
-
+            
+         
 
 
 

@@ -283,7 +283,7 @@ export class FormularioLibroComponent implements OnInit {
                   timeOut: 3000,
                   positionClass: 'toast-top-center',
                 });
-                this.router.navigate(['/profe']);
+              //  this.router.navigate(['/profe']);
               },
               error:(error) => {
                 this.toastrService.error(error.error.message, 'Fail', {

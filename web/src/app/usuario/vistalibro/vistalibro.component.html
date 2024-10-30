@@ -118,9 +118,16 @@
 <hr>
   <br>
   @if(libro.tipo ==='PDF'){
-  <embed oncontextmenu="return false;" [src]="pdfUrl" type="application/pdf" width="100%" height="1200px "
-    sandbox="allow-same-origin allow-scripts allow-forms" />
-
+    @defer {
+      <embed oncontextmenu="return false;" [src]="pdfUrl" type="application/pdf" width="100%" height="1200px "
+      sandbox="allow-same-origin allow-scripts allow-forms" />
+  
+    }@loading {
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    }
+ 
 
   }@else if(libro.tipo ==='URL') {
   <div>

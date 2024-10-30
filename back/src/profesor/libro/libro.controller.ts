@@ -41,7 +41,7 @@ export class LibroController {
   @UsePipes(ValidationPipe)
   @UseInterceptors(FileInterceptor('file'))
   async crear(
-    @UploadedFile() file: Express.Multer.File[],
+    @UploadedFile() file: Express.Multer.File,
     @Body('libro') libro: Libro,
   ): Promise<{ message: string; newFileName: string }> {
     try {
