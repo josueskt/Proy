@@ -39,16 +39,20 @@ export class LibroController {
   }
   @Post()
   @UsePipes(ValidationPipe)
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileFieldsInterceptor([
+    { name: 'imagenfile', maxCount: 1 },
+    { name: 'file', maxCount: 1 },
+  ]))
   async crear(
-    @UploadedFile() file: Express.Multer.File,
-    @Body('libro') libro: Libro,
+    @UploadedFiles() files: { imagenfile?: Express.Multer.File[], file: Express.Multer.File[] },
+    @Body('libro') libro: string,
   ): Promise<{ message: string; newFileName: string }> {
     try {
-      // Llama al servicio para crear el libro con el archivo PDF
       
+   const  lib =  JSON.parse(libro )
 
-      const message = await this.libro.crear(libro, file);
+     
+   const message = await this.libro.crear(lib, files.file ? files.file[0] : null, files.imagenfile ? files.imagenfile[0] : null);
 
       return {
         message,

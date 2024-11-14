@@ -20,7 +20,8 @@ export const routesUser: Routes = [
       },
       {
         path: 'libro',
-        component: LibroComponent,
+        loadComponent: () =>
+          import('../usuario/libro/libro.component').then((m) => m.LibroComponent),
       },
       {
         path: 'libro/:id',
@@ -29,7 +30,8 @@ export const routesUser: Routes = [
    
       {
         path: 'cambio_contra',
-        component: CambioContraComponent,
+        loadComponent: () =>
+          import('../cambio-contra/cambio-contra.component').then((m) => m.CambioContraComponent),
       },
     ],
   },

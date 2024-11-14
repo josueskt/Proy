@@ -1,19 +1,8 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '../roles/auth.guard';
-import { CargaLibrosBloqueComponent } from '../Administrador/carga-libros-bloque/carga-libros-bloque.component';
-import { CarreraComponent } from '../Administrador/carrera/carrera.component';
-import { CrearUsuariosComponent } from '../Administrador/crear-usuarios/crear-usuarios.component';
-import { EstadisticasComponent } from '../Administrador/estadisticas/estadisticas.component';
 import { AdministradorComponent } from '../Administrador/administrador.component';
-import { LibroTipoComponent } from '../Administrador/libro-tipo/libro-tipo.component';
-import { EditarUsuarioComponent } from '../Administrador/editar-usuario/editar-usuario.component';
-import { CrearUsuarioComponent } from '../Administrador/crear-usuario/crear-usuario.component';
-import { EditarCarreaComponent } from '../Administrador/carrera/editar-carrea/editar-carrea.component';
-import { ReporteLibrosComponent } from '../Administrador/reporte-libros/reporte-libros.component';
-
 
 export const routesAdmin: Routes = [
-
   {
     path: 'admin',
     component: AdministradorComponent,
@@ -22,42 +11,71 @@ export const routesAdmin: Routes = [
     children: [
       {
         path: 'estadisticas',
-        component: EstadisticasComponent,
+        loadComponent: () =>
+          import('../Administrador/estadisticas/estadisticas.component').then(
+            (m) => m.EstadisticasComponent
+          ),
       },
       {
         path: 'Registrar_usuarios',
-        component: CrearUsuariosComponent,
+        loadComponent: () =>
+          import('../Administrador/crear-usuarios/crear-usuarios.component').then(
+            (m) => m.CrearUsuariosComponent
+          ),
       },
       {
         path: 'Registrar_usuario',
-        component: CrearUsuarioComponent,
+        loadComponent: () =>
+          import('../Administrador/crear-usuario/crear-usuario.component').then(
+            (m) => m.CrearUsuarioComponent
+          ),
       },
       {
         path: 'carrera',
-        component: CarreraComponent,
+        loadComponent: () =>
+          import('../Administrador/carrera/carrera.component').then(
+            (m) => m.CarreraComponent
+          ),
       },
       {
         path: 'carrera/:id',
-        component: EditarCarreaComponent,
+        loadComponent: () =>
+          import('../Administrador/carrera/editar-carrea/editar-carrea.component').then(
+            (m) => m.EditarCarreaComponent
+          ),
       },
-
       {
         path: 'subir_l_bloque',
-        component: CargaLibrosBloqueComponent,
+        loadComponent: () =>
+          import('../Administrador/carga-libros-bloque/carga-libros-bloque.component').then(
+            (m) => m.CargaLibrosBloqueComponent
+          ),
         canActivate: [AuthGuard],
-        data: { roles: ['ADMINISTRADOR','BIBLIOTECA']}
+        data: { roles: ['ADMINISTRADOR', 'BIBLIOTECA'] },
       },
       {
         path: 'tipo-libro',
-        component: LibroTipoComponent, canActivate: [AuthGuard],
-      },{
-        path:'editar_usuario/:id',
-        component:EditarUsuarioComponent,canActivate:[AuthGuard]
+        loadComponent: () =>
+          import('../Administrador/libro-tipo/libro-tipo.component').then(
+            (m) => m.LibroTipoComponent
+          ),
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'editar_usuario/:id',
+        loadComponent: () =>
+          import('../Administrador/editar-usuario/editar-usuario.component').then(
+            (m) => m.EditarUsuarioComponent
+          ),
+        canActivate: [AuthGuard],
       },
       {
         path: 'reportes',
-        component: ReporteLibrosComponent,
+        loadComponent: () =>
+          import('../Administrador/reporte-libros/reporte-libros.component').then(
+            (m) => m.ReporteLibrosComponent
+          ),
       },
-    ]
-  }
+    ],
+  },
 ];

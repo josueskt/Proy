@@ -30,12 +30,16 @@ export class LibroService {
     return this.http.get<Libro>(`${this.baseUrl}/${id}`);
   }
 
-  crearLibro(libro: Libro, file: File): Observable<{ message: string; newFileName: string }> {
+  crearLibro(libro: Libro, file: File,imagen:File): Observable<{ message: string; newFileName: string }> {
     const formData: FormData = new FormData();
     formData.append('libro', JSON.stringify(libro));
     if (file) {
       formData.append('file', file, file.name);
     }
+    if (imagen) {
+      formData.append('imagenfile', imagen, imagen.name);
+    }
+    
     return this.http.post<{ message: string; newFileName: string }>(
       `${this.baseUrl}`,
       formData

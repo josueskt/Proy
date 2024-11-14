@@ -20,6 +20,9 @@
   border: 2px solid black;
 
 }
+.buscador{
+  width: 100%;
+}
 
 @media only screen and (max-width: 360px) {
   :host {

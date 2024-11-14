@@ -13,6 +13,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "allowedCommonJsDependencies": ["sweetalert2", "html2canvas", "dompurify", "canvg",
+            "core-js",
+            "raf",
+            "rgbcolor"],
             "outputPath": "dist/test",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -39,7 +43,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "2mb",
-                  "maximumError": "2mb"
+                  "maximumError": "2.5mb"
                 },
                 {
                   "type": "anyComponentStyle",

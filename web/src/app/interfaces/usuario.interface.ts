@@ -6,4 +6,5 @@ export interface Usuario {
     password:string
     cedula:string
     carrera:string
+    cambio:boolean
 }

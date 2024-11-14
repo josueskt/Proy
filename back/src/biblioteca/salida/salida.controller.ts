@@ -2,7 +2,7 @@ import { Controller, Get, Param, Post, Query, SetMetadata, UseGuards } from '@ne
 import { SalidaService } from './salida.service';
 import { RolesGuard } from 'src/roles/roles.guard';
 @UseGuards(RolesGuard)
-@SetMetadata('roles', ['BIBLIOTECA'])
+@SetMetadata('roles', ['BIBLIOTECA', 'ADMINISTRADOR'])
 @Controller('salida')
 export class SalidaController {
     constructor(private salida_S: SalidaService) { }

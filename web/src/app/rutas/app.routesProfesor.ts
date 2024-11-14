@@ -1,41 +1,39 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from '../roles/auth.guard';
-import { LibroComponent } from '../usuario/libro/libro.component';
-import { CatalogoLibrosComponent } from '../Profesor/catalogo-libros/catalogo-libros.component';
-import { CrearAutorComponent } from '../Profesor/crear-autores/crear-autores.component';
-import { EditarLibroComponent } from '../Profesor/editar-libro/editar-libro.component';
-import { FormularioLibroComponent } from '../Profesor/formulario-libro/formulario-libro.component';
-import { ProfesorComponent } from '../Profesor/profesor.component';
-
 
 export const routesProfesor: Routes = [
   {
     path: 'profe',
-    component: ProfesorComponent,
     canActivate: [AuthGuard],
     data: { roles: ['PROFESOR', 'ADMINISTRADOR'] },
+    loadComponent: () =>
+      import('../Profesor/profesor.component').then((m) => m.ProfesorComponent),
     children: [
       {
         path: '',
-        component: CatalogoLibrosComponent,
+        loadComponent: () =>
+          import('../Profesor/catalogo-libros/catalogo-libros.component').then((m) => m.CatalogoLibrosComponent),
       },
       {
         path: 'libro/:id',
-        component: LibroComponent,
+        loadComponent: () =>
+          import('../usuario/libro/libro.component').then((m) => m.LibroComponent),
       },
       {
         path: 'crear_autor',
-        component: CrearAutorComponent,
+        loadComponent: () =>
+          import('../Profesor/crear-autores/crear-autores.component').then((m) => m.CrearAutorComponent),
       },
-    
       {
         path: 'formulario',
-        component: FormularioLibroComponent,
+        loadComponent: () =>
+          import('../Profesor/formulario-libro/formulario-libro.component').then((m) => m.FormularioLibroComponent),
       },
       {
-        path:'editar/:id',
-        component: EditarLibroComponent
-      }
+        path: 'editar/:id',
+        loadComponent: () =>
+          import('../Profesor/editar-libro/editar-libro.component').then((m) => m.EditarLibroComponent),
+      },
     ],
   },
 ];

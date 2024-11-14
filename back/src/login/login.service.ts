@@ -15,7 +15,7 @@ export class LoginService {
       const cedula = datos.cedula;
       const password = datos.password;
       const result = await this.sql.query(
-        'SELECT u.id_user , u.activo, u.email,u.password,u.nombre ,r.nombre_rol  FROM inst.usuario AS u INNER JOIN inst.rol AS r ON u.fk_rol = r.id_rol where email = ($1);',
+        'SELECT u.id_user ,u.cambio, u.activo, u.email,u.password,u.nombre ,r.nombre_rol  FROM inst.usuario AS u INNER JOIN inst.rol AS r ON u.fk_rol = r.id_rol where u.id_user  = ($1);',
         [cedula],
       );
 
@@ -38,6 +38,7 @@ export class LoginService {
               email: user.email,
               nombre: user.nombre,
               nombre_rol: user.nombre_rol,
+              cambio:user.cambio
             },
             this.jwtSecretKey,
             { expiresIn: '7h' }, 

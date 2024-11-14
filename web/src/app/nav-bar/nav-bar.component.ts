@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 
 
 import { AuthService } from '../roles/auth.service';
-import { RouterLink } from '@angular/router';
+import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { Usuario } from '../interfaces/usuario.interface';
 import { Navinterface } from './nav.interface';
 
@@ -19,6 +19,7 @@ export class NavBarComponent implements OnInit {
   nombre =""
   rol= ""
   correo = ""
+  constructor(private router: Router) {}
 
   private authService = inject( AuthService)
 
@@ -29,6 +30,12 @@ export class NavBarComponent implements OnInit {
     this.rol = this.userInfo.nombre_rol
     this.correo  = this.userInfo.email
    
+
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        window.location.reload()
+      }
+    });
    
 
   }
@@ -55,8 +62,16 @@ export class NavBarComponent implements OnInit {
       {titulo:"REGISTRO DE CARRERAS",direcion:"/admin/carrera",icono:""},
       {titulo:"LIBROS POR LOTE",direcion:"/admin/subir_l_bloque",icono:""},
       {titulo:"MIS LIBROS",direcion:"/profe",icono:""},
+      {titulo:"CREAR AUTOR",direcion:"/profe/crear_autor",icono:""},
       {titulo:"TIPOS DE LIBRO",direcion:"/admin/tipo-libro",icono:""},
       {titulo:"REPORTES",direcion:"/admin/reportes",icono:""},
+      {titulo:"ESTANTES",direcion:"/biblioteca/estantes",icono:""},
+      {titulo:"INVENTARIO",direcion:"/biblioteca/inventario",icono:""},
+      {titulo:"PRESTAMOS",direcion:"/biblioteca/prestamos",icono:""},
+      {titulo:"DEVOLUCIONES",direcion:"/biblioteca/devolucion",icono:""},
+      {titulo:"INGRESO",direcion:"/biblioteca/ingreso",icono:""},
+      {titulo:"REPORTES",direcion:"/biblioteca/ingreso/registro",icono:""},
+
       
     ]},
     {rol:"BIBLIOTECA",opciones:[
@@ -69,5 +84,9 @@ export class NavBarComponent implements OnInit {
       {titulo:"REPORTES",direcion:"/biblioteca/ingreso/registro",icono:""},
     ]}
   ]
+
+
+  
+  
 
 }

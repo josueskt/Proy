@@ -3,7 +3,7 @@ import { DevolucionesBibliotecaService } from './devoluciones-biblioteca.service
 import { Prestamo } from '../prestamos/prestamo.interface';
 import { RolesGuard } from 'src/roles/roles.guard';
 @UseGuards(RolesGuard)
-@SetMetadata('roles', ['BIBLIOTECA'])
+@SetMetadata('roles', ['BIBLIOTECA', 'ADMINISTRADOR'])
 @Controller('devoluciones-biblioteca')
 export class DevolucionesBibliotecaController {
 

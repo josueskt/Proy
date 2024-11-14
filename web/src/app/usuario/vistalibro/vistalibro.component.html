@@ -1,8 +1,8 @@
-<app-buscador class="d-flex justify-content-center"></app-buscador>
+<app-buscador class="d-flex justify-content-center "></app-buscador>
 @if(etiquetas[0]){
   @if (etiquetas[0].nombre) {
     
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center ">
       <div class="row">
         <div class="col" >
           <div class="etiquetas-container">
@@ -27,21 +27,18 @@
   <div class="row">
 
     <div class="col-md-4">
-      <!-- imagen -->
-      <div class="d-flex justify-content-center">
+      <div class="d-flex justify-content-center" style="position: relative;">
         @defer{
-          <img [src]="imagen" alt="imagen no encontrada" (error)="eror_carga_imagen()" class="img-fluid  imagen-responsive">
-
-        }@loading {
-       <div class="img-fluid img-thumbnail imagen-responsive">cargando.....</div>
+          @if (loading) {
+            <div class="spinner-border text-primary imagen-responsive" role="status" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 3rem; height: 3rem;">
+              <span class="sr-only"></span>
+            </div>
+          }
+          <img [src]="imagen" (load)="imagenCargada()" loading="eager" alt="imagen no encontrada" (error)="eror_carga_imagen()" class="img-fluid imagen-responsive">
         }
       </div>
       <br>
-     
-
       @if(libro.tipo ==='PDF'){
-     
-      
       }@else if (libro.tipo==='URL') {
         <div class="d-flex justify-content-center">
       <a href='{{libro.nombre_archivo}}' target="_blank" class="btn btn-primary">
@@ -50,27 +47,19 @@
         </div>
       }@else if (libro.tipo ==='FISICO') {
         @if (libro.cantidad > 0) {
-          <div class="d-flex justify-content-center">
-            <p class="bg-success">libro  dispinible </p>
-          
+          <div class="d-flex justify-content-center ">
+            <p class="bg-success btn">libro  dispinible </p>
             </div>
         }
         @else {
           <div class="d-flex justify-content-center">
-            <p class="bg-danger">libro prestado o  no dispinible </p>
+            <p class="bg-danger btn">libro prestado o  no dispinible </p>
             </div>
         }
-       
       }
-    
     </div>
-
-  
     <div class="col-md-7">
-      
       <div class="description-container">
-
-        
         <div class="border rounded border-black">
           <div class="card-header bg-dark text-white">
             <h3>Información del libro</h3>
@@ -99,40 +88,21 @@
                 <p class="">Ubicacion:</p>
                 <p><strong>Estante:{{libro.estante}}</strong></p>
                 <p><strong>Seccion:{{libro.seccion}}</strong></p>
-               
                 <p><strong>Codigo:{{libro.codigo}}</strong></p>
               }
             </div>
-           
           </div>
-         
         </div>
       </div>
-      
     </div>
-    
   </div>
- 
- 
- 
-<hr>
   <br>
-  @if(libro.tipo ==='PDF'){
-    @defer {
-      <embed oncontextmenu="return false;" [src]="pdfUrl" type="application/pdf" width="100%" height="1200px "
-      sandbox="allow-same-origin allow-scripts allow-forms" />
-  
-    }@loading {
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    }
- 
-
-  }@else if(libro.tipo ==='URL') {
-  <div>
-    <embed oncontextmenu="return false;" [src]="urlSegura" width="100%" (error)="error_carga_pdf()" height="1200px"
-      type="application/pdf" sandbox="allow-same-origin allow-scripts allow-forms">
-  </div>
+  @if (libro.tipo !=='FISICO') {
+  @if (isLoading) {
+    <div class="spinner-border" role="status">
+      <span class="sr-only"></span>
+    </div>
+  }
+      <pdf-viewer  (after-load-complete)="onPdfLoadComplete()" [src]="pdfUrl" [render-text]="true" [show-all]="true" style="display: block; width: 100%; height: 600px; border: solid;"></pdf-viewer>
   }
 </div>

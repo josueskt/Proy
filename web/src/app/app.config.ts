@@ -15,12 +15,12 @@ import { routesAdmin } from './rutas/app.routesAdmin';
 import { routesUser } from './rutas/app.routesUser';
 import { routesProfesor } from './rutas/app.routesProfesor';
 import { routes } from './rutas/app.routesAll';
-import { routesBilbioteca } from './rutas/app.routesBiblioteca';
+import { routesBiblioteca } from './rutas/app.routesBiblioteca';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes,withHashLocation()),
-    provideRouter(routesBilbioteca,withHashLocation()),
+    provideRouter(routesBiblioteca,withHashLocation()),
     provideRouter(routesAdmin,withHashLocation()),
     provideRouter(routesProfesor,withHashLocation()),
     provideRouter(routesUser,withHashLocation()),

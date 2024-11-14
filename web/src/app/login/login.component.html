@@ -43,11 +43,11 @@
         <div class="card-body" style="background-color: rgba(255, 255, 255, 0.403); backdrop-filter: blur(5px);">
           <h2 class="text-center text-transparent">Iniciar sesión</h2>
           <form>
-            <label for="email">Email:</label>
+            <label for="email">Cedula:</label>
             <div class="input-group mb-3">
-              <input class="form-control" type="email" id="email" name="email" [(ngModel)]="username" required placeholder="@yavirac.edu.ec">
-            </div>
-            <label for="password">Password:</label>
+              <input class="form-control" type="email" id="email" name="email" [(ngModel)]="username" required placeholder="">
+            </div>  
+            <label for="password">Contraseña:</label>
             <div class="input-group mb-3">
               <input  (keydown.enter)="login()" [type]="showPassword ? 'text' : 'password'" class="form-control" id="password" name="password"
                 [(ngModel)]="password" required>
@@ -66,7 +66,17 @@
               </button>
             </div>
             <div class="text-center">
-              <button class="btn btn-danger" type="button" (click)="login()">Iniciar Sesión</button>
+              @if (!mandado) {
+                <button class="btn btn-danger" type="button" (click)="login()">
+                  Iniciar Sesión</button>
+              }@else {
+                <div class="btn btn-danger">
+                  <div class="spinner-border" role="status">
+                    <span class="sr-only"></span>
+                  </div>
+                </div>
+              }
+             
             </div>
           </form>
         </div>

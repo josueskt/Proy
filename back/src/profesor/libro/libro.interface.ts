@@ -10,4 +10,10 @@ fk_carrera: number
 fk_tipo:string
 codigo:string
 editorial:string
+tipoImagen:string
+archivo_url:string
+descripcion:string
+tipo:string
+palabras:string
+cantidad:string
 }

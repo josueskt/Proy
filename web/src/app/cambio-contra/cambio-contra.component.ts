@@ -43,6 +43,7 @@ export class CambioContraComponent {
         this.cambio_pas.password(this.datos).subscribe({
          next: () => {
             this.toastrService.success('Contraseña Actualizada', 'OK', {
+
               timeOut: 3000, positionClass: 'toast-top-center'
             });
             this.volver();
@@ -63,6 +64,7 @@ export class CambioContraComponent {
 
   volver(): void {
     this.router.navigate(['/user']);
+    this.Aunth.clearToken()
   }
 
   validarContrasena(contrasena: string): boolean {

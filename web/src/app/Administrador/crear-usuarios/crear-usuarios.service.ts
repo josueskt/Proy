@@ -14,7 +14,9 @@ export class CrearUsuariosService {
 
   constructor(private http: HttpClient) { }
   crearCarrera(datos:any[]): Observable<any> {
-    return this.http.post(`${this.baseUrl}`, datos);
+  
+    JSON.stringify(datos)
+    return this.http.post(`${this.baseUrl}`, {"users":datos});
   }
   get_user(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);

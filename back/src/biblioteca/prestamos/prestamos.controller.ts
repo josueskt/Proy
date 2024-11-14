@@ -8,20 +8,20 @@ export class PrestamosController {
 constructor(private prestamoS:PrestamosService){}
     @Get('/libros')
   @UseGuards(RolesGuard)
-  @SetMetadata('roles', ['BIBLIOTECA'])
+  @SetMetadata('roles', ['BIBLIOTECA', 'ADMINISTRADOR'])
   libros_disponibles(@Query('libro') libro: string) {
     return this.prestamoS.libros_disponibles(libro)
   }
   @Get('/usuario/:id')
   @UseGuards(RolesGuard)
-  @SetMetadata('roles', ['BIBLIOTECA'])
+  @SetMetadata('roles', ['BIBLIOTECA', 'ADMINISTRADOR'])
   usuarios(@Param('id') id:string) {
     return this.prestamoS.usuarios(id)
   }
 
   @Post()
   @UseGuards(RolesGuard)
-  @SetMetadata('roles', ['BIBLIOTECA'])
+  @SetMetadata('roles', ['BIBLIOTECA', 'ADMINISTRADOR'])
   crear_prestamo(@Body('prestamo') prestamo: Prestamo) {
     return this.prestamoS.prestamo(prestamo)
 
@@ -29,7 +29,7 @@ constructor(private prestamoS:PrestamosService){}
   }
   @Get(':id')
   @UseGuards(RolesGuard)
-  @SetMetadata('roles', ['BIBLIOTECA'])
+  @SetMetadata('roles', ['BIBLIOTECA', 'ADMINISTRADOR'])
  
   traer_historial_prestamo(@Param('id') id: string) {
 

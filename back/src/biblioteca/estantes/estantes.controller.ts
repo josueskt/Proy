@@ -5,7 +5,7 @@ import { RolesGuard } from 'src/roles/roles.guard';
 
 @Controller('estantes')
 @UseGuards(RolesGuard)
-@SetMetadata('roles', ['BIBLIOTECA'])
+@SetMetadata('roles', ['BIBLIOTECA', 'ADMINISTRADOR'])
 export class EstantesController {
     constructor(private estante_S: EstantesService) { }
     @Get()

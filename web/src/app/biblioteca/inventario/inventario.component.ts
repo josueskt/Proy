@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { InventarioServiceService } from './inventario-service.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-inventario',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,RouterLink],
   templateUrl: './inventario.component.html',
   styleUrl: './inventario.component.css'
 })
@@ -43,7 +44,9 @@ pagina=1
         window.location.reload()
       },
       error: (e) => {
-        alert(e.message[0])
+        console.log(e)
+        window.location.reload()
+
 
       }
     }

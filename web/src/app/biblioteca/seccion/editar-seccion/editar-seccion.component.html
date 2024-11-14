@@ -78,7 +78,16 @@
         <form [formGroup]="seccion" (ngSubmit)="editar_secion()" class="card p-4 bg-light">
           <label for="nombre" class="form-label text-xl font-bold">Nombre de la sección</label>
           <input formControlName="nombre" autocomplete="off" type="text" id="nombre" class="form-control mb-4" placeholder="Cambiar nombre a sección">
-          <button class="btn btn-primary w-100" type="submit">Actualizar</button>
+          @if(!loadin){
+
+            <button class="btn btn-primary w-100" type="submit">Actualizar</button>
+          }@else {
+            <div class="btn btn-primary">
+              <div class="spinner-border" role="status">
+                <span class="sr-only"></span>
+              </div>
+            </div>
+          }
         </form>
       </div>
     </div>

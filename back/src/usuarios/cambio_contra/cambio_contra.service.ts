@@ -9,7 +9,7 @@ export class CambioContraService {
     try {
       const hashedPassword = await bcrypt.hash(Contra, 10);
       const reslut = await this.sql.query(
-        'UPDATE inst.usuario Set password = $1 where id_user = $2',
+        'UPDATE inst.usuario Set password = $1, cambio =true where id_user = $2',
         [hashedPassword, id],
       );
       return reslut;

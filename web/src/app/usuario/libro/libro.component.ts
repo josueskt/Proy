@@ -22,7 +22,9 @@ export class LibroComponent implements OnInit {
   itemsPerPage = 12;
   totalPages =0;
   pagina = 1;
+   baseUrl = environment.URL;
 
+url =   environment.URL + 'imagen?filename=' 
   @ViewChild('contenedorLibros') contenedorLibros!: ElementRef;
   private dataService = inject(DataService);
   private homeService = inject(HomeService)
@@ -46,14 +48,7 @@ searchText: string;
    
   }
 
-  eror_carga_imagen(libro) {
-    if (!libro.imagen.includes("http://")) {
-      const baseUrl = environment.URL;
-      libro.imagen = baseUrl + 'imagen?filename=' + libro.imagen;
-    } else {
-      libro.imagen = './assets/images/imagennoencontrada.png';
-    }
-  }
+ 
 
 
 hola(id){

@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { SeccioneSericeService } from '../seccione-serice.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-editar-seccion',
@@ -13,8 +14,10 @@ import { SeccioneSericeService } from '../seccione-serice.service';
 export class EditarSeccionComponent {
   private route = inject(ActivatedRoute)
   private fb = inject(FormBuilder)
-  buscador = ''
+  private toastrService: ToastrService = inject(ToastrService);
 
+  buscador = ''
+  loadin = false
   libros_sin_asignar:{id_libro:string,codigo:string}[] = []
   libros_asignados:{id_libro:string,codigo:string}[] = []
   seccion!:FormGroup
@@ -87,7 +90,19 @@ cambiarEstado_libros_elimanados(id: string) {
 
 
 editar_secion(){
-  this.seccion_s.editar(this.id,this.libros_agregados,this.libros_eliminados,this.seccion.value).subscribe((e:any)=>{alert(e.message[0]); window.location.reload()})
+  this.loadin = true
+  this.seccion_s.editar(this.id,this.libros_agregados,this.libros_eliminados,this.seccion.value).subscribe((e:any)=>{
+    this.toastrService.success(e.message[0], 'Éxito', {
+      timeOut: 3000,
+      positionClass: 'toast-top-center',
+    });
+    
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
+    
+    
+    })
 
 }
 

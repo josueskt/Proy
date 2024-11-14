@@ -6,7 +6,7 @@ import { RolesGuard } from 'src/roles/roles.guard';
 export class InventarioController {
     constructor(private inventario_s: InventarioService) { }
     @UseGuards(RolesGuard)
-  @SetMetadata('roles', ['BIBLIOTECA'])
+  @SetMetadata('roles', ['BIBLIOTECA', 'ADMINISTRADOR'])
     @Get()
     traer_fisicos(@Query('buscar') codigo: string, @Query('pagina') pagina: number) {
 

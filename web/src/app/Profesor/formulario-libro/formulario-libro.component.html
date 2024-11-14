@@ -30,13 +30,34 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="imagen">Imagen URL:</label>
-                        <input type="text" id="imagen" formControlName="imagen" class="form-control"
-                            placeholder="Ingrese la URL de la imagen" />
-                        @if (validator_imagen) {
-                        <div class="text-danger mt-2">{{validator_imagen}}</div>
-                        }
+                        <label for="tipo">Tipo de Imagen:</label>
+                        <select class="form-select" id="tipoImagen" formControlName="tipoImagen" (change)="cambioImagen($event)">
+                            
+                            <option  [value]=1 selected>Imagen</option>
+                            <option [value]=2>Link Imagen</option>
+
+                        </select>
                     </div>
+@if (imagen == 2) {
+    <div class="form-group">
+        <label for="imagen">Imagen URL:</label>
+        <input type="text" id="imagen" formControlName="imagen" class="form-control"
+            placeholder="Ingrese la URL de la imagen" />
+        @if (validator_imagen) {
+        <div class="text-danger mt-2">{{validator_imagen}}</div>
+        }
+    </div>
+}@else {
+    <div class="form-group">
+        <label for="imagen">Imagen URL:</label>
+        <input type="file" id="imagen" (change)="onImageSelected($event)" formControlName="imagen"  class="form-control"
+            placeholder="Ingrese la URL de la imagen" />
+        @if (validator_imagen) {
+        <div class="text-danger mt-2">{{validator_imagen}}</div>
+        }
+    </div>
+}
+                   
 
 
                     <!-- ISBN y Autor -->
@@ -51,11 +72,13 @@
                         </div>
                         <div class="form-group">
                             <label for="fk_autor">Autor:</label>
-                            <select class="form-select" id="fk_autor" formControlName="fk_autor">
-                                @for (autor of autors; track autor) {
-                                <option [value]="autor.id_autor">{{ autor.nombre }}</option>
-                                }
-                            </select>
+
+                            <input type="text" id="fk_autor" formControlName="fk_autor" class="form-control"
+                            placeholder="Ingrese el autor" />
+                        @if (validator_isbn) {
+                        <div class="text-danger mt-2">{{validator_isbn}}</div>
+                        }
+                           
                         </div>
                     </div>
 
@@ -85,7 +108,7 @@
                         @if(tipo_selected ==='PDF'){
                         <div class="col-md-12 form-group text-center">
                             <input type="file" id="archivo" (change)="onFileSelected($event)"
-                                class="form-control-file" />
+                                class="form-control" />
                         </div>
                         }@else if(tipo_selected ==='URL'){
                         <div class="col-md-12 form-group">
@@ -95,7 +118,16 @@
                         </div>
                         }
                         @else {
-                        <div></div>
+                        <div>
+                            <label for="cantidad">Cantidad:</label>
+                            <input type="text" id="cantidad" formControlName="cantidad" class="form-control"
+                                placeholder="cantidad" />
+                        </div>
+                        <div>
+                            <label for="codigo">Codigo:</label>
+                            <input type="text" id="codigo" formControlName="codigo" class="form-control"
+                                placeholder="cantidad" />
+                        </div>
                         }
                         <!-- Aquí puedes agregar el código para el cambio entre archivo y URL -->
                     </div>

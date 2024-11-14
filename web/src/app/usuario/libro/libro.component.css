@@ -6,6 +6,7 @@
   overflow-x: hidden;
 }
 .card:hover .overlay {
+  border-radius: 5%;
   opacity: 1; /* Muestra el overlay cuando se hace hover */
 }
 .card{
@@ -13,12 +14,16 @@
   border: 50px;
 }
 .card-img-container {
-  max-width: 350px; /* Ajusta este valor según tus necesidades */
+  padding: 5%;
+  /* Ajusta este valor según tus necesidades */
   max-height: 470px; /* Ajusta este valor según tus necesidades */
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.ro{
+  border-radius: 5%;
 }
 
 .overlay {
@@ -48,7 +53,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-rows: auto; /* Ajusta el tamaño automático según el contenido */
-  padding: 20px;
+  padding: 30px;
   grid-gap: 15px;
 }
 
@@ -117,4 +122,53 @@
         font-size: 12px;
         padding: 5px 10px;
     }
+}
+
+
+
+
+  
+.search-container {
+  padding-top: 20px;
+  width: 80%;
+}
+
+.search-box {
+  display: flex;
+  border: 2px solid #000; 
+  border-radius: 50px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.search-input {
+  
+  border: none;
+  outline: none;
+  flex-grow: 1;
+}
+
+.search-button-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-button {
+  background-color: #ff6600; 
+  color: #fff;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+}
+
+.search-button svg {
+  fill: #fff; 
+}
+
+.search-button:hover {
+  background-color: #0056b3; 
 }

@@ -73,6 +73,7 @@ export class CrearUsuariosComponent {
       },
      error: (error) => {
         this.loader = false
+        console.log(error)
         this.cargarCarreras();
       }
      } );
@@ -84,7 +85,7 @@ export class CrearUsuariosComponent {
     const formattedData = data.map(row => {
       const id_user = row[2];
       const email = row[13];
-      const password = row[2];
+      const password = String( row[2]);
       const nombre = row[4];
       const fk_rol = this.selectedCarrera;
       const carrera = row[16]

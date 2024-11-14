@@ -10,10 +10,11 @@ export class InventarioServiceService {
 
   base = environment.URL;
   private baseUrl =  `${this.base}inventario`;
+  private baseUrl2 =  `${this.base}libro`;
   constructor(private http:HttpClient) { }
 
 eliminar_libro(id:string){
-  return this.http.delete(`${this.baseUrl}/${id}`)
+  return this.http.delete(`${this.baseUrl2}/${id}`)
 }
   traer_libros(pagina:number,buscad?:string){
     return this.http.get(`${this.baseUrl}?pagina=${pagina}&buscar=${buscad}`)

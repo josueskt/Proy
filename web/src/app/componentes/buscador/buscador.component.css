@@ -2,13 +2,13 @@
   
   .search-container {
     padding-top: 20px;
-    width: 70%;
+    width: 80%;
   }
   
   .search-box {
     display: flex;
-    border: 2px solid #000; /* Negro */
-    border-radius: 5px;
+    border: 2px solid #000; 
+    border-radius: 50px;
     overflow: hidden;
     width: 100%;
   }
@@ -26,7 +26,7 @@
   }
   
   .search-button {
-    background-color: #ff6600; /* Naranja */
+    background-color: #ff6600; 
     color: #fff;
     border: none;
     padding: 10px;
@@ -34,13 +34,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 50px;
   }
   
   .search-button svg {
-    fill: #fff; /* Color del ícono */
+    fill: #fff; 
   }
   
   .search-button:hover {
-    background-color: #0056b3; /* Azul oscuro */
+    background-color: #0056b3; 
   }
   

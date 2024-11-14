@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent  implements OnInit{
+  mandado = false
   username = '';
   password = '';
   showPassword: boolean = false;
@@ -29,9 +30,16 @@ export class LoginComponent  implements OnInit{
     // Obtener la información del usuario al inicializar el componente
     const userInfo = this.authService.getUserInfo();
     if (userInfo) {
-      this.router.navigate(['/user']).then(() => {
-        window.location.reload();
-      });
+      if(userInfo.cambio){
+        this.router.navigate(['/user']).then(() => {
+          window.location.reload();
+        });
+      }else{
+        this.router.navigate(['/user/cambio_contra']).then(() => {
+          window.location.reload();
+        });
+      }
+     
     }
   }
 
@@ -40,10 +48,12 @@ export class LoginComponent  implements OnInit{
   }
 
   login() {
+    this.mandado = true
     this.aunt.login(this.username, this.password).subscribe({
      next: (response) => {
         // Maneja la respuesta del servidor aquí (por ejemplo, almacena el token)
         if (response.message) {
+          this.mandado = false
           this.toastrService.error(response.response.message, 'Fail', {
             timeOut: 4000, positionClass: 'toast-top-center',
           });
@@ -56,6 +66,8 @@ export class LoginComponent  implements OnInit{
             window.location.reload();
           });
         } else {
+          this.mandado = false
+
           console.error('Respuesta del servidor inesperada:', response);
         }
       },

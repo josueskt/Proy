@@ -3,7 +3,7 @@ import { Ingreso } from './ingreso.interface';
 import { IngresoService } from './ingreso.service';
 import { RolesGuard } from 'src/roles/roles.guard';
 @UseGuards(RolesGuard)
-@SetMetadata('roles', ['BIBLIOTECA'])
+@SetMetadata('roles', ['BIBLIOTECA', 'ADMINISTRADOR'])
 @Controller('ingreso')
 export class IngresoController {
 

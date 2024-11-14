@@ -5,6 +5,7 @@ import { CrearUsuarioserviceService } from './crear-usuarioservice.service';
 
 @Component({
   selector: 'app-crear-usuario',
+  
   standalone: true,
   imports: [FormsModule],
   templateUrl: './crear-usuario.component.html',

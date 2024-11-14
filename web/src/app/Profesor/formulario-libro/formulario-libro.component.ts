@@ -25,12 +25,14 @@ import { Router } from '@angular/router';
 })
 export class FormularioLibroComponent implements OnInit {
   archivoSeleccionado: File | undefined;
+  imagenSeleccionado: File | undefined;
   miFormulario: FormGroup;
   na = '';
   nas = '';
   autors: any;
   carrer: any;
   tipos: any;
+  imagen
 
   validator_titulo = ''
   validator_imagen = ''
@@ -65,17 +67,19 @@ export class FormularioLibroComponent implements OnInit {
   ) {
     this.miFormulario = this.formBuilder.group({
       titulo: ['', [Validators.required, Validators.maxLength(50)]],
+      tipoImagen: ['1', Validators.required],
       imagen: ['', Validators.required],
       descripcion: ['', [Validators.required, Validators.maxLength(500)]],
       fk_creador: [''],
       fk_autor: [''],
       fk_carrera: [''],
-      tipo: ['', Validators.required],
+      tipo: ['2', Validators.required],
       codigo: ['', Validators.required],
       editorial: ['', Validators.required],
       isbn: ['', Validators.required],
       archivo_url: [''],
-      palabras: ['']
+      palabras: [''],
+      cantidad:['']
     });
   }
 
@@ -93,6 +97,13 @@ export class FormularioLibroComponent implements OnInit {
         }
       }
     }
+  }
+
+  cambioImagen(value: Event) {
+    const nombreAutor = (event.target as HTMLSelectElement).value;
+
+    this.imagen = nombreAutor
+
   }
 
   get descripcionControl(): FormControl {
@@ -150,6 +161,9 @@ export class FormularioLibroComponent implements OnInit {
 
   onFileSelected(event: any) {
     this.archivoSeleccionado = event.target.files[0];
+  }
+  onImageSelected(event: any) {
+    this.imagenSeleccionado = event.target.files[0];
   }
 
   crearLibro() {
@@ -215,12 +229,12 @@ export class FormularioLibroComponent implements OnInit {
 
     ;
   }
-  if (!nuevoLibro.codigo) {
-    console.error("eror falta titulo")
-    this.validator_codigo = 'codigo requerido'
-    validado = false
-    ;
-  }
+  // if (!nuevoLibro.codigo) {
+  //   console.error("eror falta titulo")
+  //   this.validator_codigo = 'codigo requerido'
+  //   validado = false
+  //   ;
+  // }
 
   if (!nuevoLibro.editorial) {
     console.error("eror falta titulo")
@@ -255,14 +269,14 @@ export class FormularioLibroComponent implements OnInit {
         if(ti.nombre ==='FISICO'){
 
           this.libroService
-          .crearLibro(nuevoLibro, this.archivoSeleccionado)
+          .crearLibro(nuevoLibro, this.archivoSeleccionado , this.imagenSeleccionado)
           .subscribe({next:
             () => {
               this.toastrService.success('Libro creado exitosamente', 'Success', {
                 timeOut: 3000,
                 positionClass: 'toast-top-center',
               });
-              this.router.navigate(['/profe']);
+             this.router.navigate(['/profe']);
             },
             error:(error) => {
               this.toastrService.error(error.error.message, 'Fail', {
@@ -276,14 +290,14 @@ export class FormularioLibroComponent implements OnInit {
         if (this.archivoSeleccionado && ti.nombre === 'PDF') {
           // Llama al servicio para crear el libro
           this.libroService
-            .crearLibro(nuevoLibro, this.archivoSeleccionado)
+            .crearLibro(nuevoLibro, this.archivoSeleccionado,this.imagenSeleccionado)
             .subscribe({next:
               () => {
                 this.toastrService.success('Libro creado exitosamente', 'Success', {
                   timeOut: 3000,
                   positionClass: 'toast-top-center',
                 });
-              //  this.router.navigate(['/profe']);
+               this.router.navigate(['/profe']);
               },
               error:(error) => {
                 this.toastrService.error(error.error.message, 'Fail', {
@@ -305,7 +319,7 @@ export class FormularioLibroComponent implements OnInit {
           }
             ;
           this.libroService
-            .crearLibro(nuevoLibro, this.archivoSeleccionado)
+            .crearLibro(nuevoLibro, this.archivoSeleccionado,this.imagenSeleccionado)
             .subscribe({
              next: (data) => {
                 this.toastrService.success(data.message, 'Success', {

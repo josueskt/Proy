@@ -9,27 +9,27 @@ export class SecionesController {
     constructor(private seccionS: SecionesService) { }
     @Get('/libros')
     @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['BIBLIOTECA'])
+    @SetMetadata('roles', ['BIBLIOTECA', 'ADMINISTRADOR'])
     traer_libros_sin_usar(@Query('buscar')buscar:string) {
         return this.seccionS.l_s_u(buscar)
 
     }
     @Get()
     @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['BIBLIOTECA'])
+    @SetMetadata('roles', ['BIBLIOTECA', 'ADMINISTRADOR'])
     todas_seciones_estante(@Query('estante') id: string) {
         return this.seccionS.t_c_e(id)
 
     }
     @Get(':id')
     @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['BIBLIOTECA'])
+    @SetMetadata('roles', ['BIBLIOTECA', 'ADMINISTRADOR'])
     traer_secion_y_libros(@Param('id') id: string) {
         return this.seccionS.l_s_l(id)
     }
     @Put()
     @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['BIBLIOTECA'])
+    @SetMetadata('roles', ['BIBLIOTECA', 'ADMINISTRADOR'])
     editar_seccion(@Body('seccion') seccion:{}) {
 
 
@@ -41,7 +41,7 @@ export class SecionesController {
     }
     @Delete(':id')
     @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['BIBLIOTECA'])
+    @SetMetadata('roles', ['BIBLIOTECA', 'ADMINISTRADOR'])
     eliminar_secion(@Param('id')id:string) {
 
 return this.seccionS.eliminar(id)        //toca ahcer un uodate a todos los libros y luego eliminarlo :3 
@@ -49,7 +49,7 @@ return this.seccionS.eliminar(id)        //toca ahcer un uodate a todos los libr
     }
     @Post()
     @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['BIBLIOTECA'])
+    @SetMetadata('roles', ['BIBLIOTECA', 'ADMINISTRADOR'])
     crear_secion(@Body('seccion') seccion: Seccion) {
     
         return this.seccionS.crear_seccion(seccion)

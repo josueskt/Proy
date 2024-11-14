@@ -6,6 +6,7 @@ import * as path from 'path';
 import { PalabrasClaveService } from 'src/administrador/palabras-clave/palabras-clave.service';
 import { MessageDto } from 'src/common/message.dto';
 import { edit_libro } from './editar';
+import { Libro } from './libro.interface';
 
 
 @Injectable()
@@ -98,10 +99,32 @@ export class LibroService {
     }
 
 
-    async crear(libros, file: Express.Multer.File): Promise<string> {
-        const libro = JSON.parse(libros);
+    async crear(libros:Libro, file: Express.Multer.File,imagenfile?: Express.Multer.File ): Promise<string> {
+        const libro = libros
         
-        if(!libro.archivo_url){
+
+      const v_autor =   await this.sql.query('select id_autor from libros.autor where nombre = $1',[libro.fk_autor])
+      
+        if(!v_autor[0]){
+          const c_autor = await this.sql.query('insert into libros.autor(nombre) values($1) RETURNING id_autor',[libro.fk_autor])
+          libro.fk_autor = c_autor[0].id_autor
+        }else{
+
+          libro.fk_autor = v_autor[0].id_autor
+        }
+
+
+        if(imagenfile){
+       
+        const imagenname=  this.generateUniqueFileName(imagenfile)
+
+          await this.saveFile(imagenfile, imagenname, process.env.Docs);
+          libro.imagen = imagenname
+        }        
+     
+
+
+        if(libro.tipo === '2'){
         try {
            
             let uniqueFileName
@@ -110,13 +133,6 @@ export class LibroService {
             
                 await this.saveFile(file, uniqueFileName, process.env.Docs);
             }
-
-            
-         
-
-
-
-            //  Inserta los datos del libro en la base de datos, utilizando el campo nombre_archivo
            const valor =  await this.sql.query(`INSERT INTO libros.libro (
                 titulo,
                 year_of_publication,
@@ -154,7 +170,7 @@ export class LibroService {
           //  throw new HttpException(`Error al crear el libro con PDF: ${error.message}`, HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        }else
+        }else if(libro.tipo ==='1')
         {
            
 
@@ -198,6 +214,48 @@ export class LibroService {
             this.palabra.Generar_palabras(libro.palabras, valor[0].id_libro)
 
             return 'Libro creado exitosamente';
+
+        } else if(libro.tipo ==='3'){
+          try{
+  const valor =  await this.sql.query(`INSERT INTO libros.libro (
+                titulo,
+                year_of_publication,
+                review,
+                imagen,
+                nombre_archivo ,
+                isbn,
+                fk_creador,
+                fk_autor,
+                fk_carrera,
+                fk_tipo,
+                codigo,
+                editorial,
+                cantidad
+                ) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13) RETURNING id_libro;`, [
+                libro.titulo,
+                2004,
+                libro.descripcion,
+                libro.imagen,
+                null,
+                libro.isbn,
+                libro.fk_creador,
+                libro.fk_autor,
+                libro.fk_carrera,
+                libro.tipo,
+                libro.codigo,
+                libro.editorial,
+                libro.cantidad
+
+               
+            ]);
+            this.palabra.Generar_palabras(libro.palabras, valor[0].id_libro)
+
+
+          }catch (error) {
+            console.error('Error al crear el libro con PDF:', error);
+            return error
+        }
+
 
         }
         

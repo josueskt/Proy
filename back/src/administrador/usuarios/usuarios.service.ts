@@ -17,13 +17,18 @@ export class UsuariosService {
     }
   }
   async register(usuarios: Usuario[]) {
+    console.log(usuarios)
     const asaltos = 10;
     try {
       for await (const user of usuarios) {
-        const existe = await this.sql.query(
-          'Select id_user from inst.usuario where id_user = $1',
-          [user.id_user],
-        );
+let existe = [1]
+        if(user.id_user){
+          existe = await this.sql.query(
+            'Select id_user from inst.usuario where id_user = $1',
+            [user.id_user],
+          );
+        }
+     
         if (existe.length) {
           new MessageDto('Usuario ya existe');
         }
