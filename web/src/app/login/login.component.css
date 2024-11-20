@@ -21,39 +21,3 @@
 
 
 
-
-
-
-
-
-.text-center {
-  color: rgb(255, 255, 255);
-}
-
-input, button {
-  border-radius: 2vw;
-}
-
-
-@media screen and (max-width: 767px) {
-  .titulo, .titulo2 {
-    display: none;
-  }
-  .carousel,image{
-    display: none;
-  }
-
-  .card {
-    width: 80vw;
-    margin-top: -50vh;
-    margin-left: 7%;
-  }
-
-  input {
-    width: 70%;
-    height: 5vh;
-    border-radius: 2vw;
-   
-
-  }
-  }

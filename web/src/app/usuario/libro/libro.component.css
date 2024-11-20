@@ -2,7 +2,7 @@
   display: grid;
   height: 100%;
   padding-top: 50px;
-  background-color: #f0f0f0;
+  background-color: #F1F5F9;
   overflow-x: hidden;
 }
 .card:hover .overlay {

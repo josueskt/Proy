@@ -3,6 +3,14 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+
+.borde{
+
+  border:  3px dashed rgb(8, 5, 143);
+  border-radius: 15px;
+  margin: 2px;
+
+}
 #default-modal{
     display: flex;
     background-color: white;

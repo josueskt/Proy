@@ -72,7 +72,9 @@ export class EditarLibroComponent implements OnInit {
              positionClass: 'toast-top-center',
              
            });
-           this.router.navigate(['/profe']);
+           setTimeout(() => {
+             this.router.navigate(['/profe']);
+          }, 2000);
          },
         error: (error) => {
            this.toastrService.error(error.error.message, 'Fail', {
@@ -82,6 +84,7 @@ export class EditarLibroComponent implements OnInit {
          }
    });
        
+
  
   }
 

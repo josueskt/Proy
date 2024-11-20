@@ -3,9 +3,17 @@
     padding-top: 80px;
     display: grid;
     grid-template-columns: 2fr 1fr;
+    gap: 20px    ;
 }
 .registros{
     height: 35rem;
     width: 30rem;
     overflow-y: auto;
+}
+.borde{
+
+    border:  3px dashed rgb(8, 5, 143);
+    border-radius: 15px;
+    margin: 2px;
+
 }

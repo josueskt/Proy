@@ -2,14 +2,14 @@
     <h1 class="text text-center">prestamos</h1>
     <hr>
 </div>
+<div class="m-5">
 
-<input
-    class="form-control m-5"
-    type="text" [(ngModel)]="buscador" (keyup)="buscar() " placeholder="Busca un libro a prestar">
+    <input class="form-control "type="text" [(ngModel)]="buscador" (keyup)="buscar() " placeholder="Ingrese el codigo del libro a prestar">
+</div>
     @if(showModal){
         <div class="overlay" (click)="closeModal()"></div>
         <div class="modal">
-            <input type="text" class="border border-gray-400 p-2 w-full rounded">
+            <input type="text" class="border border-gray-400 p-2 w-full rounded" placeholder="">
             <button (click)="closeModal()" class="bg-red-500 text-white px-4 py-2 mt-4 rounded">Cerrar</button>
         </div>
         <div id="default-modal" tabindex="-1" aria-hidden="true"
@@ -78,7 +78,7 @@
         
         
         }
-<div class="container">
+<div class="container borde m-auto">
     @for (item of libros; track $index) {
 
         <div class="card m-5">

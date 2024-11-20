@@ -58,6 +58,14 @@ export const routesBiblioteca: Routes = [
         path: 'inventario',
         loadComponent: () =>
           import('../biblioteca/inventario/inventario.component').then((m) => m.InventarioComponent),
+        children:[
+          
+        ]
+      },
+      {
+        path: 'inventario/editar/:id',
+        loadComponent: () =>
+          import('../Profesor/editar-libro/editar-libro.component').then((m) => m.EditarLibroComponent),
       },
       {
         path: 'historial/:id',

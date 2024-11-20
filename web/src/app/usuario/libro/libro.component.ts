@@ -8,11 +8,12 @@ import { HomeService } from '../home/home.service';
 import { ToastrService } from 'ngx-toastr';
 import { BuscadorComponent } from '../../componentes/buscador/buscador.component';
 import { Libro } from '../../interfaces/libro.interface';
+import { LoaderComponent } from "../../componentes/loader/loader.component";
 
 @Component({
   selector: 'app-libro',
   standalone: true,
-  imports: [RouterLink, UpperCasePipe, FormsModule, NgClass,BuscadorComponent],
+  imports: [RouterLink, UpperCasePipe, FormsModule,   LoaderComponent],
   templateUrl: './libro.component.html',
   styleUrls: ['./libro.component.css'],
 })
@@ -23,6 +24,8 @@ export class LibroComponent implements OnInit {
   totalPages =0;
   pagina = 1;
    baseUrl = environment.URL;
+
+   full_loader = true
 
 url =   environment.URL + 'imagen?filename=' 
   @ViewChild('contenedorLibros') contenedorLibros!: ElementRef;
@@ -121,13 +124,12 @@ resultados_libros(pagina:number,buscado){
 
        this.dataService.resultados$.subscribe((resultados) => {
         this.resultados = resultados;
-        console.log(resultados)
       });
       this.homeService.index(this.texto).subscribe((e)=>{
 
 
-        console.log(e)
         this.totalPages = Math.ceil(e[0].count / this.itemsPerPage);
+        this.full_loader = false
       })
      },
     error: (error) => {

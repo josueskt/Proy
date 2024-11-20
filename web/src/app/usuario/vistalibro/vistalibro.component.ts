@@ -12,17 +12,18 @@ import { Etiqueta } from '../../interfaces/Etiqueta.interface';
 import { Libro } from '../../interfaces/libro.interface';
 /* @vite-ignore */ 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { LoaderComponent } from "../../componentes/loader/loader.component";
 
 @Component({
   selector: 'app-vistalibro',
   standalone: true,
-  imports: [UpperCasePipe, FormsModule, BuscadorComponent,PdfViewerModule],
+  imports: [UpperCasePipe, FormsModule, BuscadorComponent, PdfViewerModule, LoaderComponent],
   templateUrl: './vistalibro.component.html',
   styleUrls: ['./vistalibro.component.css'],
 })
 export class VistalibroComponent implements OnInit {
   constructor() {}
-
+  zoomLevel = 1;
   id = '';
   imagen: string;
   etiquetas: Etiqueta[];
@@ -39,6 +40,7 @@ export class VistalibroComponent implements OnInit {
   private toastrService: ToastrService = inject(ToastrService);
   searchText: string;
   loading = true
+  full_loading = true
   error = false
   ngOnInit() {
   
@@ -47,11 +49,20 @@ export class VistalibroComponent implements OnInit {
       this.id = params['id'];
       this.getLibroById(this.id);
       this.traer_etiquetas(this.id);
+
     });
   }
 
 
+  zoomIn(): void {
+    this.zoomLevel += 0.1; // Incrementa el zoom en un 10%
+  }
 
+  zoomOut(): void {
+    if (this.zoomLevel > 0.1) { // Evita que el zoom sea menor que 10%
+      this.zoomLevel -= 0.1;
+    }
+  }
   imagenCargada() {
     this.loading = false;  // Deja de mostrar el loader
   }
@@ -99,6 +110,7 @@ export class VistalibroComponent implements OnInit {
 
         this.imagen = baseUrl + 'imagen?filename=' +this.libro.imagen ;
         this.cargarPDF();
+        this.full_loading = false
       
       },
       error: () => {

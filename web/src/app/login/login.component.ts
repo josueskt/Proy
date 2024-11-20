@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, NgIconComponent],
+  imports: [FormsModule],
   viewProviders: [provideIcons({ featherAirplay, heroUsers })],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
@@ -25,6 +25,12 @@ export class LoginComponent  implements OnInit{
   private router = inject(Router);
   private authService = inject(AuthService);
   private toastrService: ToastrService = inject(ToastrService);
+  lista = [
+    {imagen:"DSC09767.JPG"},
+    {imagen:"DSC09942.JPG"},
+    {imagen:"IMG_20230614_153107.jpg"},
+  
+  ]
 
   ngOnInit() {
     // Obtener la información del usuario al inicializar el componente

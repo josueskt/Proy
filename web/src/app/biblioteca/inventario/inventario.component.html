@@ -10,8 +10,8 @@
     <div class="mb-3">
         <input [(ngModel)]="buscar_l" (keyup)="buscar()" type="text" placeholder="Buscar libro" class="form-control" />
     </div>
-    <p class="mb-2">Lista de libros</p>
-    <table class="table table-bordered">
+    <p class="mb-2 bg-dark text-white p-1 rounded">Lista de libros</p>
+    <table class="table table-bordered  rounded">
         <thead>
             <tr>
                 <th>Título</th>
@@ -30,10 +30,10 @@
                         <button class="btn btn-danger" (click)="eliminar(item.id_libro)">Eliminar</button>
                     </td>
                     <td>
-                        <button class="btn btn-info">Editar</button>
+                    <a  class="btn btn-info" [routerLink]="['editar/'+item.id_libro]"  >Editar</a>
                     </td>
                     <td>
-                        <a [routerLink]="['/biblioteca/historial/'+item.id_libro]"  class="text-primary">Ver historial de préstamo</a>
+                        <a class="btn btn-warning" [routerLink]="['/biblioteca/historial/'+item.id_libro]" >Ver historial de préstamo</a>
                     </td>   
                 </tr>
             }

@@ -25,6 +25,7 @@ export class IngresoComponent  implements OnInit{
   actividad_s = ''
   por_salir:Por_salir[]
   usuario:Usuario
+  load = true
 ngOnInit(): void {
   
   this.ingreso_s.traer_jornada().subscribe((e)=>{this.jornadas = e})
@@ -40,9 +41,11 @@ paralelo
 nivel
 actividad
 verificar(){
+  this.load= false
   this.ingreso_s.verificar_cliente(this.cedula).subscribe((e:Usuario[])=>{
    
     this.usuario = e[0]
+    this.load= true
 
   })
 }

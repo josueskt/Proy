@@ -46,7 +46,7 @@ export class FormularioLibroComponent implements OnInit {
   validator_isbn = ''
   validator_archivo_ur = ''
 
-
+load = true
   tipo_selected = 'PDF';
 
   ngOnInit() {
@@ -167,7 +167,7 @@ export class FormularioLibroComponent implements OnInit {
   }
 
   crearLibro() {
-
+this.load = false
     const nuevoLibro = this.miFormulario.value;
     const creador = this.Aunh.getUserInfo();
     nuevoLibro.fk_creador = creador.id_user;
