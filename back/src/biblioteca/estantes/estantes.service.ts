@@ -27,7 +27,7 @@ async editar(estante){
 
 }
 eliminar(id:string){
-    this.sql.query('DELETE FROM libros.estante WHERE = $1',[id])
+    this.sql.query('DELETE FROM libros.estante WHERE id_estante = $1',[id])
     return new MessageDto('eliminadoexitosamente' );
 
 }

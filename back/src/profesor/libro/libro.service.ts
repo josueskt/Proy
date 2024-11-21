@@ -3,6 +3,10 @@ import { SqlService } from 'src/sql/sql.service';
 
 import * as fs from 'fs';
 import * as path from 'path';
+
+import * as sharp from 'sharp';
+import { PDFDocument } from 'pdf-lib';
+
 import { PalabrasClaveService } from 'src/administrador/palabras-clave/palabras-clave.service';
 import { MessageDto } from 'src/common/message.dto';
 import { edit_libro } from './editar';
@@ -278,7 +282,7 @@ export class LibroService {
             return error
         }
     }
-        async editar(libro:edit_libro,files: { image: Express.Multer.File[], file?: Express.Multer.File[] }) {
+        async   editar(libro:edit_libro,files: { image: Express.Multer.File[], file?: Express.Multer.File[] }) {
     //crear interfaz
             try {
                 const baseFolderPath = process.env.Docs ;
@@ -374,22 +378,68 @@ if(uniqueImageName && uniqueFileName){
     }
 
     private generateUniqueFileName(file: Express.Multer.File): string {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        return file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname);
-      }
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
     
+      // Cambia la extensión a .webp si el archivo es una imagen
+      const extension = file.mimetype.startsWith('image/') ? '.webp' : path.extname(file.originalname);
+    
+      return file.fieldname + '-' + uniqueSuffix + extension;
+    }
+    
+    
+      // private async saveFile(file: Express.Multer.File, fileName: string, baseFolderPath: string): Promise<void> {
+      //   const filePath = path.join(baseFolderPath, fileName); // Ruta completa del archivo
+    
+      //   // Utiliza fs.createWriteStream para guardar el archivo
+      //   const writer = fs.createWriteStream(filePath);
+      //   writer.write(file.buffer);
+      //   writer.end();
+    
+      //   return new Promise((resolve, reject) => {
+      //     writer.on('finish', resolve);
+      //     writer.on('error', reject);
+      //   });
+      // }
+
       private async saveFile(file: Express.Multer.File, fileName: string, baseFolderPath: string): Promise<void> {
-        const filePath = path.join(baseFolderPath, fileName); // Ruta completa del archivo
-    
-        // Utiliza fs.createWriteStream para guardar el archivo
-        const writer = fs.createWriteStream(filePath);
-        writer.write(file.buffer);
-        writer.end();
-    
-        return new Promise((resolve, reject) => {
-          writer.on('finish', resolve);
-          writer.on('error', reject);
-        });
+        // Verifica el tipo de archivo
+        if (file.mimetype.startsWith('image/')) {
+          // Cambia la extensión del archivo a .webp
+          fileName = fileName.replace(/\.[^.]+$/, '.webp'); // Reemplaza la extensión por .webp
+          const filePath = path.join(baseFolderPath, fileName);
+      
+          // Convierte y comprime la imagen a formato WebP
+          const imageBuffer = await sharp(file.buffer)
+            .resize({ width: 1000 }) // Ajusta el tamaño máximo si lo deseas
+            .webp({ quality: 80 }) // Convierte y comprime la imagen a formato WebP con calidad 80
+            .toBuffer();
+      
+          // Guarda el archivo comprimido
+          return fs.promises.writeFile(filePath, imageBuffer);
+        
+        } else if (file.mimetype === 'application/pdf') {
+          const filePath = path.join(baseFolderPath, fileName);
+      
+          // Carga y comprime el PDF utilizando pdf-lib
+          const pdfDoc = await PDFDocument.load(file.buffer);
+          pdfDoc.setTitle('Compressed PDF'); // Opcional: modifica los metadatos
+      
+          // Guarda el PDF comprimido
+          const pdfBytes = await pdfDoc.save({ useObjectStreams: true });
+          return fs.promises.writeFile(filePath, pdfBytes);
+      
+        } else {
+          // Guarda otros tipos de archivos sin cambios
+          const filePath = path.join(baseFolderPath, fileName);
+          const writer = fs.createWriteStream(filePath);
+          writer.write(file.buffer);
+          writer.end();
+      
+          return new Promise((resolve, reject) => {
+            writer.on('finish', resolve);
+            writer.on('error', reject);
+          });
+        }
       }
 
 
