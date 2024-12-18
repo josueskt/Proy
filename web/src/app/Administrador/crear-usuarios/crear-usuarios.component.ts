@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, RouterModule } from '@angular/router';
 import Swal from 'sweetalert2';
 import { LoaderComponent } from "../../componentes/loader/loader.component";
+import { CrearUsuarioserviceService } from '../crear-usuario/crear-usuarioservice.service';
 
 @Component({
   selector: 'app-crear-usuarios',
@@ -27,11 +28,10 @@ export class CrearUsuariosComponent {
 
   private crearUsuariosService= inject(CrearUsuariosService)
   private toastrService: ToastrService = inject(ToastrService);
- 
+ private usuario = inject(CrearUsuarioserviceService)
 
 
   onKeyUp(event: KeyboardEvent): void {
-    // Puedes agregar lógica adicional si es necesario
   }
 
   handleFileInput(event: any): void {
@@ -74,7 +74,7 @@ export class CrearUsuariosComponent {
       },
      error: (error) => {
         this.loader = false
-        console.log(error)
+        //console.log(error)
         this.cargarCarreras();
       }
      } );
@@ -141,13 +141,12 @@ export class CrearUsuariosComponent {
   cargarCarreras(): void {
     this.crearUsuariosService.get_user().subscribe((carreras) => {
       this.Carreras = carreras;
-      console.log(carreras)
+      //console.log(carreras)
       this.filtrarCarreras();
     });
   }
 
   filtrarCarreras(): void {
-    // Filtrar las carreras según la cédula y ordenar para que el elemento buscado aparezca primero
     this.carrerasFiltradas = this.Carreras.filter(carrera => carrera.id_user.includes(this.filtroCedula));
     this.carrerasFiltradas.sort((a, b) => {
       if (a.id_user === this.filtroCedula) {
@@ -163,12 +162,9 @@ export class CrearUsuariosComponent {
   getPageNumbers(): number[] {
     const totalItems = this.carrerasFiltradas.length;
     const totalPages = Math.ceil(totalItems / this.pageSize);
-
-    // Limita el número de páginas que se mostrarán en la paginación
-    const maxPagesToShow = 10; // Puedes ajustar este número según tus preferencias
+    const maxPagesToShow = 10; 
     const startPage = Math.max(1, this.currentPage - Math.floor(maxPagesToShow / 2));
     const endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
-
     return Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i);
   }
 
@@ -198,5 +194,30 @@ export class CrearUsuariosComponent {
       }
     });
   }
+
+
+restablecer(id:string){
+
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: 'Desea restablecer la contraseña del usuario con cedula '+id,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí',
+    cancelButtonText: 'No',
+  }).then((result) => {
+    if (result.value) {
+      this.usuario.restablecer(id).subscribe((e) => {
+        Swal.fire('OK',""+ e.message, 'success');
+        this.cargarCarreras();
+      });
+    } else if (result.dismiss === Swal.DismissReason.cancel) {
+      Swal.fire('Cancelado', 'Se conserva la contraseña', 'error');
+    }
+  });
+
+
+
+}
 
 }

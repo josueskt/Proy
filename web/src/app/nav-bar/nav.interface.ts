@@ -4,5 +4,5 @@ export interface Navinterface{
 }
 
 interface Opciones {
-    direcion:string,icono:string,titulo:string
+    direcion:string,icono:string,titulo:string , color?:string
 }

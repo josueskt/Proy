@@ -1,0 +1,138 @@
+<app-buscador [ruta]="'user/fisico/libro'" [tipo]="'3'" class="d-flex justify-content-center "></app-buscador>
+
+@if(full_loading){
+<app-loader></app-loader>
+}
+@if(etiquetas[0]){
+  @if (etiquetas[0].nombre) {
+    
+    <div class="d-flex justify-content-center ">
+      <div class="row">
+        <div class="col" >
+          <div class="etiquetas-container">
+            @for(etiqueta of etiquetas ; track etiqueta.id_palabra) {
+              <button class="etiqueta" (click)="buscar_etiqueta(etiqueta.nombre)">
+                <p class="etiqueta_texto text-white">{{ etiqueta.nombre }}</p>
+              </button>
+              
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+}
+
+<div class="container text-center">
+  <h1 class="  rounded">{{libro.titulo | uppercase}}</h1>
+<br>
+
+  <div class="row">
+
+    <div class="col-md-4">
+      <div class="d-flex justify-content-center" style="position: relative;">
+        @defer{
+        
+          <img [src]="imagen" (load)="imagenCargada()" loading="eager" alt="imagen no encontrada" (error)="eror_carga_imagen()" class="img-fluid imagen-responsive">
+        }
+      </div>
+      <br>
+      @if(libro.tipo ==='PDF'){
+      }@else if (libro.tipo==='URL') {
+        <div class="d-flex justify-content-center">
+      <a href='{{libro.nombre_archivo}}' target="_blank" class="btn btn-primary">
+        <button class="btn btn-warning btn-lg">Ir al link del pdf</button>
+      </a>
+        </div>
+      }@else if (libro.tipo ==='FISICO') {
+        @if (libro.cantidad > 0) {
+          <div class="d-flex justify-content-center ">
+            <p class="bg-success btn">libro  dispinible </p>
+            </div>
+        }
+        @else {
+          <div class="d-flex justify-content-center">
+            <p class="bg-danger btn">libro prestado o  no dispinible </p>
+            </div>
+        }
+      }
+    </div>
+    <div class="col-md-7">
+      <div class="description-container  dotted ">
+        <div class="card shadow-sm border-light rounded">
+          <!-- Cuerpo de la tarjeta -->
+          <div class="card-body">
+            <!-- Título de la sección -->
+            <h3 class="card-title text-muted mb-3">Información del libro</h3>
+            
+            <!-- Descripción del libro -->
+            <div class="description-container">
+              <p class="card-text text-left">{{libro.descripcion}}</p>
+            </div>
+    
+            <!-- Información adicional -->
+            <div class="d-flex justify-content-between mt-4">
+              <div class="col-5">
+                <p class="mb-1"><strong>Autor:</strong> {{libro.autor}}</p>
+                <p class="mb-1"><strong>ISBN:</strong> {{libro.isbn}}</p>
+                <p class="mb-1"><strong>Editorial:</strong> {{libro.editorial}}</p>
+                <p class="mb-1"><strong>Año de publicación:</strong> {{libro.year_of_publication}}</p>
+              </div>
+              
+              <div class="col-7">
+                <p class="mb-1"><strong>Subido por:</strong> {{libro.profesor}}</p>
+              </div>
+            </div>
+    
+            <!-- Descripción adicional -->
+            <p class="mt-3"><strong>Descripción adicional:</strong> {{libro.review}}</p>
+    
+            <!-- Ubicación del libro físico (condicional) -->
+            <div class="text-left p-3 bg-light rounded mt-3">
+              @if(libro.tipo === 'FISICO') {
+                <p class="mb-1"><strong>Ubicación:</strong></p>
+                <p class="mb-1"><strong>Estante:</strong> {{libro.estante}}</p>
+                <p class="mb-1"><strong>Sección:</strong> {{libro.seccion}}</p>
+                <p class="mb-1"><strong>Código:</strong> {{libro.codigo}}</p>
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+  </div>
+  <br>
+  @if (libro.tipo !=='FISICO') {
+  @if (isLoading) {
+    <div class="spinner-border" role="status">
+      <span class="sr-only"></span>
+    </div>
+  }
+  <hr>
+    <!-- Contenedor del visor PDF -->
+    <div class="pdf-container">
+      <pdf-viewer
+        (after-load-complete)="onPdfLoadComplete()"
+        [src]="pdfUrl"
+        [zoom]="zoomLevel"
+        [render-text]="true"
+        [show-all]="true"
+        style="display: block; width: 100%; height: 700px; border: solid;">
+      </pdf-viewer>
+  
+      <!-- Barra lateral para botones de zoom -->
+      <div class="zoom-buttons bg-dark p-1">
+        <button (click)="zoomIn()" class="btn btn-dark" title="Aumentar Zoom">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 448 512"><path fill="#ffffff" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z"/></svg>
+        </button>
+        <button (click)="zoomOut()" class="btn btn-dark " title="Disminuir Zoom">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 512 512"><path fill="#ffffff" d="M32 416c-17.7 0-32 14.3-32 32s14.3 32 32 32l448 0c17.7 0 32-14.3 32-32s-14.3-32-32-32L32 416z"/></svg>
+        </button>
+      </div>
+    </div>
+  
+  }
+</div>

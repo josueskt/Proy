@@ -37,6 +37,9 @@ url =   environment.URL + 'imagen?filename='
 
   texto = ''
   carrera = ''
+  tipo = ''
+  seccion = ''
+  estante = ''
 searchText: string;
 
   async ngOnInit() {
@@ -44,6 +47,9 @@ searchText: string;
 
      this.texto = this.route.snapshot.queryParamMap.get('texto');
      this.carrera = this.route.snapshot.queryParamMap.get('carrera');
+     this.tipo = this.route.snapshot.queryParamMap.get('tipo');
+     this.seccion = this.route.snapshot.queryParamMap.get('seccion');
+     this.estante = this.route.snapshot.queryParamMap.get('estante');
 
     await this.resultados_libros(this.pagina,this.texto)
     
@@ -58,6 +64,9 @@ hola(id){
   this.router.navigate(['/user/libro',id]);
   
 }
+
+
+
 buscar(){
   this.resultados_libros(this.pagina,this.searchText)
 }
@@ -83,7 +92,7 @@ buscar(){
 
   }
   visiblePages(): number[] {
-    const pagesToShow = 5;
+    const pagesToShow = 4;
     const pages: number[] = [];
   
     if (this.totalPages <= pagesToShow) {
@@ -112,25 +121,25 @@ buscar(){
   }
  
 
+  eror_carga_imagen() {
+    // this.loading = true
+     // if (!this.imagen.includes('http://')) {
+     //   const baseUrl = environment.URL;
+     //   this.imagen = baseUrl + 'imagen?filename=' + this.imagen;
+     // } else {
+       return './assets/images/imagennoencontrada.png';
+     //}
+   }
+
 
 resultados_libros(pagina:number,buscado){
-  this.homeService.buscarLibros(buscado, this.carrera , pagina).subscribe({
+  this.homeService.buscarLibros(buscado, this.carrera || '' , pagina,this.tipo|| '',this.estante || '',this.seccion || '').subscribe({
     next: (resultados) => {
 
-
-
-       this.dataService.setResultados(resultados);
-
-
-       this.dataService.resultados$.subscribe((resultados) => {
-        this.resultados = resultados;
-      });
-      this.homeService.index(this.texto).subscribe((e)=>{
-
-
-        this.totalPages = Math.ceil(e[0].count / this.itemsPerPage);
-        this.full_loader = false
-      })
+      this.resultados = resultados.result;
+      console.log(resultados)
+      this.totalPages = Math.ceil(resultados.items.count / this.itemsPerPage );
+      this.full_loader = false
      },
     error: (error) => {
        this.toastrService.error('Error al buscar libros:'+error, 'Fail', {

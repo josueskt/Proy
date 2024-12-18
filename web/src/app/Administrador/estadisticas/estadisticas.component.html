@@ -1,9 +1,68 @@
-<div class="bg-light">
-    <div class="text-center bg-dark">
-      <h1 class="text text-light">ESTADISTICA DE USUARIOS</h1>
-    </div>
-    <div class="container">
-      <div #chart class="chart-container"></div>
-    </div>
-  </div>
-  
+
+
+<h4 class=" text-center bg-dark text-white m-5 p-0">Inicio se sesion</h4>
+
+<div class="" > 
+  <button [disabled]="!fecha" class="btn btn-success" (click)="generar_informe()"> imprimir reporte</button>
+  <input class="form-control"   [(ngModel)]="fecha" type="date">
+</div>
+<br>
+<apx-chart class="P-5  mx-5 border border-dark rounded "
+  [series]="series"
+  [chart]="chart"
+  [dataLabels]="dataLabels"
+  [markers]="markers"
+  [title]="title"
+  [fill]="fill"
+  [yaxis]="yaxis"
+  [xaxis]="xaxis"
+  [tooltip]="tooltip"
+  [autoUpdateSeries]="true"
+></apx-chart>
+
+<h4 class=" text-center bg-dark text-white m-5 p-0">prestamos</h4>
+
+
+<br>
+<div class="" > 
+  <button [disabled]="!fecha" class="btn btn-success" (click)="generar_informe()"> imprimir reporte</button>
+  <input class="form-control"   [(ngModel)]="fecha" type="date">
+</div>
+<br>
+
+<apx-chart class="P-5  mx-5 border border-dark rounded "
+  [series]="series"
+  [chart]="chart"
+  [dataLabels]="dataLabels"
+  [markers]="markers"
+  [title]="title"
+  [fill]="fill"
+  [yaxis]="yaxis"
+  [xaxis]="xaxis"
+  [tooltip]="tooltip"
+  [autoUpdateSeries]="true"
+></apx-chart>
+
+
+<h4 class=" text-center bg-dark text-white m-5 p-0">Ingresos a la biblioteca</h4>
+
+
+<br>
+<div class="" > 
+  <button [disabled]="!fecha" class="btn btn-success" (click)="generar_informe()"> imprimir reporte</button>
+  <input class="form-control"   [(ngModel)]="fecha" type="date">
+</div>
+<br>
+
+<apx-chart class="P-5  mx-5 border border-dark rounded "
+  [series]="series"
+  [chart]="chart"
+  [dataLabels]="dataLabels"
+  [markers]="markers"
+  [title]="title"
+  [fill]="fill"
+  [yaxis]="yaxis"
+  [xaxis]="xaxis"
+  [tooltip]="tooltip"
+  [autoUpdateSeries]="true"
+></apx-chart>

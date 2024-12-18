@@ -48,6 +48,7 @@
           <th scope="col">Estado</th>
           <th>ELIMINAR</th>
           <th>EDITAR</th>
+          <th>Restablecer contraseña</th>
         </tr>
       </thead>
       <tbody>
@@ -75,6 +76,9 @@
           </td>
           <td>
             <a [routerLink]="['/admin/editar_usuario/'+carrera.id_user]"  ><button class="btn btn-info">editar</button></a>
+          </td>
+          <td>
+            <button (click)="restablecer(carrera.id_user)" class="btn  btn-warning">restablecer</button>
           </td>
         </tr>
         }

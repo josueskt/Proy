@@ -3,10 +3,10 @@
     <input (keypress)="buscar_prestamo($event)" type="text" id="first_name" class="form-control" placeholder="buscar por codigo de libro" />
 </div>
 
-<table class="text-center text-dark">
+<table class="text-center text-dark table border-solid rounded">
     @if (libros.length) {
-        <thead>
-            <th class="px-4 py-2">
+        <thead class="border">
+            <th class="px-4 py-2 th  ">
                 código libro
             </th>
             <th class="px-4 py-2">
@@ -70,21 +70,22 @@
                     
                     <svg height="16" width="14" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
 
-                    <span class="sr-only">Close modal</span>
                 </button>
-                <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                    Devolicion de prestamo
+                
+                <h3 class="text-xl font-semibold  py-2 text-gray-900 dark:text-white">
+                    Devolucion de prestamo
                 </h3>
                
             </div>
             <!-- Modal body -->
             <div class="p-4 md:p-5 space-y-4">
-              <input type="text" class="form-control" [(ngModel)]="devolucion.observacion" placeholder="observaciones">   
+                <textarea name=""  class="form-control"  id="" [(ngModel)]="devolucion.observacion" placeholder="observaciones"></textarea>
+              <!-- <input type="text"[(ngModel)]="devolucion.observacion" placeholder="observaciones">    -->
 
             </div>
             <!-- Modal footer -->
-            <div class="">
-                <button (click)="devolver()" data-modal-hide="default-modal" type="button" class="btn btn-success">devolver</button>
+            <div class="text-center p-2">
+                <button (click)="devolver()" data-modal-hide="default-modal" type="button" class="btn btn-info">devolver</button>
             </div>
         </div>
     </div>

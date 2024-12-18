@@ -13,8 +13,14 @@
     <div class="card mb-3 rounded" style="border-radius: 15px;">
         <div class="card-body">
           <div class="row">
-            <div class="col-6 bg-warning">
+            <div class="col-12 bg-warning">
               <p class="card-text"><strong>ID Ingreso:</strong> {{ item.id_ingreso }}</p>
+            </div>
+            <div class="col-6">
+              <p class="card-text"><strong> Usuario:</strong> {{ item.usuario }}</p>
+            </div>
+            <div class="col-6">
+              <p class="card-text"><strong> Correo:</strong> {{ item.email }}</p>
             </div>
             <div class="col-6">
               <p class="card-text"><strong>Hora Entrada:</strong> {{ item.hora_entrada | date:'shortTime' }}</p>
@@ -23,13 +29,17 @@
               <p class="card-text"><strong>Hora Salida:</strong> {{ item.hora_salida | date:'shortTime' }}</p>
             </div>
             <div class="col-6">
-              <p class="card-text"><strong>ID Actividad:</strong> {{ item.fk_actividad }}</p>
+              <p class="card-text"><strong>Actividad:</strong> {{ item.actividad }}</p>
             </div>
             <div class="col-6">
               <p class="card-text"><strong>Actividad:</strong> {{ item.actividad_s }}</p>
             </div>
+         
             <div class="col-6">
-              <p class="card-text"><strong>ID Usuario:</strong> {{ item.fk_usuario }}</p>
+              <p class="card-text"><strong> Carreara:</strong> {{ item.carrera }}</p>
+            </div>
+            <div class="col-6">
+              <p class="card-text"><strong> nivel:</strong> {{ item.nivel }}</p>
             </div>
           </div>
         </div>

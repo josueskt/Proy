@@ -32,7 +32,7 @@ ngOnInit(): void {
   this.ingreso_s.traer_paralelo().subscribe((e)=>{this.paralelos = e})
   this.ingreso_s.traer_nivel().subscribe((e)=>{this.niveles = e})
   this.ingreso_s.traer_actividad().subscribe((e)=>{this.actividades = e})
-  this.ingreso_s.por_salir().subscribe((e:Por_salir[])=>{this.por_salir =e; console.log(this.por_salir)})
+  this.ingreso_s.por_salir().subscribe((e:Por_salir[])=>{this.por_salir =e; })
   
 }
 
@@ -62,7 +62,7 @@ registrar(){
         timeOut: 3000,  positionClass: 'toast-top-center',
       });
     } else{
-    console.log(this.actividad_s.length)
+    //console.log(this.actividad_s.length)
     this.ingreso_s.registrar_ingreso({jornada:this.jornada,paralelo:this.paralelo,nivel:this.nivel,actividad:this.actividad,id_usuario:this.usuario.id_user , actividad_s:this.actividad_s}).subscribe((e)=>{
       
       window.location.reload()

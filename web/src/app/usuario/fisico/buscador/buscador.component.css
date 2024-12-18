@@ -1,0 +1,112 @@
+
+
+
+:host {
+    display: grid;
+    place-items: center;
+    height: 100%;
+
+    background-image: url('../../../.././assets/images/IMG_20240723_095435\ \(1\).jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+    color: #333;
+   
+  }
+
+  
+  .Buscador {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  
+  .Buscador.fadeIn {
+    opacity: 1;
+    width: 70%;
+  }
+  
+  .TituloPrincipal {
+    color: rgb(205, 249, 249);
+    text-align: center;
+    font-size: 100px;
+    
+  }
+
+  
+  .mb-3 {
+    display: grid;
+    margin-top: 30px;
+    grid-template-columns: 6fr 2fr 1fr;
+  }
+  
+  .mb-3 input {
+    width: auto;
+    height: 54px;
+    border-radius: 20px 0px 0px 20px;
+    
+  }
+  
+  .mb-3 select {
+    width: 100%;
+    border: none;
+    border-radius: 0px 0px 0px 0px;
+  }
+  
+  .mb-3 input::placeholder {
+    font-size: 20px;
+    margin-left: 10px;
+  }
+  
+  .buscar-btn {
+    background-color: rgb(255, 255, 255);
+    border: none;
+    color: white;
+    border-radius: 0px 20px 20px 0px;
+    cursor: pointer;
+    padding: 10px;
+  }
+  .buscar-btn:hover{
+  background-color: #ff854d;
+
+  }
+  .form-control:focus{
+    background-color: white;
+  
+    }
+  .form-select:hover{
+    background-color: #ff854d;
+
+  }
+  .form-select:focus{
+  background-color: white;
+
+  }
+ 
+  .form-control:hover{
+    background-color: #ff854d;
+
+  }
+  .buscar-btn i {
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+  }
+  @media screen and (max-width: 600px) {
+    .mb-3 select {
+      color: rgba(255, 255, 255, 0);
+      border: none;
+      border-radius: 0px 0px 0px 0px;
+
+      
+    }
+    .TituloPrincipal {
+      color: rgb(205, 249, 249);
+      text-align: center;
+      font-size: 40px;
+    }
+    .Buscador.fadeIn {
+      opacity: 1;
+      width: 90%;
+    }
+  }
+  
+  

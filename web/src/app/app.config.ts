@@ -16,6 +16,7 @@ import { routesUser } from './rutas/app.routesUser';
 import { routesProfesor } from './rutas/app.routesProfesor';
 import { routes } from './rutas/app.routesAll';
 import { routesBiblioteca } from './rutas/app.routesBiblioteca';
+import { routesPublic } from './rutas/app.public';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,6 +25,8 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routesAdmin,withHashLocation()),
     provideRouter(routesProfesor,withHashLocation()),
     provideRouter(routesUser,withHashLocation()),
+    provideRouter(routesPublic,withHashLocation()),
+    
     provideHttpClient(withInterceptors([loggerInter])),
     AuthGuard,
     {

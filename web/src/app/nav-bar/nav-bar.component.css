@@ -3,13 +3,22 @@
 }  
 
 .hover-effect:hover {
-  background-color: #ff854d;
+  background-color: #ff854d; 
   color: #333;
   border-radius: 10px;
+  transition: all 0.3s ease; 
 }
 
-.nav-link:hover{
+
+/* .nav-link:hover{
   background-color:#005CB9;
   border-radius: 13px;
   color: white;
+} */
+
+.nav-link:hover {
+  background-color: var(--hover-bg-color, #005CB9); /* Color dinámico con fallback */
+  border-radius: 13px;
+  color: white;
 }
+

@@ -15,7 +15,9 @@ private informe_S = inject(InformeingresoService)
 informe:InformeRegistro[]
   ngOnInit(): void {
 
-this.informe_S.treaer_registro().subscribe((e:InformeRegistro[])=>{ this.informe = e})    
+this.informe_S.treaer_registro().subscribe((e:InformeRegistro[])=>{ this.informe = e
+  console.log(e)
+})    
   }
 
   generar(){

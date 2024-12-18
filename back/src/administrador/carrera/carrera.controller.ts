@@ -8,9 +8,8 @@ export class CarreraController {
 
     constructor(public carrera: CarreraService) { }
     @Get()
-    @UseGuards(RolesGuard)
-    @UseGuards(RolesGuard)
-    @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE','BIBLIOTECA'])
+    // @UseGuards(RolesGuard)
+    // @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE','BIBLIOTECA'])
     Traer_todos() {
         return this.carrera.traer()
     }
@@ -42,7 +41,6 @@ export class CarreraController {
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR'])
     editar(@Param("id") id :number , @Body( ) datos:any) {
-       console.log(datos)
        return this.carrera.editar(id , datos)
 
     }

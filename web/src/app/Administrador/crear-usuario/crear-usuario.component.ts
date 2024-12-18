@@ -26,21 +26,15 @@ private register = inject(CrearUsuarioserviceService)
 
 
     if (this.isValidEmail(this.usuario.email) && this.usuario.password && this.usuario.nombre !== "" && this.usuario.cedula !== "") {
-      this.toastrService.success('Usuario Creado', 'OK', {
-        timeOut: 3000,
-        positionClass: 'toast-top-center',
-      });
-  
-      
 this.register.crearUsuario(this.usuario).subscribe((e)=>{
-console.log(e)
-this.toastrService.error(e.message, 'Error', {
+//console.log(e)
+this.toastrService.info(e.message, 'info', {
   timeOut: 3000,
   positionClass: 'toast-top-center',
 });
 
 })
-    console.log(this.usuario)
+    //console.log(this.usuario)
     } else {
       this.toastrService.error('Por favor, rellene todos los campos correctamente', 'Error', {
         timeOut: 3000,

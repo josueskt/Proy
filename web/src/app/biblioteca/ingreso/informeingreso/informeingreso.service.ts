@@ -25,9 +25,17 @@ treaer_registro(){
   generateExcel(informe:InformeRegistro[]): void {
     // Map the data to the format required by xlsx
     const data = informe.map(info => ({
-        ID: info.id_ingreso,
-       hora_salida:info.hora_salida,
-       hora_entrada:info.hora_entrada
+      ID: info.id_ingreso,
+      hora_salida: info.hora_salida,
+      hora_entrada: info.hora_entrada,
+      actividad: info.actividad,
+      actividad_s: info.actividad_s,
+      carrera: info.carrera,
+      email: info.email,
+      jornada: info.jornada,
+      nivel: info.nivel,
+      paralelo: info.paralelo,
+      usuario: info.usuario,
     }));
 
     // Create a worksheet

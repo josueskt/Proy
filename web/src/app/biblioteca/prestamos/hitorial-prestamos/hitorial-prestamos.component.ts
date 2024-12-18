@@ -27,7 +27,7 @@ export class HitorialPrestamosComponent {
    hitorial_T(id:string){
 this.historial_S.historial(id).subscribe((e:any)=>{
  this.historial = e
- console.log(this.historial)
+ //console.log(this.historial)
 })
    }
 

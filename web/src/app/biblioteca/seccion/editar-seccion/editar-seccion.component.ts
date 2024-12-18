@@ -52,7 +52,7 @@ trear_Libros_sin_asignar(buscador:string){
  
   this.seccion_s.traer_libros_no_a(buscador).subscribe((e:any)=>{
     this.libros_sin_asignar = e
-    console.log(e)
+    //console.log(e)
   })
 }
 
@@ -62,12 +62,12 @@ cambiarEstado_libros_agregados(id: string) {
     let index = this.libros_agregados.indexOf(id);
 
      this.libros_agregados.splice(index, 1);
-     console.log(this.libros_agregados)
+     //console.log(this.libros_agregados)
 
   } else {
     this.estados[id] = '-';
     this.libros_agregados.push(id)
-    console.log(this.libros_agregados)
+    //console.log(this.libros_agregados)
   }
 }
 cambiarEstado_libros_elimanados(id: string) {
@@ -76,12 +76,12 @@ cambiarEstado_libros_elimanados(id: string) {
     let index = this.libros_eliminados.indexOf(id);
 
      this.libros_eliminados.splice(index, 1);
-     console.log(this.libros_eliminados)
+     //console.log(this.libros_eliminados)
 
   } else {
     this.estados[id] = '-';
     this.libros_eliminados.push(id)
-    console.log(this.libros_eliminados)
+    //console.log(this.libros_eliminados)
     
   }
   

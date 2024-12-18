@@ -14,7 +14,7 @@ import { CarreraService } from '../../Administrador/carrera/carrera.service';
 import { LibroTipoService } from './libro-tipo.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-
+import { maxLengthPerWordValidator } from './palabrasclave.validator';
 
 @Component({
   selector: 'app-libro-form',
@@ -66,23 +66,27 @@ load = true
     private router : Router
   ) {
     this.miFormulario = this.formBuilder.group({
-      titulo: ['', [Validators.required, Validators.maxLength(50)]],
+      titulo: ['', [Validators.required, Validators.maxLength(100)]],
       tipoImagen: ['1', Validators.required],
-      imagen: ['', Validators.required],
+      imagen: [''],
       descripcion: ['', [Validators.required, Validators.maxLength(500)]],
       fk_creador: [''],
       fk_autor: [''],
-      fk_carrera: [''],
+      fk_carrera: ['',[Validators.required]],
       tipo: ['2', Validators.required],
-      codigo: ['', Validators.required],
+      codigo: [],
       editorial: ['', Validators.required],
       isbn: ['', Validators.required],
       archivo_url: [''],
-      palabras: [''],
+      palabras: ['', [maxLengthPerWordValidator(50)]],
       cantidad:['']
     });
   }
 
+
+  get palabrasControl() {
+    return this.miFormulario.get('palabras');
+  }
   cambio(value: Event) {
     const nombreAutor = (event.target as HTMLSelectElement).value;
     for (let ti of this.tipos) {
@@ -162,121 +166,141 @@ load = true
   onFileSelected(event: any) {
     this.archivoSeleccionado = event.target.files[0];
   }
+
+  // onFileSelected(event: any): void {
+  //   // Almacenar el archivo seleccionado en la propiedad archivoSeleccionado
+  //   this.archivoSeleccionado = event.target.files[0];
+
+  //   // Verificar que el archivo sea un PDF
+  //   if (!this.archivoSeleccionado || !this.archivoSeleccionado.name.endsWith('.pdf')) {
+  //     return;
+  //   }
+
+  //   // Leer los primeros 1024 bytes del archivo para buscar encriptación
+  //   const reader = new FileReader();
+
+  //   reader.onload = (e: any) => {
+  //     const fileData = new Uint8Array(e.target.result);
+
+  //     // Comprobar si los primeros bytes corresponden a "%PDF"
+  //     const pdfMagicNumber = [0x25, 0x50, 0x44, 0x46]; // '%PDF'
+  //     let isValidPdf = true;
+  //     for (let i = 0; i < pdfMagicNumber.length; i++) {
+  //       if (fileData[i] !== pdfMagicNumber[i]) {
+  //         isValidPdf = false;
+  //         break;
+  //       }
+  //     }
+
+  //     if (!isValidPdf) {
+  //       alert("El archivo no es un PDF válido.");
+  //       return;
+  //     }
+
+  //     // Buscar por posibles indicadores de encriptación o protección
+  //     // En un PDF encriptado, podría haber un campo "/Encrypt"
+  //     let encryptionFound = false;
+  //     let encryptionIndex = fileData.indexOf(0x2F); // Buscar '/'
+      
+  //     while (encryptionIndex !== -1) {
+  //       const str = String.fromCharCode.apply(null, fileData.slice(encryptionIndex, encryptionIndex + 8)); // Leemos 8 caracteres después del '/'
+  //       if (str.indexOf('Encrypt') !== -1) {
+  //         encryptionFound = true;
+  //         break;
+  //       }
+  //       encryptionIndex = fileData.indexOf(0x2F, encryptionIndex + 1); // Buscar la siguiente '/'
+  //     }
+
+  //     if (encryptionFound) {
+  //       alert("El PDF está encriptado o protegido contra escritura.");
+  //     } else {
+  //   this.imagenSeleccionado = event.target.files[0];
+
+  //     }
+  //   };
+
+  //   // Leer los primeros 1024 bytes del archivo
+  //   reader.readAsArrayBuffer(this.archivoSeleccionado.slice(0, 1024));
+  // }
+
+  
+  // onFileSelected(event: any) {
+  //   const file = event.target.files[0];
+  
+  //   // Validar si el archivo es un PDF
+  //   if (file && file.type === 'application/pdf') {
+  //     const reader = new FileReader();
+  
+  //     reader.onload = async (e: any) => {
+  //       const fileBuffer = e.target.result;
+  
+  //       try {
+  //         // Cargar el documento PDF usando pdfjs-dist
+  //         const loadingTask = pdfjsLib.getDocument(new Uint8Array(fileBuffer));
+          
+  //         loadingTask.onPassword = (callback) => {
+  //           // Si el PDF está protegido por contraseña, le damos una contraseña vacía
+  //           callback('');
+  //         };
+  
+  //         // Intentar obtener el documento PDF
+  //         const pdfDocument = await loadingTask.promise;
+  
+  //         // Si el PDF se carga correctamente, significa que no está encriptado
+  //         this.archivoSeleccionado = file;
+  //         alert('Archivo PDF válido y sin restricciones.');
+  //       } catch (error) {
+  //         // Si ocurre un error, puede ser debido a encriptación o corrupción del archivo
+  //         if (error.name === 'PasswordException') {
+  //           alert('El archivo PDF está encriptado y requiere una contraseña.');
+  //         } else if (error.name === 'InvalidPDFException') {
+  //           alert('El archivo PDF está corrupto o es inválido.');
+  //         } else {
+  //           alert('Hubo un error al procesar el PDF. Error: ' + error.message);
+  //         }
+  //       }
+  //     };
+      
+  //     reader.readAsArrayBuffer(file);
+  //   } else {
+  //     alert('Por favor, selecciona un archivo PDF.');
+  //   }
+  // }
   onImageSelected(event: any) {
     this.imagenSeleccionado = event.target.files[0];
   }
 
   crearLibro() {
+    if(this.miFormulario.invalid){
+
+      this.toastrService.info('Por favor , rellene todos los campos', 'campos faltantes', {
+        timeOut: 3000,
+        positionClass: 'toast-top-center',
+      });
+
+      return
+    }
 this.load = false
     const nuevoLibro = this.miFormulario.value;
     const creador = this.Aunh.getUserInfo();
     nuevoLibro.fk_creador = creador.id_user;
-
-    // Verifica que los controles del formulario y las variables no sean nulos
     const controlFkAutor = this.miFormulario.get('fk_autor');
     const controlFkCarrera = this.miFormulario.get('fk_carrera');
-
-    if (!controlFkAutor || !controlFkCarrera) {
-      this.toastrService.error('Alguno de los controles (fk_autor o fk_carrera) no está disponible en el formulario.' , 'Fail', {
-        timeOut: 3000,  positionClass: 'toast-top-center',
-      });
-      return;
-    }
-
     nuevoLibro.fk_autor = controlFkAutor.value;
-
     nuevoLibro.fk_carrera = controlFkCarrera.value;
-
-    // verificaciones
-
-     var validado:boolean
-
-  if (!nuevoLibro.titulo) {
-    this.validator_titulo = 'campo requerido'
-    console.error("eror falta titulo")
-    validado = false
-
-  }
-  if (!nuevoLibro.imagen) {
-    this.validator_imagen = 'campo requirido'
-    console.error("eror falta titulo")
-    validado = false
-
-  }
-  if (!nuevoLibro.descripcion) {
-    this.validator_descripcion = 'requiere una descripcion'
-    console.error("eror falta titulo")
-    validado = false
-    ;
-  }
-
-  if (!nuevoLibro.fk_autor) {
-    console.error("eror falta titulo")
-    this.validator_fk_autor = 'autor faltante'
-    validado = false
-    ;
-  }
-  if (!nuevoLibro.fk_carrera) {
-    console.error("eror falta titulo")
-    this.validator_fk_carrera = 'carrera faltante'
-    validado = false
-    ;
-  }
-  if (!nuevoLibro.tipo) {
-    console.error("eror falta titulo")
-  this.validator_tipo = 'tipo de libro requerido'
-  validado = false
-
-    ;
-  }
-  // if (!nuevoLibro.codigo) {
-  //   console.error("eror falta titulo")
-  //   this.validator_codigo = 'codigo requerido'
-  //   validado = false
-  //   ;
-  // }
-
-  if (!nuevoLibro.editorial) {
-    console.error("eror falta titulo")
-    this.validator_editorial = 'editorial requerida'
-    validado = false
-    ;
-  }
-  if (!nuevoLibro.isbn) {
-    this.validator_isbn = 'isbn requerido'
-
-    console.error("eror falta titulo")
-    validado = false
-    ;
-
-  }else{ validado =true }
-  // if (!nuevoLibro.archivo_url && nuevoLibro.tipo === 'URL') {
-  //   this.validator_archivo_ur = ''
-  //   validado = false
-
-  //   console.error("eror falta titulo")
-
-  // }
-  if(!validado){
-    this.toastrService.error('capos requeridos' , 'Fail', {
-      timeOut: 3000,  positionClass: 'toast-top-center',
-    });
-    return
-  }
-    // Verifica si se ha seleccionado un archivo
     for (let ti of this.tipos) {
       if (ti.id_tipo == nuevoLibro.tipo) {
         if(ti.nombre ==='FISICO'){
-
           this.libroService
           .crearLibro(nuevoLibro, this.archivoSeleccionado , this.imagenSeleccionado)
           .subscribe({next:
-            () => {
+            (e) => {
               this.toastrService.success('Libro creado exitosamente', 'Success', {
                 timeOut: 3000,
                 positionClass: 'toast-top-center',
               });
-             this.router.navigate(['/profe']);
+              console.log(e)
+            this.router.navigate(['/profe']);
             },
             error:(error) => {
               this.toastrService.error(error.error.message, 'Fail', {
@@ -288,16 +312,27 @@ this.load = false
 
         }else
         if (this.archivoSeleccionado && ti.nombre === 'PDF') {
-          // Llama al servicio para crear el libro
           this.libroService
             .crearLibro(nuevoLibro, this.archivoSeleccionado,this.imagenSeleccionado)
             .subscribe({next:
-              () => {
+              (e) => {if(e.error){
+                this.load = true
+                this.toastrService.error(e.error, 'Error', {
+                  timeOut: 3000,
+                  positionClass: 'toast-top-center',
+                });
+                
+              }else{
                 this.toastrService.success('Libro creado exitosamente', 'Success', {
                   timeOut: 3000,
                   positionClass: 'toast-top-center',
                 });
-               this.router.navigate(['/profe']);
+                this.router.navigate(['/profe']);
+              }
+
+
+               
+
               },
               error:(error) => {
                 this.toastrService.error(error.error.message, 'Fail', {
@@ -326,7 +361,7 @@ this.load = false
                   timeOut: 3000,
                   positionClass: 'toast-top-center',
                 });
-                this.router.navigate(['/profe']);
+               this.router.navigate(['/profe']);
               },
              error: (error) => {
                 this.toastrService.error(error.error.message, 'Fail', {

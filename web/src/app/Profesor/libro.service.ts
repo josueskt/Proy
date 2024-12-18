@@ -16,8 +16,8 @@ export class LibroService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  getLibros(datos: string , page:number): Observable<Libro[]> {
-    return this.http.post<Libro[]>(`${this.baseUr}?page=${page}`, { nombre: datos },);
+  getLibros(datos: string , page:number , texto = ''): Observable<{items:any,result:Libro[]}> {
+    return this.http.post<{items:any,result:Libro[]}>(`${this.baseUr}?page=${page}&cadena=${texto}&tipo=2`, { nombre: datos },);
   }
   trear_paginacion(datos){
     return this.http.get(`${this.baseUr}?nombre=${datos}`);
@@ -30,7 +30,7 @@ export class LibroService {
     return this.http.get<Libro>(`${this.baseUrl}/${id}`);
   }
 
-  crearLibro(libro: Libro, file: File,imagen:File): Observable<{ message: string; newFileName: string }> {
+  crearLibro(libro: Libro, file: File,imagen:File): Observable<any> {
     const formData: FormData = new FormData();
     formData.append('libro', JSON.stringify(libro));
     if (file) {
@@ -51,7 +51,7 @@ export class LibroService {
 
     this.http.delete(url).subscribe(
       (response) => {
-        console.log('Libro eliminado con éxito:', response);
+        //console.log('Libro eliminado con éxito:', response);
         this.router.navigate(['/profe']);
         // Puedes agregar más lógica aquí si es necesario
       },

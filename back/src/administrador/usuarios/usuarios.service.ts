@@ -10,6 +10,8 @@ export class UsuariosService {
 
   async delete_user(id: number) {
     if (id) {
+      await this.sql.query('DELETE FROM inst.secion where fk_user = $1', [id]);
+
       await this.sql.query('DELETE FROM inst.usuario where id_user = $1', [id]);
       return new MessageDto(`usuario ${id} eliminado`);
     } else {
@@ -17,7 +19,6 @@ export class UsuariosService {
     }
   }
   async register(usuarios: Usuario[]) {
-    console.log(usuarios)
     const asaltos = 10;
     try {
       for await (const user of usuarios) {
@@ -38,9 +39,7 @@ let existe = [1]
          let carrera =  await this.sql.query('SELECT id_carrera FROM libros.carrera WHERE nombre = $1',[user.carrera])
          if(!carrera[0]){
           carrera = await this.sql.query('INSERT INTO libros.carrera(nombre) VALUES($1) RETURNING id_carrera',[user.carrera])
-          console.log(carrera[0].id_carrera)
          }
-         console.log(carrera[0].id_carrera)
           this.sql.query(
             'INSERT INTO inst.usuario(id_user,email,password,nombre,fk_rol,activo,fk_carrera) values($1,$2,$3,$4,$5,$6,$7)',
             [

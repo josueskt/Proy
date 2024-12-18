@@ -29,7 +29,7 @@ eliminar_libro(id:string){
 
     const formattedData = this.formatData(jsonData);
 
-    console.log(formattedData)
+    //console.log(formattedData)
 
      // Objeto con propiedad 'datos'
 return this.http.post(this.baseUrl,{libros:formattedData})

@@ -9,9 +9,9 @@ export class MilibroController {
     @Post()
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['PROFESOR','ADMINISTRADOR'])
-    Traer_todos(@Body('nombre') datos ,@Query('page') pagina: number) { 
+    Traer_todos(@Query('cadena') cadena: string, @Query('carrera') carrera: number, @Query('page') page: number, @Query("tipo") tipo:number, @Query("estante") estante, @Query("seccion") Seccion) { 
 
-        return this.libro.traer(datos,pagina)
+        return this.libro.traer(cadena, carrera, page,tipo,estante,Seccion)
     }
 
     @Get()

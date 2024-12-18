@@ -16,4 +16,9 @@ export class CrearUsuarioserviceService {
   crearUsuario(datos:any): Observable<any> {
     return this.http.post(`${this.baseUrl}`, {user:datos});
   }
+
+  restablecer(datos:any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/restablecer`, {user:datos});
+  }
+
 }

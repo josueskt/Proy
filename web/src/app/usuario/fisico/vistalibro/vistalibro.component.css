@@ -1,0 +1,134 @@
+:host {
+  display: grid;
+  padding-top: 40px;
+  background-color: #F1F5F9;
+  height: 100%;
+  overflow-x: hidden;
+}
+.text-back{
+  background-color: #17304A;
+}
+.imagen-responsive{
+
+  border: 1px solid black;
+}
+.dotted{
+  border: dashed 3px  #17304A;
+  border-radius: 15px;
+
+}
+.titulo :nth-child(2){
+  border: 3px solid black;
+}
+.card{
+  border: 2px solid black;
+
+}
+.buscador{
+  width: 100%;
+}
+
+@media only screen and (max-width: 360px) {
+  :host {
+    padding-top: 50px;
+  }
+}
+
+
+
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  
+  border-radius: 6px;
+  background-color: #17304A;
+  padding:  2px;
+  margin: 5px;
+  
+  font-size: 14px;
+  
+}
+.etiqueta:hover{
+  cursor: pointer;
+  background-color: rgb(239, 178, 63);
+  border-color: black;
+  
+}
+
+.etiqueta p {
+  margin: 0;
+}
+
+.imagen-responsive {
+  max-width: 75%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.description-container {
+  max-height: 700px;
+  overflow-y: auto;
+}
+
+@media only screen and (max-width: 360px) {
+  .description-container {
+    max-height: 400px;
+  }
+}
+
+@media only screen and (max-width: 1366px) and (min-width: 769px) {
+  .description-container {
+    max-height: 500px;
+  }
+}
+
+
+
+
+
+.pdf-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px; /* Tamaño máximo del PDF */
+  height: 700px;
+}
+
+/* Barra lateral de botones */
+.zoom-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Estilo para los botones */
+.zoom-buttons .btn {
+  background-color: #343a40;
+  border: solid 1px dotted;
+  color: white;
+  padding: 10px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+/* Cambiar el tamaño de los botones en pantallas pequeñas */
+@media (max-width: 768px) {
+  .zoom-buttons {
+    top: 10px;
+    right: 10px;
+  }
+  
+  .zoom-buttons .btn {
+    width: 35px;
+    height: 35px;
+  }
+}

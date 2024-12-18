@@ -38,7 +38,7 @@ export class EstantesComponent {
     traer_seciones(){
       this.estante_S.traer_lista_es().subscribe((e:any)=>{
         this.lista_estante = e
-        console.log(this.lista_estante)
+        //console.log(this.lista_estante)
       })
     }
   eliminar_estante(id_estante:string){

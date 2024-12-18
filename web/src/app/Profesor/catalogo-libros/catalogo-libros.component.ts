@@ -1,22 +1,24 @@
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { LibroService } from '../libro.service';
 import { AuthService } from '../../roles/auth.service';
-import { ActivatedRoute, RouterLink, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { VistalibroService } from '../../usuario/vistalibro/vistalibro.service';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import { environment } from '../../../../environments/environment';
 import { CommonModule } from '@angular/common';
+import { LoaderComponent } from "../../componentes/loader/loader.component";
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-catalogo-libros',
   standalone: true,
-  imports: [RouterModule ,CommonModule, RouterLink],
+  imports: [RouterModule, CommonModule, RouterLink, LoaderComponent , FormsModule],
   templateUrl: './catalogo-libros.component.html',
   styleUrls: ['./catalogo-libros.component.css']
 })
 export class CatalogoLibrosComponent implements OnInit {
-  @Input() libros: any[] = [];
+   libros: any[] = [];
   userInfo: any;
   nombre='';
   currentPage = 1;
@@ -26,47 +28,47 @@ export class CatalogoLibrosComponent implements OnInit {
   private libro_des =inject( VistalibroService)
   private toastrService: ToastrService = inject(ToastrService);
   private route = inject(ActivatedRoute)
+  private router = inject(Router)
   paginas= []
-
   page = 1;
+  full_loader = false
 libro: any;
-
+texto:''
   ngOnInit() {
-
-
     this.userInfo = this.auht.getUserInfo();
     this.nombre = this.userInfo.id_user
     this.traerLibros()
-
-
-    this.libroService.trear_paginacion(this.nombre).subscribe((e:any)=>{
-      console.log(e[0].count)
-      this.totalPages = Math.ceil(e[0].count / 18);
-
-    })
-   
-        
   }
-  
 
-
-
+  buscar(){
+    this.traerLibros(this.texto)
+  }
+ver(id:number){
+  this.router.navigate(['/user/libro/'+id])
+}
   eror_carga_imagen(libro){
     if(!libro.imagen.includes("http://")){
 const baseUrl = environment.URL;
       libro.imagen = baseUrl+'imagen?filename='+libro.imagen
     }else( libro.imagen = './assets/images/imagennoencontrada.png')
   }
-
-  traerLibros() {
-    this.libroService.getLibros(this.nombre , this.page).subscribe({
+  traerLibros(texto = '') {
+    this.full_loader = true
+    this.libroService.getLibros(this.nombre , this.page,texto).subscribe({
       next: (libros) => {
-        this.libros = libros;
+        console.log(libros)
+        this.libros = libros.result;
+        this.totalPages = Math.ceil(libros.items.count / 18);
+    this.full_loader = false
+
       },
       error: (error) => {
         this.toastrService.error('Error al obtener libros:', 'Fail', {
           timeOut: 3000, positionClass: 'toast-top-center',
+          
         });
+    this.full_loader = false
+
       }
     });
   }

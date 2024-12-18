@@ -44,7 +44,7 @@ pagina=1
         window.location.reload()
       },
       error: (e) => {
-        console.log(e)
+        //console.log(e)
         window.location.reload()
 
 
@@ -57,7 +57,7 @@ pagina=1
   
     this.archivo.traer_libros(pagina,buscad).subscribe((e: any) => {
       this.libros = e
-      console.log(e)
+      //console.log(e)
     })
   }
 

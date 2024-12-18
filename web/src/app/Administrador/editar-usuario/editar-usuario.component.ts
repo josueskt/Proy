@@ -30,7 +30,7 @@ private router= inject( Router)
 
    this.user.get_user_by_Id(this.userId).subscribe({
       next:(e)=>{
-        console.log(e)
+        //console.log(e)
         this.usuario = e[0]
       }
     })

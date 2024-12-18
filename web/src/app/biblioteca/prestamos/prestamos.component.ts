@@ -79,10 +79,10 @@ next:(r:any)=>{
   else{
     this.cliente_valido = false
   }
-  console.log(r)
+  //console.log(r)
 },error:(e)=>{
   alert(e)
-  console.log(e)
+  //console.log(e)
 }
 
 
@@ -93,7 +93,7 @@ buscar(){
   if(this.buscador){
 
     this.prestamo_S.buscador_libros_disponibles(this.buscador).subscribe({
-      next:(r:any)=>{ console.log(r)
+      next:(r:any)=>{ //console.log(r)
 
          this.libros = r
       },error:(e:any)=>{}
@@ -106,6 +106,9 @@ buscar(){
 closeModal(){
 
   this.showModal = false
+  this.cliente_valido=true
+  this.cliente = {id_user:'',nombre:''}
+  this.cedula = null
 }
 openModal(fk_libro:string){
   if(fk_libro){
@@ -116,8 +119,8 @@ openModal(fk_libro:string){
 }
 
 prestar(){
-  console.log(this.cedula+'asdasds'+this.fk_libro_a_prestar)
-  if(this.cedula && this.fk_libro_a_prestar){
+  //console.log(this.cedula+'asdasds'+this.fk_libro_a_prestar)
+  if(this.cedula && this.fk_libro_a_prestar  && this.cliente.id_user){
 this.prestamo_S.prestamo({fk_libro:this.fk_libro_a_prestar,
 fk_cliente:this.cedula,}).subscribe({
   next:(e:any)=>{
@@ -140,6 +143,11 @@ fk_cliente:this.cedula,}).subscribe({
     
   }
 })
+  }else{
+    this.toastrService.error("Por favor verifique el usuario", 'valide el usuario', {
+      timeOut: 3000,
+      positionClass: 'toast-top-center',
+    });
   }
 }
 

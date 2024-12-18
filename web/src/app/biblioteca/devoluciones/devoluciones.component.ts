@@ -46,7 +46,7 @@ devolver(){
       
     },
     error:(e)=>{
-      console.log(e)
+      //console.log(e)
     
       this.toastrService.success(e.message[0], 'Success', {
         timeOut: 1000,
@@ -62,11 +62,11 @@ devolver(){
     const valorInput = (event.target as HTMLInputElement).value;
 this.devolucion_s.obtener_codigo_de_Devolucion(valorInput).subscribe({
   next:(e:any)=>{
-    console.log(e)
+    //console.log(e)
     this.libros = e
   },
   error:(e)=>{
-    console.log(e)
+    //console.log(e)
   }
 })
   }

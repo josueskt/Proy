@@ -34,7 +34,7 @@ export class CargaLibrosBloqueService {
       this.librosPorBloque(datos).subscribe(
         response => {
 
-          console.log('Respuesta del servidor:', response);
+          //console.log('Respuesta del servidor:', response);
           this.router.navigate(['/profe'])
           // Puedes manejar la respuesta del servidor según tus necesidades
         },

@@ -15,8 +15,8 @@ export class PrestamosService {
     libros_disponibles(libro:string){
 
 
-        const pageNumber = 1; // Número de página
-    const pageSize = 20; // Tamaño de página (número de resultados por página)
+        const pageNumber = 1; 
+    const pageSize = 20; 
     const offset = (pageNumber - 1) * pageSize;
     
     return this.sql.query(
@@ -51,7 +51,7 @@ export class PrestamosService {
        
            }
            else{ return new MessageDto("lo sentimos no se pudo prestar")}
-        }catch(error){console.log(error)
+        }catch(error){
            return error}
        
           

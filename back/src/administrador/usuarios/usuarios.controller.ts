@@ -9,13 +9,11 @@ export class UsuariosController {
 
 
     @Post()
-  //  @UseGuards(RolesGuard)
-    //@SetMetadata('roles', ['ADMINISTRADOR'])
+    @UseGuards(RolesGuard)
+    @SetMetadata('roles', ['ADMINISTRADOR'])
     @UsePipes(ValidationPipe)
     register(@Body("users") usuarios) {
 
-        console.log(usuarios)
-     //   return true;
       return this.user.register(usuarios)
 
     }

@@ -3,7 +3,6 @@ import { SqlService } from 'src/sql/sql.service';
 
 import * as fs from 'fs';
 import * as path from 'path';
-
 import * as sharp from 'sharp';
 import { PDFDocument } from 'pdf-lib';
 
@@ -28,41 +27,69 @@ export class LibroService {
   return await this.sql.query('SELECT COUNT(*) FROM libros.libro where fk_creador = $1;',[nombre])
 }
 
-    async traer(nombre: string , pagina:number): Promise<any> {
-      const pageNumber = pagina; 
-      const pageSize = 18; 
-      const offset = (pageNumber - 1) * pageSize;
-        
-        const reslut = await this.sql.query(
-            `SELECT
-            l.id_libro,
-            l.titulo,
-            l.year_of_publication,
-            l.review,
-            l.imagen,
-            a.nombre as autor,
-            c.nombre as carrera,
-            l.nombre_archivo,
-            COALESCE(COUNT(p.*), 0) as total_descargas
-        FROM
-            libros.libro as l
-            INNER JOIN libros.carrera as c ON c.id_carrera = l.fk_carrera
-            INNER JOIN libros.autor as a ON a.id_autor = l.fk_autor
-            LEFT JOIN tramites.descargas as p ON p.fk_libro = l.id_libro
-        WHERE
-            l.fk_creador = $1
-      
-        GROUP BY
-            l.id_libro, l.titulo, l.year_of_publication, l.review, l.imagen, a.nombre, c.nombre, l.nombre_archivo   
-        LIMIT 
-            $2 OFFSET $3  ;
-        `
-            , [nombre,pageSize, offset])
-        return reslut
+async traer(cadena: string, carrera: number, page: number,tipo:number,estante:string,seccion:string) {
+  const pageNumber = page || 1;
+  const pageSize = 12;
+  const offset = (pageNumber - 1) * pageSize;
 
+  // Los parámetros de la consulta
+  // let params = [`%${cadena}%`, pageSize, offset];
+  let params:any = [`%${cadena}%`];
+  let query: string;
+  let result;
 
+  try {
+  let  n = 2
+    query = `
+      SELECT DISTINCT l.id_libro, l.titulo, l.nombre_archivo, l.year_of_publication, l.review, l.imagen,
+                      c.nombre as nombre_carrera, a.nombre as autor_nombre, t.nombre as tipo
+      FROM libros.libro as l
+      LEFT JOIN libros.carrera as c ON l.fk_carrera = c.id_carrera
+      LEFT JOIN libros.autor as a ON l.fk_autor = a.id_autor
+      LEFT JOIN libros.tipo as t ON l.fk_tipo = t.id_tipo
+      LEFT JOIN libros.palabras_libro as pl ON pl.fk_libro = l.id_libro
+      LEFT JOIN libros.palabras_clave as pc ON pl.fk_palabra = pc.id_palabra
+      LEFT JOIN libros.seccion s on l.fk_seccion = s.id_seccion
+      LEFT JOIN libros.estante e on s.fk_estante = e.id_estante
+      WHERE (l.titulo ILIKE $1 OR l.isbn ILIKE $1 OR l.codigo ILIKE $1  OR a.nombre ILIKE $1 OR  pc.nombre ILIKE $1)
+    `;
+    if (carrera) {
+      query += ' AND c.id_carrera = $'+n;
+      params.push(carrera);
+      n++ 
     }
+    if(tipo){
+      query += ' AND l.fk_tipo = $'+n;
+      params.push(tipo);
+      n++ 
+    }
+    if(estante){
+      query += ' AND e.id_estante = $'+n;
+      params.push(estante);
+      n++ 
+    }
+    if(seccion){
+      query += ' AND s.id_seccion = $'+n;
+      params.push(seccion);
+      n++ 
+    }
+    const index = await this.sql.query(`
+    select COUNT(*) from (
+      ${query} 
+    ) as sub
+    `,params) 
 
+    params.push(pageSize)  
+    params.push(offset)  
+
+    query += ' LIMIT $'+(n++)+' OFFSET $'+(n++);
+    result = await this.sql.query(query, params);
+    return {items:index [0],result: result};
+    
+  } catch (error) {
+    return new MessageDto(`Error al buscar los libros, error: ${error}`);
+  }
+}
     async by_id(id: number): Promise<any> {
 
       //consultar  tablas de seccion y estante , ponerlas  en el join y llevarlas para ver quie c  hace 
@@ -103,7 +130,7 @@ export class LibroService {
     }
 
 
-    async crear(libros:Libro, file: Express.Multer.File,imagenfile?: Express.Multer.File ): Promise<string> {
+    async crear(libros:Libro, file: Express.Multer.File,imagenfile?: Express.Multer.File ): Promise<any> {
         const libro = libros
         
 
@@ -122,6 +149,7 @@ export class LibroService {
        
         const imagenname=  this.generateUniqueFileName(imagenfile)
 
+        
           await this.saveFile(imagenfile, imagenname, process.env.Docs);
           libro.imagen = imagenname
         }        
@@ -130,12 +158,19 @@ export class LibroService {
 
         if(libro.tipo === '2'){
         try {
-           
             let uniqueFileName
             if(file){
                  uniqueFileName = this.generateUniqueFileName(file);
+                 try {
+                  const result = await this.saveFile(file, uniqueFileName, process.env.Docs);
+                  if (!result) {
+                    return {error:'error al  guardar el pdf '}
+                  }
+                } catch (errors) {
+                  return {error:'Error al guardar el archivo:'+ errors.message}
+                }
             
-                await this.saveFile(file, uniqueFileName, process.env.Docs);
+              //  await this.saveFile(file, uniqueFileName, process.env.Docs);
             }
            const valor =  await this.sql.query(`INSERT INTO libros.libro (
                 titulo,
@@ -167,11 +202,10 @@ export class LibroService {
             ]);
             this.palabra.Generar_palabras(libro.palabras, valor[0].id_libro)
 
-            return 'Libro creado exitosamente';
+            return {message:'Libro creado exitosamente'};
         } catch (error) {
             console.error('Error al crear el libro con PDF:', error);
-            return error
-          //  throw new HttpException(`Error al crear el libro con PDF: ${error.message}`, HttpStatus.INTERNAL_SERVER_ERROR);
+            return {error:error}
         }
 
         }else if(libro.tipo ==='1')
@@ -216,8 +250,8 @@ export class LibroService {
                
             ]);
             this.palabra.Generar_palabras(libro.palabras, valor[0].id_libro)
+            return {message:'Libro creado exitosamente'};
 
-            return 'Libro creado exitosamente';
 
         } else if(libro.tipo ==='3'){
           try{
@@ -257,7 +291,7 @@ export class LibroService {
 
           }catch (error) {
             console.error('Error al crear el libro con PDF:', error);
-            return error
+            return {error:error}
         }
 
 
@@ -297,10 +331,17 @@ if(files.file){
 if(files.image){
      uniqueImageName = this.generateUniqueFileName(files.image[0]);
      
-     try{
-    await this.saveFile(files.image[0], uniqueImageName, baseFolderPath);
+    //  try{
+    // await this.saveFile(files.image[0], uniqueImageName, baseFolderPath);
 
-     }catch(e){console.log(e)}
+    //  }catch(e){}
+     try {
+      await this.saveFile(files.image[0], uniqueImageName, baseFolderPath);
+    } catch (error) {
+      console.error('Error al guardar el archivo:', error.message);
+      throw error;
+    }
+
 }
                
           
@@ -401,47 +442,164 @@ if(uniqueImageName && uniqueFileName){
       //   });
       // }
 
-      private async saveFile(file: Express.Multer.File, fileName: string, baseFolderPath: string): Promise<void> {
-        // Verifica el tipo de archivo
-        if (file.mimetype.startsWith('image/')) {
-          // Cambia la extensión del archivo a .webp
-          fileName = fileName.replace(/\.[^.]+$/, '.webp'); // Reemplaza la extensión por .webp
-          const filePath = path.join(baseFolderPath, fileName);
+      // private async saveFile(file: Express.Multer.File, fileName: string, baseFolderPath: string): Promise<void> {
+      //   // Verifica el tipo de archivo
+      //   if (file.mimetype.startsWith('image/')) {
+      //     // Cambia la extensión del archivo a .webp
+      //     fileName = fileName.replace(/\.[^.]+$/, '.webp'); // Reemplaza la extensión por .webp
+      //     const filePath = path.join(baseFolderPath, fileName);
       
-          // Convierte y comprime la imagen a formato WebP
-          const imageBuffer = await sharp(file.buffer)
-            .resize({ width: 1000 }) // Ajusta el tamaño máximo si lo deseas
-            .webp({ quality: 80 }) // Convierte y comprime la imagen a formato WebP con calidad 80
-            .toBuffer();
+      //     // Convierte y comprime la imagen a formato WebP
+      //     const imageBuffer = await sharp(file.buffer)
+      //       .resize({ width: 1000 }) // Ajusta el tamaño máximo si lo deseas
+      //       .webp({ quality: 80 }) // Convierte y comprime la imagen a formato WebP con calidad 80
+      //       .toBuffer();
       
-          // Guarda el archivo comprimido
-          return fs.promises.writeFile(filePath, imageBuffer);
+      //     // Guarda el archivo comprimido
+      //     return fs.promises.writeFile(filePath, imageBuffer);
         
-        } else if (file.mimetype === 'application/pdf') {
-          const filePath = path.join(baseFolderPath, fileName);
+      //   } else if (file.mimetype === 'application/pdf') {
+      //     const filePath = path.join(baseFolderPath, fileName);
       
-          // Carga y comprime el PDF utilizando pdf-lib
-          const pdfDoc = await PDFDocument.load(file.buffer);
-          pdfDoc.setTitle('Compressed PDF'); // Opcional: modifica los metadatos
+      //     // Carga y comprime el PDF utilizando pdf-lib
+      //     const pdfDoc = await PDFDocument.load(file.buffer);
+      //     pdfDoc.setTitle('Compressed PDF'); // Opcional: modifica los metadatos
       
-          // Guarda el PDF comprimido
-          const pdfBytes = await pdfDoc.save({ useObjectStreams: true });
-          return fs.promises.writeFile(filePath, pdfBytes);
+      //     // Guarda el PDF comprimido
+      //     const pdfBytes = await pdfDoc.save({ useObjectStreams: true });
+      //     return fs.promises.writeFile(filePath, pdfBytes);
       
-        } else {
-          // Guarda otros tipos de archivos sin cambios
-          const filePath = path.join(baseFolderPath, fileName);
-          const writer = fs.createWriteStream(filePath);
-          writer.write(file.buffer);
-          writer.end();
+      //   } else {
+      //     // Guarda otros tipos de archivos sin cambios
+      //     const filePath = path.join(baseFolderPath, fileName);
+      //     const writer = fs.createWriteStream(filePath);
+      //     writer.write(file.buffer);
+      //     writer.end();
       
-          return new Promise((resolve, reject) => {
-            writer.on('finish', resolve);
-            writer.on('error', reject);
-          });
+      //     return new Promise((resolve, reject) => {
+      //       writer.on('finish', resolve);
+      //       writer.on('error', reject);
+      //     });
+      //   }
+      // }
+
+
+      // private async saveFile(file: Express.Multer.File, fileName: string, baseFolderPath: string): Promise<void> {
+      //   try {
+      //     // Verifica el tipo de archivo
+      //     if (file.mimetype.startsWith('image/')) {
+      //       // Cambia la extensión del archivo a .webp
+      //       fileName = fileName.replace(/\.[^.]+$/, '.webp'); // Reemplaza la extensión por .webp
+      //       const filePath = path.join(baseFolderPath, fileName);
+      
+      //       // Convierte y comprime la imagen a formato WebP
+      //       const imageBuffer = await sharp(file.buffer)
+      //         .resize({ width: 1000 }) // Ajusta el tamaño máximo si lo deseas
+      //         .webp({ quality: 80 }) // Convierte y comprime la imagen a formato WebP con calidad 80
+      //         .toBuffer();
+      
+      //       // Guarda el archivo comprimido
+      //       await fs.promises.writeFile(filePath, imageBuffer);
+      //     } else if (file.mimetype === 'application/pdf') {
+      //       const filePath = path.join(baseFolderPath, fileName);
+      
+      //       try {
+      //         // Carga y comprime el PDF utilizando pdf-lib
+      //         const pdfDoc = await PDFDocument.load(file.buffer, { ignoreEncryption: true }); // Ignorar cifrado
+      //         pdfDoc.setTitle('Compressed PDF'); // Opcional: modifica los metadatos
+      
+      //         // Guarda el PDF comprimido
+      //         const pdfBytes = await pdfDoc.save({ useObjectStreams: true });
+      //         await fs.promises.writeFile(filePath, pdfBytes);
+      //       } catch (err) {
+      //         // Maneja errores relacionados con encriptación
+      //         if (err.message.includes('encrypted')) {
+      //           throw new Error('El archivo PDF está cifrado y no se puede procesar.');
+      //         }
+      //         throw err; // Re-lanzar otros errores
+      //       }
+      //     } else {
+      //       // Guarda otros tipos de archivos sin cambios
+      //       const filePath = path.join(baseFolderPath, fileName);
+      //       const writer = fs.createWriteStream(filePath);
+      //       writer.write(file.buffer);
+      //       writer.end();
+      
+      //       return new Promise((resolve, reject) => {
+      //         writer.on('finish', resolve);
+      //         writer.on('error', reject);
+      //       });
+      //     }
+      //   } catch (error) {
+      //     // Lanza un error genérico o específico según el caso
+      //     throw new Error(`Error al guardar el archivo: ${error.message}`);
+      //   }
+      // }
+
+
+
+      private async saveFile(file: Express.Multer.File, fileName: string, baseFolderPath: string): Promise<boolean> {
+        try {
+          // Verifica el tipo de archivo
+          if (file.mimetype.startsWith('image/')) {
+            // Cambia la extensión del archivo a .webp
+            fileName = fileName.replace(/\.[^.]+$/, '.webp'); // Reemplaza la extensión por .webp
+            const filePath = path.join(baseFolderPath, fileName);
+      
+            // Convierte y comprime la imagen a formato WebP
+            const imageBuffer = await sharp(file.buffer)
+              .resize({ width: 1000 }) // Ajusta el tamaño máximo si lo deseas
+              .webp({ quality: 80 }) // Convierte y comprime la imagen a formato WebP con calidad 80
+              .toBuffer();
+      
+            // Guarda el archivo comprimido
+            await fs.promises.writeFile(filePath, imageBuffer);
+          } else if (file.mimetype === 'application/pdf') {
+            const filePath = path.join(baseFolderPath, fileName);
+      
+            try {
+              // Carga y comprime el PDF utilizando pdf-lib
+              const pdfDoc = await PDFDocument.load(file.buffer, { ignoreEncryption: true }); // Ignorar cifrado
+              pdfDoc.setTitle('Compressed PDF'); // Opcional: modifica los metadatos
+      
+              // Guarda el PDF comprimido
+              const pdfBytes = await pdfDoc.save({ useObjectStreams: true });
+              await fs.promises.writeFile(filePath, pdfBytes);
+            } catch (err) {
+              // Maneja errores relacionados con encriptación
+              if (err.message.includes('encrypted')) {
+                throw new Error('El archivo PDF está cifrado y no se puede procesar.');
+              }
+              throw err; // Re-lanzar otros errores
+            }
+          } else {
+            // Guarda otros tipos de archivos sin cambios
+            const filePath = path.join(baseFolderPath, fileName);
+            const writer = fs.createWriteStream(filePath);
+            writer.write(file.buffer);
+            writer.end();
+      
+            await new Promise((resolve, reject) => {
+              writer.on('finish', resolve);
+              writer.on('error', reject);
+            });
+          }
+      
+          // Devuelve `true` si todo salió bien
+          return true;
+        } catch (error) {
+          // Registra el error y rechaza con `false`
+          console.error(`Error al guardar el archivo: ${error.message}`);
+          throw error; // Re-lanza el error
         }
       }
+      
+      
 
+
+
+    
+    
 
 
     getDriveFileId(link: string): string | null {

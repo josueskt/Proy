@@ -23,7 +23,7 @@ return this.http.get(`${this.baseUrl2}/${id}`)
 }
 crear_cliente(cliente:Usuario){
 cliente.password = cliente.cedula
-console.log(cliente)
+//console.log(cliente)
 return this.registart_V_S.crearUsuario(cliente)
 
 }

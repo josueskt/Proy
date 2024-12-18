@@ -12,7 +12,7 @@ export interface carga_lote{"datos":{ titulo: string;
     palabras: string;}[],"id_user":{id_user: string;
       email: string;
       nombre: string;
-      nombre_rol: string; // Reemplaza 'OTRO_ROL' con el nombre real del tercer rol si lo hay
+      nombre_rol: string; 
       iat: number;
       exp: number;}}
 

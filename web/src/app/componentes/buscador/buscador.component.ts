@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {  Router } from '@angular/router';
 
@@ -12,9 +12,17 @@ import {  Router } from '@angular/router';
 export class BuscadorComponent {
   searchText: string = ''; 
   private router = inject(Router);
+  @Input() ruta = ''
+  @Input() tipo = ''
 
   buscar() {
-    this.router.navigate(['/user/libro'], { queryParams: { texto: this.searchText , carrera:'' } });
+    if(this.ruta){
+      this.router.navigate([this.ruta], { queryParams: { texto: this.searchText , carrera:'' ,tipo:this.tipo } });
+
+    }else{
+
+      this.router.navigate(['/user/libro'], { queryParams: { texto: this.searchText , carrera:'' } });
+    }
   }
 
 }

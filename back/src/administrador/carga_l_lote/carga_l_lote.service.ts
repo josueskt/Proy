@@ -1,4 +1,3 @@
-// carga-l-lote.service.ts
 import { Injectable, NotFoundException } from '@nestjs/common';
 import axios from 'axios';
 import * as fs from 'fs';
@@ -47,7 +46,6 @@ export class CargaLLoteService {
            await this.libro_fisico(dato,id)
           break;
         default:
-          console.log('Tipo desconocido');
       }
       
      
@@ -184,7 +182,6 @@ export class CargaLLoteService {
 
   }
 
-   // Obtener la extensión del archivo desde la URL
    const match = contentDispositionHeader.match(/filename="(.+)"$/);
    const nombreOriginal = match ? match[1] : 'archivo';
 
@@ -260,11 +257,9 @@ return nombreUnico
     const startIndex = link.indexOf('/d/') + 3; // Sumamos 3 para omitir "/d/"
     const endIndex = link.indexOf('/view');
 
-    // Verificar que las subcadenas "/d/" y "/view" estén presentes en el enlace
     if (startIndex !== -1 && endIndex !== -1) {
       return link.substring(startIndex, endIndex);
     } else {
-      // Si no se encuentran las subcadenas esperadas, devolver null o manejar el error según tus necesidades
       return null;
     }
   }

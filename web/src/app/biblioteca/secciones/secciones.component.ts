@@ -45,7 +45,7 @@ export class SeccionesComponent {
   traer_seciones(id: string): void {
     this.secions_s.taer_seciones_estante(id).subscribe((r:any) => {
       this.secciones = r;
-      console.log(r)
+      //console.log(r)
     });
   }
   crear(){

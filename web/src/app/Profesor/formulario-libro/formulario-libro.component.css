@@ -1,22 +1,19 @@
 :host{
   display: grid;
   padding-top: 50px;  
-  background-color: #fbf6d1;
+  background-color: #e2eaf6;
   height: 100%;
   overflow-x: hidden;
 }
-
 .fondo-plomo-transparente {
-  background-color: rgba(255, 255, 255, 0.634); /* Plomo con un 50% de opacidad */
+  background-color: rgba(246, 246, 246, 0.634); /* Plomo con un 50% de opacidad */
   padding: 20px; /* Añade un poco de espacio alrededor del formulario */
   border-radius: 12px; /* Bordes redondeados */
   width: 100%; /* Cubre todo el ancho del div */
   box-sizing: border-box; /* Incluye el padding y el border dentro del ancho total */
 }
-
-  
-  
   .btn-primary {
-    background-color: blueviolet;
+    margin: 15px;
+    background-color: rgb(61, 43, 226);
     align-items: center;
   }

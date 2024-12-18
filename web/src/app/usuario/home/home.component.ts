@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit ,AfterViewInit {
   userInfo:Usuario
   carreras: Carrera[] = [];
   searchText='';
-  selectedCarrera = "Carrera";
+  selectedCarrera = "";
 
     private authService=inject( AuthService)
     private homeService=inject(  HomeService)
@@ -60,8 +60,8 @@ if(!this.userInfo.cambio){
   }
 
   buscarLibros() {
-    console.log(this.selectedCarrera)
-    this.router.navigate(['/user/libro'], { queryParams: { texto: this.searchText , carrera:this.selectedCarrera } });
+    //console.log(this.selectedCarrera)
+    this.router.navigate(['/user/libro'], { queryParams: { texto: this.searchText , carrera:this.selectedCarrera ,tipo: 2 } });
     
     
 

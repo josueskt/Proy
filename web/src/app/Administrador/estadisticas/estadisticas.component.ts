@@ -1,109 +1,151 @@
-import { Component, OnInit, ElementRef, ViewChild, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import * as d3 from 'd3';
-import { NumberValue } from 'd3';
 import { environment } from '../../../../environments/environment';
-
+import {
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexDataLabels,
+  ApexFill,
+  ApexMarkers,
+  ApexTitleSubtitle,
+  ApexYAxis,
+  ApexXAxis,
+  ApexTooltip,
+  NgApexchartsModule,
+} from "ng-apexcharts";
+import { EstadisticasService } from './estadisiticas.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-estadisticas',
   standalone: true,
-  imports: [],
+  imports: [NgApexchartsModule,FormsModule],
   templateUrl: './estadisticas.component.html',
   styleUrls: ['./estadisticas.component.css']
 })
 export class EstadisticasComponent implements OnInit {
-  @ViewChild('chart', { static: true }) private chartContainer!: ElementRef;
+  public series: ApexAxisChartSeries;
+  public chart: ApexChart;
+  public dataLabels: ApexDataLabels;
+  public markers: ApexMarkers;
+  public title: ApexTitleSubtitle;
+  public fill: ApexFill;
+  public yaxis: ApexYAxis;
+  public xaxis: ApexXAxis;
+  public tooltip: ApexTooltip;
+fecha
   estadisticas: any[] = [];
   base = environment.URL;
   private baseUrl = `${this.base}estadisticas`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient , private est:EstadisticasService) {
+   
+  }
+
+  
 
   ngOnInit(): void {
-    this.http.get<any[]>(this.baseUrl).subscribe((data) => {
-      this.estadisticas = data.reverse();
-
-      this.createChart();
+     this.fecha = Date.now()
+    // Llamada HTTP para obtener los datos
+    this.http.get<any[]>(this.baseUrl).subscribe({
+      next: (data) => {
+       
+        this.estadisticas = data; 
+          this.initChartData();
+        this.processData(); 
+      },
+      error: (err) => {
+        console.error("Error al cargar los datos:", err);
+      },
     });
   }
 
-  private createChart() {
-    const data = this.estadisticas.map((estadistica) => {
-      const fecha = new Date(estadistica.fecha);
-      const fechaFormateada = `${fecha.getFullYear()}-${fecha.getMonth() + 1}-${fecha.getDate()}`;
-      return { date: fechaFormateada, value: 1 }; // Ajusta esto según tus datos reales
-    });
+generar_informe(){
+console.log(this.fecha)
+  this.est.imprimir_estadisticas_ingreso().subscribe((e)=>{
+    this.est.generateExcel(e)
 
-    const groupedData: { [key: string]: number } = data.reduce((accumulator, currentValue) => {
-      const date = currentValue.date;
-      accumulator[date] = (accumulator[date] || 0) + currentValue.value;
-      return accumulator;
-    }, {} as { [key: string]: number });
+  })
 
-    const newData = Object.keys(groupedData).map((date) => ({
-      date,
-      value: groupedData[date],
+}
+
+  private processData(): void {
+    if (!this.estadisticas || this.estadisticas.length === 0) {
+      return; // Verifica si hay datos antes de procesarlos
+    }
+
+    // Agrupar por fecha y contar ocurrencias
+    const groupedData = this.estadisticas.reduce((acc, item) => {
+      const date = item.fecha.split('T')[0]; // Extraer solo la fecha (sin hora)
+      acc[date] = (acc[date] || 0) + 1;
+      return acc;
+    }, {});
+
+    // Convertir a formato {x: fecha, y: cantidad}
+    const chartData = Object.keys(groupedData).map(date => ({
+      x: date,
+      y: groupedData[date],
     }));
 
-    const maxBarsToShow = 17;
-    const slicedData = newData.slice(0, maxBarsToShow);
+    // Actualizar la serie del gráfico
+    this.series = [
+      {
+        name: "Ingresos",
+        data: chartData,
+      },
+    ];
+  }
 
-    const margin = { top: 20, right: 20, bottom: 30, left: 40 };
-    const width = 1200 - margin.left - margin.right;
-    const height = 600 - margin.top - margin.bottom;
-
-    const svg = d3
-      .select(this.chartContainer.nativeElement)
-      .append('svg')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-      .append('g')
-      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-
-    const x = d3.scaleBand().range([0, Math.min(width, maxBarsToShow * 100)]).padding(0.1);
-    x.domain(slicedData.map((d) => d.date));
-
-    const y = d3.scaleLinear().range([height, 0]);
-    y.domain([0, d3.max(slicedData, (d) => d.value as NumberValue)!]);
-
-    const barsGroup = svg.append('g');
-
-    barsGroup.selectAll('.bar')
-      .data(slicedData)
-      .enter().append('rect')
-      .attr('class', 'bar')
-      .attr('x', (d) => x(d.date)!)
-      .attr('width', x.bandwidth())
-      .attr('y', (d) => y(d.value)!)
-      .attr('height', (d) => height - y(d.value)!)
-      .attr('fill', '#8E44AD');
-
-    const lineGroup = svg.append('g');
-    const area = d3.area<{ date: string; value: number }>()
-      .x((d) => x(d.date)! + x.bandwidth() / 2)
-      .y0(height)
-      .y1((d) => y(d.value)!)
-      .curve(d3.curveMonotoneX);
-
-    svg.append('path')
-      .datum(slicedData)
-      .attr('class', 'area')
-      .attr('d', area)
-      .attr('fill', 'rgba(110, 104, 136, 0.3)');
-
-    svg.append('path')
-      .datum(slicedData)
-      .attr('class', 'line')
-      .attr('d', area)
-      .attr('fill', 'none')
-      .attr('stroke', 'rgb(100, 204, 136)');
-
-    svg.append('g')
-      .attr('transform', 'translate(0,' + height + ')')
-      .call(d3.axisBottom(x));
-
-    svg.append('g')
-      .call(d3.axisLeft(y));
+  private initChartData(): void {
+    this.chart = {
+      type: "area",
+      stacked: false,
+      height: 350,
+      zoom: {
+        type: "x",
+        enabled: true,
+        autoScaleYaxis: true,
+      },
+      toolbar: {
+        autoSelected: "zoom",
+      },
+    };
+    this.dataLabels = {
+      enabled: false,
+    };
+    this.markers = {
+      size: 5,
+    };
+    this.title = {
+      text: "Ingresos por Fecha",
+      align: "left",
+    };
+    this.fill = {
+      type: "gradient",
+      gradient: {
+        shadeIntensity: 1,
+        inverseColors: false,
+        opacityFrom: 0.5,
+        opacityTo: 0,
+        stops: [0, 90, 100],
+      },
+    };
+    this.yaxis = {
+      title: {
+        text: "Cantidad de Ingresos",
+      },
+    };
+    this.xaxis = {
+      type: "datetime",
+      labels: {
+        format: "yyyy-MM-dd",
+      },
+    };
+    this.tooltip = {
+      shared: true,
+      x: {
+        format: "yyyy-MM-dd",
+      },
+    };
   }
 }

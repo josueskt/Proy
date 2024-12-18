@@ -18,7 +18,10 @@ export class VistalibroService {
   private ahunt = inject( AuthService)
 
   u = this.ahunt.getUserInfo()
-  user = this.u.id_user
+  user 
+  if(u){
+     this.user = this.u.id_user 
+  }
 
 
   traerTodas(id: string): Observable<Libro[]> {

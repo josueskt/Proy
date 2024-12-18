@@ -1,32 +1,27 @@
 <div class="container mt-3">
 
     <form [formGroup]="miFormulario" (ngSubmit)="crearLibro()" class="row">
-
-        <!-- Titulo y Codigo -->
         <div>
             <div class="fondo-plomo-transparente">
                 <h2 class="mb-4">Formulario de Creación de Libros</h2>
-
                 <form [formGroup]="miFormulario" (ngSubmit)="crearLibro()" class="row">
-                    <!-- Titulo -->
                     <div class="col-md-6 form-group">
                         <label for="titulo">Título:</label>
-                        <input type="text" id="titulo" formControlName="titulo" class="form-control"
+                        <input type="text" id="titulo" formControlName="titulo" class="form-control" maxlength="100"
                             placeholder="Ingrese el título" />
-                        @if (validator_titulo) {
-                        <div class="text-danger mt-2">{{validator_titulo}}</div>
+                        @if (miFormulario.get('titulo').errors?.['required']) {
+                        <div class="text-danger mt-2">el titulo es requerido</div>
                         }
+                   
                     </div>
-
-                    <!-- Editorial e Imagen -->
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="editorial">Editorial:</label>
                             <input type="text" id="editorial" formControlName="editorial" class="form-control"
                                 placeholder="Ingrese el nombre de la editorial" />
-                            @if (validator_editorial) {
-                            <div class="text-danger mt-2">{{validator_editorial}}</div>
-                            }
+                                @if (miFormulario.get('editorial').errors?.['required']) {
+                                    <div class="text-danger mt-2">la editorial es requerida</div>
+                                    }
                         </div>
                     </div>
                     <div class="form-group">
@@ -43,18 +38,14 @@
         <label for="imagen">Imagen URL:</label>
         <input type="text" id="imagen" formControlName="imagen" class="form-control"
             placeholder="Ingrese la URL de la imagen" />
-        @if (validator_imagen) {
-        <div class="text-danger mt-2">{{validator_imagen}}</div>
-        }
+     
     </div>
 }@else {
     <div class="form-group">
         <label for="imagen">Imagen URL:</label>
         <input type="file" id="imagen" (change)="onImageSelected($event)" formControlName="imagen"  class="form-control"
             placeholder="Ingrese la URL de la imagen" />
-        @if (validator_imagen) {
-        <div class="text-danger mt-2">{{validator_imagen}}</div>
-        }
+   
     </div>
 }
                    
@@ -66,18 +57,16 @@
                             <label for="isbn">ISBN:</label>
                             <input type="text" id="isbn" formControlName="isbn" class="form-control"
                                 placeholder="Ingrese el ISBN" />
-                            @if (validator_isbn) {
-                            <div class="text-danger mt-2">{{validator_isbn}}</div>
-                            }
+                                @if (miFormulario.get('isbn').errors?.['required']) {
+                                    <div class="text-danger mt-2"> el ISBN es requerido </div>
+                                    }
                         </div>
                         <div class="form-group">
                             <label for="fk_autor">Autor:</label>
 
                             <input type="text" id="fk_autor" formControlName="fk_autor" class="form-control"
                             placeholder="Ingrese el autor" />
-                        @if (validator_isbn) {
-                        <div class="text-danger mt-2">{{validator_isbn}}</div>
-                        }
+                           
                            
                         </div>
                     </div>
@@ -91,6 +80,9 @@
                                 <option [value]="carrera.id_carrera">{{ carrera.nombre }}</option>
                                 }
                             </select>
+                            @if (miFormulario.get('fk_carrera').errors?.['required']) {
+                                <div class="text-danger mt-2">  carrera  requerida </div>
+                                }
                         </div>
                         <div class="form-group">
                             <label for="tipo">Tipo de Libro:</label>
@@ -103,10 +95,12 @@
                     </div>
 
                     <!-- Opciones adicionales -->
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <!-- Seleccionar Archivo -->
                         @if(tipo_selected ==='PDF'){
-                        <div class="col-md-12 form-group text-center">
+                        <div class="col-md-12 form-group ">
+                            <label for="archivo_url">ULR del archivo:</label>
+
                             <input type="file" id="archivo" (change)="onFileSelected($event)"
                                 class="form-control" />
                         </div>
@@ -120,7 +114,7 @@
                         @else {
                         <div>
                             <label for="cantidad">Cantidad:</label>
-                            <input type="text" id="cantidad" formControlName="cantidad" class="form-control"
+                            <input type="number" id="cantidad" formControlName="cantidad" class="form-control"
                                 placeholder="cantidad" />
                         </div>
                         <div>
@@ -139,6 +133,13 @@
                             <input type="text" id="palabras" formControlName="palabras" class="form-control"
                                 placeholder="Palabra, palabra, palabra..." />
                         </div>
+                        @if(palabrasControl?.errors?.['maxLengthPerWord']){
+                            <div class="text-danger mt-2">
+
+                                Cada palabra no puede tener más de {{ palabrasControl?.errors?.['maxLengthPerWord'].maxLength }} caracteres.
+                            </div>
+                            
+                        }
                     </div>
 
                     <!-- Descripción -->
@@ -146,10 +147,16 @@
                         <div class="form-group">
                             <label for="descripcion">Reseña o sinapsis:</label>
                             <textarea id="descripcion" formControlName="descripcion" class="form-control"
-                                placeholder="Ingrese una reseña"></textarea>
-                            @if (validator_descripcion) {
-                            <div class="text-danger mt-2">{{validator_descripcion}}</div>
-                            }
+                                placeholder="Ingrese una reseña" maxlength="400"></textarea>
+                           <div class=" text-end">
+
+                               {{ miFormulario.get('descripcion')?.value?.length || 0 }} / 400
+                           </div>
+                           @if(!miFormulario.get('descripcion')?.value?.length){
+                            <div class="text-danger ">
+reseña requerida
+                            </div>
+                           }
                         </div>
                     </div>
 
@@ -158,9 +165,9 @@
                         <!-- Agrega la clase "text-center" -->
                         @if(load){
 
-                            <button type="submit" class="btn btn-primary">Crear Libro</button>
+                            <button [disabled]="miFormulario.invalid" type="submit" class="btn btn-primary">Crear Libro</button>
                         }@else {
-                            <div class="btn btn-success">
+                            <div class="btn btn-success" >
                                 <div class="spinner-border" role="status">
                                   <span class="sr-only"></span>
                                 </div>

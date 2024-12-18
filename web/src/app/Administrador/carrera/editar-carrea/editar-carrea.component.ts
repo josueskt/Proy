@@ -22,14 +22,14 @@ id!:string
 ngOnInit(): void {
   this.id = this.route.snapshot.paramMap.get('id');
 
-this.carrera_S.traerPorId(parseInt(this.id)).subscribe((e)=>{console.log(e)
+this.carrera_S.traerPorId(parseInt(this.id)).subscribe((e)=>{//console.log(e)
   this.nombre = e[0].nombre
 })
 
 }
 
 editar(){
-  this.carrera_S.editarCarrera(this.id,{nombre:this.nombre}).subscribe((e)=>{console.log(e)
+  this.carrera_S.editarCarrera(this.id,{nombre:this.nombre}).subscribe((e)=>{//console.log(e)
 
 
     this.toastrService.success(e.message[0], 'OK', {

@@ -91,7 +91,7 @@ export class VistalibroComponent implements OnInit {
     this.vistalibroService.treer_etiqueta(id).subscribe({
       next: (res) => {
         this.etiquetas = res;
-        console.log(res);
+        //console.log(res);
       },
     });
   }
@@ -123,20 +123,20 @@ export class VistalibroComponent implements OnInit {
   }
 
   buscar_etiqueta(nombre: string) {
-    this.router.navigate(['/user/libro'], { queryParams: { texto: nombre, carrera: '' } });
+    this.router.navigate(['user/libro'], { queryParams: { texto: nombre, carrera: '' } });
 
-    this.homeService.buscarLibros(nombre, '', 1).subscribe({
-      next: (resultados) => {
-        this.dataService.setResultados(resultados);
-        this.router.navigate(['/user/libro']);
-      },
-      error: () => {
-        this.toastrService.error('Error al buscar libros:', 'Fail', {
-          timeOut: 3000,
-          positionClass: 'toast-top-center',
-        });
-      },
-    });
+    // this.homeService.buscarLibros(nombre, '', 1).subscribe({
+    //   next: (resultados) => {
+    //     this.dataService.setResultados(resultados);
+    //     this.router.navigate(['/user/libro']);
+    //   },
+    //   error: () => {
+    //     this.toastrService.error('Error al buscar libros:', 'Fail', {
+    //       timeOut: 3000,
+    //       positionClass: 'toast-top-center',
+    //     });
+    //   },
+    // });
   }
 
   formatearFecha(fecha: string): string {

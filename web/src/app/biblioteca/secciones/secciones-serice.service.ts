@@ -17,7 +17,7 @@ export class SeccionesSericeService {
     return this.http.get(`${this.baseUrl}?estante=${id}`)
   }
   crear(seccion:{}){
-    console.log(seccion)
+    //console.log(seccion)
 return this.http.post(`${this.baseUrl}`,{seccion}  )
   }
 
