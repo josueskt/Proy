@@ -3,7 +3,9 @@ import { SqlService } from 'src/sql/sql.service';
 
 import * as fs from 'fs';
 import * as path from 'path';
-import * as sharp from 'sharp';
+//import * as sharp from 'sharp';
+import sharp from 'sharp';
+
 import { PDFDocument } from 'pdf-lib';
 
 import { PalabrasClaveService } from 'src/administrador/palabras-clave/palabras-clave.service';

@@ -49,7 +49,8 @@ if(!this.userInfo.cambio){
         this.carreras = carreras;
 
       },
-     error: () => {
+     error: (e) => {
+      alert(e)
         this.toastrService.error('Error al obtener las carreras:', 'Fail', {
           timeOut: 3000,
           positionClass: 'toast-top-center',

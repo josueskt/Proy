@@ -32,8 +32,10 @@ export class DescargaController {
           `attachment; filename=${pdfFileName}`,
         );
         pdfStream.pipe(res);
+if(id_user != undefined && id_user){
 
-        this.descarga.descargados(id_user, id_libro);
+  this.descarga.descargados(id_user, id_libro);
+}
       } else {
         res.status(404).send('Archivo no encontrado');
       }

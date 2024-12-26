@@ -3,7 +3,7 @@ import { LoginService } from './login.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../roles/auth.service';
 import { FormsModule } from '@angular/forms';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { featherAirplay } from '@ng-icons/feather-icons';
 import { heroUsers } from '@ng-icons/heroicons/outline';
 import { ToastrService } from 'ngx-toastr';
@@ -57,7 +57,6 @@ export class LoginComponent  implements OnInit{
     this.mandado = true
     this.aunt.login(this.username, this.password).subscribe({
      next: (response) => {
-        // Maneja la respuesta del servidor aquí (por ejemplo, almacena el token)
         if (response.message) {
           this.mandado = false
           this.toastrService.error(response.response.message, 'Fail', {
@@ -67,13 +66,11 @@ export class LoginComponent  implements OnInit{
           localStorage.setItem('token', response.token);
           this.username = '';
           this.password = '';
-          // Por ejemplo, navegar a la ruta '/otra-ruta'
           this.router.navigate(['/user']).then(() => {
-            window.location.reload();
+          //  window.location.reload();
           });
         } else {
           this.mandado = false
-
           console.error('Respuesta del servidor inesperada:', response);
         }
       },
