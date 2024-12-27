@@ -55,12 +55,14 @@ import { IngresoController } from './biblioteca/ingreso/ingreso.controller';
 import { IngresoService } from './biblioteca/ingreso/ingreso.service';
 import { SalidaController } from './biblioteca/salida/salida.controller';
 import { SalidaService } from './biblioteca/salida/salida.service';
+import { MailModule } from './mail/mail.module';
+import { MailerController } from './mailer/mailer.controller';
 
 
 
 @Module({
-  imports: [],
-  controllers: [AppController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController, UsuarioPrestamosController, BuscadorController, DescargaController, AutorController, CambioContraController, MilibroController, CargaLLoteController, LibroTipoController, EtiquetasController, ImagenController, InventarioController,  LibrosFisicosController, PrestamosController, MisprestamosController, EstantesController, SecionesController, DevolucionesBibliotecaController, AlertasController, RegistroUsuarioController, ReporteLibroController, IngresoController, SalidaController ],
+  imports: [MailModule],
+  controllers: [AppController, CarreraController, MateriaController, UsuariosController, EstadisticasController, LibroController, LoginController, UsuarioPrestamosController, BuscadorController, DescargaController, AutorController, CambioContraController, MilibroController, CargaLLoteController, LibroTipoController, EtiquetasController, ImagenController, InventarioController,  LibrosFisicosController, PrestamosController, MisprestamosController, EstantesController, SecionesController, DevolucionesBibliotecaController, AlertasController, RegistroUsuarioController, ReporteLibroController, IngresoController, SalidaController, MailerController ],
   providers: [ SqlService, CarreraService, EstadisticasService, MateriaService, LibroService, LoginService, UsuariosService,  {
     provide: APP_PIPE,
     

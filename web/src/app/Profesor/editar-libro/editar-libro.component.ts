@@ -20,6 +20,7 @@ export class EditarLibroComponent implements OnInit {
   private toastrService =inject(ToastrService)
   private router= inject( Router)
   carreras
+  palabras
  
   ngOnInit(): void {
     this.libro_id = this.route.snapshot.paramMap.get('id');
@@ -32,6 +33,7 @@ export class EditarLibroComponent implements OnInit {
 
      
       this.libro =  e[0]
+      this.palabras = e.palabras
       this.agarre()
       
     })
@@ -40,7 +42,9 @@ export class EditarLibroComponent implements OnInit {
    
   }
  
-  
+  eliminar(id){
+    alert(id)
+  }
  
  agarre() {
   for (const carrera of this.carreras) {

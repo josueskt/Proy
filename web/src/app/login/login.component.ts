@@ -1,6 +1,6 @@
 import { Component,  OnInit, inject } from '@angular/core';
 import { LoginService } from './login.service';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../roles/auth.service';
 import { FormsModule } from '@angular/forms';
 import { provideIcons } from '@ng-icons/core';
@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule,RouterLink],
   viewProviders: [provideIcons({ featherAirplay, heroUsers })],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],

@@ -1,65 +1,80 @@
+
+
 <div class="container mt-5">
-  <h2>Editar libro</h2>
+  <div class="fondo-plomo-transparente p-4">
+    <h2 class="mb-4 text-center">Editar Libro</h2>
 
-  <form (submit)="subirImagen()">
-    <div class="form-group">
-      <label for="titulo">Título:</label>
-      <input type="text" id="titulo" name="titulo" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.titulo" class="form-control" required>
-    </div>
-
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="codigo">Código:</label>
-        <input type="text" id="codigo" name="codigo" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.codigo" class="form-control" required>
+    <form (submit)="subirImagen()">
+      <div class="form-group">
+        <label for="titulo">Título:</label>
+        <input type="text" id="titulo" name="titulo" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.titulo" class="form-control" required placeholder="Ingrese el título">
       </div>
 
-      <div class="form-group col-md-6">
-        <label for="editorial">Editorial:</label>
-        <input type="text" id="editorial" name="editorial" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.editorial" class="form-control" required>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="codigo">Código:</label>
+          <input type="text" id="codigo" name="codigo" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.codigo" class="form-control" required placeholder="Ingrese el código">
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="editorial">Editorial:</label>
+          <input type="text" id="editorial" name="editorial" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.editorial" class="form-control" required placeholder="Ingrese el nombre de la editorial">
+        </div>
       </div>
-    </div>
 
-    <div class="form-row">
-      <div class="form-group col-md-6">
-        <label for="isbn">ISBN:</label>
-        <input type="text" id="isbn" name="isbn" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.isbn" class="form-control" required>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="isbn">ISBN:</label>
+          <input type="text" id="isbn" name="isbn" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.isbn" class="form-control" required placeholder="Ingrese el ISBN">
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="year">Año de publicación:</label>
+          <input type="number" id="year" name="year" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.year_of_publication" class="form-control" required placeholder="Ingrese el año de publicación">
+        </div>
       </div>
 
-      <div class="form-group col-md-6">
-        <label for="year">Año de publicación:</label>
-        <input type="number" id="year" name="year" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.year_of_publication" class="form-control" required>
+      <div class="form-group">
+        <label for="review">Reseña:</label>
+        <textarea id="review" name="review" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.review" class="form-control" rows="3" required placeholder="Escriba una reseña del libro"></textarea>
       </div>
-    </div>
 
-    <div class="form-group">
-      <label for="review">Reseña:</label>
-      <textarea id="review" name="review" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.review" class="form-control" rows="3" required></textarea>
-    </div>
+      <div class="form-group">
+        <label for="opciones">Carrera:</label>
+        <select id="opciones" [(ngModel)]="libro.carrera" [ngModelOptions]="{standalone: true}" class="form-control">
+          @for (carrera of carreras; track $index) {
 
-    <div class="form-group">
-      <label for="opciones">Carrera:</label>
-      <select id="opciones" [(ngModel)]="libro.carrera" [ngModelOptions]="{standalone: true}" class="form-control">
-        
-        @for (carrera of carreras; track carrera) {
-          <option [value]="carrera.id_carrera">{{carrera.nombre}}</option>
+            <option  [value]="carrera.id_carrera">{{carrera.nombre}}</option>
+          }
+        </select>
+      </div>
 
-        }
-      </select>
-    </div>
+      <div class="form-group">
+        <label for="archivoInput">Selecciona un archivo:</label>
+        <input type="file" id="archivoInput" (change)="onArchivoChange($event)" class="form-control">
+      </div>
 
+      <div class="form-group">
+        <label for="imagenInput">Selecciona una imagen:</label>
+        <input type="file" id="imagenInput" (change)="onImagenChange($event)" class="form-control">
+      </div>
 
+<div class="form-group">
+  @for (item of palabras; track $index) {
+    <button class="palabras" (click)="eliminar(item.id_pl)">{{item.nombre}} <i class="fa fa-times text-danger" aria-hidden="true"></i> </button>
+    
+  }
+  <div class="form-group col-md-12">
+    <label for="year">añadir palabras clave:</label>
+    <input type="text" id="pl" name="pl" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.palabras" class="form-control" required placeholder="Ingrese el año de publicación">
+  </div>
+</div>
 
+<div>
+  
+</div>
 
-    <div class="form-group">
-      <label for="archivoInput">Selecciona un archivo:</label>
-      <input type="file" id="archivoInput" (change)="onArchivoChange($event)" class="form-control-file">
-    </div>
-
-    <div class="form-group">
-      <label for="imagenInput">Selecciona una imagen:</label>
-      <input type="file" id="imagenInput" (change)="onImagenChange($event)" class="form-control-file">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Subir Archivos</button>
-  </form>
+      <button type="submit" class="btn btn-primary btn-block mt-3">Subir Archivos</button>
+    </form>
+  </div>
 </div>
