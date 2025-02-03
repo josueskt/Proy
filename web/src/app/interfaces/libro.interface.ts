@@ -16,4 +16,5 @@ export interface Libro {
     codigo:string
     cantidad:number
     carrera:string
+    total_descargas:string
 }

@@ -3,8 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VistalibroService } from './vistalibro.service';
 import { UpperCasePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
-import { HomeService } from '../home/home.service';
-import { DataService } from '../data.service';
 import { environment } from '../../../../environments/environment';
 import { FormsModule } from '@angular/forms';
 import { BuscadorComponent } from '../../componentes/buscador/buscador.component';
@@ -32,10 +30,7 @@ export class VistalibroComponent implements OnInit {
 
   pdfUrl: string | null = null;
   private route = inject(ActivatedRoute);
-  private dataService = inject(DataService);
-  private homeService = inject(HomeService);
   private router = inject(Router);
-
   private vistalibroService = inject(VistalibroService);
   private toastrService: ToastrService = inject(ToastrService);
   searchText: string;
@@ -55,26 +50,21 @@ export class VistalibroComponent implements OnInit {
 
 
   zoomIn(): void {
-    this.zoomLevel += 0.1; // Incrementa el zoom en un 10%
+    this.zoomLevel += 0.1; 
   }
 
   zoomOut(): void {
-    if (this.zoomLevel > 0.1) { // Evita que el zoom sea menor que 10%
+    if (this.zoomLevel > 0.1) { 
       this.zoomLevel -= 0.1;
     }
   }
   imagenCargada() {
-    this.loading = false;  // Deja de mostrar el loader
+    this.loading = false; 
   }
 
   eror_carga_imagen() {
-   // this.loading = true
-    // if (!this.imagen.includes('http://')) {
-    //   const baseUrl = environment.URL;
-    //   this.imagen = baseUrl + 'imagen?filename=' + this.imagen;
-    // } else {
+   
       this.imagen = './assets/images/imagennoencontrada.png';
-    //}
   }
 
   onPdfLoadComplete() {
@@ -84,14 +74,13 @@ export class VistalibroComponent implements OnInit {
     this.isLoading = true
     const url = this.
     libro.nombre_archivo;
-    this.pdfUrl = url; // Asigna directamente la URL al pdfUrl
+    this.pdfUrl = url; 
   }
 
   traer_etiquetas(id: string) {
     this.vistalibroService.treer_etiqueta(id).subscribe({
       next: (res) => {
         this.etiquetas = res;
-        //console.log(res);
       },
     });
   }
@@ -101,17 +90,13 @@ export class VistalibroComponent implements OnInit {
     this.vistalibroService.traerTodas(id).subscribe({
       next: (data) => {
         this.libro = data[0];
-      //  this.imagen = this.libro.imagen;
-    
         if (this.libro.tipo === 'PDF') {
           this.mostrar(this.libro.nombre_archivo, this.libro.id_libro);
         }
         const baseUrl = environment.URL;
-
         this.imagen = baseUrl + 'imagen?filename=' +this.libro.imagen ;
         this.cargarPDF();
         this.full_loading = false
-      
       },
       error: () => {
         this.toastrService.error('Error al obtener información del libro', 'Fail', {
@@ -121,22 +106,8 @@ export class VistalibroComponent implements OnInit {
       },
     });
   }
-
   buscar_etiqueta(nombre: string) {
     this.router.navigate(['user/libro'], { queryParams: { texto: nombre, carrera: '' } });
-
-    // this.homeService.buscarLibros(nombre, '', 1).subscribe({
-    //   next: (resultados) => {
-    //     this.dataService.setResultados(resultados);
-    //     this.router.navigate(['/user/libro']);
-    //   },
-    //   error: () => {
-    //     this.toastrService.error('Error al buscar libros:', 'Fail', {
-    //       timeOut: 3000,
-    //       positionClass: 'toast-top-center',
-    //     });
-    //   },
-    // });
   }
 
   formatearFecha(fecha: string): string {
@@ -144,7 +115,6 @@ export class VistalibroComponent implements OnInit {
     const año = fechaObjeto.getFullYear();
     const mes = ('0' + (fechaObjeto.getMonth() + 1)).slice(-2);
     const dia = ('0' + fechaObjeto.getDate()).slice(-2);
-
     return `${año}-${mes}-${dia}`;
   }
 
@@ -156,7 +126,6 @@ export class VistalibroComponent implements OnInit {
       next: (data: Blob) => {
         const blob = new Blob([data], { type: 'application/pdf' });
         const pdfUrl = URL.createObjectURL(blob); 
-
         this.pdfUrl = pdfUrl; 
       },
       error: () => {
@@ -167,7 +136,4 @@ export class VistalibroComponent implements OnInit {
       },
     });
   }
-
-
-  
 }

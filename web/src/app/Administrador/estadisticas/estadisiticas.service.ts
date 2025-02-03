@@ -13,14 +13,23 @@ export class EstadisticasService {
   location: any;
 
   constructor(private http: HttpClient) { }
-  imprimir_estadisticas_ingreso(fecha?): Observable<any> {
+  imprimir_estadisticas_ingreso(fecha , fechaf): Observable<any> {
 if(fecha){
 
-  return this.http.get(`${this.baseUrl}?id=`+fecha);
+  return this.http.get(`${this.baseUrl}?fecha_inico=${fecha}&fecha_fin=${fechaf}`);
 }
 return this.http.get(`${this.baseUrl}`);
 
   }
+
+  imprimir_estadisticas_prestamos(fecha , fechaf): Observable<any> {
+    if(fecha){
+    
+      return this.http.get(`${this.baseUrl}/prestamos?fecha_inico=${fecha}&fecha_fin=${fechaf}`);
+    }
+    return this.http.get(`${this.baseUrl}`);
+    
+      }
 
 
 
@@ -31,8 +40,35 @@ return this.http.get(`${this.baseUrl}`);
       correo:libro.email,
       cedula:libro.cedula,
       rol:libro.rol,
-      ususario:libro.ususario,
+      ususario:libro.usuario,
       carrera:libro.carrera
+    }));
+
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+
+    // Create a workbook and add the worksheet
+    const workbook: XLSX.WorkBook = {
+      Sheets: { 'Libros': worksheet },
+      SheetNames: ['Libros']
+    };
+
+    // Write the workbook to a file
+    const excelBuffer: any = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+
+    // Save the file
+    this.saveAsExcelFile(excelBuffer, 'estadisticas');
+  }
+
+  generateExcelPrestamos(libros: any[]): void {
+    // Map the data to the format required by xlsx
+    const data = libros.map(libro => ({
+      fecha_reserva:libro.fecha_reserva,
+      fecha_devolucion:libro.feha_real_devolcion,
+      observaciones:libro.observaciones,
+      prestado_por:libro.nombre,
+      codigo:libro.codigo,
+      titulo:libro.titulo
+      
     }));
 
     const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);

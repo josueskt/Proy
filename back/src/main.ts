@@ -11,12 +11,11 @@ import compression from 'compression';
 dotenv.config();
 
 async function bootstrap() {
-  const numCPUs = os.cpus().length;
+  const maxWorkers = Math.min(os.cpus().length / 1.5, 3);
 
   if (cluster.isMaster) {
-    console.log(`Master process ${process.pid} is running`);
     
-    for (let i = 0; i < numCPUs; i++) {
+    for (let i = 0; i < maxWorkers; i++) {
       cluster.fork();
     }
 
@@ -34,11 +33,11 @@ async function bootstrap() {
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
       credentials: true,
     });
-
+    app.setGlobalPrefix('back');
     app.use(compression());
+  
 
-    await app.listen(3000);
-    console.log(`Worker process ${process.pid} is running`);
+    await app.listen(3000); 
   }
 }
 

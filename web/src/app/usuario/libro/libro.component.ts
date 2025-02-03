@@ -86,6 +86,7 @@ buscar(){
  
 
   goToPage(page: number) {
+
     this.pagina = page
    this.resultados_libros(page,this.texto)
 
@@ -133,11 +134,11 @@ buscar(){
 
 
 resultados_libros(pagina:number,buscado){
+  this.full_loader = true
   this.homeService.buscarLibros(buscado, this.carrera || '' , pagina,this.tipo|| '',this.estante || '',this.seccion || '').subscribe({
     next: (resultados) => {
 
       this.resultados = resultados.result;
-      console.log(resultados)
       this.totalPages = Math.ceil(resultados.items.count / this.itemsPerPage );
       this.full_loader = false
      },

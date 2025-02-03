@@ -34,6 +34,8 @@ export class CatalogoLibrosComponent implements OnInit {
   full_loader = false
 libro: any;
 texto:''
+url =   environment.URL + 'imagen?filename=' 
+
   ngOnInit() {
     this.userInfo = this.auht.getUserInfo();
     this.nombre = this.userInfo.id_user
@@ -47,10 +49,8 @@ ver(id:number){
   this.router.navigate(['/user/libro/'+id])
 }
   eror_carga_imagen(libro){
-    if(!libro.imagen.includes("http://")){
-const baseUrl = environment.URL;
-      libro.imagen = baseUrl+'imagen?filename='+libro.imagen
-    }else( libro.imagen = './assets/images/imagennoencontrada.png')
+    libro.imagen = './assets/images/imagennoencontrada.png'
+
   }
   traerLibros(texto = '') {
     this.full_loader = true

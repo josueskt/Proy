@@ -58,7 +58,7 @@
             <p class="card-text">Autor: {{ libro.autor | slice:0:20 }}</p>
             <p class="card-text">Carrera: {{ libro.carrera }}</p>
 
-            <img (click)="ver(libro.id_libro)" class="card-img-top mx-auto" [src]="libro.imagen" (error)="eror_carga_imagen(libro)" alt="Portada"
+            <img (click)="ver(libro.id_libro)" class="card-img-top mx-auto" [src]="url+ libro.imagen"  (error)="eror_carga_imagen(libro)" alt="Portada"
               style="height: 200px; width: 150px;">
             <div class="row">
               <div class="col-md-4 text-center mt-3">

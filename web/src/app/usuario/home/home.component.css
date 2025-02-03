@@ -15,6 +15,25 @@
    
   }
 
+  @keyframes dots {
+    0% {
+      content: '';
+    }
+    33% {
+      content: '.';
+    }
+    66% {
+      content: '..';
+    }
+    100% {
+      content: '...';
+    }
+  }
+  
+  .loading-option .dots::after {
+    content: '';
+    animation: dots 1.5s steps(3, end) infinite;
+  }
   
   .Buscador {
     opacity: 0;

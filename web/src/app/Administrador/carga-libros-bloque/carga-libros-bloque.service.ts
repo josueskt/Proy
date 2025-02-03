@@ -23,65 +23,43 @@ export class CargaLibrosBloqueService {
     const workbook: XLSX.WorkBook = XLSX.read(data, { type: 'binary' });
     const sheetName: string = workbook.SheetNames[0];
     const worksheet: XLSX.WorkSheet = workbook.Sheets[sheetName];
-
+  
+    // Leer el Excel como una matriz bidimensional
     const jsonData: any[] = XLSX.utils.sheet_to_json(worksheet, { header: 1 });
-
-    const formattedData = this.formatData(jsonData);
-
-     // Objeto con propiedad 'datos'
-
-     const datos = {datos:formattedData,id_user:this.creador}
+  
+    if (jsonData.length > 1) {
+      // Obtener los encabezados de la primera fila
+      const headers: string[] = jsonData[0].map((header: any) => header?.toString().trim() || '');
+  
+      // Validar que los encabezados no estén vacíos
+      if (headers.some(header => header === '')) {
+        console.error('El archivo Excel tiene encabezados vacíos o mal formateados.');
+        return;
+      }
+  
+      const formattedData = jsonData.slice(1).map(row => {
+        const rowObject: any = {};
+  
+        headers.forEach((header, index) => {
+          rowObject[header.toLowerCase()] = row[index] || null; 
+        });
+  
+        return rowObject;
+      });
+      const uniqueData = this.removeDuplicates(formattedData, 'titulo');
+      const datos = { datos: uniqueData, id_user: this.creador };
       this.librosPorBloque(datos).subscribe(
         response => {
-
-          //console.log('Respuesta del servidor:', response);
-          this.router.navigate(['/profe'])
-          // Puedes manejar la respuesta del servidor según tus necesidades
+          return response
         },
         error => {
-          console.error('Error en la solicitud:', error);
-          // Puedes manejar el error según tus necesidades
+         return error
         }
       );
+    } else {
+      console.error('El archivo Excel no tiene datos suficientes.');
+    }
   }
-
-
-
-  private formatData(jsonData: any[]): any[] {
-    const data = jsonData.slice(1);
-
-    const formattedData = data.map(row => {
-
-
-      const titulo = row[0];
-      const review = row[5];
-      const autor = row[1];
-      const carrera = row[8];
-      const archivo = row[10];
-      const imagen = row[11];
-
-      const isbn = row[4];
-      const codigo = row[7];
-      const editorial = row[3];
-      const tipo = row[12];
-      const year = row[2];
-      const palabras = row[6]
-      const cantidad = row[13]
-
-
-
-      return {
-        titulo, autor, review, carrera, imagen, archivo,isbn,codigo,editorial,tipo,year,palabras,cantidad
-      };
-    });
-
-    const uniqueData = this.removeDuplicates(formattedData, 'titulo');
-    return uniqueData;
-  }
-
-
-
-
   librosPorBloque(datos: any): Observable<any> {
     return this.http.post(`${this.baseUrl}`, datos) // Enviar el objeto 'datos' directamente
       .pipe(
@@ -91,7 +69,6 @@ export class CargaLibrosBloqueService {
         })
       );
   }
-
   private removeDuplicates(array: any[], key: string): any[] {
     const seen = new Set();
     return array.filter(obj => {
@@ -103,6 +80,5 @@ export class CargaLibrosBloqueService {
       return true;
     });
   }
-
 }
 

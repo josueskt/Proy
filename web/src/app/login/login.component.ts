@@ -3,16 +3,12 @@ import { LoginService } from './login.service';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../roles/auth.service';
 import { FormsModule } from '@angular/forms';
-import { provideIcons } from '@ng-icons/core';
-import { featherAirplay } from '@ng-icons/feather-icons';
-import { heroUsers } from '@ng-icons/heroicons/outline';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [FormsModule,RouterLink],
-  viewProviders: [provideIcons({ featherAirplay, heroUsers })],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
@@ -38,11 +34,9 @@ export class LoginComponent  implements OnInit{
     if (userInfo) {
       if(userInfo.cambio){
         this.router.navigate(['/user']).then(() => {
-          window.location.reload();
         });
       }else{
         this.router.navigate(['/user/cambio_contra']).then(() => {
-          window.location.reload();
         });
       }
      
@@ -56,18 +50,17 @@ export class LoginComponent  implements OnInit{
   login() {
     this.mandado = true
     this.aunt.login(this.username, this.password).subscribe({
-     next: (response) => {
+     next: async (response) => {
         if (response.message) {
           this.mandado = false
           this.toastrService.error(response.response.message, 'Fail', {
             timeOut: 4000, positionClass: 'toast-top-center',
           });
         } else if (response.token) {
-          localStorage.setItem('token', response.token);
+          await localStorage.setItem('token', response.token);
           this.username = '';
           this.password = '';
           this.router.navigate(['/user']).then(() => {
-          //  window.location.reload();
           });
         } else {
           this.mandado = false

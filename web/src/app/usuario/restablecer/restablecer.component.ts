@@ -23,7 +23,7 @@ export class RestablecerComponent {
   showPassword: boolean = false;
   showPassword2: boolean = false;
 
-
+mandado = false
   private cambio_pas = inject(CambioContraService)
   private Aunth = inject(AuthService)
   private toastrService: ToastrService = inject(ToastrService);
@@ -56,10 +56,12 @@ export class RestablecerComponent {
         return;
       }
       if (this.validarContrasena(this.datos.contra)) {
+        this.mandado = true
         this.aunt.confirmarRestablecer(this.token,this.datos).subscribe({
+
           next: (e:any) => {
             if(e.error){
-
+this.mandado = false
               this.toastrService.error(e.error, 'Eror', {
                 timeOut: 3000, positionClass: 'toast-top-center'
               });
@@ -74,6 +76,8 @@ export class RestablecerComponent {
             
           },
           error: (error) => {
+
+            this.mandado = false
             this.toastrService.error(error.error.message, 'Fail', {
               timeOut: 3000, positionClass: 'toast-top-center',
             });
@@ -89,6 +93,7 @@ export class RestablecerComponent {
   volver(): void {
     this.router.navigate(['/user']);
     this.Aunth.clearToken()
+    
   }
   validarContrasena(contrasena: string): boolean {
     const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}$/;

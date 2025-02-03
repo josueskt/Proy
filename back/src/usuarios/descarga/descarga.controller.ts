@@ -22,8 +22,7 @@ export class DescargaController {
   ): Promise<void> {
     try {
       const pdfFileName = filename || 'archivo.pdf';
-      const pdfPath = path.join(process.env.Docs, pdfFileName); // Ajusta la ruta según tu estructura
-
+      const pdfPath = path.join(process.env.Docs, pdfFileName); 
       if (fs.existsSync(pdfPath)) {
         const pdfStream = fs.createReadStream(pdfPath);
         res.setHeader('Content-Type', 'application/pdf');
@@ -33,7 +32,6 @@ export class DescargaController {
         );
         pdfStream.pipe(res);
 if(id_user != undefined && id_user){
-
   this.descarga.descargados(id_user, id_libro);
 }
       } else {

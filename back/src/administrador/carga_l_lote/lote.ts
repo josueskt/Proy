@@ -8,7 +8,7 @@ export interface carga_lote{"datos":{ titulo: string;
     codigo: string;
     editorial: string;
     tipo: string;
-    year: number;
+    year_of_publ: number;
     palabras: string;}[],"id_user":{id_user: string;
       email: string;
       nombre: string;

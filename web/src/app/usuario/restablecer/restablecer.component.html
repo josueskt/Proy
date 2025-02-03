@@ -41,7 +41,16 @@
                     </button>
             </div>
             <div class="input-group-append mt-4">
+                @if(!mandado){
               <button type="submit" class="btn btn-secondary" [disabled]="!datos.contra">Cambiar</button>
+
+            }@else {
+                <div class="btn btn-dark btn-lg btn-block">
+                  <div role="status" class="spinner-border text-danger">
+                    <span class="sr-only "></span>
+                  </div>
+                </div>
+              }
             </div>
           </div>
         </form>

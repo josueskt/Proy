@@ -1,38 +1,22 @@
 import { Controller, Post, Body, Put } from '@nestjs/common';
 import { CargaLLoteService } from './carga_l_lote.service';
-import { carga_lote } from './lote';
-
-@Controller('carga-l-lote')
+import { carga_lote } from './lote'; @Controller('carga-l-lote')
 export class CargaLLoteController {
   constructor(private readonly fileService: CargaLLoteService) { }
-
   @Post()
-  async carga_por_lote(@Body() body: carga_lote) {
+  async carga_por_lote(@Body() body: any) {
     const datos = body.datos;
-    const id = body.id_user.id_user  
-    
-
+    const id = body.id_user.id_user;
     let index = 0;
-    try{
+    try {
       do {
-        const dato = datos[index];
-      
-        if (dato.titulo) {
-          
-       this.fileService.libros_bloque(dato, id)
-         
-        }
-      
-        index++;
+        const dato = datos[index]; if (dato.titulo) { 
+          this.fileService.libros_bloque(dato, id) 
+        } index++;
       } while (index < datos.length);
- return {"mesage":"libros creados"}
-    }catch(error){
+      return { "mesage": "libros creados" }
+    } catch (error) {
       return error
     }
-
-
-   
-
   }
-
 }

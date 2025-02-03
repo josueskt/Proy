@@ -27,4 +27,7 @@ export class EditarLibroService {
 
     return this.http.patch(`${this.apiUrl}libro/${id}`, formData);
   }
+  eliminarP(palabra){
+    return this.http.delete(`${this.apiUrl}milibro/palabra/${palabra}`)
+  }
 }

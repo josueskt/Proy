@@ -1,45 +1,31 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { SqlService } from 'src/sql/sql.service';
-
 import * as fs from 'fs';
 import * as path from 'path';
-//import * as sharp from 'sharp';
 import sharp from 'sharp';
-
 import { PDFDocument } from 'pdf-lib';
-
 import { PalabrasClaveService } from 'src/administrador/palabras-clave/palabras-clave.service';
 import { MessageDto } from 'src/common/message.dto';
 import { edit_libro } from './editar';
 import { Libro } from './libro.interface';
-
-
 @Injectable()
 export class LibroService {
-
   constructor(private readonly sql: SqlService, private palabra: PalabrasClaveService) {
-
   }
-
-
-
-
+  async eliminarP(id){
+    await this.sql.query('delete from libros.palabras_libro where id_pl = $1', [id])
+      return { mesage: 'eliminado ' }
+  }
   async pagination(nombre: string) {
-
     return await this.sql.query('SELECT COUNT(*) FROM libros.libro where fk_creador = $1;', [nombre])
   }
-
   async traer(cadena: string, carrera: number, page: number, tipo: number, estante: string, seccion: string) {
     const pageNumber = page || 1;
     const pageSize = 12;
     const offset = (pageNumber - 1) * pageSize;
-
-    // Los parámetros de la consulta
-    // let params = [`%${cadena}%`, pageSize, offset];
     let params: any = [`%${cadena}%`];
     let query: string;
     let result;
-
     try {
       let n = 2
       query = `
@@ -84,6 +70,7 @@ export class LibroService {
         params.push(seccion);
         n++
       }
+      
 
       query += `
     GROUP BY 
@@ -103,7 +90,85 @@ export class LibroService {
 
 
       query += ' LIMIT $' + (n++) + ' OFFSET $' + (n++);
-      console.log(query)
+      result = await this.sql.query(query, params);
+      return { items: index[0], result: result };
+
+    } catch (error) {
+      return new MessageDto(`Error al buscar los libros, error: ${error}`);
+    }
+  }
+  async traerprofe(cadena: string, carrera: number, page: number, tipo: number, estante: string, seccion: string,id) {
+    const pageNumber = page || 1;
+    const pageSize = 12;
+    const offset = (pageNumber - 1) * pageSize;
+    let params: any = [`%${cadena}%`];
+    let query: string;
+    let result;
+    try {
+      let n = 2
+      query = `
+    SELECT  
+    l.id_libro,
+    l.titulo,
+    l.year_of_publication,
+    l.review,
+    l.imagen,
+    a.nombre AS autor,
+    c.nombre AS carrera,
+    l.nombre_archivo,
+    COALESCE(COUNT(p.id_descarga), 0) AS total_descargas
+  FROM libros.libro AS l
+  LEFT JOIN libros.carrera AS c ON l.fk_carrera = c.id_carrera
+  LEFT JOIN libros.autor AS a ON l.fk_autor = a.id_autor
+  LEFT JOIN libros.tipo AS t ON l.fk_tipo = t.id_tipo
+  LEFT JOIN libros.palabras_libro AS pl ON pl.fk_libro = l.id_libro
+  LEFT JOIN libros.palabras_clave AS pc ON pl.fk_palabra = pc.id_palabra
+  LEFT JOIN libros.seccion AS s ON l.fk_seccion = s.id_seccion
+  LEFT JOIN libros.estante AS e ON s.fk_estante = e.id_estante
+  LEFT JOIN tramites.descargas AS p ON p.fk_libro = l.id_libro
+  WHERE (l.titulo ILIKE $1 OR l.isbn ILIKE $1 OR l.codigo ILIKE $1 OR a.nombre ILIKE $1 OR pc.nombre ILIKE $1)
+    `;
+      if (carrera) {
+        query += ' AND c.id_carrera = $' + n;
+        params.push(carrera);
+        n++
+      }
+      if (tipo) {
+        query += ' AND l.fk_tipo = $' + n;
+        params.push(tipo);
+        n++
+      }
+      if (estante) {
+        query += ' AND e.id_estante = $' + n;
+        params.push(estante);
+        n++
+      }
+      if (seccion) {
+        query += ' AND s.id_seccion = $' + n;
+        params.push(seccion);
+        n++
+      }
+      
+
+      query += `
+      and l.fk_creador = '${id}'
+    GROUP BY 
+      l.id_libro, l.titulo, l.year_of_publication, l.review, l.imagen, 
+      a.nombre, c.nombre, l.nombre_archivo, l.fk_carrera, l.fk_autor, 
+      l.fk_tipo, l.fk_seccion, s.id_seccion, e.id_estante
+  `;
+
+      const index = await this.sql.query(`
+    select COUNT(*) from (
+      ${query} 
+    ) as sub
+    `, params)
+
+      params.push(pageSize)
+      params.push(offset)
+
+
+      query += ' LIMIT $' + (n++) + ' OFFSET $' + (n++);
       result = await this.sql.query(query, params);
       return { items: index[0], result: result };
 
@@ -123,20 +188,25 @@ export class LibroService {
             l.titulo,
             l.isbn,
             l.cantidad,
-            l.editorial,
+            ed.nombre editorial,
             l.codigo,
+            tl.nombre as categoria,
             e.nombre as estante,
             s.nombre as seccion,
             a.nombre as autor,
             p.nombre as profesor,
             c.nombre as carrera,
-            t.nombre as tipo
+            t.nombre as tipo,
+            tl.nombre as autos
             from libros.libro as l right join inst.usuario as p on p.id_user = l.fk_creador
             right join libros.autor as a on l.fk_autor = a.id_autor
             right join libros.carrera as c on l.fk_carrera = c.id_carrera  
             LEFT JOIN libros.tipo as t on l.fk_tipo = t.id_tipo 
             LEFT JOIN libros.seccion as s ON l.fk_seccion = s.id_seccion
             LEFT JOIN libros.estante as e ON s.fk_estante = e.id_estante
+            LEFT JOIN libros.tipo_libro as tl ON l.kf_tipo_libro = tl.id
+            left join libros.editorial as ed ON l.fk_editorial = ed.id
+            
             where id_libro = ($1)`, [id])
 
   const palabras  =  await this.sql.query('select id_pl , nombre from libros.palabras_libro inner join libros.palabras_clave on fk_palabra = id_palabra where fk_libro = $1',[id])
@@ -209,7 +279,7 @@ export class LibroService {
                 editorial
                 ) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12) RETURNING id_libro;`, [
           libro.titulo,
-          2004,
+          libro.year,
           libro.descripcion,
           libro.imagen,
           uniqueFileName,
@@ -240,8 +310,6 @@ export class LibroService {
       } else {
         url = `https://drive.google.com/uc?id=${archivo_url}`
       }
-
-
       const valor = await this.sql.query(`INSERT INTO libros.libro (
                 titulo,
                 year_of_publication,
@@ -257,7 +325,7 @@ export class LibroService {
                 editorial
                 ) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12)RETURNING id_libro;`, [
         libro.titulo,
-        2004,
+        libro.year,
         libro.descripcion,
         libro.imagen,
         url,
@@ -268,12 +336,9 @@ export class LibroService {
         libro.tipo,
         libro.codigo,
         libro.editorial
-
       ]);
       this.palabra.Generar_palabras(libro.palabras, valor[0].id_libro)
       return { message: 'Libro creado exitosamente' };
-
-
     } else if (libro.tipo === '3') {
       try {
         const valor = await this.sql.query(`INSERT INTO libros.libro (
@@ -292,7 +357,7 @@ export class LibroService {
                 cantidad
                 ) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13) RETURNING id_libro;`, [
           libro.titulo,
-          2004,
+          libro.year,
           libro.descripcion,
           libro.imagen,
           null,
@@ -304,35 +369,19 @@ export class LibroService {
           libro.codigo,
           libro.editorial,
           libro.cantidad
-
-
         ]);
         this.palabra.Generar_palabras(libro.palabras, valor[0].id_libro)
-
-
       } catch (error) {
         console.error('Error al crear el libro con PDF:', error);
         return { error: error }
       }
-
-
     }
-
-
-
   }
-
-
-
   async eliminar(id: string) {
-
-
     try {
-
-
+      await this.sql.query('update  tramites.prestamo_libro set fk_libro = null where fk_libro = $1;',[id])
       await this.sql.query('DELETE FROM  libros.libro WHERE  id_libro = $1;', [id])
       return { mesage: 'eliminado ' }
-
     } catch (error) {
       return error
     }
@@ -342,10 +391,8 @@ export class LibroService {
       const baseFolderPath = process.env.Docs;
       let uniqueImageName
       let uniqueFileName
-      if (files.file) {
-
+      if (files.file) {    
         uniqueFileName = this.generateUniqueFileName(files.file[0]);
-
         await this.saveFile(files.file[0], uniqueFileName, baseFolderPath);
       }
       if (files.image) {
@@ -356,6 +403,27 @@ export class LibroService {
           console.error('Error al guardar el archivo:', error.message);
         }
       }
+      if(!libro.editorial){
+        libro.editorial = ''
+      }
+      let id_editorial = await this.sql.query('SELECT id FROM libros.editorial WHERE nombre = ($1)', [libro.editorial])
+      let id_categoria = await this.sql.query('SELECT id FROM libros.tipo_libro WHERE nombre = ($1)', [libro.categoria])
+      let id_autor = await this.sql.query('SELECT id_autor FROM libros.autor WHERE nombre = ($1)', [libro.autor])
+
+      if (!id_editorial[0]) {
+        id_editorial =  await this.sql.query('INSERT INTO libros.editorial(nombre) VALUES($1) RETURNING id', [libro.editorial])
+      }
+      if (!id_categoria[0]) {
+        id_categoria =  await this.sql.query('INSERT INTO libros.tipo_libro(nombre) VALUES($1) RETURNING id', [libro.categoria])
+      }
+      if (!id_autor[0]) {
+        id_autor =  await this.sql.query('INSERT INTO libros.autor(nombre) VALUES($1) RETURNING id_autor', [libro.autor])
+      }
+
+      libro.editorial = id_editorial[0].id
+      libro.categoria = id_categoria[0].id
+      libro.autor = id_autor[0].id_autor
+
       if (uniqueImageName && uniqueFileName) {
         await this.sql.query(`
                 UPDATE libros.libro
@@ -366,12 +434,15 @@ export class LibroService {
                   nombre_archivo = $4,
                   titulo = $5,
                   isbn = $6,
-                  editorial = $7,
+                  fk_editorial = $7,
                   codigo = $8,
-                  fk_carrera = $9
+                  fk_carrera = $9,
+                  cantidad = $11,
+                  kf_tipo_libro = $12,
+                  fk_autor = $13
                 WHERE
                   id_libro = $10;
-              `, [libro.review, libro.year_of_publication, uniqueImageName, uniqueFileName, libro.titulo, libro.isbn, libro.editorial, libro.codigo, libro.carrera, libro.id_libro])
+              `, [libro.review, libro.year_of_publication, uniqueImageName, uniqueFileName, libro.titulo, libro.isbn, libro.editorial, libro.codigo, libro.carrera, libro.id_libro,libro.cantidad,libro.categoria,libro.autor])
       } else if (!uniqueFileName && uniqueImageName) {
         await this.sql.query(`
             UPDATE libros.libro
@@ -381,12 +452,16 @@ export class LibroService {
               imagen = $3,
               titulo = $4,
               isbn = $5,
-              editorial = $6,
+              fk_editorial = $6,
               codigo = $7,
-              fk_carrera = $8
+              fk_carrera = $8,
+              cantidad = $10,
+              kf_tipo_libro  =$11,
+              fk_autor = $12
+
             WHERE
               id_libro = $9;
-          `, [libro.review, libro.year_of_publication, uniqueImageName, libro.titulo, libro.isbn, libro.editorial, libro.codigo, libro.carrera, libro.id_libro])
+          `, [libro.review, libro.year_of_publication, uniqueImageName, libro.titulo, libro.isbn, libro.editorial, libro.codigo, libro.carrera, libro.id_libro , libro.cantidad,libro.categoria,libro.autor])
       } else if (!uniqueImageName && uniqueFileName) {
         await this.sql.query(`
             UPDATE libros.libro
@@ -396,12 +471,15 @@ export class LibroService {
               nombre_archivo = $3,
               titulo = $4,
               isbn = $5,
-              editorial = $6,
+              fk_editorial = $6,
               codigo = $7,
-              fk_carrera = $8
+              fk_carrera = $8,
+              cantidad = $10,
+               kf_tipo_libro = $11,
+               fk_autor = $12
             WHERE
               id_libro = $9;
-          `, [libro.review, libro.year_of_publication, uniqueFileName, libro.titulo, libro.isbn, libro.editorial, libro.codigo, libro.carrera, libro.id_libro])
+          `, [libro.review, libro.year_of_publication, uniqueFileName, libro.titulo, libro.isbn, libro.editorial, libro.codigo, libro.carrera, libro.id_libro,libro.cantidad,libro.categoria,libro.autor])
       } else {
         await this.sql.query(`
             UPDATE libros.libro
@@ -410,16 +488,21 @@ export class LibroService {
               year_of_publication = $2,
               titulo = $3,
               isbn = $4,
-              editorial = $5,
+              fk_editorial = $5,
               codigo = $6,
-              fk_carrera = $7
+              fk_carrera = $7,
+              cantidad = $9,
+               kf_tipo_libro = $10,
+               fk_autor = $11
             WHERE
               id_libro = $8;
-          `, [libro.review, libro.year_of_publication, libro.titulo, libro.isbn, libro.editorial, libro.codigo, libro.carrera, libro.id_libro])
+          `, [libro.review, libro.year_of_publication, libro.titulo, libro.isbn, libro.editorial, libro.codigo, libro.carrera, libro.id_libro,libro.cantidad,libro.categoria, libro.autor])
 
       }
+if(libro.palabras !==''){
 
-
+  this.palabra.Generar_palabras(libro.palabras, ""+libro.id_libro)
+}
     } catch (error) {
       return error
     }
@@ -579,7 +662,6 @@ export class LibroService {
           if (err.message.includes('encrypted')) {
             throw new Error('El archivo PDF está cifrado y no se puede procesar.');
           }
-          throw err; // Re-lanzar otros errores
         }
       } else {
         // Guarda otros tipos de archivos sin cambios
@@ -597,9 +679,7 @@ export class LibroService {
       // Devuelve `true` si todo salió bien
       return true;
     } catch (error) {
-      // Registra el error y rechaza con `false`
       console.error(`Error al guardar el archivo: ${error.message}`);
-      throw error; // Re-lanza el error
     }
   }
 

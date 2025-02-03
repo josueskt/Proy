@@ -16,5 +16,7 @@ export class LoginController {
   @UseGuards(RolesGuard)
   @SetMetadata('roles', ['ADMINISTRADOR','PROFESOR' , 'ESTUDIANTE','BIBLIOTECA'])
   token_valid(){
+    return{"estado":true}
   }
+
 }

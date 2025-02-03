@@ -18,7 +18,6 @@ export class AuthService {
   getUserInfo(): Usuario | null {
     const token = this.getToken();
     if (token) {
-      // Decodificar el token para obtener la información del usuario
       const userInfo = JSON.parse(atob(token.split('.')[1]));
       return userInfo;
     }
@@ -40,5 +39,6 @@ export class AuthService {
 
   clearToken(): void {
     localStorage.removeItem('token');
+    
   }
 }

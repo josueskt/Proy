@@ -21,7 +21,7 @@ export class EstantesComponent {
   private fb = inject(FormBuilder)
   url = window.location.origin + '/';
   
-  
+  loading = true
   
   
   enlace: string = this.url;
@@ -42,6 +42,7 @@ export class EstantesComponent {
       })
     }
   eliminar_estante(id_estante:string){
+    this.loading = false
     this.estante_S.eliminar(id_estante).subscribe({next:(e:any)=>{
       this.toastrService.success("Creado exitosamente", 'Exito', {
         timeOut: 3000,  positionClass: 'toast-top-center',
@@ -58,6 +59,7 @@ export class EstantesComponent {
     }})
   }
     crear( ){
+      this.loading = false
       return this.estante_S.crear_estante(this.estante.value).subscribe((r:any)=>{
         this.toastrService.success("Creado exitosamente", 'Exito', {
           timeOut: 3000,  positionClass: 'toast-top-center',

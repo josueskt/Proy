@@ -42,6 +42,9 @@ this.full_loader = false
       }
       else if(event instanceof NavigationStart){
         this.full_loader = false
+        if(!this.userInfo){
+window.location.reload()
+        }
 
       }
       else if( event instanceof NavigationSkipped){
@@ -60,21 +63,25 @@ this.full_loader = false
     {
       rol: "PROFESOR",
       opciones: [
-        {titulo: "BIBLIOTECA FISICA", direcion: "/user/fisico", icono: "fas fa-book", color: '#e5d599'},
-        {titulo: "LIBROS DIGITALES", direcion: "/profe", icono: "fas fa-book", color: '#ff854d'},
+        {titulo: "BIBLIOTECA FISICA", direcion: "/user/fisico", icono: "fas fa-book", color: '#2a7fbd'},
+        {titulo: "BIBLIOTECA VIRTUAL", direcion: "/user", icono: "fas fa-book", color: '#e5d599'},
+        {titulo: "MIS LIBROS", direcion: "/profe", icono: "fas fa-book", color: '#ff854d'},
         {titulo: "CREAR AUTOR", direcion: "/profe/crear_autor", icono: "fas fa-user-plus", color: '#ff854d'},
       ]
     },
     {
       rol: "ESTUDIANTE",
       opciones: [
-        {titulo: "MIS LIBROS", direcion: "/estudiante/mis_libros", icono: "fas fa-book-open", color: '#ff854d'},
+        {titulo: "BIBLIOTECA FISICA", direcion: "/user/fisico", icono: "fas fa-book", color: '#2a7fbd'},
+        {titulo: "BIBLIOTECA VIRTUAL", direcion: "/user", icono: "fas fa-book", color: '#e5d599'},
+
       ]
     },
     {
       rol: "ADMINISTRADOR",
       opciones: [
-        {titulo: "BIBLIOTECA FISICA", direcion: "/user/fisico", icono: "fas fa-book", color: '#e5d599'},
+        {titulo: "BIBLIOTECA FISICA", direcion: "/user/fisico", icono: "fas fa-book", color: '#2a7fbd'},
+        {titulo: "BIBLIOTECA VIRTUAL", direcion: "/user", icono: "fas fa-book", color: '#e5d599'},
 
         {titulo: "ESTADISTICAS DE INICIO", direcion: "/admin/estadisticas", icono: "fas fa-chart-line", color: '#005CB9'},
         {titulo: "REGISTRO DE USUARIOS POR LOTE", direcion: "/admin/Registrar_usuarios", icono: "fas fa-users-cog", color: '#005CB9'},
@@ -96,8 +103,9 @@ this.full_loader = false
     {
       rol: "BIBLIOTECA",
       opciones: [
-        {titulo: "BIBLIOTECA FISICA", direcion: "/user/fisico", icono: "fas fa-book", color: '#e5d599'},
-
+        {titulo: "BIBLIOTECA FISICA", direcion: "/user/fisico", icono: "fas fa-book", color: '#2a7fbd'},
+        {titulo: "BIBLIOTECA VIRTUAL", direcion: "/user", icono: "fas fa-book", color: '#e5d599'},
+        {titulo: "MIS LIBROS", direcion: "/profe", icono: "fas fa-book", color: '#ff854d'},
         {titulo: "ESTANTES", direcion: "/biblioteca/estantes", icono: "fas fa-cogs", color: '#e32551'},
         {titulo: "INVENTARIO", direcion: "/biblioteca/inventario", icono: "fas fa-box", color: '#e32551'},
         {titulo: "PRESTAMOS", direcion: "/biblioteca/prestamos", icono: "fas fa-hand-holding", color: '#e32551'},

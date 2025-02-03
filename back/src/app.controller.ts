@@ -1,5 +1,5 @@
 import { Controller, Get,Res } from '@nestjs/common';
-import { Response } from 'express';
+//import { Response } from 'express';
 
 @Controller()
 export class AppController {
@@ -7,7 +7,8 @@ export class AppController {
 
   @Get()
   getHello(@Res() res:Response) {
-    return res.redirect(process.env.rider)
+    return 'biblioteca '
+  //  return res.redirect(process.env.rider)
   }
 }
 

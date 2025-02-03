@@ -1,0 +1,75 @@
+.custom-card {
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+  }
+
+  /* Personalización del input de búsqueda */
+  .custom-input {
+    border-radius: 20px;
+    padding: 10px 15px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+  }
+
+  .custom-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+  }
+
+  /* Estilos para los botones */
+  .custom-btn {
+    border-radius: 25px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+  }
+
+  .custom-btn:hover {
+    background-color: #0056b3;
+  }
+
+  /* Estilos para las acciones de los botones */
+  .btn {
+    border-radius: 20px;
+    padding: 5px 15px;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn:hover {
+    opacity: 0.8;
+  }
+
+  .btn-success {
+    background-color: #28a745;
+  }
+
+  .btn-danger {
+    background-color: #dc3545;
+  }
+
+  .btn-warning {
+    background-color: #ffc107;
+  }
+
+  .btn-success:hover {
+    background-color: #218838;
+  }
+
+  .btn-danger:hover {
+    background-color: #c82333;
+  }
+
+  .btn-warning:hover {
+    background-color: #e0a800;
+  }
+
+  /* Estilos adicionales para el formulario y los textos */
+  .form-label {
+    font-size: 1.25rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .text-xl {
+    font-size: 1.5rem;
+  }

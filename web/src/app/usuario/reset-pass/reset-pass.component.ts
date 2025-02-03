@@ -46,7 +46,9 @@ export class ResetPassComponent {
 
 
   async enviar(): Promise<void> {
+    this.mandado = true
     await this.aunt.reset(this.username).subscribe((e)=>{
+      this.mandado = false
       Swal.fire({
         title: 'se ha enviado el codigo al correo',
         text: e.message,
@@ -58,6 +60,7 @@ export class ResetPassComponent {
           
           window.location.reload()
         } else if (result.dismiss === Swal.DismissReason.cancel) {
+          this.mandado = false
           Swal.fire('Cancelado', 'Se conserva el libro', 'error');
         }
       });

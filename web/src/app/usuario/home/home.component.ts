@@ -37,9 +37,12 @@ export class HomeComponent implements OnInit ,AfterViewInit {
 
   ngOnInit() {
     this.userInfo = this.authService.getUserInfo();
+if(!this.userInfo.id_user){
+  this.router.navigate(['login']).then(() => {
+  });
+}
 if(!this.userInfo.cambio){
   this.router.navigate(['user/cambio_contra']).then(() => {
-    window.location.reload();
   });
 }
 
@@ -50,11 +53,12 @@ if(!this.userInfo.cambio){
 
       },
      error: (e) => {
-      alert(e)
+     
         this.toastrService.error('Error al obtener las carreras:', 'Fail', {
           timeOut: 3000,
           positionClass: 'toast-top-center',
         });
+        window.location.reload()
       }
      } );
 

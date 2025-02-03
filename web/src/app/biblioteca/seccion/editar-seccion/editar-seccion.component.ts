@@ -3,11 +3,12 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { ActivatedRoute } from '@angular/router';
 import { SeccioneSericeService } from '../seccione-serice.service';
 import { ToastrService } from 'ngx-toastr';
+import { LoaderComponent } from "../../../componentes/loader/loader.component";
 
 @Component({
   selector: 'app-editar-seccion',
   standalone: true,
-  imports: [ReactiveFormsModule,FormsModule],
+  imports: [ReactiveFormsModule, FormsModule, LoaderComponent],
   templateUrl: './editar-seccion.component.html',
   styleUrl: './editar-seccion.component.css'
 })
@@ -30,6 +31,7 @@ estados: { [key: string]: string } = {};
 
 private seccion_s = inject(SeccioneSericeService)
 id!:string
+
   ngOnInit(): void {
     this.seccion =  this.fb.group({nombre:[''],fk_estante:[this.id]})
 

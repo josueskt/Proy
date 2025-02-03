@@ -8,8 +8,11 @@ export interface dato{
     isbn: string;
     codigo: string;
     editorial: string;
-    tipo: string;
-    year: number;
+    medio: string;
+    fecha: any;
     palabras: string;
     cantidad?:string
+    observacion?:string
+    edicion?:string
+    tipo_libro?:string
 }

@@ -5,7 +5,7 @@ export const routesProfesor: Routes = [
   {
     path: 'profe',
     canActivate: [AuthGuard],
-    data: { roles: ['PROFESOR', 'ADMINISTRADOR'] },
+    data: { roles: ['PROFESOR', 'ADMINISTRADOR','BIBLIOTECA'] },
     loadComponent: () =>
       import('../Profesor/profesor.component').then((m) => m.ProfesorComponent),
     children: [

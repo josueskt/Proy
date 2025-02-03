@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
      if(token){
      
       this.authService.frosbine().subscribe({ error() {
-    localStorage.removeItem('token');
+        localStorage.removeItem('token');
         window.location.reload()
        
       },})

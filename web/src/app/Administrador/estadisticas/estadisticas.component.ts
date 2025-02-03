@@ -4,148 +4,232 @@ import { environment } from '../../../../environments/environment';
 import {
   ApexAxisChartSeries,
   ApexChart,
-  ApexDataLabels,
-  ApexFill,
-  ApexMarkers,
   ApexTitleSubtitle,
   ApexYAxis,
   ApexXAxis,
   ApexTooltip,
   NgApexchartsModule,
-} from "ng-apexcharts";
-import { EstadisticasService } from './estadisiticas.service';
+} from 'ng-apexcharts';
 import { FormsModule } from '@angular/forms';
+import { EstadisticasService } from './estadisiticas.service';
 
 @Component({
   selector: 'app-estadisticas',
   standalone: true,
-  imports: [NgApexchartsModule,FormsModule],
+  imports: [NgApexchartsModule, FormsModule],
   templateUrl: './estadisticas.component.html',
-  styleUrls: ['./estadisticas.component.css']
+  styleUrls: ['./estadisticas.component.css'],
 })
 export class EstadisticasComponent implements OnInit {
-  public series: ApexAxisChartSeries;
-  public chart: ApexChart;
-  public dataLabels: ApexDataLabels;
-  public markers: ApexMarkers;
-  public title: ApexTitleSubtitle;
-  public fill: ApexFill;
-  public yaxis: ApexYAxis;
-  public xaxis: ApexXAxis;
-  public tooltip: ApexTooltip;
-fecha
+  // Configuración del primer gráfico (estadisticas)
+  public seriesIngresos: ApexAxisChartSeries = [];
+  public chartIngresos: ApexChart;
+  public titleIngresos: ApexTitleSubtitle;
+  public yaxisIngresos: ApexYAxis;
+  public xaxisIngresos: ApexXAxis;
+  public tooltipIngresos: ApexTooltip;
+
+  // Configuración del segundo gráfico (estadisticas_ingreso)
+  public seriesPrestamos: ApexAxisChartSeries = [];
+  public chartPrestamos: ApexChart;
+  public titlePrestamos: ApexTitleSubtitle;
+  public yaxisPrestamos: ApexYAxis;
+  public xaxisPrestamos: ApexXAxis;
+  public tooltipPrestamos: ApexTooltip;
+
+  fecha: string;
+  fechaf: string;
+
   estadisticas: any[] = [];
+  estadisticas_ingreso: any[] = [];
   base = environment.URL;
-  private baseUrl = `${this.base}estadisticas`;
+  private baseUrlEstadisticas = `${this.base}estadisticas`;
+  private baseUrlEstadisticasIngreso = `${this.base}estadisticas/prestamos`;
+  colorsPrestamos: string[];
 
-  constructor(private http: HttpClient , private est:EstadisticasService) {
-   
-  }
-
-  
+  constructor(private http: HttpClient, private est: EstadisticasService) {}
 
   ngOnInit(): void {
-     this.fecha = Date.now()
-    // Llamada HTTP para obtener los datos
-    this.http.get<any[]>(this.baseUrl).subscribe({
+    const today = new Date();
+    this.fecha = today.toISOString().split('T')[0];
+    this.fechaf = today.toISOString().split('T')[0];
+
+    // Obtener datos para el primer gráfico
+    this.http.get<any[]>(this.baseUrlEstadisticas).subscribe({
       next: (data) => {
-       
-        this.estadisticas = data; 
-          this.initChartData();
-        this.processData(); 
+        this.estadisticas = data;
+        this.processDataIngresos();
+        this.initChartDataIngresos();
       },
       error: (err) => {
-        console.error("Error al cargar los datos:", err);
+        console.error('Error al cargar los datos de estadisticas:', err);
+      },
+    });
+
+    // Obtener datos para el segundo gráfico
+    this.http.get<any[]>(this.baseUrlEstadisticasIngreso).subscribe({
+      next: (data) => {
+        this.estadisticas_ingreso = data;
+        this.processDataPrestamos();
+        this.initChartDataPrestamos();
+      },
+      error: (err) => {
+        console.error('Error al cargar los datos de estadisticas_ingreso:', err);
       },
     });
   }
 
-generar_informe(){
-console.log(this.fecha)
-  this.est.imprimir_estadisticas_ingreso().subscribe((e)=>{
-    this.est.generateExcel(e)
+  generar_informe() {
+    this.est.imprimir_estadisticas_ingreso(this.fecha, this.fechaf).subscribe((e) => {
+      this.est.generateExcel(e);
+    });
+  }
+  generar_informe_prestamos() {
+    this.est.imprimir_estadisticas_prestamos(this.fecha, this.fechaf).subscribe((e) => {
+      this.est.generateExcelPrestamos(e);
+    });
+  }
 
-  })
-
-}
-
-  private processData(): void {
+  private processDataIngresos(): void {
     if (!this.estadisticas || this.estadisticas.length === 0) {
-      return; // Verifica si hay datos antes de procesarlos
+      return;
     }
 
-    // Agrupar por fecha y contar ocurrencias
     const groupedData = this.estadisticas.reduce((acc, item) => {
-      const date = item.fecha.split('T')[0]; // Extraer solo la fecha (sin hora)
+      const date = item.fecha.split('T')[0];
       acc[date] = (acc[date] || 0) + 1;
       return acc;
     }, {});
 
-    // Convertir a formato {x: fecha, y: cantidad}
-    const chartData = Object.keys(groupedData).map(date => ({
+    const chartData = Object.keys(groupedData).map((date) => ({
       x: date,
       y: groupedData[date],
     }));
 
-    // Actualizar la serie del gráfico
-    this.series = [
+    this.seriesIngresos = [
       {
-        name: "Ingresos",
+        name: 'Ingresos',
         data: chartData,
       },
     ];
   }
 
-  private initChartData(): void {
-    this.chart = {
-      type: "area",
+  private processDataPrestamos(): void {
+    if (!this.estadisticas_ingreso || this.estadisticas_ingreso.length === 0) {
+      return;
+    }
+
+    const groupedData = this.estadisticas_ingreso.reduce((acc, item) => {
+      const date = item.fecha.split('T')[0];
+      acc[date] = (acc[date] || 0) + 1;
+      return acc;
+    }, {});
+
+    const chartData = Object.keys(groupedData).map((date) => ({
+      x: date,
+      y: groupedData[date],
+    }));
+
+    this.seriesPrestamos = [
+      {
+        name: 'Prestamos',
+        data: chartData,
+      },
+    ];
+  }
+
+  private initChartDataIngresos(): void {
+    this.chartIngresos = {
+      type: 'area',
       stacked: false,
       height: 350,
       zoom: {
-        type: "x",
+        type: 'x',
         enabled: true,
         autoScaleYaxis: true,
       },
       toolbar: {
-        autoSelected: "zoom",
+        autoSelected: 'zoom',
       },
     };
-    this.dataLabels = {
-      enabled: false,
+
+    this.titleIngresos = {
+      text: 'Ingresos por Fecha',
+      align: 'left',
     };
-    this.markers = {
-      size: 5,
-    };
-    this.title = {
-      text: "Ingresos por Fecha",
-      align: "left",
-    };
-    this.fill = {
-      type: "gradient",
-      gradient: {
-        shadeIntensity: 1,
-        inverseColors: false,
-        opacityFrom: 0.5,
-        opacityTo: 0,
-        stops: [0, 90, 100],
-      },
-    };
-    this.yaxis = {
+
+    this.yaxisIngresos = {
       title: {
-        text: "Cantidad de Ingresos",
+        text: 'Cantidad de Ingresos',
       },
     };
-    this.xaxis = {
-      type: "datetime",
+
+    this.xaxisIngresos = {
+      type: 'datetime',
       labels: {
-        format: "yyyy-MM-dd",
+        format: 'yyyy-MM-dd',
       },
     };
-    this.tooltip = {
+
+    this.tooltipIngresos = {
       shared: true,
       x: {
-        format: "yyyy-MM-dd",
+        format: 'yyyy-MM-dd',
       },
     };
   }
+
+  private initChartDataPrestamos(): void {
+    this.chartPrestamos = {
+      type: 'area',
+      stacked: false,
+      height: 350,
+      zoom: {
+        type: 'x',
+        enabled: true,
+        autoScaleYaxis: true,
+      },
+      toolbar: {
+        autoSelected: 'zoom',
+      },
+    };
+
+    this.titlePrestamos = {
+      text: 'Préstamos por Fecha',
+      align: 'left',
+    };
+
+    this.yaxisPrestamos = {
+      title: {
+        text: 'Cantidad de Préstamos',
+      },
+    };
+
+    this.xaxisPrestamos = {
+      type: 'datetime',
+      labels: {
+        format: 'yyyy-MM-dd',
+      },
+    };
+
+    this.tooltipPrestamos = {
+      shared: true,
+      x: {
+        format: 'yyyy-MM-dd',
+      },
+    };
+
+
+    this.seriesPrestamos = [
+      {
+        name: 'Préstamos',
+        data: this.seriesPrestamos[0]?.data || [],
+      },
+    ];
+  
+    this.seriesPrestamos[0]['colors'] = ['#e74c3c']; 
+
+    this.colorsPrestamos = ['#e74c3c']; // Rojo
+  }
+  
 }

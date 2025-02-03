@@ -20,6 +20,7 @@ export class SeccionesComponent {
   seccion!:FormGroup
   id!:string
   secciones:secciones[] = []
+  loading = true
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -49,19 +50,22 @@ export class SeccionesComponent {
     });
   }
   crear(){
+    this.loading = false
 this.secions_s.crear(this.seccion.value).subscribe({
-  next:(r:any)=>{alert(r.message[0])
+  next:(r:any)=>{
      window.location.reload()},
-  error:(e)=>{alert(e.message[0])}
+  error:(e)=>{
+  }
 })
   }
   elimiar(id:string){
+    this.loading = false
     this.secions_s.eliminar(id).subscribe({
       next:(e:any)=>{
         window.location.reload()
-        alert(e.message[0])
       },
-      error:(e)=>{ alert(e.message[0])}
+      error:(e)=>{
+        }
     })
   }
 

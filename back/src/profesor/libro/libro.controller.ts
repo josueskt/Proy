@@ -58,7 +58,7 @@ export class LibroController {
   }
   @Delete(':id')
   @UseGuards(RolesGuard)
-  @SetMetadata('roles', ['PROFESOR', 'ADMINISTRADOR'])
+  @SetMetadata('roles', ['PROFESOR', 'ADMINISTRADOR','BIBLIOTECA'])
   eliminar(@Param('id') id: string) {
     return this.libro.eliminar(id);
   }
@@ -71,10 +71,7 @@ export class LibroController {
   ]))
   editar(
     @Body('libro') libro: string,
-
     @UploadedFiles() files: { image: Express.Multer.File[], file?: Express.Multer.File[] },
-
-    @Param('id') id: number,
   ) {
 
     const li = JSON.parse(libro);

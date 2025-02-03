@@ -1,80 +1,165 @@
-
-
 <div class="container mt-5">
   <div class="fondo-plomo-transparente p-4">
-    <h2 class="mb-4 text-center">Editar Libro</h2>
+    <h2 class="mb-4 text-center bg-dark m-0 p-0 text-white">Editar Libro</h2>
 
-    <form (submit)="subirImagen()">
+    <form [formGroup]="libroForm" (ngSubmit)="subirImagen()">
       <div class="form-group">
         <label for="titulo">Título:</label>
-        <input type="text" id="titulo" name="titulo" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.titulo" class="form-control" required placeholder="Ingrese el título">
+        <input type="text" id="titulo" formControlName="titulo" class="form-control" placeholder="Ingrese el título">
+        @if(libroForm.get('titulo').touched && libroForm.get('titulo').invalid) {
+          <div class="text-danger">
+            @if(libroForm.get('titulo').hasError('required')) {
+              <div>El título es obligatorio.</div>
+            }
+            @if(libroForm.get('titulo').hasError('maxlength')) {
+              <div>El título no puede exceder los 100 caracteres.</div>
+            }
+          </div>
+        }
       </div>
-
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="codigo">Código:</label>
-          <input type="text" id="codigo" name="codigo" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.codigo" class="form-control" required placeholder="Ingrese el código">
+          <input type="text" id="codigo" formControlName="codigo" class="form-control" placeholder="Ingrese el código">
+          @if(libroForm.get('codigo').touched && libroForm.get('codigo').invalid) {
+            <div class="text-danger">
+              @if(libroForm.get('codigo').hasError('required')) {
+                <div>El código es obligatorio.</div>
+              }
+            </div>
+          }
         </div>
-
         <div class="form-group col-md-6">
           <label for="editorial">Editorial:</label>
-          <input type="text" id="editorial" name="editorial" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.editorial" class="form-control" required placeholder="Ingrese el nombre de la editorial">
+          <input type="text" id="editorial" formControlName="editorial" class="form-control" placeholder="Ingrese el nombre de la editorial">
+          @if(libroForm.get('editorial').touched && libroForm.get('editorial').invalid) {
+            <div class="text-danger">
+              @if(libroForm.get('editorial').hasError('required')) {
+                <div>La editorial es obligatoria.</div>
+              }
+              @if(libroForm.get('editorial').hasError('maxlength')) {
+                <div>La editorial no puede exceder los 100 caracteres.</div>
+              }
+            </div>
+          }
+        </div>
+        <div class="form-group col-md-6">
+          <label for="autor">Autor:</label>
+          <input type="text" id="autor" formControlName="autor" class="form-control" placeholder="Ingrese el nombre del autor">
+          @if(libroForm.get('editorial').touched && libroForm.get('editorial').invalid) {
+            <div class="text-danger">
+              @if(libroForm.get('autor').hasError('required')) {
+                <div>La editorial es obligatoria.</div>
+              }
+              @if(libroForm.get('editorial').hasError('maxlength')) {
+                <div> el nombre del autor no puede exceder los 100 caracteres.</div>
+              }
+            </div>
+          }
         </div>
       </div>
 
       <div class="form-row">
         <div class="form-group col-md-6">
           <label for="isbn">ISBN:</label>
-          <input type="text" id="isbn" name="isbn" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.isbn" class="form-control" required placeholder="Ingrese el ISBN">
+          <input type="text" id="isbn" formControlName="isbn" class="form-control" placeholder="Ingrese el ISBN">
+          @if(libroForm.get('isbn').touched && libroForm.get('isbn').invalid) {
+            <div class="text-danger">
+              @if(libroForm.get('isbn').hasError('required')) {
+                <div>El ISBN es obligatorio.</div>
+              }
+            </div>
+          }
         </div>
-
         <div class="form-group col-md-6">
           <label for="year">Año de publicación:</label>
-          <input type="number" id="year" name="year" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.year_of_publication" class="form-control" required placeholder="Ingrese el año de publicación">
+          <input type="number" id="year" formControlName="year_of_publication" class="form-control" placeholder="Ingrese el año de publicación">
+          @if(libroForm.get('year_of_publication').touched && libroForm.get('year_of_publication').invalid) {
+            <div class="text-danger">
+              @if(libroForm.get('year_of_publication').hasError('required')) {
+                <div>El año de publicación es obligatorio.</div>
+              }
+            </div>
+          }
         </div>
       </div>
-
       <div class="form-group">
         <label for="review">Reseña:</label>
-        <textarea id="review" name="review" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.review" class="form-control" rows="3" required placeholder="Escriba una reseña del libro"></textarea>
+        <textarea id="review" formControlName="review" class="form-control" rows="3" placeholder="Escriba una reseña del libro"></textarea>
+        @if(libroForm.get('review').touched && libroForm.get('review').invalid) {
+          <div class="text-danger">
+            @if(libroForm.get('review').hasError('required')) {
+              <div>La reseña es obligatoria.</div>
+            }
+            @if(libroForm.get('review').hasError('maxlength')) {
+              <div>la reseña no puede exceder los 500 caracteres.</div>
+            }
+          </div>
+        }
       </div>
-
+@if(libro.tipo === 'FISICO'){
+  <div class="form-group col-md-6">
+    <label for="year">Cantidad:</label>
+    <input type="number" id="year" formControlName="cantidad" class="form-control" placeholder="la cantidad">
+  </div>
+  <div class="form-group col-md-6">
+    <label for="year">categoria:</label>
+    <input type="text" id="year" formControlName="categoria" class="form-control" placeholder="revista , libro , manual , guia">
+  </div>
+}
       <div class="form-group">
         <label for="opciones">Carrera:</label>
-        <select id="opciones" [(ngModel)]="libro.carrera" [ngModelOptions]="{standalone: true}" class="form-control">
+        <select id="opciones" formControlName="carrera" class="form-control">
           @for (carrera of carreras; track $index) {
-
-            <option  [value]="carrera.id_carrera">{{carrera.nombre}}</option>
+            <option [value]="carrera.id_carrera">{{carrera.nombre}}</option>
           }
         </select>
+        @if(libroForm.get('carrera').touched && libroForm.get('carrera').invalid) {
+          <div class="text-danger">
+            @if(libroForm.get('carrera').hasError('required')) {
+              <div>La carrera es obligatoria.</div>
+            }
+          </div>
+        }
       </div>
-
+      <div  class="form-group p-2">
+        @for (item of palabras; track $index) {
+          <button type="button" class="palabras" (click)="eliminar(item.id_pl , $index)">
+            {{item.nombre}} <i class="fa fa-times text-danger" aria-hidden="true"></i>
+          </button>
+        }
+      </div>
+      <div class="form-group">
+        <label for="pl">Añadir palabras clave:</label>
+        <input type="text" id="pl" formControlName="palabras" class="form-control" placeholder="Ingrese palabras clave">
+        @if(libroForm.get('palabras').touched && libroForm.get('palabras').invalid) {
+          <div class="text-danger">
+            @if(libroForm.get('palabras').hasError('maxlength')) {
+              <div>Las palabras clave no pueden exceder los 50 caracteres por palabra.</div>
+            }
+          </div>
+        }
+      </div>
+      @if(libro.tipo !== 'FISICO'){
       <div class="form-group">
         <label for="archivoInput">Selecciona un archivo:</label>
         <input type="file" id="archivoInput" (change)="onArchivoChange($event)" class="form-control">
       </div>
-
+    }
       <div class="form-group">
         <label for="imagenInput">Selecciona una imagen:</label>
         <input type="file" id="imagenInput" (change)="onImagenChange($event)" class="form-control">
       </div>
-
-<div class="form-group">
-  @for (item of palabras; track $index) {
-    <button class="palabras" (click)="eliminar(item.id_pl)">{{item.nombre}} <i class="fa fa-times text-danger" aria-hidden="true"></i> </button>
-    
-  }
-  <div class="form-group col-md-12">
-    <label for="year">añadir palabras clave:</label>
-    <input type="text" id="pl" name="pl" [ngModelOptions]="{standalone: true}" [(ngModel)]="libro.palabras" class="form-control" required placeholder="Ingrese el año de publicación">
+@if(load){
+  <button type="submit" class="btn btn-primary btn-block mt-3" [disabled]="!libroForm.valid">Subir Archivos</button>
+}@else {
+  <div class="btn btn-success btn-block mt-3 " >
+    <div class="spinner-border" role="status">
+      <span class="sr-only"></span>
+    </div>
   </div>
-</div>
+}
 
-<div>
-  
-</div>
-
-      <button type="submit" class="btn btn-primary btn-block mt-3">Subir Archivos</button>
     </form>
   </div>
 </div>

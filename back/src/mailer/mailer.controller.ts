@@ -13,7 +13,7 @@ export class MailerController {
   async test(@Param('id') id: string) {
     const usuario = await this.sql.query('select id_user,email from inst.usuario where id_user = $1', [id])
     if (usuario[0].email) {
-      const token = await jwt.sign({ usuario }, this.secretKey, { expiresIn: '5m' });
+      const token = await jwt.sign({ usuario }, this.secretKey, { expiresIn: '15m' });
       this.sql.query('UPDATE inst.usuario SET reseteo = $1  WHERE id_user = $2;', [token, id])
       this.sendemail.sendEmail(usuario[0].email, "recuperar contraseña", `
        
@@ -78,12 +78,14 @@ export class MailerController {
             <p>¡Hola!</p>
             <p>Recibimos una solicitud para restablecer tu contraseña. Si fuiste tú, haz clic en el siguiente botón para restablecerla:</p>
             
-            <a href="http://localhost:4200/#/restablecer/${token}" target="_blank">Restablecer Contraseña</a>
+            <a href="https://bibliotecayavirac.com/#/restablecer/${token}" target="_blank">Restablecer Contraseña</a>
+
+
+            https://bibliotecayavirac.com/#/restablecer/${token}
   
             <p>Si no realizaste esta solicitud, por favor ignora este mensaje. Tu contraseña no ha sido modificada.</p>
   
-            <p>Saludos,</p>
-            <p>El equipo de TuAplicacion</p>
+          
           </div>
         </div>
   

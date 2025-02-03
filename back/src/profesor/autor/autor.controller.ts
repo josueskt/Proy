@@ -10,14 +10,14 @@ constructor(private Autro:AutorService){}
 
 @Get()
 @UseGuards(RolesGuard)
-@SetMetadata('roles', ['PROFESOR', 'ADMINISTRADOR'])
+@SetMetadata('roles', ['PROFESOR', 'ADMINISTRADOR','BIBLIOTECA'])
 traer(){
   return   this.Autro.traer()
 }
 
 @Post()
 @UseGuards(RolesGuard)
-@SetMetadata('roles', ['PROFESOR', 'ADMINISTRADOR'])
+@SetMetadata('roles', ['PROFESOR', 'ADMINISTRADOR','BIBLIOTECA'])
 crear(@Body('nombre') nombre:string){
     this.Autro.crear_autor(nombre)
 }

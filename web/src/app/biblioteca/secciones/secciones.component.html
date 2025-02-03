@@ -1,41 +1,59 @@
 <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <form [formGroup]="seccion" (ngSubmit)="crear()" class="card p-4 shadow-sm rounded mb-4">
-          <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre de la sección</label>
-            <input formControlName="nombre" autocomplete="off" type="text" id="nombre" class="form-control" placeholder="Nombre de la sección" />
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <form [formGroup]="seccion" (ngSubmit)="crear()" class="card p-4 shadow-sm rounded mb-4 custom-card">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre de la sección</label>
+          <input formControlName="nombre" autocomplete="off" type="text" id="nombre" class="form-control custom-input" placeholder="Nombre de la sección" />
+        </div>
+        @if (loading) {
+
+          <button class="btn btn-primary w-100 mt-3 custom-button" type="submit">Crear</button>
+        }
+        @else {
+          <div class="btn btn-primary custom-btn-view">
+            <div class="spinner-border" role="status">
+              <span class="sr-only"></span>
+            </div>
           </div>
-          <button class="btn btn-primary w-100 mt-3" type="submit">Crear</button>
-        </form>
-      </div>
-    </div>
-  
-    <div class="row justify-content-center">
-      <div class="col-md-10">
-        <table class="table table-bordered table-hover text-center mb-4">
-          <thead class="table-light">
-            <tr>
-              <th>Nombre</th>
-              <th>Editar</th>
-              <th>Eliminar</th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (item of secciones; track $index) {
-              <tr class="{{ $index % 2 === 0 ? 'table-secondary' : '' }}">
-                <td>{{ item.nombre }}</td>
-                <td>
-                  <a  [routerLink]="['../../seccion/'+item.id_seccion]"   class="btn btn-warning">Editar</a>
-                </td>
-                <td>
-                  <button class="btn btn-danger" (click)="elimiar(item.id_seccion)">Eliminar</button>
-                </td>
-              </tr>
-            }
-          </tbody>
-        </table>
-      </div>
+        }
+      </form>
     </div>
   </div>
-  
+
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <table class="table table-bordered table-hover text-center custom-table">
+        <thead class="table-light">
+          <tr>
+            <th>Nombre</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of secciones; track $index) {
+            <tr class="{{ $index % 2 === 0 ? 'table-secondary' : '' }}">
+              <td>{{ item.nombre }}</td>
+              <td>
+                <a [routerLink]="['../../seccion/'+item.id_seccion]" class="btn btn-warning custom-btn-edit">Editar</a>
+              </td>
+              <td>
+                @if (loading) {
+                  <button class="btn btn-danger custom-btn-delete" (click)="elimiar(item.id_seccion)">Eliminar</button>
+                }
+                @else {
+                  <div class="btn btn-danger custom-btn-delete">
+                    <div class="spinner-border" role="status">
+                      <span class="sr-only"></span>
+                    </div>
+                  </div>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

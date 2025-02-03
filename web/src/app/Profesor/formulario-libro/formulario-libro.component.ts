@@ -79,7 +79,8 @@ load = true
       isbn: ['', Validators.required],
       archivo_url: [''],
       palabras: ['', [maxLengthPerWordValidator(50)]],
-      cantidad:['']
+      cantidad:[''],
+      year:['']
     });
   }
 

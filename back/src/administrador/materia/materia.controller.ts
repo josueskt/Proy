@@ -1,13 +1,9 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, SetMetadata, UseGuards } from '@nestjs/common';
 import { MateriaService } from './materia.service';
 import { materia } from './materia.interface';
-import { RolesGuard } from 'src/roles/roles.guard';
-
-@Controller('materia')
+import { RolesGuard } from 'src/roles/roles.guard'; @Controller('materia')
 export class MateriaController {
-    constructor(public materia: MateriaService) { }
-     
-    @Get()
+    constructor(public materia: MateriaService) { }     @Get()
     @UseGuards(RolesGuard)
     @SetMetadata('roles', ['ADMINISTRADOR'])
     trae() {
@@ -37,5 +33,4 @@ export class MateriaController {
     eliminar(@Param("id") id: number) {
         return this.materia.eliminar(id)
     };
-}
-
+} 

@@ -1,3 +1,9 @@
+
+@if(full_loader){
+
+    <app-loader></app-loader>
+  }
+
 <div class="container mt-5">
     <h1 class="text-xl font-bold mb-4">Cargar libros desde Excel</h1>
     <div class="mb-3">
@@ -27,7 +33,17 @@
                     <td>{{item.titulo}}</td>
                     <td>{{item.codigo}}</td>
                     <td>
-                        <button class="btn btn-danger" (click)="eliminar(item.id_libro)">Eliminar</button>
+                        @if(load){
+
+                            <button class="btn btn-danger" (click)="eliminar(item.id_libro)">Eliminar</button>
+                        }
+                        @else {
+                            <div class="btn btn-danger">
+                                <div class="spinner-border" role="status">
+                                  <span class="sr-only"></span>
+                                </div>
+                              </div>
+                        }
                     </td>
                     <td>
                     <a  class="btn btn-info" [routerLink]="['editar/'+item.id_libro]"  >Editar</a>

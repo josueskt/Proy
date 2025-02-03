@@ -49,7 +49,10 @@
         
 
           <div class="card-img-container ro">
-            <img class="card-img-top img-fluid"    [src]="url+ libro.imagen"  alt="Imagen no encontrada">
+            @if(libro.imagen){
+
+              <img class="card-img-top img-fluid"    [src]="url+ libro.imagen"  alt="Imagen no encontrada">
+            }
         </div>
       
          

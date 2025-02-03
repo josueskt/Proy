@@ -1,68 +1,67 @@
 
 
-<h4 class=" text-center bg-dark text-white m-5 p-0">Inicio se sesion</h4>
+<h4 class=" text-center bg-dark text-white m-5 p-0">Inicio de sesión</h4>
 
-<div class="" > 
-  <button [disabled]="!fecha" class="btn btn-success" (click)="generar_informe()"> imprimir reporte</button>
-  <input class="form-control"   [(ngModel)]="fecha" type="date">
+<div class="mx-5 " > 
+  <div class="row">
+    <div class="col-sm">
+
+      <label for="inicio">fecha inicio</label>
+      <input id="inicio" class="form-control"   [(ngModel)]="fecha" type="date">
+    </div>
+    <div class="col-sm">
+
+      <label for="fin">fecha fin</label>
+      <input id="fin" class="form-control"   [(ngModel)]="fechaf" type="date">
+    </div>
+  </div>
+  <button [disabled]="!fecha" class="btn btn-success mt-2" (click)="generar_informe()"> imprimir reporte</button>
+
 </div>
 <br>
-<apx-chart class="P-5  mx-5 border border-dark rounded "
-  [series]="series"
-  [chart]="chart"
-  [dataLabels]="dataLabels"
-  [markers]="markers"
-  [title]="title"
-  [fill]="fill"
-  [yaxis]="yaxis"
-  [xaxis]="xaxis"
-  [tooltip]="tooltip"
-  [autoUpdateSeries]="true"
-></apx-chart>
-
-<h4 class=" text-center bg-dark text-white m-5 p-0">prestamos</h4>
-
-
-<br>
-<div class="" > 
-  <button [disabled]="!fecha" class="btn btn-success" (click)="generar_informe()"> imprimir reporte</button>
-  <input class="form-control"   [(ngModel)]="fecha" type="date">
+<div>
+  <h2>Estadísticas de Ingresos</h2>
+  <apx-chart
+    [series]="seriesIngresos"
+    [chart]="chartIngresos"
+    
+    [xaxis]="xaxisIngresos"
+    [yaxis]="yaxisIngresos"
+    [tooltip]="tooltipIngresos"
+  ></apx-chart>
 </div>
-<br>
-
-<apx-chart class="P-5  mx-5 border border-dark rounded "
-  [series]="series"
-  [chart]="chart"
-  [dataLabels]="dataLabels"
-  [markers]="markers"
-  [title]="title"
-  [fill]="fill"
-  [yaxis]="yaxis"
-  [xaxis]="xaxis"
-  [tooltip]="tooltip"
-  [autoUpdateSeries]="true"
-></apx-chart>
 
 
-<h4 class=" text-center bg-dark text-white m-5 p-0">Ingresos a la biblioteca</h4>
 
+<h4 class=" text-center bg-dark text-white m-5 p-0">Préstamo</h4>
+<div class="mx-5 " > 
+  <div class="row">
+    <div class="col-sm">
 
-<br>
-<div class="" > 
-  <button [disabled]="!fecha" class="btn btn-success" (click)="generar_informe()"> imprimir reporte</button>
-  <input class="form-control"   [(ngModel)]="fecha" type="date">
+      <label for="inicio">fecha inicio</label>
+      <input id="inicio" class="form-control"   [(ngModel)]="fecha" type="date">
+    </div>
+    <div class="col-sm">
+
+      <label for="fin">fecha fin</label>
+      <input id="fin" class="form-control"   [(ngModel)]="fechaf" type="date">
+    </div>
+  </div>
+  <button [disabled]="!fecha" class="btn btn-success mt-2" (click)="generar_informe_prestamos()"> imprimir reporte</button>
+
 </div>
-<br>
-
-<apx-chart class="P-5  mx-5 border border-dark rounded "
-  [series]="series"
-  [chart]="chart"
-  [dataLabels]="dataLabels"
-  [markers]="markers"
-  [title]="title"
-  [fill]="fill"
-  [yaxis]="yaxis"
-  [xaxis]="xaxis"
-  [tooltip]="tooltip"
-  [autoUpdateSeries]="true"
+<apx-chart
+[series]="seriesPrestamos"
+[chart]="chartPrestamos"
+[xaxis]="xaxisPrestamos"
+[colors]="colorsPrestamos"
+[yaxis]="yaxisPrestamos"
+[tooltip]="tooltipPrestamos"
 ></apx-chart>
+
+
+
+
+
+
+

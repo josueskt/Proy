@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from '../../roles/auth.service';
@@ -36,7 +36,10 @@ export class VistalibroService {
 
     // Configurar opciones para indicar que esperamos un tipo de respuesta binario (Blob)
     const options = {
-      responseType: 'blob' as 'json'
+      responseType: 'blob' as 'json',
+      headers: new HttpHeaders({
+        Range: 'bytes=0',
+      }),
     };
 
     // http://localhost:3000/descarga?id_user=1&id_libro=1&filename=hola.pdf
