@@ -1,10 +1,12 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
 import { mailService } from 'src/mail/mails.service';
 import { SqlService } from 'src/sql/sql.service';
 import * as jwt from 'jsonwebtoken';
 
 import { cambio_contra } from 'src/usuarios/cambio_contra/cambiocontra';
 import { CambioContraService } from 'src/usuarios/cambio_contra/cambio_contra.service';
+import { error } from 'console';
+import { MessageDto } from 'src/common/message.dto';
 @Controller('mailer')
 export class MailerController {
   constructor(private sendemail: mailService, readonly sql: SqlService, private cambio: CambioContraService) { }
@@ -12,7 +14,10 @@ export class MailerController {
   @Get("reset/:id")
   async test(@Param('id') id: string) {
     const usuario = await this.sql.query('select id_user,email from inst.usuario where id_user = $1', [id])
-    if (usuario[0].email) {
+    if(!usuario[0]){
+      throw new NotFoundException(new MessageDto('usuario no encontrado'));
+    }
+    if (usuario[0].email ) {
       const token = await jwt.sign({ usuario }, this.secretKey, { expiresIn: '15m' });
       this.sql.query('UPDATE inst.usuario SET reseteo = $1  WHERE id_user = $2;', [token, id])
       this.sendemail.sendEmail(usuario[0].email, "recuperar contraseña", `

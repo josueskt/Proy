@@ -2,7 +2,7 @@ export interface dato{
     titulo: string;
     autor: string;
     review: string;
-    carrera: number;
+    carrera: string;
     imagen: string;
     archivo: string;
     isbn: string;

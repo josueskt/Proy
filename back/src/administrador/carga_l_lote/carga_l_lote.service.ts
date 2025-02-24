@@ -12,34 +12,53 @@ export class CargaLLoteService {
   }
   directorioDestino = process.env.Docs;
   async libros_bloque(dato: dato, id: string): Promise<void> {
+    //  console.log(dato)
     try {
-      let id_autor = await this.sql.query('SELECT id_autor FROM libros.autor WHERE nombre = ($1)', [dato.autor])
-      let id_tipo_libro = await this.sql.query('SELECT id FROM libros.tipo_libro WHERE nombre = ($1)', [dato.tipo_libro])
-      let id_tipo = await this.sql.query('SELECT id_tipo FROM libros.tipo WHERE nombre = ($1)', [dato.medio])
-      let id_editorial = await this.sql.query('SELECT id FROM libros.editorial WHERE nombre = ($1)', [dato.editorial])
-      
-      let id_carrera = await this.sql.query('SELECT id_carrera FROM libros.carrera WHERE nombre = ($1)', [dato.carrera])
-      if (!id_autor[0]) {
-       id_autor = await this.sql.query('INSERT INTO libros.autor(nombre) VALUES($1) RETURNING id_autor  ', [dato.autor])
+      let id_tipo_libro = null
+      let id_tipo = await this.sql.query('SELECT id_tipo FROM libros.tipo WHERE nombre = ($1)', [dato.medio.trim()])
+      let id_editorial = null
+      let id_autor = null
+      let id_carrera = null
+      if (dato.autor) {
+        id_autor = await this.sql.query('SELECT id_autor FROM libros.autor WHERE nombre = ($1)', [dato.autor.trim()])
+        if (!id_autor[0]) {
+          id_autor = await this.sql.query('INSERT INTO libros.autor(nombre) VALUES($1) RETURNING id_autor  ', [dato.autor.trim()])
+        }
+        dato.autor = id_autor[0].id_autor
       }
-      if (!id_tipo_libro[0]) {
-        id_tipo_libro= await this.sql.query('INSERT INTO libros.tipo_libro(nombre) VALUES($1) RETURNING id', [dato.tipo_libro])
+      if (dato.tipo_libro) {
+        id_tipo_libro = await this.sql.query('SELECT id FROM libros.tipo_libro WHERE nombre = ($1)', [dato.tipo_libro])
+
+        if (!id_tipo_libro[0]) {
+          id_tipo_libro = await this.sql.query('INSERT INTO libros.tipo_libro(nombre) VALUES($1) RETURNING id', [dato.tipo_libro])
+        }
+        dato.tipo_libro = id_tipo_libro[0].id
+
       }
+
       if (!id_tipo[0]) {
-        id_tipo =  await this.sql.query('INSERT INTO libros.tipo(nombre) VALUES($1) RETURNING id_tipo', [dato.medio])
+        id_tipo = await this.sql.query('INSERT INTO libros.tipo(nombre) VALUES($1) RETURNING id_tipo', [dato.medio.trim()])
       }
-      if (!id_carrera[0]) {
-        id_carrera =  await this.sql.query('INSERT INTO libros.carrera(nombre) VALUES($1) RETURNING id_carrera', [dato.carrera])
+      if (dato.carrera) {
+        id_carrera = await this.sql.query('SELECT id_carrera FROM libros.carrera WHERE nombre = ($1)', [dato.carrera.trim()])
+        if (!id_carrera[0]) {
+          id_carrera = await this.sql.query('INSERT INTO libros.carrera(nombre) VALUES($1) RETURNING id_carrera', [dato.carrera])
+        }
+        dato.carrera = id_carrera[0].id_carrera
       }
-      if (!id_editorial[0]) {
-        id_editorial =  await this.sql.query('INSERT INTO libros.editorial(nombre) VALUES($1) RETURNING id', [dato.editorial])
-      }
+if(dato.editorial){
+   id_editorial = await this.sql.query('SELECT id FROM libros.editorial WHERE nombre = ($1)', [dato.editorial])
+
+  if (!id_editorial[0]) {
+    id_editorial = await this.sql.query('INSERT INTO libros.editorial(nombre) VALUES($1) RETURNING id', [dato.editorial])
+  }
+  dato.editorial = id_editorial[0].id
+}
+     
       const nombre_tipo = dato.medio
-      dato.autor = id_autor[0].id_autor
       dato.medio = id_tipo[0].id_tipo
-      dato.tipo_libro = id_tipo_libro[0].id
-      dato.carrera = id_carrera[0].id_carrera
-      dato.editorial = id_editorial[0].id
+      
+      
       switch (nombre_tipo) {
         case 'URL':
           await this.Sin_Descarga(dato, id);
@@ -75,7 +94,7 @@ export class CargaLLoteService {
         });
     } else { imagen = '' }
     const valor = await this.sql.query(`INSERT INTO libros.libro ( titulo, year_of_publication, review, imagen, nombre_archivo, isbn,fk_creador,fk_autor,fk_carrera,fk_tipo,codigo, fk_editorial,cantidad,kf_tipo_libro) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13,$14)  RETURNING id_libro`, [
-      dato.titulo.toLowerCase(), dato.fecha, dato.review?.toLowerCase(), imagen, '', dato.isbn, id_user, dato.autor, dato.carrera, dato.medio, dato.codigo, dato.editorial, dato.cantidad ,dato.tipo_libro 
+      dato.titulo.toLowerCase(), dato.fecha, dato.review?.toLowerCase(), imagen, '', dato.isbn, id_user, dato.autor, dato.carrera, dato.medio, dato.codigo, dato.editorial, dato.cantidad, dato.tipo_libro
     ]);
     if (dato.palabras) {
       this.palabra.Generar_palabras(dato.palabras, valor[0].id_libro)
@@ -115,12 +134,13 @@ export class CargaLLoteService {
           })
           .catch((error) => {
             console.error(error);
-          });       } catch (error) {
+          });
+      } catch (error) {
         new NotFoundException(new MessageDto('Error al descargar o guardar el archivo'));
       }
       const valor = await this.sql.query(`INSERT INTO libros.libro (
         titulo,year_of_publication,review, imagen, nombre_archivo, isbn, fk_creador, fk_autor,fk_carrera,fk_tipo,codigo,fk_editorial,kf_tipo_libro) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13)  RETURNING id_libro`, [
-        dato.titulo.toLowerCase(), dato.fecha, dato.review.toLowerCase(), imagen, nombreOriginal, dato.isbn, id, dato.autor, dato.carrera, dato.medio, dato.codigo, dato.editorial ,dato.tipo_libro
+        dato.titulo.toLowerCase(), dato.fecha, dato.review.toLowerCase(), imagen, nombreOriginal, dato.isbn, id, dato.autor, dato.carrera, dato.medio, dato.codigo, dato.editorial, dato.tipo_libro
       ]);
       this.palabra.Generar_palabras(dato.palabras, valor[0].id_libro)
     } catch (error) {

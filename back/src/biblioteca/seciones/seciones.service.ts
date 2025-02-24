@@ -23,11 +23,15 @@ async l_s_u(buscar:string){
     return await this.sql.query('SELECT id_libro,codigo FROM libros.libro WHERE fk_tipo = 3 AND  codigo LIKE $1 AND fk_seccion IS NULL LIMIT 30',[`%${buscar}%`])
 }
 async t_c_e(id:string){
+
     return await this.sql.query('SELECT * FROM libros.seccion where fk_estante = $1',[id])
 }
 async l_s_l(id:string){
+   const seccion =  await this.sql.query('SELECT * FROM libros.seccion where id_seccion = $1',[id])
 
-    return await this.sql.query('SELECT codigo , id_libro FROM libros.libro WHERE fk_seccion = $1',[id])
+
+    const libros = await this.sql.query('SELECT codigo , id_libro FROM libros.libro WHERE fk_seccion = $1',[id])
+    return {libros,seccion}
 }
 
 async editar(seccion){

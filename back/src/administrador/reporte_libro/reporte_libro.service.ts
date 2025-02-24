@@ -39,7 +39,7 @@ export class ReporteLibroService {
 
         query += `
         GROUP BY 
-          l.id_libro, l.titulo ,c.nombre ,a.nombre,t.nombre,u.nombre
+          l.id_libro, l.titulo ,c.nombre ,a.nombre,t.nombre,u.nombre 
       `;
 
         return this.slq.query(query, params);

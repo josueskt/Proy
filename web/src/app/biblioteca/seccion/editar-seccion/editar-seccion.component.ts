@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { SeccioneSericeService } from '../seccione-serice.service';
 import { ToastrService } from 'ngx-toastr';
 import { LoaderComponent } from "../../../componentes/loader/loader.component";
@@ -16,11 +16,12 @@ export class EditarSeccionComponent {
   private route = inject(ActivatedRoute)
   private fb = inject(FormBuilder)
   private toastrService: ToastrService = inject(ToastrService);
+  private router = inject(Router)
 
   buscador = ''
   loadin = false
   libros_sin_asignar:{id_libro:string,codigo:string}[] = []
-  libros_asignados:{id_libro:string,codigo:string}[] = []
+  libros_asignados:{libros:{id_libro:string,codigo:string}[] , seccion:any} = {libros:[],seccion:[{nombre:"a",fk_estante:""}]}
   seccion!:FormGroup
 
 
@@ -33,7 +34,7 @@ private seccion_s = inject(SeccioneSericeService)
 id!:string
 
   ngOnInit(): void {
-    this.seccion =  this.fb.group({nombre:[''],fk_estante:[this.id]})
+    this.seccion =  this.fb.group({nombre:[this.libros_asignados.seccion[0].nombre],fk_estante:[this.id]})
 
     this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -100,8 +101,9 @@ editar_secion(){
     });
     
     setTimeout(() => {
-      window.location.reload();
-    }, 2000);
+      this.router.navigate(['/biblioteca/secciones/'+this.libros_asignados.seccion[0].fk_estante]);
+
+    }, 1000);
     
     
     })

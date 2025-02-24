@@ -10,7 +10,7 @@ export class InventarioService {
         const pageSize = 18; 
         const offset = (pageNumber - 1) * pageSize;
         return this.sql.query(
-            'SELECT * FROM libros.libro WHERE fk_tipo = 3 AND codigo LIKE $1 LIMIT $2 OFFSET $3',
+            'SELECT * FROM libros.libro WHERE fk_tipo = 3 AND codigo LIKE $1 or titulo LIKE $1 LIMIT $2 OFFSET $3',
             [`%${codigo}%`, pageSize, offset]
           );
           

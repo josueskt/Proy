@@ -31,5 +31,24 @@ this.historial_S.historial(id).subscribe((e:any)=>{
 })
    }
 
+   formatDate(fecha: string | null): string {
+    if (!fecha) return 'Sin fecha';
+  
+    const date = new Date(fecha);
+    if (isNaN(date.getTime())) return 'Fecha inválida';
+  
+    const opciones: Intl.DateTimeFormatOptions = {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false, // Cambia a `true` si quieres AM/PM
+    };
+  
+    return date.toLocaleString('es-ES', opciones);
+  }
+  
+
 
 }

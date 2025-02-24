@@ -71,22 +71,26 @@
       </div>
     </div>
   }
-  
-<div class="container borde m-auto">
-    @for (item of libros; track $index) {
+  <div class="container borde m-auto">
+    <div class="d-grid gap-4" style="grid-template-columns: repeat(auto-fill, minmax(250px, 2fr));">
+        @for (item of libros; track $index) {
 
-        <div class="card m-5">
-            <p class="card-title">{{ item.titulo }}</p>
-            <p class="card-text">{{ item.codigo }}</p>
-            @if(item.cantidad >= 1){
-            <button (click)="openModal(item.id_libro)" class="btn btn-primary">Prestar</button>
-            }@else{
-            <p class="bg-danger text-white px-4 py-2 rounded">Libro no disponible</p>
-            }
-        </div>
-        
-        
+            <div class="card p-3">
+                <p class="card-title text-truncate fw-bold" style="max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    {{ item.titulo }}
+                </p>
+                <p class="card-text">{{ item.codigo }}</p>
+                @if(item.cantidad >= 1){
+                <button (click)="openModal(item.id_libro)" class="btn btn-primary w-100">Prestar</button>
+                }@else{
+                <p class="bg-danger text-white px-4 py-2 rounded text-center">Libro no disponible</p>
+                }
+            </div>
+
         }
+    </div>
 </div>
+
+
 
 

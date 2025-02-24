@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-2">
   <div class="fondo-plomo-transparente p-4">
     <h2 class="mb-4 text-center bg-dark m-0 p-0 text-white">Editar Libro</h2>
 
@@ -21,13 +21,7 @@
         <div class="form-group col-md-6">
           <label for="codigo">Código:</label>
           <input type="text" id="codigo" formControlName="codigo" class="form-control" placeholder="Ingrese el código">
-          @if(libroForm.get('codigo').touched && libroForm.get('codigo').invalid) {
-            <div class="text-danger">
-              @if(libroForm.get('codigo').hasError('required')) {
-                <div>El código es obligatorio.</div>
-              }
-            </div>
-          }
+        
         </div>
         <div class="form-group col-md-6">
           <label for="editorial">Editorial:</label>
@@ -52,7 +46,7 @@
                 <div>La editorial es obligatoria.</div>
               }
               @if(libroForm.get('editorial').hasError('maxlength')) {
-                <div> el nombre del autor no puede exceder los 100 caracteres.</div>
+                <div> el nombre del autor no puede exceder los 200 caracteres.</div>
               }
             </div>
           }
@@ -114,13 +108,13 @@
             <option [value]="carrera.id_carrera">{{carrera.nombre}}</option>
           }
         </select>
-        @if(libroForm.get('carrera').touched && libroForm.get('carrera').invalid) {
+        <!-- @if(libroForm.get('carrera').touched && libroForm.get('carrera').invalid) { -->
           <div class="text-danger">
             @if(libroForm.get('carrera').hasError('required')) {
               <div>La carrera es obligatoria.</div>
             }
           </div>
-        }
+        <!-- } -->
       </div>
       <div  class="form-group p-2">
         @for (item of palabras; track $index) {
@@ -151,7 +145,7 @@
         <input type="file" id="imagenInput" (change)="onImagenChange($event)" class="form-control">
       </div>
 @if(load){
-  <button type="submit" class="btn btn-primary btn-block mt-3" [disabled]="!libroForm.valid">Subir Archivos</button>
+  <button type="submit" class="btn btn-primary btn-block mt-3" [disabled]="!libroForm.valid">Actualizar</button>
 }@else {
   <div class="btn btn-success btn-block mt-3 " >
     <div class="spinner-border" role="status">

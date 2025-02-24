@@ -39,7 +39,7 @@ export class EditarLibroComponent implements OnInit {
       id_libro: new FormControl('', Validators.required),
       cantidad :new FormControl(''),
       categoria :new FormControl(''),
-      autor :new FormControl('',[maxLengthPerWordValidator(50)]),
+      autor :new FormControl('',[maxLengthPerWordValidator(200)]),
     });
 
 
@@ -67,20 +67,11 @@ export class EditarLibroComponent implements OnInit {
           cantidad: this.libro.cantidad,
           categoria:this.libro.categoria,
           autor:this.libro.autor
-          
-  
         }
-  
       )
-      
-      
       this.palabras = e.palabras
       this.agarre()
     })
-    
-   
-
-
   }
 
   agarre() {
@@ -120,7 +111,13 @@ export class EditarLibroComponent implements OnInit {
 
         });
         setTimeout(() => {
-          this.router.navigate(['/profe']);
+          if(this.libro.tipo === "FISICO"){
+            this.router.navigate(['/biblioteca/inventario']);
+
+          }else{
+
+            this.router.navigate(['/profe']);
+          }
         }, 100);
       },
       error: (error) => {
