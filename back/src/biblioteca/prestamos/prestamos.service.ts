@@ -20,7 +20,7 @@ export class PrestamosService {
     const offset = (pageNumber - 1) * pageSize;
     
     return this.sql.query(
-        'SELECT * FROM libros.libro WHERE cantidad >= 0 AND LOWER(codigo) LIKE LOWER($1) LIMIT $2 OFFSET $3',
+        'SELECT * FROM libros.libro WHERE cantidad >= 0 AND ((codigo LIKE $1) OR (titulo LIKE $1) )  LIMIT $2 OFFSET $3',
         [`%${libro}%`, pageSize, offset]
     );
     
