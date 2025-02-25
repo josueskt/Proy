@@ -1,4 +1,9 @@
-
-<div class="p-5"></div>
-<input type="text" name="" [(ngModel)]="nombre" id="">
-<button (click)="editar()">editar</button>
+<div class="card p-5" style="max-width: 400px; margin: auto;">
+  <div class="card-body">
+    <h5 class="card-title text-center">Editar Nombre</h5>
+    <div class="mb-3">
+      <input type="text" class="form-control" [(ngModel)]="nombre" id="" placeholder="Introduce tu nombre">
+    </div>
+    <button class="btn btn-primary w-100" (click)="editar()">Editar</button>
+  </div>
+</div>

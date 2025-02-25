@@ -12,7 +12,6 @@ export class CargaLLoteService {
   }
   directorioDestino = process.env.Docs;
   async libros_bloque(dato: dato, id: string): Promise<void> {
-    //  console.log(dato)
     try {
       let id_tipo_libro = null
       let id_tipo = await this.sql.query('SELECT id_tipo FROM libros.tipo WHERE nombre = ($1)', [dato.medio.trim()])
@@ -36,34 +35,31 @@ export class CargaLLoteService {
 
       }
 
-      if (!id_tipo[0]) {
-        id_tipo = await this.sql.query('INSERT INTO libros.tipo(nombre) VALUES($1) RETURNING id_tipo', [dato.medio.trim()])
-      }
+
       if (dato.carrera) {
         id_carrera = await this.sql.query('SELECT id_carrera FROM libros.carrera WHERE nombre = ($1)', [dato.carrera.trim()])
-        if (!id_carrera[0]) {
-          id_carrera = await this.sql.query('INSERT INTO libros.carrera(nombre) VALUES($1) RETURNING id_carrera', [dato.carrera])
-        }
+
         dato.carrera = id_carrera[0].id_carrera
       }
-if(dato.editorial){
-   id_editorial = await this.sql.query('SELECT id FROM libros.editorial WHERE nombre = ($1)', [dato.editorial])
+      if (dato.editorial) {
+        id_editorial = await this.sql.query('SELECT id FROM libros.editorial WHERE nombre = ($1)', [dato.editorial])
 
-  if (!id_editorial[0]) {
-    id_editorial = await this.sql.query('INSERT INTO libros.editorial(nombre) VALUES($1) RETURNING id', [dato.editorial])
-  }
-  dato.editorial = id_editorial[0].id
-}
-     
+        if (!id_editorial[0]) {
+          id_editorial = await this.sql.query('INSERT INTO libros.editorial(nombre) VALUES($1) RETURNING id', [dato.editorial])
+        }
+        dato.editorial = id_editorial[0].id
+      }
+
       const nombre_tipo = dato.medio
       dato.medio = id_tipo[0].id_tipo
-      
-      
+
+
       switch (nombre_tipo) {
         case 'URL':
           await this.Sin_Descarga(dato, id);
           break;
         case 'PDF':
+          console.log("entro " + dato)
           await this.descargarArchivo(dato, id);
           break;
         case 'FISICO':
@@ -71,6 +67,7 @@ if(dato.editorial){
           break;
         default:
       }
+
     } catch (error) {
       console.error(new MessageDto(`asdasdasderror ${error}`));
     }
@@ -140,10 +137,14 @@ if(dato.editorial){
       }
       const valor = await this.sql.query(`INSERT INTO libros.libro (
         titulo,year_of_publication,review, imagen, nombre_archivo, isbn, fk_creador, fk_autor,fk_carrera,fk_tipo,codigo,fk_editorial,kf_tipo_libro) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12,$13)  RETURNING id_libro`, [
-        dato.titulo.toLowerCase(), dato.fecha, dato.review.toLowerCase(), imagen, nombreOriginal, dato.isbn, id, dato.autor, dato.carrera, dato.medio, dato.codigo, dato.editorial, dato.tipo_libro
+        dato.titulo.toLowerCase(), dato.fecha, dato.observacion, imagen, nombreOriginal, dato.isbn, id, dato.autor, dato.carrera, dato.medio, dato.codigo, dato.editorial, dato.tipo_libro
       ]);
-      this.palabra.Generar_palabras(dato.palabras, valor[0].id_libro)
+      if (dato.palabras) {
+
+        this.palabra.Generar_palabras(dato.palabras, valor[0].id_libro)
+      }
     } catch (error) {
+      console.log(error)
       throw new NotFoundException(new MessageDto('Error al guardar el la base '));
     }
   }
@@ -189,7 +190,7 @@ if(dato.editorial){
         fk_editorial) VALUES ($1, $2, $3, $4, $5, $6, $7,$8,$9,$10,$11,$12) RETURNING id_libro`, [
         dato.titulo.toLowerCase(),
         dato.fecha,
-        dato.review.toLowerCase(),
+        dato.observacion,
         imagen,
         url,
         dato.isbn,
@@ -200,7 +201,10 @@ if(dato.editorial){
         dato.codigo,
         dato.editorial
       ]);
-      this.palabra.Generar_palabras(dato.palabras, valor[0].id_libro)
+      if (dato.palabras) {
+
+        this.palabra.Generar_palabras(dato.palabras, valor[0].id_libro)
+      }
     } catch (error) {
     }
   }

@@ -1,6 +1,6 @@
 import { Component, Input, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {  Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-buscador',
@@ -10,18 +10,18 @@ import {  Router } from '@angular/router';
   styleUrl: './buscador.component.css'
 })
 export class BuscadorComponent {
-  searchText: string = ''; 
+  searchText: string = '';
   private router = inject(Router);
   @Input() ruta = ''
   @Input() tipo = ''
 
   buscar() {
-    if(this.ruta){
-      this.router.navigate([this.ruta], { queryParams: { texto: this.searchText , carrera:'' ,tipo:this.tipo } });
+    if (this.ruta) {
+      this.router.navigate([this.ruta], { queryParams: { texto: this.searchText, carrera: '', tipo: this.tipo } });
 
-    }else{
-
-      this.router.navigate(['/user/libro'], { queryParams: { texto: this.searchText , carrera:'' } });
+    } else {
+      if (this.tipo === 'PDF') { this.tipo = "2" }
+      this.router.navigate(['/user/libro'], { queryParams: { texto: this.searchText, carrera: '', tipo: this.tipo } });
     }
   }
 

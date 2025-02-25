@@ -1,95 +1,109 @@
 <div class="p-5"></div>
 <div class="">
-    <input (keypress)="buscar_prestamo($event)" type="text" id="first_name" class="form-control" placeholder="buscar por codigo de libro" />
+  <h3 class="text-center">buscar libro a devolver</h3>
+  <input (keypress)="buscar_prestamo($event)" type="text" id="first_name" class="form-control"
+    placeholder="buscar por codigo de libro" />
 </div>
 
 <table class="text-center text-dark table border-solid rounded">
-    @if (libros.length) {
-        <thead class="border">
-            <th class="px-4 py-2 th  ">
-                código libro
-            </th>
-            <th class="px-4 py-2">
-                título libro
-            </th>
-            <th class="px-4 py-2">
-                nombre
-            </th>
-            <th class="px-4 py-2">
-                cédula
-            </th>
-            <th class="px-4 py-2">
-                devolución
-            </th>
-        </thead>
+  @if (libros.length) {
+  <thead class="border">
+    <th class="px-4 py-2 th  ">
+      código libro
+    </th>
+    <th class="px-4 py-2">
+      título libro
+    </th>
+    <th class="px-4 py-2">
+      nombre
+    </th>
+    <th class="px-4 py-2">
+      cédula
+    </th>
+    <th class="px-4 py-2">
+      devolución
+    </th>
+  </thead>
+  }
+
+  <tbody>
+    @for (item of libros; track $index) {
+    <tr class="table-row">
+      <td class="px-4 py-2">
+        {{item.codigo}}
+      </td>
+      <td class="px-4 py-2">
+        {{item.titulo}}
+      </td>
+      <td class="px-4 py-2">
+        {{item.nombre}}
+      </td>
+      <td class="px-4 py-2">
+        {{item.id_user}}
+      </td>
+      <td class="px-4 py-2">
+        <button class="btn btn-danger px-4 py-2" (click)="openModal(item.id_prestamo, item.id_libro)">
+          Devolver
+        </button>
+      </td>
+    </tr>
+
     }
-    
-    <tbody>
-        @for (item of libros; track $index) {
-        <tr class="">
-            <td class="px-4 py-2">
-                {{item.codigo}}
-            </td>
-            <td class="px-4 py-2">
-                {{item.titulo}}
-            </td>
-            <td class="px-4 py-2">
-                {{item.nombre}}
-            </td>
-            <td class="px-4 py-2">
-                {{item.id_user}}
-            </td>
-            <td class="px-4 py-2"><button class="bg-red-400 px-4 py-2" (click)="openModal(item.id_prestamo,item.id_libro)">devolver</button></td>
-        </tr>
-        }
-    </tbody>
+  </tbody>
 </table>
 
 @if(showModal){
 
-    <div class="overlay"  (click)="closeModal()"></div>
-    <div class="modal">
-      <input type="text" class="border border-gray-400 p-2 w-full rounded" >
-      <button (click)="closeModal()" class="bg-red-500 text-white px-4 py-2 mt-4 rounded">Cerrar</button>
-    </div>
+<div class="overlay" (click)="closeModal()"></div>
+<div class="modal">
+  <input type="text" class="border border-gray-400 p-2 w-full rounded">
+  <button (click)="closeModal()" class="bg-red-500 text-white px-4 py-2 mt-4 rounded">Cerrar</button>
+</div>
 
 
 
 
 <!-- Modal toggle -->
 
-  
-  <!-- Main modal -->
-  <div id="default-modal" tabindex="-1" aria-hidden="true"class=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                <button type="button" (click)="closeModal()" class="btn btn-danger" data-modal-hide="default-modal">
-                    
-                    <svg height="16" width="14" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"/></svg>
 
-                </button>
-                
-                <h3 class="text-xl font-semibold  py-2 text-gray-900 dark:text-white">
-                    Devolución de préstamo
-                </h3>
-               
-            </div>
-            <!-- Modal body -->
-            <div class="p-4 md:p-5 space-y-4">
-                <textarea name=""  class="form-control"  id="" [(ngModel)]="devolucion.observacion" placeholder="observaciones"></textarea>
-              <!-- <input type="text"[(ngModel)]="devolucion.observacion" placeholder="observaciones">    -->
+<!-- Main modal -->
+<div id="default-modal" tabindex="-1" aria-hidden="true"
+  class=" overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+  <div class="relative p-4 w-full max-w-2xl max-h-full">
+    <!-- Modal content -->
+    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+      <!-- Modal header -->
+      <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+        <button type="button" (click)="closeModal()" class="btn btn-danger" data-modal-hide="default-modal">
 
-            </div>
-            <!-- Modal footer -->
-            <div class="text-center p-2">
-                <button (click)="devolver()" data-modal-hide="default-modal" type="button" class="btn btn-info">devolver</button>
-            </div>
-        </div>
+          <svg height="16" width="14" xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 384 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+            <path fill="#ffffff"
+              d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" />
+          </svg>
+
+        </button>
+
+        <h3 class="text-xl font-semibold  py-2 text-gray-900 dark:text-white">
+          Devolución de préstamo
+        </h3>
+
+      </div>
+      <!-- Modal body -->
+      <div class="p-4 md:p-5 space-y-4">
+        <textarea name="" class="form-control" id="" [(ngModel)]="devolucion.observacion"
+          placeholder="observaciones"></textarea>
+        <!-- <input type="text"[(ngModel)]="devolucion.observacion" placeholder="observaciones">    -->
+
+      </div>
+      <!-- Modal footer -->
+      <div class="text-center p-2">
+        <button (click)="devolver()" data-modal-hide="default-modal" type="button"
+          class="btn btn-danger">devolver</button>
+      </div>
     </div>
+  </div>
 </div>
 
-  
+
 }
