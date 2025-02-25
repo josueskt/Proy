@@ -1,0 +1,16 @@
+User = "postgres"
+Host = "localhost"
+Database = "biblioteca_v"
+Pass = "1234"
+Port = 5432
+
+
+Docs = /files   
+
+origin = *      
+
+rider= http://bibliotecayaviracdev.fun/web/        
+Key_Key = askjdsajkdhaskjdhasjkdasjkjdashdkjashjlkasjdlka1289371981298371298@laskdlasaslklaskdoaalkawiofwju3w8r83u28394mv
+
+email = "josueskt32@gmail.com"
+passemail = "asda asdasd asdasd asdas d"
